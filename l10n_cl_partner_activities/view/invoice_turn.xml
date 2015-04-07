@@ -6,7 +6,7 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form" />
             <field name="arch" type="xml">
-                <xpath expr="/form/sheet/group/group/field[@name='fiscal_position']" position="replace">
+                <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="after">
                     <field name="invoice_turn" domain="[('partner_ids', '=', partner_id)]"/>
                 </xpath>
             </field>
