@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'active': False,
-    'author': u'Blanco Martín y Asociados',
+    'author': u'Blanco Martín & Asociados',
     'category': 'Localization/Chile',
     'demo_xml': [],
     'depends': ['account'],

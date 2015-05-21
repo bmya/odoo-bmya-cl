@@ -27,7 +27,7 @@
     'category': 'Tools',
     'complexity': "easy",
     'description': "Update UF, UTM and Dollar Official Value in a daily basis using SBIF webservices",
-    'author': 'Blanco Martin y Asociados',
+    'author': 'Blanco Martin & Asociados',
     'website': 'http://blancomartin.cl',
     'depends': ['base'],
     'init_xml': [],
