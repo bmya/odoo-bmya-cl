@@ -28,7 +28,7 @@
     'description': '''
     Update Chilean Banks and add their Official codes, according to SBIFs codes
     ''',
-    'author': 'Blanco Martin y Asociados',
+    'author': u'Blanco Martin & Asociados',
     'website': 'http://blancomartin.cl',
     'depends': [ 'account','account_chart'],
     'installable': True,

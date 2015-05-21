@@ -34,4 +34,4 @@ from openerp import models, fields
 class bank_sbif(models.Model):
     _inherit = "res.bank"
 
-    sbif_code = fields.Char()
+    sbif_code = fields.Char('Cod. SBIF', size=10)

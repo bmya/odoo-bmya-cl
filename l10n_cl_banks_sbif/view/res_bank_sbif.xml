@@ -2,12 +2,23 @@
 <openerp>
     <data>
         <record model="ir.ui.view" id="res_bank_sbif_form">
-            <field name="name">res.bank.sbif.form</field>
+            <field name="name">bank.sbif.form</field>
             <field name="model">res.bank</field>
-            <field name="inherit_id" ref="res.bank_form" />
+            <field name="inherit_id" ref="base.view_res_bank_form" />
             <field name="arch" type="xml">
-                <field expr="/form/sheet/group/group/field[@name='fiscal_position']" position="before">
-                    <field name="sbif_code" domain="[('partner_ids', '=', partner_id)]"/>
+                <xpath expr="/form/sheet/group/field[@name='name']" position="before">
+                    <field name="sbif_code" />
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="res_bank_sbif_tree">
+            <field name="name">bank.sbif.tree</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_tree" />
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="sbif_code" />
                 </field>
             </field>
         </record>
