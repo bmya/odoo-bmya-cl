@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="res_bank_sbif_form">
+            <field name="name">res.bank.sbif.form</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="res.bank_form" />
+            <field name="arch" type="xml">
+                <field expr="/form/sheet/group/group/field[@name='fiscal_position']" position="before">
+                    <field name="sbif_code" domain="[('partner_ids', '=', partner_id)]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>
