@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- <record model="ir.ui.view" id="view_company_activity_inherit_form">
+            <field name="name">res.company.activities.form.inherit</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="activities_id"/>
+                </field>
+            </field>
+        </record> -->
+
+        <record model="ir.ui.view" id="view_partner_activity_inherit_form">
+            <field name="name">res.partner.activities.form.inherit</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="partner_activities_ids" placeholder="Giros del Partner" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+
+
+        
+        
+
+        <!--<record model="ir.ui.view" id="view_partner_activity_kanban_view">
+            <field name="name">view.partner.activities.kanban.inherit</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="display_name" position="after">
+                        <field name="partner_activities_ids"/>
+                    </field>
+                </kanban>
+            </field>
+        </record>-->
+
+        <record id="view_partner_activities_form" model="ir.ui.view">
+            <field name="name">partner.activities.form</field>
+            <field name="model">partner.activities</field>
+            <field name="arch" type="xml">
+                <form string="SII Economic Activities">
+                    <group>
+                        <field name="code"/>
+                        <field name="parent_id"/>
+                        <field name="name"/>
+                        <field name="vat_affected"/>
+                        <field name="tax_category"/>
+                        <field name="internet_available"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_partner_activities_tree" model="ir.ui.view">
+            <field name="name">partner.activities.tree</field>
+            <field name="model">partner.activities</field>
+            <field name="arch" type="xml">
+                <tree string="SII Economic Activities">
+                    <field name="code"/>
+                    <field name="parent_id"/>
+                    <field name="name"/>
+                    <field name="vat_affected"/>
+                    <field name="tax_category"/>
+                    <field name="internet_available"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_partner_activities">
+            <field name="name">SII Partner Activities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partner.activities</field>
+            <field name="view_type">form</field>
+            <!-- <field name="view_mode">tree,form</field>-->
+        </record>
+
+        <menuitem name="SII Partner Activities" action="act_partner_activities" id="menu_action_act_partner_activities" parent="menu_sii_config"/>
+
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4 -->
