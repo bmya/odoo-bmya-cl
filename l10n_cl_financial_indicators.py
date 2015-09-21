@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from openerp.osv import osv
 import urllib2 as u
-
 import simplejson as json
+
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class l10n_cl_financial_indicators(osv.osv):
@@ -20,8 +23,8 @@ class l10n_cl_financial_indicators(osv.osv):
         }
 
         for indic in indicadores:
-            url = 'http://api.sbif.cl/api-sbifv3/recursos_api/'+indic[0]
-            url += '?apikey='+apikey+'&formato=json'
+            baseurl = 'http://api.sbif.cl/api-sbifv3/recursos_api/'
+            url = baseurl + indic[0] + '?apikey=' + apikey + '&formato=json'
             f = u.urlopen(url)
             data = f.read()
             data_json = json.loads(data)
@@ -34,9 +37,9 @@ class l10n_cl_financial_indicators(osv.osv):
                 'name', '=', indic[2])])
             # print "Actualizacion " + indic[2]
             if not currency_id:
-                print "No esta cargado el " + indic[2]
+                _logger.warning('No esta cargado el %s' % (indic[2]))
             else:
-                print "Actualizando " + indic[2]
+                _logger.info('Actualizando %s' % (indic[2]))
                 values = {
                     'rate': 1/rate,
                     'currency_id': currency_id[0],
@@ -46,4 +49,4 @@ class l10n_cl_financial_indicators(osv.osv):
 
         return True
 
-l10n_cl_financial_indicators()
+#l10n_cl_financial_indicators()
