@@ -25,13 +25,14 @@ class l10n_cl_financial_indicators(osv.osv):
             f = u.urlopen(url)
             data = f.read()
             data_json = json.loads(data)
-            rate = data_json[indic[1]][0]['Valor'].replace('.', '')
-            rate = float(rate.replace(',', '.'))
+            rate = float(
+                data_json[indic[1]][0]['Valor'].replace(
+                    '.', '').replace(',', '.'))
             currency_obj = self.pool.get('res.currency')
             currency_rate_obj = self.pool.get('res.currency.rate')
             currency_id = currency_obj.search(cr, uid, [(
                 'name', '=', indic[2])])
-            #print "Actualizacion " + indic[2]
+            # print "Actualizacion " + indic[2]
             if not currency_id:
                 print "No esta cargado el " + indic[2]
             else:
@@ -41,8 +42,8 @@ class l10n_cl_financial_indicators(osv.osv):
                     'currency_id': currency_id[0],
                     'currency_type_id': ''
                     }
-                currency_rate_obj.create(cr,uid,values)
+                currency_rate_obj.create(cr, uid, values)
 
         return True
-    
+
 l10n_cl_financial_indicators()
