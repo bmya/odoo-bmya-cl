@@ -4,7 +4,6 @@
 Odoo - Update Chilean Financial Indicators
 ==========================================
 
-
 Module that updates the following indicators used in Chile for Odoo
 sofware:
 
