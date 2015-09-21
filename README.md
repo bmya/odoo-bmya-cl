@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/odoo-chile/l10n_cl_financial_indicators.svg?branch=8.0)](https://travis-ci.org/odoo-chile/l10n_cl_financial_indicators)
-[![Coverage Status](https://coveralls.io/repos/odoo-chile/l10n_cl_financial_indicators/badge.png?branch=8.0)](https://coveralls.io/r/odoo-chile/l10n_cl_financial_indicators?branch=8.0)
+[![Coverage Status](https://coveralls.io/repos/odoo-chile/l10n_cl_financial_indicators/badge.svg?branch=8.0&service=github)](https://coveralls.io/github/odoo-chile/l10n_cl_financial_indicators?branch=8.0)
 
 Odoo - Update Chilean Financial Indicators
 ==========================================
