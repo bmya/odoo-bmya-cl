@@ -48,4 +48,3 @@ class l10n_cl_financial_indicators(osv.osv):
                 currency_rate_obj.create(cr, uid, values)
 
         return True
-
