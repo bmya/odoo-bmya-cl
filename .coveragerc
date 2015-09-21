@@ -5,6 +5,10 @@ include =
     */odoo-chile/l10n_cl_financial_indicators/*
 
 omit =
+    */scenario/*
+    */scenarios/*
+    */test/*
+    */tests/*
     *__init__.py
     *__openerp__.py
 
