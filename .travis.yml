@@ -2,6 +2,8 @@ addons:
   apt:
     packages:
       - python-httplib2
+    code_climate:
+      repo_token: 97a9e35b387576e47a2c78ad5430580fb9764423cb692e088ef2392524860159
 
 language: python
 sudo: false
