@@ -49,4 +49,3 @@ class l10n_cl_financial_indicators(osv.osv):
 
         return True
 
-#l10n_cl_financial_indicators()
