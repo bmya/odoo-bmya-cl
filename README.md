@@ -1,4 +1,7 @@
 
+[![Code Climate](https://codeclimate.com/github/bmya/odoo-bmya-cl/badges/gpa.svg)](https://codeclimate.com/github/bmya/odoo-bmya-cl)
+[![Test Coverage](https://codeclimate.com/github/bmya/odoo-bmya-cl/badges/coverage.svg)](https://codeclimate.com/github/bmya/odoo-bmya-cl/coverage)
+
 l10n_cl_financial_indicators
 
 #English
@@ -29,7 +32,7 @@ We follow these guidelines and advice:
 
 ## Credits
 <p>
-<img alt="Logo BMYA" src="http://subefotos.com/ver/?7dfbfb3c0dfdac8156aacb7fe4e04e3fo.png" />
+<img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
 </p>
 **Blanco Martin & Asociados EIRL** - http://blancomartin.cl
 
@@ -71,7 +74,7 @@ Seguimos estas lineas básicas y recomendaciones:
 
 ## Créditos
 <p>
-<img alt="Logo BMYA" src="http://subefotos.com/ver/?7dfbfb3c0dfdac8156aacb7fe4e04e3fo.png" />
+<img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
 </p>
 **Blanco Martin & Asociados EIRL** - http://blancomartin.cl
 
