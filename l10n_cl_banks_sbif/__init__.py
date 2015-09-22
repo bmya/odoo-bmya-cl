@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution Chilean Banks Codes according SBIF	
+#    Odoo, Open Source Management Solution Chilean Banks Codes according SBIF
 #
 #    Copyright (c) 2015 Blanco Martin y Asociados http://blancomartin.cl
 #
