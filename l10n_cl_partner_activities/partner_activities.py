@@ -52,10 +52,11 @@ class partner_activities(models.Model):
     internet_available = fields.Boolean('Available at Internet')
     active = fields.Boolean(
         'Active',
-        help='''The active field allows you to hide the activity without 
+        help='''The active field allows you to hide the activity without
         removing it.''')
     partner_ids = fields.Many2many(
-        'res.partner', id1='activities_id', id2='partner_id', string='Partners')
+        'res.partner', id1='activities_id', id2='partner_id', string='Partners'
+        )
 
     _defaults = {
         'active': 1,
@@ -67,7 +68,7 @@ class partner_turns(models.Model):
 
     _description = 'Partner registered turns'
     _inherit = 'res.partner'
-    
+
     partner_activities_ids = fields.Many2many(
         'partner.activities', id1='partner_id', id2='activities_id',
         string='Activities Names')
