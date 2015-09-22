@@ -47,12 +47,13 @@ class partner_activities(models.Model):
         'VAT Affected', required=True, translate=True, default='SI')
 
     tax_category = fields.Selection(
-        (('1', '1'), ('2', '2'), ('ND','ND')),
+        (('1', '1'), ('2', '2'), ('ND', 'ND')),
         'TAX Category', required=True, translate=True, default='1')
     internet_available = fields.Boolean('Available at Internet')
     active = fields.Boolean(
         'Active',
-        help="The active field allows you to hide the activity without removing it.")
+        help='''The active field allows you to hide the activity without 
+        removing it.''')
     partner_ids = fields.Many2many(
         'res.partner', id1='activities_id', id2='partner_id', string='Partners')
 
