@@ -1,16 +1,46 @@
+[![Build Status](https://travis-ci.org/odoo-chile/l10n_cl_financial_indicators.svg)](https://travis-ci.org/odoo-chile/l10n_cl_financial_indicators)
+[![Coverage Status](https://coveralls.io/repos/odoo-chile/l10n_cl_financial_indicators/badge.svg?branch=8.0&service=github)](https://coveralls.io/github/odoo-chile/l10n_cl_financial_indicators?branch=8.0)
+[![Code Climate](https://codeclimate.com/github/odoo-chile/l10n_cl_financial_indicators/badges/gpa.svg)](https://codeclimate.com/github/odoo-chile/l10n_cl_financial_indicators)
 
 l10n_cl_financial_indicators
 
 #English
 
-Odoo - Localización Chilena
-===========================
+Odoo - Update Chilean Financial Indicators
+==========================================
 
 ## Description
 
-Modules that enhance features to chilean companies
+Module that updates the following indicators used in Chile for Odoo
+sofware:
+
+Dollar
+Euro
+UF
+UTM
+
+It connects to SBIFs webservices. 
 
 ## Installation
+
+Prior to use, you must get your
+own apikey from this webpage:
+
+An then replace it at:
+
+apikey.py
+(rename apikey.py.sample to apikey.py and include your own api key there)
+
+You must also have the following these currency values loaded in your 
+system, using the following Id for each one:
+
+USD
+EUR
+UF
+UTM
+
+If the spell is not the same, this implementation won't be able to find
+the currencies or the indexes to update.
  
 ### Dependencies
 
@@ -43,22 +73,51 @@ You should have received a copy of the GNU Affero General Public License along w
 
 #Spanish
 
-Odoo - Localización Chilena
-===========================
+Actualizador de indices financieros chilenos para Odoo
+======================================================
 
 ## Descripción
 
-Modules que mejoran características varias a las compañías chilenas.
+Este módulo de Odoo, actualiza los siguientes indicadores usados en Chile:
+
+Dolar
+Euro
+UF
+UTM
+
+Se conecta a los webservices provistos por la Superintendencia de Bancos
+e Instituciones Financieras de Chile - SBIF, para obtener los valores 
+oficiales del día.
 
 ## Instalación
+
+Previo al uso, Ud. debe obtener su propia clave de API
+desde esta página web:
+
+http://api.sbif.cl/api/contactanos.jsp
+
+Y entonces, reemplazar la misma en:
+
+apikey.py
+
+(renombra apikey.py.sample a apikey.py e incluye allí tu propia clave api)
+
+Ud. deberá tener las siguientes monedas ingresadas en su sistema Odoo,
+utilizando la siguiente identificación para las mismas:
+
+USD
+EUR
+UF
+UTM
+
+Si la nomenclatura no es exactamente la misma, esta implementacion
+no podrá encontrar las monedas para ser actualizadas.
  
 ### Dependencias
 
-Para instalar dependencias, puede hacerlo mediante pip:
-
     sudo pip install -r requirements.txt
 
-Si no tiene Pip, encuéntrelo aquí: http://pypi.python.org/pypi/pip
+If you don't have Pip, find it here: http://pypi.python.org/pypi/pip
 
 ## Cómo contribuir
 Seguimos estas lineas básicas y recomendaciones:
