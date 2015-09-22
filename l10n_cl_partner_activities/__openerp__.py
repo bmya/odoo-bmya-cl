@@ -34,12 +34,12 @@
     'name': u'Chile - Actividades Económicas',
     'test': [],
     'data': [
-        #'security/l10n_cl_partner_activities.xml',
+        # 'security/l10n_cl_partner_activities.xml',
         'data/partner.activities.csv',
         'view/sii_menuitem.xml',
         'view/partner_activities.xml',
         'view/invoice_turn.xml',
-            ],
+        ],
     'version': '0.1.001',
     'website': 'http://blancomartin.cl'
 }
