@@ -2,7 +2,7 @@
 ##############################################################################
 # Chilean Payroll
 # Odoo / OpenERP, Open Source Management Solution
-# By Blanco Martín & Asociados - Nelson Ramírez Sánchez (http://blancomartin.cl).
+# Copyright (c) 2015 Blanco Martin y Asociados - Nelson Ramírez Sánchez http://blancomartin.cl
 #
 # Derivative from Odoo / OpenERP / Tiny SPRL
 #
