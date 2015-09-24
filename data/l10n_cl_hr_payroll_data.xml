@@ -184,6 +184,15 @@
         </record>
 
 
+        <record id="contrib_register_previred" model="hr.contribution.register">
+            <field name="name">Previred</field>
+        </record>
+
+        <record id="contrib_register_sii" model="hr.contribution.register">
+            <field name="name">SII</field>
+        </record>
+
+
 
 
 						
@@ -221,7 +230,7 @@ result = round((contract.wage / 30) * (30 - dias))</field>
             <field name="condition_python">result = payslip.indicadores_id.sueldo_minimo > contract.wage</field>						
             <field name="amount_select">code</field>						
             <field name="amount_python_compute">result = round(payslip.indicadores_id.sueldo_minimo - contract.wage)</field>						
-            <field name="register_id" ref="contrib_register_employees"/>						
+						
         </record>						
 						
         <record id="hr_rule_3" model="hr.salary.rule">						
@@ -301,13 +310,26 @@ result = (contract.otros_imp * (30 - dias))/30</field>
             <field name="condition_select">python</field>
             <field name="condition_python">result = (contract.carga_familiar != 0) &amp; (payslip.indicadores_id.asignacion_familiar_tercer >= contract.wage) &amp; (contract.pension is False)</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = 0
+            <field name="amount_python_compute">dias = 0 						
+try: 						
+ dias = worked_days.Licencia.number_of_days 						
+except: 						
+ dias = 0.0						
+						
+try: 						
+ dias = dias +  worked_days.Falta.number_of_days						
+except: 						
+ dias = dias						
+		
+if (worked_days.WORK100.number_of_days-dias) > 25:
+    dias = 0			
+
 if payslip.indicadores_id.asignacion_familiar_primer >= BASIC:
-    result = round(payslip.indicadores_id.asignacion_familiar_monto_a*contract.carga_familiar)
+    result = round(((payslip.indicadores_id.asignacion_familiar_monto_a*contract.carga_familiar) / 30) * (30 - dias))
 elif payslip.indicadores_id.asignacion_familiar_segundo  >= BASIC:
-    result = round(payslip.indicadores_id.asignacion_familiar_monto_b*contract.carga_familiar)
+    result = round(((payslip.indicadores_id.asignacion_familiar_monto_b*contract.carga_familiar) / 30) * (30 - dias))
 elif payslip.indicadores_id.asignacion_familiar_tercer  >= BASIC:
-    result = round(payslip.indicadores_id.asignacion_familiar_monto_c*contract.carga_familiar)</field>
+    result = round(((payslip.indicadores_id.asignacion_familiar_monto_c*contract.carga_familiar) / 30) * (30 - dias))</field>
         </record>
 			
         <record id="hr_rule_9" model="hr.salary.rule">
@@ -329,6 +351,8 @@ try:
 except: 
  dias = dias
 result = round((30 - dias) * contract.colacion / 30)</field>
+            <field name="register_id" ref="contrib_register_previred"/>
+
         </record>
 
         <record id="hr_rule_10" model="hr.salary.rule">
@@ -512,75 +536,18 @@ else:
         </record>
 
         <record id="hr_rule_20" model="hr.salary.rule">
-            <field name="name">AFP X PAGAR HABITAT</field>
+            <field name="name">AFP X PAGAR</field>
             <field name="sequence" eval="20"/>
             <field name="code">HABITAT</field>
             <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.afp_id.name == 'HABITAT'</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result =categories.PREV + PREVEMP + SECEEMP</field>
-        </record>
-
-        <record id="hr_rule_21" model="hr.salary.rule">
-            <field name="name">AFP X PAGAR CUPRUM</field>
-            <field name="sequence" eval="21"/>
-            <field name="code">CUPRUM</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.afp_id.name == 'CUPRUM'</field>
+            <field name="condition_select">none</field>	
             <field name="appears_on_payslip" eval="False"/>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result =categories.PREV + PREVEMP + SECEEMP</field>
+            <field name="register_id" ref="contrib_register_previred"/>
         </record>
 
-        <record id="hr_rule_22" model="hr.salary.rule">
-            <field name="name">AFP X PAGAR PLANVITAL</field>
-            <field name="sequence" eval="22"/>
-            <field name="code">PLANVITAL</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.afp_id.name == 'PLANVITAL'</field>
-            <field name="appears_on_payslip" eval="False"/>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result =categories.PREV + PREVEMP + SECEEMP</field>
-        </record>
 
-        <record id="hr_rule_23" model="hr.salary.rule">
-            <field name="name">AFP X PAGAR MODELO</field>
-            <field name="sequence" eval="23"/>
-            <field name="code">MODELO</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.afp_id.name == 'MODELO'</field>
-            <field name="appears_on_payslip" eval="False"/>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result =categories.PREV + PREVEMP + SECEEMP</field>
-        </record>
-
-        <record id="hr_rule_24" model="hr.salary.rule">
-            <field name="name">AFP X PAGAR PROVIDA</field>
-            <field name="sequence" eval="24"/>
-            <field name="code">PROVIDA</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.afp_id.name == 'PROVIDA'</field>
-            <field name="appears_on_payslip" eval="False"/>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result =categories.PREV + PREVEMP + SECEEMP</field>
-        </record>
-
-        <record id="hr_rule_25" model="hr.salary.rule">
-            <field name="name">AFP X PAGAR CAPITAL</field>
-            <field name="sequence" eval="25"/>
-            <field name="code">CAPITAL</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.afp_id.name == 'CAPITAL'</field>
-            <field name="appears_on_payslip" eval="False"/>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result =categories.PREV + PREVEMP + SECEEMP</field>
-        </record>
 
 
 <record id="hr_rule_26" model="hr.salary.rule">						
@@ -624,64 +591,19 @@ result =round ((((payslip.indicadores_id.uf / 30) * (30 - dias)) * contract.isap
 
 
         <record id="hr_rule_28" model="hr.salary.rule">
-            <field name="name">ISAPRES X PAGAR COLMENA</field>
+            <field name="name">ISAPRES X PAGAR</field>
             <field name="sequence" eval="28"/>
             <field name="code">COLMENA</field>
             <field name="category_id" ref="SUBT"/>
             <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.isapre_id.name == 'COLMENA GOLDEN CROSS'</field>
+            <field name="condition_python">result = contract.isapre_id.name != 'FONASA'</field>
             <field name="appears_on_payslip" eval="False"/>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = categories.SALUD</field>
+            <field name="register_id" ref="contrib_register_previred"/>
         </record>
 
-        <record id="hr_rule_29" model="hr.salary.rule">
-            <field name="name">ISAPRES X PAGAR BANMEDICA</field>
-            <field name="sequence" eval="29"/>
-            <field name="code">BANMEDICA</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.isapre_id.name == 'BANMEDICA'</field>
-            <field name="appears_on_payslip" eval="False"/>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.SALUD</field>
-        </record>
-
-        <record id="hr_rule_30" model="hr.salary.rule">
-            <field name="name">ISAPRES X PAGAR MAS VIDA</field>
-            <field name="sequence" eval="30"/>
-            <field name="code">MASVIDA</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.isapre_id.name == 'MAS VIDA'</field>
-            <field name="appears_on_payslip" eval="False"/>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.SALUD</field>
-        </record>
-
-        <record id="hr_rule_31" model="hr.salary.rule">
-            <field name="name">ISAPRES X PAGAR CONSALUD</field>
-            <field name="sequence" eval="31"/>
-            <field name="code">CONSALUD</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.isapre_id.name == 'CONSALUD'</field>
-            <field name="appears_on_payslip" eval="False"/>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.SALUD</field>
-        </record>
-
-        <record id="hr_rule_32" model="hr.salary.rule">
-            <field name="name">ISAPRES X PAGAR VIDA TRES</field>
-            <field name="sequence" eval="32"/>
-            <field name="code">VIDATRES</field>
-            <field name="category_id" ref="SUBT"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.isapre_id.name == 'VIDA TRES'</field>
-            <field name="appears_on_payslip" eval="False"/>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.SALUD</field>
-        </record>
+  
 
         <record id="hr_rule_33" model="hr.salary.rule">
             <field name="name">CAJA DE COMPENSACION</field>
@@ -697,6 +619,7 @@ if Salud >= payslip.indicadores_id.tope_imponible_salud*payslip.indicadores_id.u
     result = round((payslip.indicadores_id.tope_imponible_salud*payslip.indicadores_id.uf) * (payslip.indicadores_id.caja_compensacion / 7))
 else:
     result = round(payslip.indicadores_id.caja_compensacion * round(TOTIM)/100)</field>
+            <field name="register_id" ref="contrib_register_previred"/>
         </record>
 
         <record id="hr_rule_34" model="hr.salary.rule">
@@ -714,6 +637,7 @@ if Salud >= round(payslip.indicadores_id.tope_imponible_salud*payslip.indicadore
     result =round( round(payslip.indicadores_id.tope_imponible_salud*payslip.indicadores_id.uf) * (payslip.indicadores_id.fonasa / 7))
 else:
     result = round(payslip.indicadores_id.fonasa * round(TOTIM)/100)</field>
+            <field name="register_id" ref="contrib_register_previred"/>
         </record>
 
 
@@ -762,6 +686,8 @@ elif payslip.indicadores_id.utm*150 > TRIBU:
  result = TRIBU*0.355-(payslip.indicadores_id.utm*23.92)
 else:
  result = TRIBU*0.40-(payslip.indicadores_id.utm*30.67)</field>
+<field name="register_id" ref="contrib_register_sii"/>
+
         </record>					
 
 
