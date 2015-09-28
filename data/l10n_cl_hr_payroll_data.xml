@@ -355,17 +355,22 @@ elif payslip.indicadores_id.asignacion_familiar_tercer  >= BASIC:
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.colacion > 0</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">dias = 0 
-try: 
- dias = worked_days.Licencia.number_of_days 
-except: 
- dias = 0.0
-
-try: 
- dias = dias +  worked_days.Falta.number_of_days
-except: 
+            <field name="amount_python_compute">dias = 0 						
+try: 						
+ dias = worked_days.Licencia.number_of_days 						
+except: 						
+ dias = 0.0						
+						
+try: 						
+ dias = dias +  worked_days.Falta.number_of_days						
+except: 						
  dias = dias
-result = round((30 - dias) * contract.colacion / 30)</field>
+
+if worked_days.WORK100.number_of_days > 30:
+ dias= 30 - dias	
+else:
+ dias= worked_days.WORK100.number_of_days - dias	
+result = round(dias * contract.colacion / 30)</field>
             <field name="register_id" ref="contrib_register_previred"/>
 
         </record>
