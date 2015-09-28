@@ -761,7 +761,8 @@ else:
             <field name="category_id" ref="SUBT"/>
             <field name="appears_on_payslip" eval="False"/>
             <field name="condition_select">none</field>						
-            <field name="amount_select">code</field>						
+            <field name="amount_select">code</field>
+            <field name="active">True</field>						
             <field name="amount_python_compute">result = round(SECEEMP) + round(PREVEMP) + round(MUT)</field>						
         </record>
 
@@ -772,7 +773,8 @@ else:
             <field name="code">LIQ</field>						
             <field name="category_id" ref="NET"/>
             <field name="condition_select">none</field>						
-            <field name="amount_select">code</field>						
+            <field name="amount_select">code</field>
+            <field name="active">True</field>							
             <field name="amount_python_compute">result = categories.GROSS - TDE</field>						
         </record>
 
@@ -801,12 +803,16 @@ else:
 
  <!-- Estructura Inputs -->
 
-        <record id="hr_struct_cl" model="hr.payroll.structure">
+	<record id="hr_struct_cl" model="hr.payroll.structure">
             <field name="name">Codigo del Trabajo</field>
             <field name="code">Codigo del Trabajo de Chile</field>
             <field name="parent_id"></field>
-            <field name="rule_ids" eval="[([ref('hr_rule_39'), ref('hr_rule_43')])]"/>
+            <field eval="[(6, 0, [ref('hr_rule_1'), ref('hr_rule_2'),ref('hr_rule_3'),ref('hr_rule_4'),ref('hr_rule_5'),ref('hr_rule_6'),ref('hr_rule_7'),ref('hr_rule_8'),ref('hr_rule_9'),ref('hr_rule_10'),ref('hr_rule_11'),ref('hr_rule_12'),ref('hr_rule_13'),ref('hr_rule_14'),ref('hr_rule_15'),ref('hr_rule_16'),ref('hr_rule_17'),ref('hr_rule_18'),ref('hr_rule_19'),ref('hr_rule_20'),ref('hr_rule_26'),ref('hr_rule_27'),ref('hr_rule_28'),ref('hr_rule_33'),ref('hr_rule_34'),ref('hr_rule_35'),ref('hr_rule_36'),ref('hr_rule_37'),ref('hr_rule_38'),ref('hr_rule_39'),ref('hr_rule_40'),ref('hr_rule_41'),ref('hr_rule_42'),ref('hr_rule_43'),ref('hr_rule_44')])]" name="rule_ids"/>
         </record>
+
+
+
+
 
         <record id="hr_resource_monthly" model="resource.calendar">
             <field name="name">Mensual</field>

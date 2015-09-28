@@ -156,7 +156,7 @@ class hr_contract(osv.osv):
         'otro_no_imp': fields.float('Otros No Imponible',  help="Otros Haberes No Imponibles"),
         'otros_imp': fields.float('Otros Imponible', help="Otros Haberes Imponibles"),
         'pension': fields.boolean('Pensionado'),
-        'seguro_complementario_id':fields.many2one('hr.seguro.complementario', 'Seguro Complementario'),
+      # 'seguro_complementario_id':fields.many2one('hr.seguro.complementario', 'Seguro Complementario'),
         'seguro_complementario_cotizacion_uf': fields.float('Cotizacion UF', digits=(16,2), help="Cotizacion Pactada en UF"),
         'viatico_santiago': fields.float('Viatico Santiago', digits=(16,2),  help="Viatico Santiago"),
 
