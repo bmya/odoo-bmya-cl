@@ -130,12 +130,15 @@ class hr_afp(osv.osv):
     _name = 'hr.afp'
     _description = 'Fondos de Pension'
     _columns = {
+        'codigo': fields.char('Codigo', required=True),
         'name': fields.char('Nombre', required=True),
         'rut': fields.char('RUT', required=True),
         'rate': fields.float('Tasa', required=True),
         'sis': fields.float('Aporte Empresa', required=True),
         'independiente': fields.float('Independientes', required=True),
     }
+
+
 
 
 
@@ -161,6 +164,52 @@ class hr_contract(osv.osv):
         'viatico_santiago': fields.float('Viatico Santiago', digits=(16,2),  help="Viatico Santiago"),
 
     }
+
+
+class hr_type_employee(osv.osv):
+    _name = 'hr.type.employee'
+    _description = 'Tipo de Empleado'
+    _columns = {
+        'id_type': fields.char('Codigo', required=True),
+        'name': fields.char('Nombre', required=True),
+   }
+
+
+class hr_employee(osv.osv):
+
+    _inherit = 'hr.employee'
+    _description = 'Employee Contract'
+    _columns = {
+        'type_id':fields.many2one('hr.type.employee', 'Tipo de Empleado'),
+       
+    }
+
+
+
+
+
+
+
+
+class hr_payslip_employees(osv.osv_memory):
+
+    _inherit ='hr.payslip.employees'
+    
+    def compute_sheet(self, cr, uid, ids, context=None):
+        run_pool = self.pool.get('hr.payslip.run')
+        if context is None:
+            context = {}
+        if context.get('active_id'):
+            run_data = run_pool.read(cr, uid, context['active_id'], ['indicadores_id'])
+        indicadores_id= run_data.get('indicadores_id')
+        indicadores_id= indicadores_id and indicadores_id[0] or False
+        if indicadores_id:
+            context = dict(context, indicadores_id=indicadores_id)
+        return super(hr_payslip_employees, self).compute_sheet(cr, uid, ids, context=context)
+
+
+
+
 
 
 

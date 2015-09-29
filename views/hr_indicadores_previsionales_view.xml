@@ -181,6 +181,55 @@
         </record>
 
 
+
+    <!-- Employee View -->
+
+        
+        <record id="hr_employee_form_inherit5" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="before">
+			<field name="type_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_afp_form" model="ir.ui.view">
+            <field name="name">hr.afp.form</field>
+            <field name="model">hr.afp</field>
+            <field name="arch" type="xml">
+                <form string="AFP">
+		    <table class="table-condensed" width="100%">
+			<thead>
+			    <tr><td>
+				<div class="oe_title">FONDOS DE PENSION</div>
+				<group col="2">
+                                    <field name="codigo" string="Codigo"></field>
+                                    <field name="rut" string="RUT"></field>
+                                    <field name="name"></field>
+                                    <field name="rate"></field>
+                                    <field name="sis"></field>
+                                    <field name="independiente"></field>
+				</group>
+			     </td></tr>
+                        </thead>
+		    </table>
+
+                </form>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+
+
     <!-- Menu View -->
 
         <act_window id="hr_indicadores_previsionales_action"

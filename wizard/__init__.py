@@ -20,7 +20,7 @@
 #
 ##############################################################################
 import hr_form_employee_book
-import hr_indicators_employees
+#import hr_indicators_employees
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
