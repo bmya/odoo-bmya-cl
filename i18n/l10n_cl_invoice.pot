@@ -1,0 +1,738 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* l10n_cl_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 8.0alpha1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-30 15:32+0000\n"
+"PO-Revision-Date: 2014-05-30 15:32+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,help:l10n_cl_invoice.action_supplier_debit_notes
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create Supplier debit notes.\n"
+"              </p>\n"
+"            "
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,help:l10n_cl_invoice.action_customer_debit_notes
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create customer debit notes.\n"
+"              </p>\n"
+"            "
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,help:l10n_cl_invoice.action_customer_other_documents
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create other customer document.\n"
+"              </p>\n"
+"            "
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,help:l10n_cl_invoice.action_supplier_other_documents
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create other supplier document.\n"
+"              </p>\n"
+"            "
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:account.journal:0
+msgid "SII"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.tax.code,sii_code:0
+#: field:sii.concept_type,sii_code:0
+#: field:sii.document_class,sii_code:0
+#: field:sii.document_type,sii_code:0
+#: field:sii.optional_type,sii_code:0
+#: field:res.currency,sii_code:0
+msgid "SII Code"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:sii.concept_type:0
+#: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_concept_type
+msgid "SII Concept type"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_sii_config
+msgid "SII Configuration"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.currency,sii_desc:0
+msgid "SII Description"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:sii.document_class:0
+#: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_document_class
+msgid "SII Document Class"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_document_letter
+msgid "SII Document Letter"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:sii.document_letter:0
+msgid "SII Document class"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:sii.document_type:0
+#: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_document_type
+msgid "SII Document type"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:sii.optional_type:0
+#: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_optional_type
+msgid "SII Optional type"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:sii.responsability:0
+#: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_responsability
+msgid "SII Responsability"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.currency,sii_dt_from:0
+msgid "SII Valid from"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_sii_concept_type
+msgid "SII concept types"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_sii_document_type
+msgid "SII document types"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_sii_optional_type
+msgid "SII optional types"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.concept_type,active:0
+#: field:sii.document_class,active:0
+#: field:sii.document_letter,active:0
+#: field:sii.document_type,active:0
+#: field:sii.optional_type,active:0
+#: field:sii.responsability,active:0
+msgid "Active"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.journal,sii_document_class_id:0
+#: model:ir.model,name:l10n_cl_invoice.model_sii_document_class
+msgid "Afip Document Class"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.document_letter,sii_document_class_ids:0
+msgid "Afip Document Classes"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,update_posted:0
+msgid "Allow Cancelling Entries"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.optional_type,apply_rule:0
+msgid "Apply rule"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.invoice,available_journal_ids:0
+msgid "Available Journals"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,rut:0
+msgid "RUT"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.country,rut_otro:0
+msgid "RUT otro"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.country,rut_natural:0
+msgid "RUT persona natural"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.country,rut_juridica:0
+msgid "RUT persona juridica"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:l10n_cl_invoice.config:0
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,allow_date:0
+msgid "Check Date in Period"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:l10n_cl_invoice.config,update_posted:0
+msgid "Check this box if you want to allow the cancellation the entries related to this journals or of the invoice related to this journals"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.document_type,code:0
+#: field:sii.responsability,code:0
+msgid "Code"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.document_class,code_template:0
+msgid "Code Template for Journal"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_concept_type
+msgid "Concept Types"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:argentinian.base.config.settings:0
+msgid "Configure company data, invoice journals and other documents journals."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:l10n_cl_invoice.config:0
+msgid "Confirm"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_res_country
+msgid "Country"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: selection:sii.document_class,journal_subtype:0
+#: field:l10n_cl_invoice.config,credit_notes:0
+msgid "Credit Notes"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_res_currency
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,name:l10n_cl_invoice.action_customer_debit_notes
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_customer_debit_notes
+msgid "Customer Debit Notes"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,name:l10n_cl_invoice.action_customer_other_documents
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_customer_other_documents
+msgid "Customer Other Documents"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: selection:account.journal,journal_subtype:0
+#: selection:sii.document_class,journal_subtype:0
+#: field:l10n_cl_invoice.config,debit_notes:0
+msgid "Debit Notes"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: selection:l10n_cl_invoice.config,credit_notes:0
+#: selection:l10n_cl_invoice.config,debit_notes:0
+msgid "Do not use"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_class
+msgid "Document Classes"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.document_class,document_letter_id:0
+msgid "Document Letter"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_letter
+msgid "Document Letters"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_type
+msgid "Document Types"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_sii_document_letter
+msgid "Document letter"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.partner,document_number:0
+msgid "Document number"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.partner,document_type_id:0
+msgid "Document type"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,remove_old_journals:0
+msgid "Eliminar los diarios existentes"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:l10n_cl_invoice.config,point_of_sale:0
+msgid "Este es el número que aparecerá como prefijo del número de la factura. Si solo tiene un solo talonario ese número es 1. Si necesita agregar un nuevo punto de venta debe acceder a opciones Administración/Configuración/Wizards de Configuración/Wizards de Configuración y ejecutar nuevamente el wizard de \"Configuración de Facturación\"."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.company,iibb:0
+#: field:res.partner,iibb:0
+msgid "Gross Income"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,group_invoice_lines:0
+msgid "Group Invoice Lines"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,iibb:0
+msgid "IIBB"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:l10n_cl_invoice.config,allow_date:0
+msgid "If checked, the entry won't be created if the entry date is not included into the selected period"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:l10n_cl_invoice.config,group_invoice_lines:0
+msgid "If this box is checked, the system will try to group the accounting lines when generating them from invoices."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,start_date:0
+msgid "Inicio de Actividades"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: code:addons/l10n_cl_invoice/invoice.py:151
+#, python-format
+msgid "Invalid Journal"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: code:addons/l10n_cl_invoice/invoice.py:152
+#, python-format
+msgid "Invalid journal selection for actual partner and company."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,name:l10n_cl_invoice.action_invoice_cl_installer
+msgid "Invoice Configuration"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:l10n_cl_invoice.config:0
+msgid "Invoice Configuration for Chile"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_account_invoice_line
+msgid "Invoice Line"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: selection:account.journal,journal_subtype:0
+#: selection:sii.document_class,journal_subtype:0
+msgid "Invoices"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.responsability,issued_letter_ids:0
+msgid "Issued Document Letters"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.document_letter,issuer_ids:0
+msgid "Issuers"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:account.journal,journal_subtype:0
+#: help:sii.document_class,journal_subtype:0
+msgid "It defines some behaviours on automatic journal selection and in menus where it is shown."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.journal,journal_subtype:0
+#: field:sii.document_class,journal_subtype:0
+msgid "Journal Subtype"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: code:addons/l10n_cl_invoice/invoice.py:248
+#, python-format
+msgid "Journal Type Error"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: code:addons/l10n_cl_invoice/invoice.py:249
+#, python-format
+msgid "Journal Type Not defined)"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:l10n_cl_invoice.config:0
+msgid "Journals to Remove"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,journals_to_remove_ids:0
+msgid "Journals to delete"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.company,map_customer_invoice_journals:0
+msgid "Map Customer Invoices Journals"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.company,map_supplier_invoice_journals:0
+msgid "Map Supplier Invoices Journals"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.concept_type,name:0
+#: field:sii.document_class,name:0
+#: field:sii.document_letter,name:0
+#: field:sii.document_type,name:0
+#: field:sii.optional_type,name:0
+#: field:sii.responsability,name:0
+msgid "Name"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: sql_constraint:sii.responsability:0
+msgid "Not repeat code!"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: sql_constraint:sii.document_letter:0
+#: sql_constraint:sii.responsability:0
+msgid "Not repeat name!"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,point_of_sale:0
+msgid "Número de Punto de Venta"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:l10n_cl_invoice.config:0
+msgid "Only Journal without moves and without invoices are displayed"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:account.journal,product_types:0
+msgid "Only use products with this product types in this journals. Types must be a subset of adjust, consu and service separated by commas."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_optional_type
+msgid "Optional Types"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: selection:account.journal,journal_subtype:0
+#: selection:sii.document_class,journal_subtype:0
+msgid "Other Documents"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:l10n_cl_invoice.config:0
+msgid "Other Journals"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,other_purchase_journal_ids:0
+msgid "Other Purchase Journals"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,other_sale_journal_ids:0
+msgid "Other Sale Journals"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: selection:l10n_cl_invoice.config,credit_notes:0
+#: selection:l10n_cl_invoice.config,debit_notes:0
+msgid "Own Sequence"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.tax.code,parent_sii_code:0
+msgid "Parent SII Code"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: code:addons/l10n_cl_invoice/invoice.py:259
+#, python-format
+msgid "Please, set your company responsability in the company partner before continue."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.journal,point_of_sale:0
+msgid "Point of sale ID"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.journal,product_types:0
+#: field:sii.concept_type,product_types:0
+msgid "Product types"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.responsability,received_letter_ids:0
+msgid "Received Document Letters"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.document_letter,receptor_ids:0
+msgid "Receptors"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_responsability
+msgid "Responsabilities"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.company,responsability_id:0
+msgid "Responsability"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:l10n_cl_invoice.config,responsability_id:0
+#: field:res.partner,responsability_id:0
+msgid "Resposability"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: selection:l10n_cl_invoice.config,credit_notes:0
+#: selection:l10n_cl_invoice.config,debit_notes:0
+msgid "Same Invoice Sequence"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:argentinian.base.config.settings,group_customer_debit_notes:0
+#: model:res.groups,name:l10n_cl_invoice.customer_debit_notes
+msgid "Show Customer Debit Notes Menu"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:argentinian.base.config.settings,group_customer_other_documents:0
+#: model:res.groups,name:l10n_cl_invoice.customer_other_documents
+msgid "Show Customer Other Documents Menu"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:argentinian.base.config.settings,group_supplier_debit_notes:0
+#: model:res.groups,name:l10n_cl_invoice.supplier_debit_notes
+msgid "Show Supplier Debit Notes Menu"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:argentinian.base.config.settings,group_supplier_other_documents:0
+#: model:res.groups,name:l10n_cl_invoice.supplier_other_documents
+msgid "Show Supplier Other Documents Menu"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:l10n_cl_invoice.config,remove_old_journals:0
+msgid "Si es su primera instalación indique que necesita borrar los diarios existentes. Si agrega un nuevo punto de ventas indique que no va a eliminar los journals. Igual, puede indicar cuales borra y cuales no en el próximo paso."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:res.company,start_date:0
+#: field:res.partner,start_date:0
+msgid "Start-up Date"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:res.company,map_customer_invoice_journals:0
+msgid "Suggest and Check journal on customer invoices based in their responsability. Suggested to be used on Argentinian Companies"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:res.company,map_supplier_invoice_journals:0
+msgid "Suggest and Check journal on supplier invoices based in their responsability. Suggested to be used on Argentinian Companies"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,name:l10n_cl_invoice.action_supplier_debit_notes
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_supplier_debit_notes
+msgid "Supplier Debit Notes"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.actions.act_window,name:l10n_cl_invoice.action_supplier_other_documents
+#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_supplier_other_documents
+msgid "Supplier Other Documents"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_account_tax_code
+msgid "Tax Code"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:argentinian.base.config.settings,group_customer_debit_notes:0
+msgid "To allow your salesman to register customer debit notes'."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:argentinian.base.config.settings,group_customer_other_documents:0
+msgid "To allow your salesman to register customer other documents like ???'."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:argentinian.base.config.settings,group_supplier_debit_notes:0
+msgid "To allow your salesman to register supplier debit notes'."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:argentinian.base.config.settings,group_supplier_other_documents:0
+msgid "To allow your salesman to register supplier other documents like imports'."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:sii.concept_type,product_types:0
+msgid "Translate this product types to this SII concept. Types must be a subset of adjust, consu and service separated by commas."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: code:addons/l10n_cl_invoice/partner.py:46
+#, python-format
+msgid "VAT Number is wrong.\n"
+" Please verify the number before continue."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_sii_responsability
+msgid "VAT Responsability"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:sii.optional_type,value_computation:0
+msgid "Value computation"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: code:addons/l10n_cl_invoice/partner.py:45
+#, python-format
+msgid "Warning!"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: constraint:sii.concept_type:0
+msgid "You provided an invalid list of product types. Must been separated by commas"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: constraint:account.journal:0
+msgid "You provided an invalid list of product types. Must been separated by commas."
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: code:addons/l10n_cl_invoice/invoice.py:258
+#, python-format
+msgid "Your company has not setted any responsability"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:account.invoice:0
+msgid "[('id','in',available_journal_ids[0][2])]"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_argentinian_base_config_settings
+msgid "argentinian.base.config.settings"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_l10n_cl_invoice_config
+msgid "l10n_cl_invoice.config"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:account.invoice:0
+msgid "onchange_company_id(company_id,partner_id,type,invoice_line,currency_id,context)"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:account.invoice:0
+msgid "onchange_partner_id(type,partner_id,date_invoice,payment_term, partner_bank_id,company_id,context)"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:l10n_cl_invoice.config:0
+msgid "or"
+msgstr ""
+
