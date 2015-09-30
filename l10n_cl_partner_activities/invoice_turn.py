@@ -30,15 +30,14 @@
 ##############################################################################
 
 
-from openerp import models, fields
-
+from openerp import models, fields, api
 
 class invoice_turn(models.Model):
     _inherit = "account.invoice"
 
     invoice_turn = fields.Many2one(
         'partner.activities',
-        'Giro',
+        'Giro',       
         readonly=True,
         store=True,
         states={'draft': [('readonly', False)]})

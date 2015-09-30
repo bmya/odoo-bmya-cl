@@ -2,7 +2,6 @@
 [![Code Climate](https://codeclimate.com/github/bmya/odoo-bmya-cl/badges/gpa.svg)](https://codeclimate.com/github/bmya/odoo-bmya-cl)
 [![Test Coverage](https://codeclimate.com/github/bmya/odoo-bmya-cl/badges/coverage.svg)](https://codeclimate.com/github/bmya/odoo-bmya-cl/coverage)
 
-l10n_cl_financial_indicators
 
 #English
 
