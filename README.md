@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/odoo-chile/l10n_cl_banks_sbif.svg)](https://travis-ci.org/odoo-chile/l10n_cl_banks_sbif)
+[![Test Coverage](https://codeclimate.com/github/odoo-chile/l10n_cl_banks_sbif/badges/coverage.svg)](https://codeclimate.com/github/odoo-chile/l10n_cl_banks_sbif/coverage)
+[![Code Climate](https://codeclimate.com/github/odoo-chile/l10n_cl_banks_sbif/badges/gpa.svg)](https://codeclimate.com/github/odoo-chile/l10n_cl_banks_sbif)
+
 # l10n_cl_banks_sbif
 (TravisCI Commit)
 

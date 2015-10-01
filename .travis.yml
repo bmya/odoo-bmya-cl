@@ -1,5 +1,6 @@
 addons:
-  apt:
+    code_climate:
+        repo_token: 1309abd62aea7ea4537f23c4d40ca63d67319761ffbd7cb51e31cd4ae61ca3d3
 
 language: python
 sudo: false
