@@ -31,7 +31,7 @@ class l10n_cl_financial_indicators(osv.osv):
             data_json = json.loads(data)
             rate = float(
                 data_json[indic[1]][0]['Valor'].replace(
-                    '.', '').replace(',','.'))
+                    '.', '').replace(',', '.'))
             currency_obj = self.pool.get('res.currency')
             currency_rate_obj = self.pool.get('res.currency.rate')
             currency_id = currency_obj.search(cr, uid, [(
