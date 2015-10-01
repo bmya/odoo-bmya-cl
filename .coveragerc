@@ -1,5 +1,9 @@
 # Config file .coveragerc
 
+language: python
+python:
+  - "2.7"
+
 [report]
 include =
     */odoo-chile/l10n_cl_banks_sbif/*
