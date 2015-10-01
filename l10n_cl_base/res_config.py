@@ -10,7 +10,6 @@ class chilean_base_configuration(models.TransientModel):
     _name = 'chilean.base.config.settings'
     _inherit = 'res.config.settings'
 
-
     module_l10n_cl_banks_sbif = fields.Boolean(
         'Banks in Chile, According SBIF',
         help="""Installs module l10n_cl_banks_sbif, and includes authorized
@@ -29,41 +28,40 @@ receipts stubs with journals for easiest configuration.""")
     module_l10n_cl_credit_card_voucher = fields.Boolean(
         'Exclude your final consumer credit card sales from VAT report',
         help="""Installs module l10n_cl_credit_card_voucher, allowing you
-to link the sales note with a credit card voucher, in order to keep
-it unreported in boletas sales.""")
+to link the sales note with a credit card voucher, in order to keep it
+unreported in boletas sales.""")
 
-    module_l10n_cl_wssii_fe = fields.Boolean('Use Electronic Invoicing',
-        help="""Installs several dependencies in order to performn
-Electronic invoicing, sales reports in xml, and """)
+    module_l10n_cl_wssii_fe = fields.Boolean(
+        'Use Electronic Invoicing', help="""Installs several dependencies in
+order to performn Electronic invoicing, sales reports in xml, and """)
 
-    module_invoice_printed = fields.Boolean('Invoice in TXT Format',
-        help="""Installs invoice_printed module, to interact with prnfiscal
-dependency in your local machine, in order to have your fiscal documents
-rendered in TXT format. This allows printing in fiscal printers, or connect to
-external electronic invoices services""")
+    module_invoice_printed = fields.Boolean(
+        'Invoice in TXT Format', help="""Installs invoice_printed module, to
+interact with prnfiscal dependency in your local machine, in order to have your
+fiscal documents rendered in TXT format. This allows printing in fiscal
+printers, or connect to external electronic invoices services""")
 
     module_l10n_cl_aeroo_einvoice = fields.Boolean('Electronic Invoice Format',
         help="""Installs output form report including PDF417 electronic
 stamp""")
 
-    module_l10n_cl_aeroo_stock = fields.Boolean('Electronic Stock picking',
-        help="""Installs output form report including PDF417 electronic
-stamp""")
+    module_l10n_cl_aeroo_stock = fields.Boolean(
+        'Electronic Stock picking', help="""Installs output form report
+including PDF417 electronic stamp""")
 
-    module_l10n_cl_aeroo_purchase = fields.Boolean('Purchase Order Form',
-        help="""Report for purchase order""")
+    module_l10n_cl_aeroo_purchase = fields.Boolean(
+        'Purchase Order Form', help="""Report for purchase order""")
 
-    module_l10n_cl_aeroo_sale = fields.Boolean('Sales Order Form',
-        help="""Report for sales order""")
+    module_l10n_cl_aeroo_sale = fields.Boolean(
+        'Sales Order Form', help="""Report for sales order""")
 
-    module_l10n_cl_aeroo_receipt = fields.Boolean('Payment Receipt Form',
-        help="""Report for payment receipt""")
+    module_l10n_cl_aeroo_receipt = fields.Boolean(
+        'Payment Receipt Form', help="""Report for payment receipt""")
 
     module_l10n_cl_partner_activities = fields.Boolean(
-        'Include Partner\'s turn',
-        help="""Installs l10n_cl_partner_activities module, which includes your
-partners' turns in their record using the SII activities table and allows you
-to select the activity when invoicing.""")
+        'Include Partner\'s turn', help="""Installs l10n_cl_partner_activities
+module, which includes your partners' turns in their record using the SII
+activities table and allows you to select the activity when invoicing.""")
 
     module_l10n_cl_hr_afp = fields.Boolean(
         'Install payroll and AFPs chilean modules',
@@ -84,12 +82,12 @@ send a monthly report with 105 fields per employee, to Previred.""")
         help="""Add a fields to your partners with their fantasy name, and
 allows you to search them by this name.""")
 
-    module_l10n_cl_toponyms = fields.Boolean('Include Chilean Counties',
-        help="""Installs l10n_cl_toponyms, which includes all chilean counties
-to partners.""")
+    module_l10n_cl_toponyms = fields.Boolean(
+        'Include Chilean Counties', help="""Installs l10n_cl_toponyms, which
+includes all chilean counties to partners.""")
 
-    module_l10n_cl_vat = fields.Boolean('Validate Chilean VAT (RUT)',
-        help="""Installs l10n_cl_vat and dependencies in order to have the RUT
-validated correctly.""")
+    module_l10n_cl_vat = fields.Boolean(
+        'Validate Chilean VAT (RUT)', help="""Installs l10n_cl_vat and
+dependencies in order to have the RUT validated correctly.""")
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
