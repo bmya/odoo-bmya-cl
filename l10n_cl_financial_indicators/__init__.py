@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from . import l10n_cl_financial_indicators
+import l10n_cl_financial_indicators.l10n_cl_financial_indicators

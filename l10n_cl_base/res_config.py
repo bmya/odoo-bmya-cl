@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Init module for l10n_cl_base
 # Daniel Blanco - Blanco Martin & Asociados
+##############################################################################
 '''This code intended to define transient fields for installing modules'''
 from openerp import models, fields
 
@@ -28,8 +29,8 @@ receipts stubs with journals for easiest configuration.""")
     module_l10n_cl_credit_card_voucher = fields.Boolean(
         'Exclude your final consumer credit card sales from VAT report',
         help="""Installs module l10n_cl_credit_card_voucher, allowing you
-to link the sales note with a credit card voucher, in order to keep it
-unreported in boletas sales.""")
+to link the sales note with a credit card voucher, in order to keep
+it unreported in boletas sales.""")
 
     module_l10n_cl_wssii_fe = fields.Boolean(
         'Use Electronic Invoicing', help="""Installs several dependencies in

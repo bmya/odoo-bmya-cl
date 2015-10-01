@@ -32,6 +32,13 @@ UTM
 
 If the spell is not the same, this implementation won't be able to find
 the currencies or the indexes to update.
+
+## Credits
+<p>
+<img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
+</p>
+**Blanco Martin & Asociados EIRL** - http://blancomartin.cl
+
  
 Actualizador de indices financieros chilenos para Odoo
 ======================================================
@@ -68,3 +75,8 @@ UTM
 Si la nomenclatura no es exactamente la misma, esta implementacion
 no podrá encontrar las monedas para ser actualizadas.
  
+## Credits
+<p>
+<img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
+</p>
+**Blanco Martin & Asociados EIRL** - http://blancomartin.cl
