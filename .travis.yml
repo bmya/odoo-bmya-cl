@@ -1,6 +1,6 @@
-#addons:
-#    code_climate:
-#        repo_token: 176a51ef50e0727017c0284c8714bf2854e508509cdf81a88979e0b4983d67aa
+addons:
+    code_climate:
+        repo_token: 176a51ef50e0727017c0284c8714bf2854e508509cdf81a88979e0b4983d67aa
 
 language: python
 sudo: false
