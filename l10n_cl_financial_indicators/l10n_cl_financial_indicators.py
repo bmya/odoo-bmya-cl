@@ -14,7 +14,7 @@ class l10n_cl_financial_indicators(osv.osv):
 
     # schedule update
     def currency_schedule_update(self, cr, uid, context=None):
-        from apikey import apikey
+        from l10n_cl_financial_indicators.apikey import apikey
         indicadores = {
             ('dolar', 'Dolares', 'USD'),
             ('euro', 'Euros', 'EUR'),
