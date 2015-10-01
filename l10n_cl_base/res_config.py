@@ -41,9 +41,9 @@ interact with prnfiscal dependency in your local machine, in order to have your
 fiscal documents rendered in TXT format. This allows printing in fiscal
 printers, or connect to external electronic invoices services""")
 
-    module_l10n_cl_aeroo_einvoice = fields.Boolean('Electronic Invoice Format',
-        help="""Installs output form report including PDF417 electronic
-stamp""")
+    module_l10n_cl_aeroo_einvoice = fields.Boolean(
+        'Electronic Invoice Format', help="""Installs output form report
+including PDF417 electronic stamp""")
 
     module_l10n_cl_aeroo_stock = fields.Boolean(
         'Electronic Stock picking', help="""Installs output form report
