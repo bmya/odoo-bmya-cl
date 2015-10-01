@@ -31,6 +31,7 @@
 
 from openerp import models, fields
 
+
 class bank_sbif(models.Model):
     _inherit = "res.bank"
 

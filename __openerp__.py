@@ -30,13 +30,13 @@
     ''',
     'author': u'Blanco Martin & Asociados',
     'website': 'http://blancomartin.cl',
-    'depends': [ 'account','account_chart'],
+    'depends': ['account', 'account_chart'],
     'installable': True,
     'license': 'AGPL-3',
     'name': u'Chile - Bancos con codificación oficial de SBIF',
     'test': [],
     'data': [
-        'data/res.bank.csv','view/res_bank_sbif.xml'
+        'data/res.bank.csv', 'view/res_bank_sbif.xml'
     ],
     'version': '0.1.001',
 }
