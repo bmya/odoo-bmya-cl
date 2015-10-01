@@ -15,7 +15,7 @@ class l10n_cl_financial_indicators(osv.osv):
     # schedule update
     def currency_schedule_update(self, cr, uid, context=None):
         from l10n_cl_financial_indicators.apikey import apikey
-        
+
         indicadores = {
             ('dolar', 'Dolares', 'USD'),
             ('euro', 'Euros', 'EUR'),
@@ -30,8 +30,8 @@ class l10n_cl_financial_indicators(osv.osv):
             data = f.read()
             data_json = json.loads(data)
             rate = float(
-                data_json[indic[1]][0]['Valor'].replace('.', '').replace(',',
-                '.'))
+                data_json[indic[1]][0]['Valor'].replace(
+                    '.', '').replace(',','.'))
             currency_obj = self.pool.get('res.currency')
             currency_rate_obj = self.pool.get('res.currency.rate')
             currency_id = currency_obj.search(cr, uid, [(
