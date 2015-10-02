@@ -21,7 +21,7 @@
 {
     'name': 'Chilean Payroll',
     'category': 'Localization',
-    'author': 'Blanco Martin & Asociados - Nelson Ramírez Sánchez',
+    'author': 'Blanco Martin & Asociados - Nelson Ramírez Sánchez, Daniel Blanco',
     'website': 'http://blancomartin.cl',
     'depends': ['hr_payroll'],
     'version': '1.0',
