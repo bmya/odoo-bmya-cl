@@ -140,9 +140,9 @@
 					<group>
 						<label for="id" string="Payroll" />
 						<div name="payroll">
-							<div name='module_l10n_cl_hr_afp'>
-								<field name="module_l10n_cl_hr_afp" class="oe_inline" readonly="1" />
-								<label for="module_l10n_cl_hr_afp" />
+							<div name='module_l10n_cl_hr_payroll'>
+								<field name="module_l10n_cl_hr_payroll" class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_hr_payroll" />
 							</div>
 							<div name='module_l10n_cl_hr_previred'>
 								<field name="module_l10n_cl_hr_previred" class="oe_inline" readonly="1" />
