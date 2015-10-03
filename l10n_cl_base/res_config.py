@@ -64,9 +64,9 @@ including PDF417 electronic stamp""")
 module, which includes your partners' turns in their record using the SII
 activities table and allows you to select the activity when invoicing.""")
 
-    module_l10n_cl_hr_afp = fields.Boolean(
+    module_l10n_cl_hr_payroll = fields.Boolean(
         'Install payroll and AFPs chilean modules',
-        help="""Install l10n_cl_hr_afp for payroll and AFPs chilean modules""")
+        help="""Install l10n_cl_hr_payroll for payroll and AFPs chilean modules""")
 
     module_l10n_cl_hr_previred = fields.Boolean(
         'Update Previred\'s Monthly indexes',
