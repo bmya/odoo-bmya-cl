@@ -38,7 +38,7 @@ class hr_indicadores_previsionales(models.Model):
 
     _name = 'hr.indicadores'
     _description = 'Indicadores Previsionales'
-    
+
     name = fields.Char('Nombre', required=True)
     asignacion_familiar_primer = fields.Float(
         'Asignacion Familiar Tramo 1', digits=(16, 2),
@@ -50,11 +50,11 @@ class hr_indicadores_previsionales(models.Model):
         'Asignacion Familiar Tramo 3', digits=(16, 2),
         help="Asig Familiar Tercer Tramo")
     asignacion_familiar_monto_a = fields.Float(
-        'Monto Tramo Uno', digits=(16, 2),  help="Monto A")
+        'Monto Tramo Uno', digits=(16, 2), help="Monto A")
     asignacion_familiar_monto_b = fields.Float(
         'Monto Tramo Dos', digits=(16, 2), help="Monto B")
     asignacion_familiar_monto_c = fields.Float(
-        'Monto Tramo Tres', digits=(16, 2),  help="Monto C")
+        'Monto Tramo Tres', digits=(16, 2), help="Monto C")
     contrato_plazo_fijo_empleador = fields.Float(
         'Contrato Plazo Fijo Empleador', digits=(16, 2),
         help="Contrato Plazo Fijo Empleador")
@@ -69,7 +69,7 @@ class hr_indicadores_previsionales(models.Model):
         help="Caja de Compensacion")
     deposito_convenido = fields.Float(
         'Deposito Convenido', digits=(16, 2), help="Deposito Convenido")
-    fonasa = fields.Float('Fonasa', digits=(16, 2),  help="Fonasa")
+    fonasa = fields.Float('Fonasa', digits=(16, 2), help="Fonasa")
     mutual_seguridad = fields.Float(
         'Mutual Seguridad', digits=(16, 2), help="Mutual de Seguridad")
     pensiones_ips = fields.Float(
@@ -138,7 +138,7 @@ class hr_indicadores_previsionales(models.Model):
     uf_otros = fields.Float(
         'UF Otros', digits=(16, 2), help="UF Seguro Complementario")
 
-    
+
 class hr_payslip(models.Model):
 
     '''
@@ -147,17 +147,18 @@ class hr_payslip(models.Model):
     _inherit = 'hr.payslip'
     _description = 'Pay Slip'
 
-    
+
     indicadores_id = fields.Many2one('hr.indicadores', 'Indicadores',
         states={'draft': [('readonly', False)]}, readonly=True, required=True)
-        
+
 
     def create(self, cr, uid, vals, context=None):
         if context is None:
             context = {}
         else:
             vals.update({'indicadores_id': context.get('indicadores_id')})
-        return super(hr_payslip, self).create(cr, uid, vals, context = context)
+        return super(hr_payslip, self).create(
+            cr, uid, vals, context=context)
 
 
 class hr_payslip_run(models.Model):
@@ -172,7 +173,7 @@ class hr_payslip_run(models.Model):
 class hr_isapre(models.Model):
     _name = 'hr.isapre'
     _description = 'Isapres'
-    
+
     name = fields.Char('Nombre', required=True)
     rut = fields.Char('RUT', required=True)
 
@@ -180,7 +181,7 @@ class hr_isapre(models.Model):
 class hr_afp(models.Model):
     _name = 'hr.afp'
     _description = 'Fondos de Pension'
-    
+
     codigo = fields.Char('Codigo', required=True)
     name = fields.Char('Nombre', required=True)
     rut = fields.Char('RUT', required=True)
@@ -193,15 +194,17 @@ class hr_contract(models.Model):
 
     _inherit = 'hr.contract'
     _description = 'Employee Contract'
-    
+
     afp_id = fields.Many2one('hr.afp', 'AFP')
     aporte_voluntario = fields.Float(
         'Aporte Voluntario', help="Aporte Voluntario al ahorro individual")
     anticipo_sueldo = fields.Float(
-        'Anticipo de Sueldo', help="Anticipo De Sueldo Realizado Contablemente")
+        'Anticipo de Sueldo',
+        help="Anticipo De Sueldo Realizado Contablemente")
     carga_familiar = fields.Integer(
-        'Carga Familiar', help="Carga Familiar para el calculo de asignacion familiar")
-    colacion = fields.Float('Colacion',  help="Colacion")
+        'Carga Familiar',
+        help="Carga Familiar para el calculo de asignacion familiar")
+    colacion = fields.Float('Colacion', help="Colacion")
     isapre_id = fields.Many2one('hr.isapre', 'ISAPRE')
     isapre_cotizacion_uf = fields.Float(
         'Cotizacion UF', digits=(16, 2), help="Cotizacion Pactada en UF")
@@ -224,7 +227,7 @@ class hr_contract(models.Model):
 class hr_type_employee(models.Model):
     _name = 'hr.type.employee'
     _description = 'Tipo de Empleado'
-    
+
     id_type = fields.Char('Codigo', required=True)
     name = fields.Char('Nombre', required=True)
 
@@ -233,14 +236,14 @@ class hr_employee(models.Model):
 
     _inherit = 'hr.employee'
     _description = 'Employee Contract'
-    
+
     type_id = fields.Many2one('hr.type.employee', 'Tipo de Empleado')
 
 
 class hr_payslip_employees(models.TransientModel):
 
-    _inherit ='hr.payslip.employees'
-    
+    _inherit = 'hr.payslip.employees'
+
     def compute_sheet(self, cr, uid, ids, context=None):
         run_pool = self.pool.get('hr.payslip.run')
         if context is None:
@@ -253,7 +256,7 @@ class hr_payslip_employees(models.TransientModel):
         if indicadores_id:
             context = dict(context, indicadores_id=indicadores_id)
         return super(
-            hr_payslip_employees, self).compute_sheet(cr, uid, ids,
-            context = context)
+            hr_payslip_employees, self).compute_sheet(
+            cr, uid, ids, context = context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

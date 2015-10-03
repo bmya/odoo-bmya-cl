@@ -55,7 +55,7 @@ class hr_salary_employee_bymonth(models.TransientModel):
         res = res and res[0] or {}
         datas.update({'form': res})
         return self.pool['report'].get_action(
-            cr, uid, ids, 'l10n_cl_hr_payroll.report_hrsalarybymonth', 
+            cr, uid, ids, 'l10n_cl_hr_payroll.report_hrsalarybymonth',
             data=datas, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
