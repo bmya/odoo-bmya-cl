@@ -147,10 +147,9 @@ class hr_payslip(models.Model):
     _inherit = 'hr.payslip'
     _description = 'Pay Slip'
 
-
-    indicadores_id = fields.Many2one('hr.indicadores', 'Indicadores',
+    indicadores_id = fields.Many2one(
+        'hr.indicadores', 'Indicadores',
         states={'draft': [('readonly', False)]}, readonly=True, required=True)
-
 
     def create(self, cr, uid, vals, context=None):
         if context is None:
@@ -166,7 +165,8 @@ class hr_payslip_run(models.Model):
     _inherit = 'hr.payslip.run'
     _description = 'Payslip Run'
 
-    indicadores_id = fields.Many2one('hr.indicadores', 'Indicadores',
+    indicadores_id = fields.Many2one(
+        'hr.indicadores', 'Indicadores',
         states={'draft': [('readonly', False)]}, readonly=True, required=True)
 
 
@@ -255,8 +255,7 @@ class hr_payslip_employees(models.TransientModel):
         indicadores_id = indicadores_id and indicadores_id[0] or False
         if indicadores_id:
             context = dict(context, indicadores_id=indicadores_id)
-        return super(
-            hr_payslip_employees, self).compute_sheet(
+        return super(hr_payslip_employees, self).compute_sheet(
             cr, uid, ids, context = context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
