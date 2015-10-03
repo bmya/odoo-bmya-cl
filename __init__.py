@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution Chilean Payroll	
+#    Odoo, Open Source Management Solution Chilean Payroll
 #
 #    Copyright (c) 2015 Blanco Martin y Asociados - Nelson Ramírez Sánchez
 #    Daniel Blanco -

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution Chilean Payroll  
+#    Odoo, Open Source Management Solution Chilean Payroll
 #
 #    Copyright (c) 2015 Blanco Martin y Asociados - Nelson Ramírez Sánchez
 #    Daniel Blanco
@@ -29,13 +29,13 @@ class hr_salary_employee_bymonth(models.TransientModel):
 
     _name = 'hr.salary.employee.month'
     _description = 'Libro de Remuneraciones Haberes'
-        
+
     end_date = fields.Date('End Date', required=True)
-    
+
     _defaults = {
-         
+
         'end_date': lambda *a: time.strftime('%Y-%m-%d'),
-         
+
     }
 
     def print_report(self, cr, uid, ids, context=None):
@@ -54,8 +54,8 @@ class hr_salary_employee_bymonth(models.TransientModel):
         res = self.read(cr, uid, ids, context=context)
         res = res and res[0] or {}
         datas.update({'form': res})
-        return self.pool['report'].get_action(cr, uid, ids, 
-                        'l10n_cl_hr_payroll.report_hrsalarybymonth', 
-                        data=datas, context=context)
+        return self.pool['report'].get_action(
+            cr, uid, ids, 'l10n_cl_hr_payroll.report_hrsalarybymonth', 
+            data=datas, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

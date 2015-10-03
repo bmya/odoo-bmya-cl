@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution Chilean Payroll  
+#    Odoo, Open Source Management Solution Chilean Payroll
 #
 #    Copyright (c) 2015 Blanco Martin y Asociados - Nelson Ramírez Sánchez
 #    Daniel Blanco
@@ -22,10 +22,10 @@
 #
 ##############################################################################
 
-import datetime
 import time
-from openerp.osv import osv, fields 
+from openerp.osv import osv
 from openerp.report import report_sxw
+
 
 class report_hr_salary_employee_bymonth(report_sxw.rml_parse):
 
@@ -57,9 +57,9 @@ group by number_of_days''', (emp_id, mes, ano,))
         max = self.cr.fetchone()
         
         if max is None:
-        	emp_salary.append(0.00)
+            emp_salary.append(0.00)
         else:
-        	emp_salary.append(max[0])
+            emp_salary.append(max[0])
         return emp_salary
 
 
@@ -72,14 +72,14 @@ left join hr_employee as emp on emp.id = p.employee_id
 left join resource_resource as r on r.id = emp.resource_id
 where p.state = 'done' and (pl.code like %s) and (to_char(date_to,'mm')=%s)
 and (to_char(date_to,'yyyy')=%s)
-group by r.name, p.date_to''', (cod_id, mes, ano,))  
+group by r.name, p.date_to''', (cod_id, mes, ano,))
         
         max = self.cr.fetchone()
         
         if max is None:
-        	emp_salary.append(0.00)
+            emp_salary.append(0.00)
         else:
-        	emp_salary.append(max[0])
+            emp_salary.append(max[0])
 
         return emp_salary
 
@@ -100,7 +100,7 @@ left join hr_contract as r on r.id = p.contract_id
 left join account_analytic_account as w on w.id = r.analytic_account_id
 where p.state = 'done' and (to_char(date_to,'mm')=%s)
 and (to_char(date_to,'yyyy')=%s)
-group by w.name order by name''', ( last_month, last_year,))  
+group by w.name order by name''', ( last_month, last_year,))
     
         id_data = self.cr.fetchall()
         if id_data is None:
@@ -128,14 +128,14 @@ left join hr_employee as emp on emp.id = p.employee_id
 left join resource_resource as r on r.id = emp.resource_id
 where p.state = 'done' and p.employee_id = %s and (pl.code like %s)
 and (to_char(date_to,'mm')=%s) and (to_char(date_to,'yyyy')=%s)
-group by r.name, p.date_to,emp.id''', (emp_id, cod_id, mes, ano,))  
+group by r.name, p.date_to,emp.id''', (emp_id, cod_id, mes, ano,))
         
         max = self.cr.fetchone()
         
         if max is None:
-        	emp_salary.append(0.00)
+            emp_salary.append(0.00)
         else:
-        	emp_salary.append(max[0])
+            emp_salary.append(max[0])
 
         return emp_salary
 
@@ -153,7 +153,7 @@ left join hr_contract as r on r.id = p.contract_id
 where p.state = 'done'  and (to_char(date_to,'mm')=%s)
 and (to_char(date_to,'yyyy')=%s)
 group by emp.id, emp.name_related, emp.identification_id 
-order by name_related''', ( last_month, last_year,))  
+order by name_related''', ( last_month, last_year,))
     
         id_data = self.cr.fetchall()
         if id_data is None:
@@ -217,7 +217,7 @@ left join hr_contract as r on r.id = p.contract_id
 where p.state = 'done'  and (to_char(date_to,'mm')=%s)
 and (to_char(date_to,'yyyy')=%s)
 group by emp.id, emp.name_related, emp.identification_id
-order by name_related''', (last_month, last_year))  
+order by name_related''', (last_month, last_year))
     
         id_data = self.cr.fetchall()
         if id_data is None:
