@@ -41,29 +41,29 @@ class account_journal_document_config(osv.osv_memory):
       
         journal_type = journal.type
         if journal_type in ['sale', 'sale_refund']:
-          letter_ids = [x.id for x in responsability.issued_letter_ids]
+            letter_ids = [x.id for x in responsability.issued_letter_ids]
         elif journal_type in ['purchase', 'purchase_refund']:
-          letter_ids = [x.id for x in responsability.received_letter_ids]
+            letter_ids = [x.id for x in responsability.received_letter_ids]
         
         if journal_type == 'sale':
-          document_type = 'invoice'            
-          self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
-          # Create sale debit notes
-          if debit_notes != 'dont_use':
-            document_type = 'debit_note'            
+            document_type = 'out_invoice'            
             self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
+            # Create sale debit notes
+            if debit_notes != 'dont_use':
+                document_type = 'debit_note'            
+                self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
         elif journal_type == 'sale_refund':
-          # Create sale credit notes
+            # Create sale credit notes
             document_type = 'credit_note'            
             self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
         elif journal_type == 'purchase':
-          document_type = 'invoice'
-          self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
-          document_type = 'debit_note'            
-          self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)            
+            document_type = 'in_invoice'
+            self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
+            document_type = 'debit_note'            
+            self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)            
         elif journal_type == 'purchase_refund':
-          document_type = 'credit_note'
-          self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
+            document_type = 'credit_note'
+            self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
 
     def create_sequence(self, cr, uid, name, journal, context=None):
       vals = {
@@ -75,40 +75,43 @@ class account_journal_document_config(osv.osv_memory):
       return sequence_id
 
     def create_journal_document(self, cr, uid, letter_ids, document_type, journal_id, credit_notes, debit_notes, context=None):
-      print letter_ids, document_type, journal_id, credit_notes, debit_notes
-      document_class_obj = self.pool['sii.document_class']
-      document_class_ids = document_class_obj.search(cr, uid, [('document_letter_id', 'in', letter_ids),('document_type', '=', document_type)], context=context)
-      journal_document_obj = self.pool['account.journal.sii_document_class']
-      journal = self.pool['account.journal'].browse(cr, uid, journal_id, context=context)
-      sequence = 10
-      for document_class in document_class_obj.browse(cr, uid, document_class_ids, context=context):
-        sequence_id = False
-        if journal.type == 'sale':
-          if document_type == 'invoice' or document_type == 'debit_note' and debit_notes == 'own_sequence':
-            sequence_id = self.create_sequence(cr, uid, document_class.name, journal, context)
-          elif document_type == 'debit_note' and debit_notes == 'same_sequence':
-            domain = [('sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
-              ('journal_id.point_of_sale','=',journal.point_of_sale)]
-            journal_docuent_ids = journal_document_obj.search(cr, uid, [('sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
-              ('journal_id.point_of_sale','=',False)], context=context)
-            if not journal_docuent_ids:
-              journal_docuent_ids = journal_document_obj.search(cr, uid, domain, context=context)
-            if journal_docuent_ids:
-              sequence_id = journal_document_obj.browse(cr, uid, journal_docuent_ids[0], context=context).sequence_id.id
-        elif journal.type == 'sale_refund':
-          if credit_notes == 'own_sequence':
-            sequence_id = self.create_sequence(cr, uid, document_class.name, journal, context)
-          elif credit_notes == 'same_sequence':
-            domain = [('sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
-              ('journal_id.point_of_sale','=',journal.point_of_sale)]
-            journal_docuent_ids = journal_document_obj.search(cr, uid, domain, context=context)
-            if journal_docuent_ids:
-              sequence_id = journal_document_obj.browse(cr, uid, journal_docuent_ids[0], context=context).sequence_id.id
-        vals = {
-          'sii_document_class_id': document_class.id,
-          'sequence_id': sequence_id,
-          'journal_id': journal.id,
-          'sequence': sequence,
-        }
-        journal_document_obj.create(cr, uid, vals, context=context)
-        sequence +=10
+        print letter_ids, document_type, journal_id, credit_notes, debit_notes
+        document_class_obj = self.pool['sii.document_class']
+        document_class_ids = document_class_obj.search(cr, uid, [('document_letter_id', 'in', letter_ids),('document_type', '=', document_type)], context=context)
+        journal_document_obj = self.pool['account.journal.sii_document_class']
+        journal = self.pool['account.journal'].browse(cr, uid, journal_id, context=context)
+        sequence = 10
+        for document_class in document_class_obj.browse(cr, uid, document_class_ids, context=context):
+            sequence_id = False
+            if journal.type == 'sale':
+                if document_type == 'out_invoice' or document_type == 'out_debit_note' and debit_notes == 'own_sequence':
+                    sequence_id = self.create_sequence(cr, uid, document_class.name, journal, context)
+                elif document_type == 'debit_note' and debit_notes == 'same_sequence':
+                    domain = [(
+                        'sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
+                        ('journal_id.point_of_sale','=',journal.point_of_sale)]
+                    journal_docuent_ids = journal_document_obj.search(
+                        cr, uid, [(
+                            'sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
+                            ('journal_id.point_of_sale','=',False)], context=context)
+                    if not journal_docuent_ids:
+                        journal_docuent_ids = journal_document_obj.search(cr, uid, domain, context=context)
+                    if journal_docuent_ids:
+                        sequence_id = journal_document_obj.browse(cr, uid, journal_docuent_ids[0], context=context).sequence_id.id
+            elif journal.type == 'sale_refund':
+                if credit_notes == 'own_sequence':
+                    sequence_id = self.create_sequence(cr, uid, document_class.name, journal, context)
+                elif credit_notes == 'same_sequence':
+                    domain = [('sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
+                    ('journal_id.point_of_sale','=',journal.point_of_sale)]
+                    journal_docuent_ids = journal_document_obj.search(cr, uid, domain, context=context)
+                    if journal_docuent_ids:
+                        sequence_id = journal_document_obj.browse(cr, uid, journal_docuent_ids[0], context=context).sequence_id.id
+            vals = {
+                'sii_document_class_id': document_class.id,
+                'sequence_id': sequence_id,
+                'journal_id': journal.id,
+                'sequence': sequence,
+            }
+            journal_document_obj.create(cr, uid, vals, context=context)
+            sequence +=10

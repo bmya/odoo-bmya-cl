@@ -134,6 +134,8 @@ class account_journal(models.Model):
         'point_of_sale': fields.related(
             'point_of_sale_id', 'number', type='integer', string='Point of sale', readonly=True),  # for compatibility
         'use_documents': fields.boolean('Use Documents?'),
+        'dte_register': fields.boolean('Register Electronic Documents?'),
+        'free_tax_zone': fields.boolean('Register Free-Tax Zone Documents?'),
         'document_sequence_type': fields.selection([('own_sequence', 'Own Sequence'), ('same_sequence', 'Same Invoice Sequence')], string='Document Sequence Type', help="Use own sequence or invoice sequence on Debit and Credit Notes?"),
     }
 

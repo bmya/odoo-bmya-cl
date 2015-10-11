@@ -49,8 +49,13 @@ class sii_document_class(models.Model):
         'Name on Reports',
         help='Name that will be printed in reports, for example "CREDIT NOTE"')
     document_type = fields.Selection(
-        [('invoice', 'Invoices'), ('credit_note', 'Credit Notes'),
-         ('debit_note', 'Debit Notes'), ('other_document', 'Other Documents')],
+        [
+            ('out_invoice', 'Sale Invoices'),
+            ('credit_note', 'Credit Notes'),
+            ('debit_note', 'Debit Notes'),
+            ('in_invoice', 'Purchase Invoices'),
+            ('other_document', 'Other Documents')
+        ],
         string='Document Type',
         help='It defines some behaviours on automatic journal selection and\
         in menus where it is shown.')

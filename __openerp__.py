@@ -4,7 +4,7 @@
     'website': 'http://blancomartin.cl',
     'category': 'Localization/Chile',
     'demo_xml': [
-       'data/partner_demo.xml',
+       # 'data/partner_demo.xml',
       ],
     'depends': [   
         'account',
