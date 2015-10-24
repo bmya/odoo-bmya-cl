@@ -27,6 +27,7 @@ virtualenv:
 install:
 
   - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone https://github.com/odoo-chile/l10n_cl_vat.git
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
 
