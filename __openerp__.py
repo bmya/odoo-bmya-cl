@@ -39,6 +39,7 @@
         'view/sii_menuitem.xml',
         'view/partner_activities.xml',
         'view/invoice_turn.xml',
+        'security/ir.model.access.csv',
     ],
     'version': '0.1.001',
     'website': 'http://blancomartin.cl'
