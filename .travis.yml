@@ -2,6 +2,7 @@ addons:
   apt:
     packages:
       - python-httplib2
+      - python-lxml
     code_climate:
       repo_token: a95d7fec4b248cdd363b8d7144f975463ad856f63185fdc97e7dce20b70d834d
 language: python
