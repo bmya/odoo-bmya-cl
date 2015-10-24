@@ -24,8 +24,6 @@ virtualenv:
 
 install:
 
-  # TODO change to 8.0 when ready
-  - git clone https://github.com/bmya/odoo-addons.git ${HOME}/odoo-addons -b ${VERSION}
 
   # oca account-financial-tools
   - git clone https://github.com/OCA/account-financial-tools.git ${HOME}/account-financial-tools -b ${VERSION}
