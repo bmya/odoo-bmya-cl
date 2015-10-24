@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="account.invoice_form" />
             <field name="arch" type="xml">
                 <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="after">
-                    <field name="invoice_turn" domain="[('partner_ids', '=', partner_id)]"/>
+                    <field name="invoice_turn" domain="[('partner_ids', '=', partner_id)]" options="{'no_create': True}"/>
                 </xpath>
             </field>
         </record>
