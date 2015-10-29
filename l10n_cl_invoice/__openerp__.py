@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-{
-   'active': False,
+{   'active': False,
     'author': u'Blanco Martín & Asociados',
     'website': 'http://blancomartin.cl',
     'category': 'Localization/Chile',
@@ -11,11 +10,11 @@
         'account',
         'account_accountant',
         'l10n_cl_vat',
-        'l10n_cl_base_rut',
+        'l10n_cl_invoice'
         ],
     'description': u'''
-\n\nSistema de apoyo a la facturación para la localización Chilena.\n\n\nIncluye:\n
-- Configuración de libros, diarios (journals) y otros detalles para facturación para Chile.\n
+\n\nMódulo de Facturación de la localización Chilena.\n\n\nIncluye:\n
+- Configuraci\xc3\xb3n de libros, diarios (journals) y otros detalles para facturación para Chile.\n
 - Asistente para configurar los talonarios de facturas, boletas, guías de despacho, etc.
 ''',
     'init_xml': [],
