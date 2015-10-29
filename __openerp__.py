@@ -10,6 +10,7 @@
         'account',
         'account_accountant',
         'l10n_cl_vat',
+        'l10n_cl_invoice'
         ],
     'description': u'''
 \n\nMódulo de Facturación de la localización Chilena.\n\n\nIncluye:\n
@@ -19,7 +20,7 @@
     'init_xml': [],
     'installable': True,
     'license': 'AGPL-3',
-    'name': 'Chile - Generador de Talonarios',
+    'name': u'Chile - Sistema de apoyo a la facturación',
     'test': [   
 #        'test/products.yml',
 #        'test/partners.yml',
