@@ -10,8 +10,8 @@ class account_journal_document_config(osv.osv_memory):
     _name = 'account.journal.document_config'
 
     _columns = {
-        'debit_notes': fields.selection([('dont_use','Do not use'),('own_sequence','Own Sequence'),('same_sequence','Same Invoice Sequence')], string='Debit Notes', required=True,),
-        'credit_notes': fields.selection([('own_sequence','Own Sequence'),('same_sequence','Same Invoice Sequence')], string='Credit Notes', required=True,),
+        'debit_notes': fields.selection([('dont_use','Do not use'),('own_sequence','Use')], string='Debit Notes', required=True,),
+        'credit_notes': fields.selection([('own_sequence','Use')], string='Credit Notes', required=True,),
     }
 
     _defaults= {
@@ -46,35 +46,38 @@ class account_journal_document_config(osv.osv_memory):
             letter_ids = [x.id for x in responsability.received_letter_ids]
         
         if journal_type == 'sale':
+            # Create sale invoices
             document_type = 'out_invoice'            
             self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
             # Create sale debit notes
-            if debit_notes != 'dont_use':
-                document_type = 'debit_note'            
-                self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
+            document_type = 'debit_note'            
+            self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
         elif journal_type == 'sale_refund':
             # Create sale credit notes
             document_type = 'credit_note'            
             self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
         elif journal_type == 'purchase':
+            # Create purchase invoices
             document_type = 'in_invoice'
             self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
+            # Create purchase debit notes
             document_type = 'debit_note'            
             self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)            
         elif journal_type == 'purchase_refund':
+            # create purchase credit notes
             document_type = 'credit_note'
             self.create_journal_document(cr, uid, letter_ids, document_type, journal.id, credit_notes, debit_notes, context)
 
     def create_sequence(self, cr, uid, name, journal, context=None):
       vals = {
         'name': journal.name + ' - ' + name,
-        'padding': 8,
-        'prefix': "%04i-" % (journal.point_of_sale),
+        'padding': 6,
+        'prefix': journal.point_of_sale,
       }
       sequence_id = self.pool['ir.sequence'].create(cr, uid, vals, context=context)
       return sequence_id
 
-    def create_journal_document(self, cr, uid, letter_ids, document_type, journal_id, credit_notes, debit_notes, context=None):
+    def create_journal_document(self, cr, uid, letter_ids, document_type, journal_id, credit_notes, debit_notes='own_sequence', context=None):
         print letter_ids, document_type, journal_id, credit_notes, debit_notes
         document_class_obj = self.pool['sii.document_class']
         document_class_ids = document_class_obj.search(cr, uid, [('document_letter_id', 'in', letter_ids),('document_type', '=', document_type)], context=context)
@@ -83,30 +86,7 @@ class account_journal_document_config(osv.osv_memory):
         sequence = 10
         for document_class in document_class_obj.browse(cr, uid, document_class_ids, context=context):
             sequence_id = False
-            if journal.type == 'sale':
-                if document_type == 'out_invoice' or document_type == 'out_debit_note' and debit_notes == 'own_sequence':
-                    sequence_id = self.create_sequence(cr, uid, document_class.name, journal, context)
-                elif document_type == 'debit_note' and debit_notes == 'same_sequence':
-                    domain = [(
-                        'sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
-                        ('journal_id.point_of_sale','=',journal.point_of_sale)]
-                    journal_docuent_ids = journal_document_obj.search(
-                        cr, uid, [(
-                            'sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
-                            ('journal_id.point_of_sale','=',False)], context=context)
-                    if not journal_docuent_ids:
-                        journal_docuent_ids = journal_document_obj.search(cr, uid, domain, context=context)
-                    if journal_docuent_ids:
-                        sequence_id = journal_document_obj.browse(cr, uid, journal_docuent_ids[0], context=context).sequence_id.id
-            elif journal.type == 'sale_refund':
-                if credit_notes == 'own_sequence':
-                    sequence_id = self.create_sequence(cr, uid, document_class.name, journal, context)
-                elif credit_notes == 'same_sequence':
-                    domain = [('sii_document_class_id.document_letter_id','=',document_class.document_letter_id.id),
-                    ('journal_id.point_of_sale','=',journal.point_of_sale)]
-                    journal_docuent_ids = journal_document_obj.search(cr, uid, domain, context=context)
-                    if journal_docuent_ids:
-                        sequence_id = journal_document_obj.browse(cr, uid, journal_docuent_ids[0], context=context).sequence_id.id
+            sequence_id = self.create_sequence(cr, uid, document_class.name, journal, context)
             vals = {
                 'sii_document_class_id': document_class.id,
                 'sequence_id': sequence_id,

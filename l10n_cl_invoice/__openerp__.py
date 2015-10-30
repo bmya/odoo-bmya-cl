@@ -10,7 +10,8 @@
         'account',
         'account_accountant',
         'l10n_cl_vat',
-        'l10n_cl_invoice'
+        'l10n_cl_base_rut',
+        'l10n_cl_partner_activities'
         ],
     'description': u'''
 \n\nMódulo de Facturación de la localización Chilena.\n\n\nIncluye:\n
@@ -47,7 +48,7 @@
         'view/partner_view.xml',
         'view/company_view.xml',
         'view/country_view.xml',
-        'view/sii_menuitem.xml',
+        # 'view/sii_menuitem.xml', depends on l10n_cl_partner_activities
         'view/sii_document_letter_view.xml',
         'view/sii_concept_type_view.xml',
         'view/sii_optional_type_view.xml',
