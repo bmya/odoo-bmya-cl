@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0-20150401\n"
+"Project-Id-Version: Odoo Server 8.0-20150904\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-12 13:39+0000\n"
-"PO-Revision-Date: 2015-10-12 10:46-0300\n"
+"POT-Creation-Date: 2015-10-30 04:41+0000\n"
+"PO-Revision-Date: 2015-10-30 01:47-0300\n"
 "Last-Translator: Daniel Blanco - Blanco Martín & Asociados "
 "<daniel@blancomartin.cl>\n"
 "Language-Team: Blanco Martín & Asociados <info@blancomartin.cl>\n"
@@ -120,6 +120,7 @@ msgstr "Finanzas"
 
 #. module: l10n_cl_base
 #: field:chilean.base.config.settings,module_l10n_cl_base_rut:0
+#, fuzzy
 msgid "Format RUT to 99.999.999-X"
 msgstr "Formatear RUT a 99.999.999-X"
 
@@ -149,20 +150,35 @@ msgstr "Incluir el Giro de Los Clientes/Proveedores"
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_hr_payroll:0
+#, fuzzy
 msgid ""
 "Install l10n_cl_hr_payroll for payroll and AFPs chilean\n"
 "modules"
 msgstr ""
-"Instala l10n_cl_hr_payroll para liquidación de sueldos, incluyendo AFPs "
-"chilenas."
+"Instala l10n_cl_hr_payroll para liquidación de sueldos,\n"
+"incluyendo AFPs chilenas."
 
 #. module: l10n_cl_base
 #: field:chilean.base.config.settings,module_l10n_cl_hr_payroll:0
+#, fuzzy
 msgid "Install payroll and AFPs chilean modules"
-msgstr "Instala módulos para liquidación de sueldos, incluyendo AFPs chilenas."
+msgstr ""
+"Instala módulos para liquidación de sueldos,\n"
+"incluyendo AFPs chilenas."
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_account_bank_voucher:0
+msgid ""
+"Installs account_bank_voucher, allowing you to reconcile payments\n"
+"to/from partners directly in bank statement."
+msgstr ""
+"Instala el módulo account_bank_voucher, el que le permite registrar ingresos "
+"y egresos de clientes/proveedores mediante la importación directa de los "
+"comprobantes de pago sobre la cartola bancaria."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_invoice_printed:0
+#, fuzzy
 msgid ""
 "Installs invoice_printed module, to\n"
 "interact with prnfiscal dependency in your local machine, in order to have "
@@ -170,14 +186,18 @@ msgid ""
 "fiscal documents rendered in TXT format. This allows printing in fiscal\n"
 "printers, or connect to external electronic invoices services"
 msgstr ""
-"Instala el módulo 'invoice_printed', para interactuar con la dependencia "
-"'prnfiscal' en su computador local, para tener sus documentos fiscales "
-"renderizados en formato de texto (TXT). Esto permite la impresión en "
-"impresoras fiscales, o conectar Odoo a servicios externos de factura "
-"electrónica."
+"Instala el módulo 'invoice_printed', para\n"
+"interactuar con la dependencia 'prnfiscal' en su computador local, para "
+"tener\n"
+"sus documentos fiscales renderizados en formato de texto (TXT). Esto "
+"permite\n"
+"la impresión en impresoras fiscales, o conectar Odoo a servicios externos "
+"de\n"
+"factura electrónica."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_base_rut:0
+#, fuzzy
 msgid ""
 "Installs l10n_cl_base_rut\n"
 "to have the RUT formatted correctly."
@@ -186,110 +206,125 @@ msgstr ""
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_hr_previred:0
+#, fuzzy
 msgid ""
 "Installs l10n_cl_hr_previred module, to update needed indexes\n"
 "in order to issue your payroll"
 msgstr ""
-"Instala el módulo l10n_cl_hr_previred, para actualizar los índices "
+"Instala el módulo l10n_cl_hr_previred, para actualizar los índices\n"
 "necesarios para realizar su liquidación de sueldos."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_invoice:0
+#, fuzzy
 msgid ""
 "Installs l10n_cl_invoice Link your invoicing, picking and\n"
 "receipts stubs with journals for easiest configuration."
 msgstr ""
-"Instala l10n_cl_invoice, enlazando sus talonarios de facturas, boletas y "
-"guías de desapacho con los diarios de ventas/compras para una configuración "
-"más sencilla."
+"Instala l10n_cl_invoice, enlazando sus talonarios de facturas,\n"
+"boletas y guías de desapacho con los diarios de ventas/compras\n"
+"para una configuración más sencilla."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_partner_activities:0
+#, fuzzy
 msgid ""
 "Installs l10n_cl_partner_activities\n"
 "module, which includes your partners' turns in their record using the SII\n"
 "activities table and allows you to select the activity when invoicing."
 msgstr ""
-"Instala el módulo l10n_cl_partner_activities el que incluye los giros de sus "
-"clientes / proveedores en su registro, utilizando la tabla de actividades "
-"económicas provista por el SII y le permite seleccionar el giro del cliente "
-"cuando se realiza la facturación."
+"Instala el módulo l10n_cl_partner_activities\n"
+"el que incluye los giros de sus clientes / proveedores en su registro,\n"
+"utilizando la tabla de actividades económicas provista por el SII\n"
+"y le permite seleccionar el giro del cliente cuando se realiza la "
+"facturación."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_hr_send_to_previred:0
+#, fuzzy
 msgid ""
 "Installs l10n_cl_send_to_previred module, which allows you to\n"
 "send a monthly report with 105 fields per employee, to Previred."
 msgstr ""
-"Instala el módulo l10n_cl_send_to_previred, el cual le permite enviar un "
-"reporte mensual con los 105 campos por empleado, solicitados por Previred."
+"Instala el módulo l10n_cl_send_to_previred, el cual le permite\n"
+"enviar un reporte mensual con los 105 campos por empleado,\n"
+"solicitados por Previred."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_toponyms:0
+#, fuzzy
 msgid ""
 "Installs l10n_cl_toponyms, which\n"
 "includes all chilean counties to partners."
 msgstr ""
-"Instala l10n_cl_toponyms, el cual incluye todas las comunas y regiones, para "
-"ser asignadas a clientes y proveedores."
+"Instala l10n_cl_toponyms, el cual\n"
+"incluye todas las comunas y regiones, para ser asignadas a\n"
+"clientes y proveedores."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_vat:0
+#, fuzzy
 msgid ""
 "Installs l10n_cl_vat and\n"
 "dependencies in order to have the RUT validated correctly."
 msgstr ""
-"Instala l10n_cl_vat y sus dependencias, para tener el RUT validado "
-"correctamente."
+"Instala l10n_cl_vat y sus\n"
+"dependencias, para tener el RUT validado correctamente."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_banks_sbif:0
+#, fuzzy
 msgid ""
 "Installs module l10n_cl_banks_sbif, and includes authorized\n"
 "banks, and financial institutions in Chile."
 msgstr ""
-"Instala el módulo l10n_cl_banks_sbif, y incluye los bancos autorizados y las "
-"instituciones financieras de Chile."
+"Instala el módulo l10n_cl_banks_sbif, y incluye los bancos\n"
+"autorizados y las instituciones financieras de Chile."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_credit_card_voucher:0
+#, fuzzy
 msgid ""
 "Installs module l10n_cl_credit_card_voucher, allowing you\n"
 "to link the sales note with a credit card voucher, in order to keep\n"
 "it unreported in boletas sales."
 msgstr ""
-"Instala el módulo l10n_cl_credit_card_voucher, el cual le permite enlazar "
-"una nota de ventas con un voucher de venta con tarjeta de crédito, para "
-"mantener los mismos sin ser reportados para el IVA para cumplir con la "
-"resolución exenta Nro 5 / 2015 del SII."
+"Instala el módulo l10n_cl_credit_card_voucher, el cual le permite\n"
+"enlazar una nota de ventas con un voucher de venta con tarjeta de\n"
+"crédito, para mantener los mismos sin ser reportados para el IVA\n"
+"para cumplir con la resolución exenta Nro 5 / 2015 del SII."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_financial_indicators:0
+#, fuzzy
 msgid ""
 "Installs module l10n_cl_financial_indicators, allowing to\n"
 "update indicators daily, from SBIF."
 msgstr ""
-"Instala el módulo l10n_cl_financial_indicators, que le permite actualizar "
-"los indicadores diariamente desde SBIF (UF, UTM, Dolar y Euro)."
+"Instala el módulo l10n_cl_financial_indicators, que le permite\n"
+"actualizar los indicadores diariamente desde SBIF\n"
+"(UF, UTM, Dolar y Euro)."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_aeroo_einvoice:0
 #: help:chilean.base.config.settings,module_l10n_cl_aeroo_stock:0
+#, fuzzy
 msgid ""
 "Installs output form report\n"
 "including PDF417 electronic stamp"
 msgstr ""
-"Instala formulario de salida incluyendo el timbre electrónico en formato "
-"PDF417."
+"Instala formulario de salida\n"
+"incluyendo el timbre electrónico en formato PDF417."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_wssii_fe:0
+#, fuzzy
 msgid ""
 "Installs several dependencies in\n"
 "order to performn Electronic invoicing, sales reports in xml, and "
 msgstr ""
-"Instala varias dependencias para realizar facturación electrónica, reportes "
-"de ventas en xml, y"
+"Instala varias dependencias para\n"
+"realizar facturación electrónica, reportes de ventas en xml, y"
 
 #. module: l10n_cl_base
 #: field:chilean.base.config.settings,module_invoice_printed:0
@@ -356,6 +391,12 @@ msgstr "Compras"
 #, fuzzy
 msgid "RUT (VAT) Validation"
 msgstr "Validación de RUT (VAT)"
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_account_bank_voucher:0
+msgid ""
+"Reconcile payments directly importing vouchers to account bank statement"
+msgstr "Conciliar comprobantes de  Ingresos y Egresos con su cartola bancaria"
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_aeroo_receipt:0

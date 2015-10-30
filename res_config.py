@@ -21,6 +21,11 @@ banks, and financial institutions in Chile.""")
         help="""Installs module l10n_cl_financial_indicators, allowing to
 update indicators daily, from SBIF.""")
 
+    module_account_bank_voucher = fields.Boolean(
+        'Reconcile payments directly importing vouchers to account bank statement',
+        help="""Installs account_bank_voucher, allowing you to reconcile payments
+to/from partners directly in bank statement.""")
+
     module_l10n_cl_invoice = fields.Boolean(
         'Allows to have your stubs presented to the same sales journal',
         help="""Installs l10n_cl_invoice Link your invoicing, picking and

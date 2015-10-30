@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0-20150401\n"
+"Project-Id-Version: Odoo Server 8.0-20150904\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-12 13:39+0000\n"
-"PO-Revision-Date: 2015-10-12 13:39+0000\n"
+"POT-Creation-Date: 2015-10-30 04:41+0000\n"
+"PO-Revision-Date: 2015-10-30 04:41+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -127,6 +127,12 @@ msgstr ""
 #. module: l10n_cl_base
 #: field:chilean.base.config.settings,module_l10n_cl_hr_payroll:0
 msgid "Install payroll and AFPs chilean modules"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_account_bank_voucher:0
+msgid "Installs account_bank_voucher, allowing you to reconcile payments\n"
+"to/from partners directly in bank statement."
 msgstr ""
 
 #. module: l10n_cl_base
@@ -265,6 +271,11 @@ msgstr ""
 #. module: l10n_cl_base
 #: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
 msgid "RUT (VAT) Validation"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_account_bank_voucher:0
+msgid "Reconcile payments directly importing vouchers to account bank statement"
 msgstr ""
 
 #. module: l10n_cl_base
