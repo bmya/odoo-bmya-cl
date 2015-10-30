@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Chilean Localization',
+    'name': 'Chile - Localization Installation Wizard',
     'version': '1.0',
     'category': 'Chilean Localization',
     'sequence': 14,
-    'summary': 'localization, chile, configuration',
-    'description': """
+    'summary': 'Localization, Chile, Configuration',
+    'description': """Helps and make you easiest to install
+several options for chilean localization. You can see in a
+single screen, the progress of what is not fully developed yet.
     """,
     'author':  u'Blanco Martín & Asociados',
     'website': 'http://blancomartin.cl',

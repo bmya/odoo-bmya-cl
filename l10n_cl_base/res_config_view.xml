@@ -44,6 +44,13 @@
 									class="oe_inline" />
 								<label for="module_l10n_cl_vat" />
 							</div>
+							<div name='module_l10n_cl_base_rut'
+								attrs="{'invisible':[('module_l10n_cl_vat','=',False)]}">
+								<field name="module_l10n_cl_base_rut"
+									class="oe_inline"/>
+								<label for="module_l10n_cl_base_rut" />
+							</div>
+
 						</div>
 					</group>
 					
@@ -64,7 +71,11 @@
 								<field name="module_l10n_cl_financial_indicators"
 									class="oe_inline" />
 								<label for="module_l10n_cl_financial_indicators" />
-						
+							</div>
+							<div name='module_account_bank_voucher'>
+								<field name="module_account_bank_voucher"
+									class="oe_inline" />
+								<label for="module_account_bank_voucher" />
 							</div>
 						</div>
 					</group>
@@ -141,16 +152,16 @@
 						<label for="id" string="Payroll" />
 						<div name="payroll">
 							<div name='module_l10n_cl_hr_payroll'>
-								<field name="module_l10n_cl_hr_payroll" class="oe_inline" readonly="1" />
+								<field name="module_l10n_cl_hr_payroll" class="oe_inline" />
 								<label for="module_l10n_cl_hr_payroll" />
 							</div>
-							<div name='module_l10n_cl_hr_previred'>
+							<div name='module_l10n_cl_hr_previred' attrs="{'invisible':[('module_l10n_cl_hr_payroll','=',False)]}">
 								<field name="module_l10n_cl_hr_previred" class="oe_inline" readonly="1" />
 								<label for="module_l10n_cl_hr_previred" />
 							</div>
 						</div>
-						<label for="id" string="Send Files to Previred" />
-						<div name="senttoprevired">
+						<label for="id" string="Send Files to Previred" attrs="{'invisible':[('module_l10n_cl_hr_payroll','=',False)]}"/>
+						<div name="senttoprevired" attrs="{'invisible':[('module_l10n_cl_hr_payroll','=',False)]}">
 							<div name='module_l10n_cl_hr_send_to_previred'>
 								<field name="module_l10n_cl_hr_send_to_previred" class="oe_inline" readonly="1" />
 								<label for="module_l10n_cl_hr_send_to_previred" />

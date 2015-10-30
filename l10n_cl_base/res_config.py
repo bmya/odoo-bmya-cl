@@ -21,6 +21,11 @@ banks, and financial institutions in Chile.""")
         help="""Installs module l10n_cl_financial_indicators, allowing to
 update indicators daily, from SBIF.""")
 
+    module_account_bank_voucher = fields.Boolean(
+        'Reconcile payments directly importing vouchers to account bank statement',
+        help="""Installs account_bank_voucher, allowing you to reconcile payments
+to/from partners directly in bank statement.""")
+
     module_l10n_cl_invoice = fields.Boolean(
         'Allows to have your stubs presented to the same sales journal',
         help="""Installs l10n_cl_invoice Link your invoicing, picking and
@@ -66,7 +71,8 @@ activities table and allows you to select the activity when invoicing.""")
 
     module_l10n_cl_hr_payroll = fields.Boolean(
         'Install payroll and AFPs chilean modules',
-        help="""Install l10n_cl_hr_payroll for payroll and AFPs chilean modules""")
+        help="""Install l10n_cl_hr_payroll for payroll and AFPs chilean
+modules""")
 
     module_l10n_cl_hr_previred = fields.Boolean(
         'Update Previred\'s Monthly indexes',
@@ -90,5 +96,7 @@ includes all chilean counties to partners.""")
     module_l10n_cl_vat = fields.Boolean(
         'Validate Chilean VAT (RUT)', help="""Installs l10n_cl_vat and
 dependencies in order to have the RUT validated correctly.""")
-
+    module_l10n_cl_base_rut = fields.Boolean(
+        'Format RUT to 99.999.999-X', help="""Installs l10n_cl_base_rut
+to have the RUT formatted correctly.""")
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
