@@ -19,7 +19,7 @@ class res_partner(models.Model):
     def onchange_document(self):
         mod_obj = self.env['ir.model.data']
         if self.document_number and (('sii.document_type', self.document_type_id.id) == mod_obj.get_object_reference('l10n_cl_invoice', 'dt_RUT') or ('sii.document_type', self.document_type_id.id) == mod_obj.get_object_reference('l10n_cl_invoice', 'dt_RUN')):
-            document_number = re.sub('[^1234567890]', '', str(self.document_number))
+            document_number = (re.sub('[^1234567890]', '', str(self.document_number))).zfill(9)
             self.vat = 'CL%s' % document_number
             self.document_number = document_number[0:2] + '.' + document_number[2:5] + '.' + document_number[5:8] +'-' + document_number[-1]
             
