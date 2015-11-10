@@ -21,6 +21,11 @@ banks, and financial institutions in Chile.""")
         help="""Installs module l10n_cl_financial_indicators, allowing to
 update indicators daily, from SBIF.""")
 
+    module_l10n_cl_account_vat_ledger = fields.Boolean(
+        'Install VAT Ledger',
+        help="""Installs module l10n_cl_account_vat_ledger, allowing to
+export sales and purchases VAT ledger in XLS format. Requires Aeroo Reports.""")
+
     module_account_bank_voucher = fields.Boolean(
         'Reconcile payments directly importing vouchers to account bank statement',
         help="""Installs account_bank_voucher, allowing you to reconcile payments
