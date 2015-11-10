@@ -77,6 +77,11 @@
 									class="oe_inline" />
 								<label for="module_account_bank_voucher" />
 							</div>
+							<div name='module_l10n_cl_account_vat_ledger'>
+								<field name="module_l10n_cl_account_vat_ledger"
+									class="oe_inline" />
+								<label for="module_l10n_cl_account_vat_ledger" />
+							</div>
 						</div>
 					</group>
 					<separator string="Purchases" />

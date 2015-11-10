@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0-20150904\n"
+"Project-Id-Version: Odoo Server 8.0-20151008\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-30 04:41+0000\n"
-"PO-Revision-Date: 2015-10-30 01:47-0300\n"
+"POT-Creation-Date: 2015-11-10 04:45+0000\n"
+"PO-Revision-Date: 2015-11-10 01:47-0300\n"
 "Last-Translator: Daniel Blanco - Blanco Martín & Asociados "
 "<daniel@blancomartin.cl>\n"
 "Language-Team: Blanco Martín & Asociados <info@blancomartin.cl>\n"
@@ -149,6 +149,12 @@ msgid "Include Partner's turn"
 msgstr "Incluir el Giro de Los Clientes/Proveedores"
 
 #. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_account_vat_ledger:0
+#, fuzzy
+msgid "Install VAT Ledger"
+msgstr "Libro de IVA"
+
+#. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_hr_payroll:0
 #, fuzzy
 msgid ""
@@ -168,6 +174,7 @@ msgstr ""
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_account_bank_voucher:0
+#, fuzzy
 msgid ""
 "Installs account_bank_voucher, allowing you to reconcile payments\n"
 "to/from partners directly in bank statement."
@@ -270,6 +277,15 @@ msgid ""
 msgstr ""
 "Instala l10n_cl_vat y sus\n"
 "dependencias, para tener el RUT validado correctamente."
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_account_vat_ledger:0
+msgid ""
+"Installs module l10n_cl_account_vat_ledger, allowing to\n"
+"export sales and purchases VAT ledger in XLS format. Requires Aeroo Reports."
+msgstr ""
+"Instala el módulo l10n_cl_account_vat_ledger, que permite exportar el libro "
+"de compras y ventas (IVA) en formato XLS. Requiere Aeroo Reports."
 
 #. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_banks_sbif:0
@@ -394,6 +410,7 @@ msgstr "Validación de RUT (VAT)"
 
 #. module: l10n_cl_base
 #: field:chilean.base.config.settings,module_account_bank_voucher:0
+#, fuzzy
 msgid ""
 "Reconcile payments directly importing vouchers to account bank statement"
 msgstr "Conciliar comprobantes de  Ingresos y Egresos con su cartola bancaria"

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0-20150904\n"
+"Project-Id-Version: Odoo Server 8.0-20151008\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-30 04:41+0000\n"
-"PO-Revision-Date: 2015-10-30 04:41+0000\n"
+"POT-Creation-Date: 2015-11-10 04:45+0000\n"
+"PO-Revision-Date: 2015-11-10 04:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -119,6 +119,11 @@ msgid "Include Partner's turn"
 msgstr ""
 
 #. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_account_vat_ledger:0
+msgid "Install VAT Ledger"
+msgstr ""
+
+#. module: l10n_cl_base
 #: help:chilean.base.config.settings,module_l10n_cl_hr_payroll:0
 msgid "Install l10n_cl_hr_payroll for payroll and AFPs chilean\n"
 "modules"
@@ -184,6 +189,12 @@ msgstr ""
 #: help:chilean.base.config.settings,module_l10n_cl_vat:0
 msgid "Installs l10n_cl_vat and\n"
 "dependencies in order to have the RUT validated correctly."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_account_vat_ledger:0
+msgid "Installs module l10n_cl_account_vat_ledger, allowing to\n"
+"export sales and purchases VAT ledger in XLS format. Requires Aeroo Reports."
 msgstr ""
 
 #. module: l10n_cl_base
