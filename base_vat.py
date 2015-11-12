@@ -11,7 +11,7 @@ class res_partner(models.Model):
         store=True, help='Show formatted vat')
 
     @api.depends('vat')
-    def _get_f_vat(self, vat):
+    def _get_f_vat(self):
         """
         Retorna el RUT formateado en forma acostumbrada (xx.xxx.xxx-x).
         """
