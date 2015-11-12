@@ -6,9 +6,10 @@
     'website': 'https://blancomartin.cl',
     'description': '''Allows you to change the Favicon,
 from both sides, website, and web''',
-    'depends': ['website'],
+    'depends': ['website','bmya_base_setup'],
     'data': [
         'views.xml',
         ],
-    'installable': True
+    'installable': True,
+    ''
 }
