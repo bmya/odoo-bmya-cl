@@ -18,7 +18,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
     'name': 'Payroll Analytic Accounting',
     'version': '1.0',
@@ -30,10 +29,14 @@ Payroll Analytic Accounting.
     
     """,
     'category': 'Accounting',
-    'author': u'Blanco Martin & Asociados - Nelson Ramírez Sánchez',
+    'author': 'Blanco Martín & Asociados - Nelson Ramírez Sánchez',
     'website': 'http://blancomartin.cl',
-    'depends': ['hr_payroll_account','account_analytic_analysis'],
-    'data': ['hr_payroll_analytic_account_view.xml'],
+    'depends': [
+        'hr_payroll_account','account_analytic_analysis'
+    ],
+    'data': [
+        'hr_payroll_analytic_account_view.xml'
+    ],
     'installable': True,
     'auto_install': False,
 }
