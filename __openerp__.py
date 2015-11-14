@@ -20,26 +20,26 @@
 #
 ##############################################################################
 {
-    'name': 'Chile Localization Chart Account BMYA',
-    'author': 'Blanco Martin & Asociados - Nelson RamÌrez S·nchez',
+    'name': 'Chile Localization Chart Account BMyA',
+    'author': u'Blanco Martin & Asociados - Nelson Ram√≠rez S√°nchez - Daniel Blanco',
     'website': 'http://blancomartin.cl',
-    'depends': ['hr_payroll'],
+    'depends': ['account_chart'],
     'version': '1.0',
 
     'description': """
 Chilean accounting chart and tax localization.
 ==============================================
-Plan contable chileno e impuestos de acuerdo a disposiciones vigentes
-
-    """,
-    
+Plan contable chileno e impuestos de acuerdo a disposiciones vigentes,
+basado en plan de cuentas de Superintendencia de Valores y Seguros de
+Chile, con algunas cuentas agregadas en base a experiencias de
+implementaci√≥n
+    """,   
     'category': 'Localization/Account Charts',
-    'depends': ['account_chart'],
     'data': [
-        'account_tax_code.xml',
-        'l10n_cl_bmya_chart.xml',
-        'account_tax.xml',
-        'l10n_cl_bmya_wizard.xml',
+        'data/l10n_cl_bmya_wizard.xml',
+        'data/account_tax_code.xml',
+        'data/l10n_cl_chart_svs.xml',
+        'data/account_tax.xml',
     ],
     'demo': [],
     'active': False,
