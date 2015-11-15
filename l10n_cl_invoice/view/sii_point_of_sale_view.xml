@@ -38,7 +38,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Point Of Sales" action="act_sii_point_of_sale" id="menu_action_sii_point_of_sale" parent="menu_sii_config"/>
+        <menuitem name="Point Of Sales" action="act_sii_point_of_sale" id="menu_action_sii_point_of_sale" parent="l10n_cl_partner_activities.menu_sii_config"/>
 
     </data>
 </openerp>

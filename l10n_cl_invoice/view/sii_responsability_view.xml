@@ -38,7 +38,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Responsabilities" action="act_sii_responsability" id="menu_action_sii_responsability" parent="menu_sii_config"/>
+        <menuitem name="Responsabilities" action="act_sii_responsability" id="menu_action_sii_responsability" parent="l10n_cl_partner_activities.menu_sii_config"/>
 
     </data>
 </openerp>
