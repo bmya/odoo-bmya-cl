@@ -25,7 +25,7 @@
     'website': 'http://blancomartin.cl',
     'depends': ['account_chart'],
     'version': '1.0',
-
+    'category': 'Localization/Chile',
     'description': """
 Chilean accounting chart and tax localization.
 ==============================================
