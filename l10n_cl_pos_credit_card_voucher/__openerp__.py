@@ -12,4 +12,5 @@
     'qweb': ['static/src/xml/pos_cc_voucher.xml'],
     'demo': [],
     'installable': True,
+    'category': 'Localization/Chile',
 }

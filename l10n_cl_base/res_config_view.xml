@@ -62,6 +62,14 @@
 						<!-- module_decimal_precision_currency -->
 
 						<div name="finance">
+
+							<div name='module_l10n_cl_chart'>
+								<field name="module_l10n_cl_chart"
+									class="oe_inline" />
+								<label for="module_l10n_cl_chart" />
+							</div>
+							
+							
 							<div name='module_l10n_cl_banks_sbif'>
 								<field name="module_l10n_cl_banks_sbif"
 									class="oe_inline" />
@@ -114,7 +122,7 @@
 								<label for="module_l10n_cl_invoice" />
 							</div>
 							<div name='module_l10n_cl_credit_card_voucher'>
-								<field name="module_l10n_cl_credit_card_voucher" class="oe_inline" readonly="1"/>
+								<field name="module_l10n_cl_credit_card_voucher" class="oe_inline" />
 								<label for="module_l10n_cl_credit_card_voucher" />
 							</div>
 							<div name='module_l10n_cl_wssii_fe'>
