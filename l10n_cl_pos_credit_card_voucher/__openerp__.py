@@ -1,5 +1,5 @@
 {
-    'name': "Point of sale - credit card voucher",
+    'name': "Chilean Localization - Point of sale credit card voucher",
     'version': "1.0",
     'author': "Daniel Blanco Martin - Blanco Martín & Asociados",
     'website': "http://blancomartin.cl",
