@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="Paymentline">
+        <t t-jquery=".paymentline-delete" t-operation="after">
+            <t t-if="line.cashregister.journal.add_credit_card_voucher_number">
+                <div class="paymentlineCCV-lable">Credit Card Voucher</div>
+                <input class="paymentlineCCV-input" type="text" t-att-value="line.get_ccvoucher()"/>
+            </t>
+        </t>
+    </t>
+
+</templates>
