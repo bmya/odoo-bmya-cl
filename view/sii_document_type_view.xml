@@ -38,7 +38,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Document Types" action="act_sii_document_type" id="menu_action_sii_document_type" parent="menu_sii_config"/>
+        <menuitem name="Document Types" action="act_sii_document_type" id="menu_action_sii_document_type" parent="l10n_cl_partner_activities.menu_sii_config"/>
 
     </data>
 </openerp>

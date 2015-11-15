@@ -45,7 +45,7 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem name="Document Classes" action="act_sii_document_class" id="menu_action_sii_document_class" parent="menu_sii_config"/>
+        <menuitem name="Document Classes" action="act_sii_document_class" id="menu_action_sii_document_class" parent="l10n_cl_partner_activities.menu_sii_config"/>
 
     </data>
 </openerp>
