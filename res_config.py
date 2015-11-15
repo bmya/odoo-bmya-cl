@@ -16,6 +16,11 @@ class chilean_base_configuration(models.TransientModel):
         help="""Installs module l10n_cl_banks_sbif, and includes authorized
 banks, and financial institutions in Chile.""")
 
+    module_l10n_cl_chart = fields.Boolean(
+        'Install Chilean Accounting Plan',
+        help="""Installs module l10n_cl_chart, allowing to
+choose different account options.""")
+
     module_l10n_cl_financial_indicators = fields.Boolean(
         'Update UF, UTM, Dollar and Euro automatically',
         help="""Installs module l10n_cl_financial_indicators, allowing to
