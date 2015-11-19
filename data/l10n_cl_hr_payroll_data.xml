@@ -216,21 +216,10 @@
             <field name="category_id" ref="BASIC"/>						
             <field name="condition_select">none</field>						
             <field name="amount_select">code</field>						
-            <field name="amount_python_compute">dias = 0 						
-try: 						
- dias = worked_days.Licencia.number_of_days 						
-except: 						
- dias = 0.0						
-						
-try: 						
- dias = dias +  worked_days.Falta.number_of_days						
-except: 						
- dias = dias
-
-if worked_days.WORK100.number_of_days > 30:
- dias= 30 - dias	
+            <field name="amount_python_compute">if worked_days.WORK100.number_of_days > 30:
+ dias= 30	
 else:
- dias= worked_days.WORK100.number_of_days - dias	
+ dias= worked_days.WORK100.number_of_days
 						
 result = round((contract.wage / 30) * dias)</field>						
         </record>						
@@ -273,21 +262,10 @@ else:
             <field name="condition_select">python</field>						
             <field name="condition_python">result = contract.otros_imp > 0</field>						
             <field name="amount_select">code</field>						
-            <field name="amount_python_compute">dias = 0 						
-try: 						
- dias = worked_days.Licencia.number_of_days 						
-except: 						
- dias = 0.0						
-						
-try: 						
- dias = dias +  worked_days.Falta.number_of_days						
-except: 						
- dias = dias
-
-if worked_days.WORK100.number_of_days > 30:
- dias= 30 - dias	
+            <field name="amount_python_compute">if worked_days.WORK100.number_of_days > 30:
+ dias= 30	
 else:
- dias= worked_days.WORK100.number_of_days - dias
+ dias= worked_days.WORK100.number_of_days
 
 result = (contract.otros_imp * dias)/30</field>						
         </record>						
@@ -332,31 +310,17 @@ result = (contract.otros_imp * dias)/30</field>
             <field name="condition_select">python</field>
             <field name="condition_python">result = (contract.carga_familiar != 0) &amp; (payslip.indicadores_id.asignacion_familiar_tercer >= contract.wage) &amp; (contract.pension is False)</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">dias = 0 						
-try: 						
- dias = worked_days.Licencia.number_of_days 						
-except: 						
- dias = 0.0						
-						
-try: 						
- dias = dias +  worked_days.Falta.number_of_days						
-except: 						
- dias = dias
-
-if worked_days.WORK100.number_of_days > 30:
- dias= 30 - dias	
+            <field name="amount_python_compute">if worked_days.WORK100.number_of_days > 25:
+ dias= 30	
 else:
- dias= worked_days.WORK100.number_of_days - dias					
-		
-if dias > 25:
-    dias = 0			
+ dias= worked_days.WORK100.number_of_days
 
 if payslip.indicadores_id.asignacion_familiar_primer >= BASIC:
-    result = round(((payslip.indicadores_id.asignacion_familiar_monto_a*contract.carga_familiar) / 30) * (30 - dias))
+    result = round(((payslip.indicadores_id.asignacion_familiar_monto_a*contract.carga_familiar) / 30) * (dias))
 elif payslip.indicadores_id.asignacion_familiar_segundo  >= BASIC:
-    result = round(((payslip.indicadores_id.asignacion_familiar_monto_b*contract.carga_familiar) / 30) * (30 - dias))
+    result = round(((payslip.indicadores_id.asignacion_familiar_monto_b*contract.carga_familiar) / 30) * (dias))
 elif payslip.indicadores_id.asignacion_familiar_tercer  >= BASIC:
-    result = round(((payslip.indicadores_id.asignacion_familiar_monto_c*contract.carga_familiar) / 30) * (30 - dias))</field>
+    result = round(((payslip.indicadores_id.asignacion_familiar_monto_c*contract.carga_familiar) / 30) * (dias))</field>
         </record>
 			
         <record id="hr_rule_9" model="hr.salary.rule">
@@ -367,23 +331,12 @@ elif payslip.indicadores_id.asignacion_familiar_tercer  >= BASIC:
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.colacion > 0</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">dias = 0 						
-try: 						
- dias = worked_days.Licencia.number_of_days 						
-except: 						
- dias = 0.0						
-						
-try: 						
- dias = dias +  worked_days.Falta.number_of_days						
-except: 						
- dias = dias
-
-if worked_days.WORK100.number_of_days > 30:
- dias= 30 - dias	
+            <field name="amount_python_compute">if worked_days.WORK100.number_of_days > 30:
+ dias= 30	
 else:
- dias= worked_days.WORK100.number_of_days - dias	
+ dias= worked_days.WORK100.number_of_days
 result = round(dias * contract.colacion / 30)</field>
-            <field name="register_id" ref="contrib_register_previred"/>
+
 
         </record>
 
@@ -395,21 +348,10 @@ result = round(dias * contract.colacion / 30)</field>
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.movilizacion > 0</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">dias = 0 						
-try: 						
- dias = worked_days.Licencia.number_of_days 						
-except: 						
- dias = 0.0						
-						
-try: 						
- dias = dias +  worked_days.Falta.number_of_days						
-except: 						
- dias = dias
-
-if worked_days.WORK100.number_of_days > 30:
- dias= 30 - dias	
+            <field name="amount_python_compute">if worked_days.WORK100.number_of_days > 30:
+ dias= 30	
 else:
- dias= worked_days.WORK100.number_of_days - dias
+ dias= worked_days.WORK100.number_of_days
 
 result = round(dias * contract.movilizacion / 30)</field>
 
@@ -423,21 +365,10 @@ result = round(dias * contract.movilizacion / 30)</field>
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.otro_no_imp > 0</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">dias = 0 						
-try: 						
- dias = worked_days.Licencia.number_of_days 						
-except: 						
- dias = 0.0						
-						
-try: 						
- dias = dias +  worked_days.Falta.number_of_days						
-except: 						
- dias = dias
-
-if worked_days.WORK100.number_of_days > 30:
- dias= 30 - dias	
+            <field name="amount_python_compute">if worked_days.WORK100.number_of_days > 30:
+ dias= 30	
 else:
- dias= worked_days.WORK100.number_of_days - dias
+ dias= worked_days.WORK100.number_of_days
 
 result = round(dias * contract.otro_no_imp / 30)</field>
         </record>
@@ -451,21 +382,10 @@ result = round(dias * contract.otro_no_imp / 30)</field>
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.viatico_santiago > 0</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">dias = 0 						
-try: 						
- dias = worked_days.Licencia.number_of_days 						
-except: 						
- dias = 0.0						
-						
-try: 						
- dias = dias +  worked_days.Falta.number_of_days						
-except: 						
- dias = dias
-
-if worked_days.WORK100.number_of_days > 30:
- dias= 30 - dias	
+            <field name="amount_python_compute">if worked_days.WORK100.number_of_days > 30:
+ dias= 30	
 else:
- dias= worked_days.WORK100.number_of_days - dias
+ dias= worked_days.WORK100.number_of_days
 
 result = round(dias * contract.viatico_santiago / 30)</field>
         </record>
@@ -582,7 +502,8 @@ else:
             <field name="amount_python_compute">if TOTIM >=round(payslip.indicadores_id.tope_imponible_afp*payslip.indicadores_id.uf):
     result = round(payslip.indicadores_id.tope_imponible_afp*payslip.indicadores_id.uf) * payslip.indicadores_id.mutual_seguridad /100
 else:
-    result = round(round(TOTIM)*payslip.indicadores_id.mutual_seguridad /100)</field>						
+    result = round(round(TOTIM)*payslip.indicadores_id.mutual_seguridad /100)</field>
+            <field name="register_id" ref="contrib_register_previred"/>						
         </record>
 
         <record id="hr_rule_20" model="hr.salary.rule">
