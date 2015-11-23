@@ -101,7 +101,7 @@
 						<div class="oe_title">
 						<h3>MUTUAL SEGURIDAD</h3></div>
 						    <group col="2">
-							<field name="tope_imponible_salud" digits="(14, 5)"> </field>
+							<field name="tope_imponible_salud" digits="(4, 3)"> </field>
 							<field name="mutual_seguridad"> </field>
 						    </group>
 					    </td>
