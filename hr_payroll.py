@@ -118,17 +118,17 @@ class hr_indicadores_previsionales(models.Model):
     tasa_independiente_modelo = fields.Float(
         'SIS', digits=(16, 2), help="Tasa Independientes Modelo")
     tope_anual_apv = fields.Float(
-        'Tope Anual APV', digits=(16, 2), help="Tope Anual APV")
+        'Tope Anual APV', digits=(16, 4), help="Tope Anual APV")
     tope_mensual_apv = fields.Float(
-        'Tope Mensual APV', digits=(16, 2), help="Tope Mensual APV")
+        'Tope Mensual APV', digits=(16, 4), help="Tope Mensual APV")
     tope_imponible_afp = fields.Float(
-        'Tope imponible AFP', digits=(16, 2), help="Tope Imponible AFP")
+        'Tope imponible AFP', digits=(16, 4), help="Tope Imponible AFP")
     tope_imponible_ips = fields.Float(
-        'Tope Imponible IPS', digits=(16, 2), help="Tope Imponible IPS")
+        'Tope Imponible IPS', digits=(16, 4), help="Tope Imponible IPS")
     tope_imponible_salud = fields.Float(
-        'Tope Imponible Salud', digits=(16, 2), help="Tope Imponible Salud")
+        'Tope Imponible Salud', digits=(16, 4), help="Tope Imponible Salud")
     tope_imponible_seguro_cesantia = fields.Float(
-        'Tope Imponible Seguro Cesantia', digits=(16, 2),
+        'Tope Imponible Seguro Cesantia', digits=(16, 4),
         help="Tope Imponible Seguro de Cesantia")
     uf = fields.Float(
         'UF', digits=(16, 2), required=True, help="UF fin de Mes")
