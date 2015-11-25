@@ -468,7 +468,10 @@ else:
             <field name="appears_on_payslip" eval="False"/>						
             <field name="condition_select">none</field>						
             <field name="amount_select">code</field>						
-            <field name="amount_python_compute">if contract.pension is True:
+            <field name="amount_python_compute">if TOTIM >=round(payslip.indicadores_id.tope_imponible_seguro_cesantia*payslip.indicadores_id.uf):
+    TOTIM =round(payslip.indicadores_id.tope_imponible_seguro_cesantia*payslip.indicadores_id.uf)
+
+if contract.pension is True:
     result = 0
 elif contract.type_id.name == 'Plazo Indefinido':
     result = round(TOTIM*2.4/100)
