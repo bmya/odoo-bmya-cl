@@ -126,7 +126,7 @@ class hr_indicadores_previsionales(models.Model):
     tope_imponible_ips = fields.Float(
         'Tope Imponible IPS', digits=(16, 4), help="Tope Imponible IPS")
     tope_imponible_salud = fields.Float(
-        'Tope Imponible Salud', digits=(16, 4), help="Tope Imponible Salud")
+        'Tope Imponible Salud')
     tope_imponible_seguro_cesantia = fields.Float(
         'Tope Imponible Seguro Cesantia', digits=(16, 4),
         help="Tope Imponible Seguro de Cesantia")
