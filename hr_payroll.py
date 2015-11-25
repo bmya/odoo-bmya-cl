@@ -41,102 +41,102 @@ class hr_indicadores_previsionales(models.Model):
 
     name = fields.Char('Nombre', required=True)
     asignacion_familiar_primer = fields.Float(
-        'Asignacion Familiar Tramo 1', digits=(16, 2),
+        'Asignacion Familiar Tramo 1', 
         help="Asig Familiar Primer Tramo")
     asignacion_familiar_segundo = fields.Float(
-        'Asignacion Familiar Tramo 2', digits=(16, 2),
+        'Asignacion Familiar Tramo 2', 
         help="Asig Familiar Segundo Tramo")
     asignacion_familiar_tercer = fields.Float(
-        'Asignacion Familiar Tramo 3', digits=(16, 2),
+        'Asignacion Familiar Tramo 3', 
         help="Asig Familiar Tercer Tramo")
     asignacion_familiar_monto_a = fields.Float(
-        'Monto Tramo Uno', digits=(16, 2), help="Monto A")
+        'Monto Tramo Uno', help="Monto A")
     asignacion_familiar_monto_b = fields.Float(
-        'Monto Tramo Dos', digits=(16, 2), help="Monto B")
+        'Monto Tramo Dos',  help="Monto B")
     asignacion_familiar_monto_c = fields.Float(
-        'Monto Tramo Tres', digits=(16, 2), help="Monto C")
+        'Monto Tramo Tres',  help="Monto C")
     contrato_plazo_fijo_empleador = fields.Float(
-        'Contrato Plazo Fijo Empleador', digits=(16, 2),
+        'Contrato Plazo Fijo Empleador', 
         help="Contrato Plazo Fijo Empleador")
     contrato_plazo_indefinido_empleador = fields.Float(
-        'Contrato Plazo Indefinido Empleador', digits=(16, 2),
+        'Contrato Plazo Indefinido Empleador', 
         help="Contrato Plazo Fijo")
     contrato_plazo_indefinido_empleador_otro = fields.Float(
-        'Contrato Plazo Indefinido 11 anos o mas', digits=(16, 2),
+        'Contrato Plazo Indefinido 11 anos o mas', 
         help="Contrato Plazo Indefinido 11 anos")
     caja_compensacion = fields.Float(
-        'Caja Compensacion Los Andes', digits=(16, 2),
+        'Caja Compensacion Los Andes', 
         help="Caja de Compensacion")
     deposito_convenido = fields.Float(
-        'Deposito Convenido', digits=(16, 2), help="Deposito Convenido")
-    fonasa = fields.Float('Fonasa', digits=(16, 2), help="Fonasa")
+        'Deposito Convenido', help="Deposito Convenido")
+    fonasa = fields.Float('Fonasa',  help="Fonasa")
     mutual_seguridad = fields.Float(
-        'Mutual Seguridad', digits=(16, 2), help="Mutual de Seguridad")
+        'Mutual Seguridad',  help="Mutual de Seguridad")
     pensiones_ips = fields.Float(
-        'Pensiones IPS', digits=(16, 2), help="Pensiones IPS")
+        'Pensiones IPS',  help="Pensiones IPS")
     sueldo_minimo = fields.Float(
-        'Sueldo Minimo', digits=(16, 2), help="Sueldo Minimo")
+        'Sueldo Minimo',  help="Sueldo Minimo")
     sueldo_minimo_otro = fields.Float(
-        'Sueldo Minimo Menores de 18 y Mayores de 65', digits=(16, 2),
+        'Sueldo Minimo Menores de 18 y Mayores de 65', 
         help="Sueldo Minimo para Menores de 18 y Mayores a 65")
     tasa_mutual = fields.Float(
-        'Tasa Mutual', digits=(16, 2), help="Tasa AFP Mutual")
+        'Tasa Mutual', help="Tasa AFP Mutual")
     tasa_afp_cuprum = fields.Float(
-        'Cuprum', digits=(16, 2), help="Tasa AFP Cuprum")
+        'Cuprum',  help="Tasa AFP Cuprum")
     tasa_afp_capital = fields.Float(
-        'Capital', digits=(16, 2), help="Tasa AFP Capital")
+        'Capital',  help="Tasa AFP Capital")
     tasa_afp_provida = fields.Float(
-        'ProVida', digits=(16, 2), help="Tasa AFP Provida")
+        'ProVida',  help="Tasa AFP Provida")
     tasa_afp_modelo = fields.Float(
-        'Modelo', digits=(16, 2), help="Tasa AFP Modelo")
+        'Modelo',  help="Tasa AFP Modelo")
     tasa_afp_planvital = fields.Float(
-        'PlanVital', digits=(16, 2), help="Tasa AFP PlanVital")
+        'PlanVital',  help="Tasa AFP PlanVital")
     tasa_afp_habitat = fields.Float(
-        'Habitat', digits=(16, 2), help="Tasa AFP Habitat")
+        'Habitat',  help="Tasa AFP Habitat")
     tasa_sis_cuprum = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa SIS Cuprum")
+        'SIS', help="Tasa SIS Cuprum")
     tasa_sis_capital = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa SIS Capital")
+        'SIS', help="Tasa SIS Capital")
     tasa_sis_provida = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa SIS Provida")
+        'SIS',  help="Tasa SIS Provida")
     tasa_sis_planvital = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa SIS PlanVital")
+        'SIS',  help="Tasa SIS PlanVital")
     tasa_sis_habitat = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa SIS Habitat")
+        'SIS',  help="Tasa SIS Habitat")
     tasa_sis_modelo = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa SIS Modelo")
+        'SIS',  help="Tasa SIS Modelo")
     tasa_independiente_cuprum = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa Independientes Cuprum")
+        'SIS',  help="Tasa Independientes Cuprum")
     tasa_independiente_capital = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa Independientes Capital")
+        'SIS',  help="Tasa Independientes Capital")
     tasa_independiente_provida = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa Independientes Provida")
+        'SIS',  help="Tasa Independientes Provida")
     tasa_independiente_planvital = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa Independientes PlanVital")
+        'SIS',  help="Tasa Independientes PlanVital")
     tasa_independiente_habitat = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa Independientes Habitat")
+        'SIS',  help="Tasa Independientes Habitat")
     tasa_independiente_modelo = fields.Float(
-        'SIS', digits=(16, 2), help="Tasa Independientes Modelo")
+        'SIS',  help="Tasa Independientes Modelo")
     tope_anual_apv = fields.Float(
-        'Tope Anual APV', digits=(16, 4), help="Tope Anual APV")
+        'Tope Anual APV',  help="Tope Anual APV")
     tope_mensual_apv = fields.Float(
-        'Tope Mensual APV', digits=(16, 4), help="Tope Mensual APV")
+        'Tope Mensual APV',  help="Tope Mensual APV")
     tope_imponible_afp = fields.Float(
-        'Tope imponible AFP', digits=(16, 4), help="Tope Imponible AFP")
+        'Tope imponible AFP',  help="Tope Imponible AFP")
     tope_imponible_ips = fields.Float(
-        'Tope Imponible IPS', digits=(16, 4), help="Tope Imponible IPS")
+        'Tope Imponible IPS',  help="Tope Imponible IPS")
     tope_imponible_salud = fields.Float(
         'Tope Imponible Salud')
     tope_imponible_seguro_cesantia = fields.Float(
-        'Tope Imponible Seguro Cesantia', digits=(16, 4),
+        'Tope Imponible Seguro Cesantia', 
         help="Tope Imponible Seguro de Cesantia")
     uf = fields.Float(
-        'UF', digits=(16, 2), required=True, help="UF fin de Mes")
+        'UF',  required=True, help="UF fin de Mes")
     utm = fields.Float(
-        'UTM', digits=(16, 2), required=True, help="UTM Fin de Mes")
-    uta = fields.Float('UTA', digits=(16, 2), help="UTA Fin de Mes")
+        'UTM',  required=True, help="UTM Fin de Mes")
+    uta = fields.Float('UTA',  help="UTA Fin de Mes")
     uf_otros = fields.Float(
-        'UF Otros', digits=(16, 2), help="UF Seguro Complementario")
+        'UF Otros',  help="UF Seguro Complementario")
 
 
 class hr_payslip(models.Model):
@@ -207,7 +207,7 @@ class hr_contract(models.Model):
     colacion = fields.Float('Colacion', help="Colacion")
     isapre_id = fields.Many2one('hr.isapre', 'ISAPRE')
     isapre_cotizacion_uf = fields.Float(
-        'Cotizacion UF', digits=(16, 2), help="Cotizacion Pactada en UF")
+        'Cotizacion UF',  help="Cotizacion Pactada en UF")
     movilizacion = fields.Float(
         'Movilizacion', help="Movilizacion")
     mutual_seguridad = fields.Boolean('Mutual Seguridad')
@@ -219,9 +219,9 @@ class hr_contract(models.Model):
     # seguro_complementario_id = fields.Many2one('hr.seguro.complementario',
     #    'Seguro Complementario')
     seguro_complementario_cotizacion_uf = fields.Float(
-        'Cotizacion UF', digits=(16, 2), help="Cotizacion Pactada en UF")
+        'Cotizacion UF',  help="Cotizacion Pactada en UF")
     viatico_santiago = fields.Float(
-        'Viatico Santiago', digits=(16, 2), help="Viatico Santiago")
+        'Viatico Santiago',  help="Viatico Santiago")
 
 
 class hr_type_employee(models.Model):
