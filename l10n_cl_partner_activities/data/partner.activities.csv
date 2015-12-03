@@ -1,0 +1,852 @@
+"id","parent_id:id","code","name","vat_affected","tax_category","internet_available"
+"eco_acti_01",,"01","Agricultura, Ganadería, Caza y Silvicultura","ND",1,0
+"eco_acti_05",,"05","Pesca","ND",1,0
+"eco_acti_10",,"10","Explotación de Minas y Canteras","ND",1,0
+"eco_acti_15",,"15","Industrias Manufactureras No Metálicas","ND",1,0
+"eco_acti_27",,"27","Industrias Manufactureras Metálicas","ND",1,0
+"eco_acti_40",,"40","Suministro de Electricidad, Gas y Agua","ND",1,0
+"eco_acti_45",,"45","Construcción","ND",1,0
+"eco_acti_50",,"50","Comercio al Por Mayor y Menor; Rep. Vehículos Automotores/Enseres Domésticos","ND",1,0
+"eco_acti_55",,"55","Hoteles y Restaurantes","ND",1,0
+"eco_acti_60",,"60","Transporte, Almacenamiento y Comunicaciones","ND",1,0
+"eco_acti_65",,"65","Intermediación Financiera","ND",1,0
+"eco_acti_70",,"70","Actividades Inmobiliarias, Empresariales y de Alquiler","ND",1,0
+"eco_acti_75",,"75","Adm. Pública y Defensa; Planes de Seg. Social, Afiliación Obligatoria","ND",1,0
+"eco_acti_80",,"80","Enseñanza","ND",1,0
+"eco_acti_85",,"85","Servicios Sociales y de Salud","ND",1,0
+"eco_acti_90",,"90","Otras Actividades de Servicios Comunitarias, Sociales y Personales","ND",1,0
+"eco_acti_95",,"95","Consejo de Administración de Edificios y Condominios","ND",1,0
+"eco_acti_99",,"99","Organizaciones y Órganos Extraterritoriales","ND",1,0
+"eco_acti_011","eco_acti_01","011","Cultivos En General; Cultivo de Productos de Mercado; Horticultura","ND",1,0
+"eco_acti_012","eco_acti_01","012","Cría de Animales","ND",1,0
+"eco_acti_013","eco_acti_01","013","Cultivo Prod. Agrícolas En Combinación Con Cría de Animales","ND",1,0
+"eco_acti_014","eco_acti_01","014","Actividades de Servicios Agrícolas y Ganaderos","ND",1,0
+"eco_acti_015","eco_acti_01","015","Caza Ordinaria y Mediante Trampas, Repoblación, Act. Servicio Conexas","ND",1,0
+"eco_acti_020","eco_acti_01","020","Silvicultura, Extracción de Madera y Actividades de Servicios Conexas","ND",1,0
+"eco_acti_051","eco_acti_05","051","Explt. de Criaderos de Peces y Prod. Del Mar; Servicios Relacionados","ND",1,0
+"eco_acti_052","eco_acti_05","052","Pesca Extractiva: y Servicios Relacionados","ND",1,0
+"eco_acti_100","eco_acti_10","100","Extracción, Aglomeración de Carbón de Piedra, Lignito y Turba","ND",1,0
+"eco_acti_111","eco_acti_10","111","Extracción de Petróleo Crudo y Gas Natural; Actividades Relacionadas","ND",1,0
+"eco_acti_112","eco_acti_10","112","Extracción de Minerales Metalíferos","ND",1,0
+"eco_acti_14","eco_acti_10","14","Explotación de Minas y Canteras","ND",1,0
+"eco_acti_151","eco_acti_15","151","Producción, Procesamiento y Conservación de Alimentos","ND",1,0
+"eco_acti_152","eco_acti_15","152","Elaboración de Productos Lácteos","ND",1,0
+"eco_acti_153","eco_acti_15","153","Elab. de Prod. de Molinería, Almidones y Prod. Derivados Del Almidón","ND",1,0
+"eco_acti_154","eco_acti_15","154","Elaboración de Otros Productos Alimenticios","ND",1,0
+"eco_acti_155","eco_acti_15","155","Elaboración de Bebidas","ND",1,0
+"eco_acti_16","eco_acti_15","16","Elaboración de Productos Del Tabaco","ND",1,0
+"eco_acti_171","eco_acti_15","171","Hilandería, Tejedura y Acabado de Productos Textiles","ND",1,0
+"eco_acti_172","eco_acti_15","172","Fabricación de Otros Productos Textiles","ND",1,0
+"eco_acti_173","eco_acti_15","173","Fabricación de Tejidos y Artículos de Punto y Ganchillo","ND",1,0
+"eco_acti_181","eco_acti_15","181","Fabricación de Prendas de Vestir; Excepto Prendas de Piel","ND",1,0
+"eco_acti_182","eco_acti_15","182","Procesamiento y Fabricación de Artículos de Piel y Cuero","ND",1,0
+"eco_acti_192","eco_acti_15","192","Fabricación de Calzado","ND",1,0
+"eco_acti_201","eco_acti_15","201","Aserrado y Acepilladura de Maderas","ND",1,0
+"eco_acti_202","eco_acti_15","202","Fab. de Productos de Madera y Corcho,  Paja y de Materiales Trenzables","ND",1,0
+"eco_acti_210","eco_acti_15","210","Fabricación de Papel y Productos Del Papel","ND",1,0
+"eco_acti_221","eco_acti_15","221","Actividades de Edición","ND",1,0
+"eco_acti_222","eco_acti_15","222","Actividades de Impresión y de Servicios Conexos","ND",1,0
+"eco_acti_23","eco_acti_15","23","Fabricación de Productos de Hornos Coque y de Refinación de Petróleo","ND",1,0
+"eco_acti_233","eco_acti_15","233","Elaboración de Combustible Nuclear","ND",1,0
+"eco_acti_241","eco_acti_15","241","Fabricación de Sustancias Químicas Básicas","ND",1,0
+"eco_acti_242","eco_acti_15","242","Fabricación de Otros Productos Químicos","ND",1,0
+"eco_acti_243","eco_acti_15","243","Fabricación de Fibras Manufacturadas","ND",1,0
+"eco_acti_251","eco_acti_15","251","Fabricación de Productos de Caucho","ND",1,0
+"eco_acti_252","eco_acti_15","252","Fabricación de Productos de Plástico","ND",1,0
+"eco_acti_261","eco_acti_15","261","Fabricación de Vidrios y Productos de Vidrio","ND",1,0
+"eco_acti_269","eco_acti_15","269","Fabricación de Productos Minerales No Metálicos N.C.P.","ND",1,0
+"eco_acti_271","eco_acti_27","271","Industrias Básicas de Hierro y Acero","ND",1,0
+"eco_acti_272","eco_acti_27","272","Fab. de Productos Primarios de Metales Preciosos y Metales No Ferrosos","ND",1,0
+"eco_acti_273","eco_acti_27","273","Fundición de Metales","ND",1,0
+"eco_acti_281","eco_acti_27","281","Fab. de Prod. Metálicos Para Uso Estructural","ND",1,0
+"eco_acti_289","eco_acti_27","289","Fab. de Otros Prod. Elaborados de Metal; Act. de Trabajo de Metales","ND",1,0
+"eco_acti_291","eco_acti_27","291","Fabricación de Maquinaria de Uso General","ND",1,0
+"eco_acti_292","eco_acti_27","292","Fabricación de Maquinaria de Uso Especial","ND",1,0
+"eco_acti_293","eco_acti_27","293","Fabricación de Aparatos de Uso Doméstico N.C.P.","ND",1,0
+"eco_acti_300","eco_acti_27","300","Fabricación de Maquinaria de Oficina, Contabilidad E Informática","ND",1,0
+"eco_acti_311","eco_acti_27","311","Fab. y Reparación de Motores, Generadores y Transformadores Eléctricos","ND",1,0
+"eco_acti_312","eco_acti_27","312","Fabricación de Aparatos de Distribución y Control; Sus Reparaciones","ND",1,0
+"eco_acti_313","eco_acti_27","313","Fabricación de Hilos y Cables Aislados","ND",1,0
+"eco_acti_314","eco_acti_27","314","Fabricación de Acumuladores de Pilas y Baterías Primarias","ND",1,0
+"eco_acti_315","eco_acti_27","315","Fabricación y Reparación de Lámparas y Equipo de Iluminación","ND",1,0
+"eco_acti_319","eco_acti_27","319","Fabricación y Reparación de Otros Tipos de Equipo Eléctrico N.C.P.","ND",1,0
+"eco_acti_321","eco_acti_27","321","Fabricación de Componentes Electrónicos; Sus Reparaciones","ND",1,0
+"eco_acti_322","eco_acti_27","322","Fab. y Reparación de Transmisores de Radio, Televisión, Telefonía","ND",1,0
+"eco_acti_323","eco_acti_27","323","Fab. de Receptores de Radio, Televisión, Aparatos de Audio/Vídeo","ND",1,0
+"eco_acti_331","eco_acti_27","331","Fab. de Aparatos E Instrumentos Médicos y Para Realizar Mediciones","ND",1,0
+"eco_acti_332","eco_acti_27","332","Fab. y Reparación de Instrumentos de Óptica y Equipo Fotográfico","ND",1,0
+"eco_acti_333","eco_acti_27","333","Fabricación de Relojes","ND",1,0
+"eco_acti_34","eco_acti_27","34","Fabricación de Vehículos Automotores","ND",1,0
+"eco_acti_351","eco_acti_27","351","Construcción y Reparación de Buques y Otras Embarcaciones","ND",1,0
+"eco_acti_352","eco_acti_27","352","Fab. de Locomotoras y Material Rodante Para Ferrocarriles y Tranvías","ND",1,0
+"eco_acti_353","eco_acti_27","353","Fabricación de Aeronaves y Naves Espaciales; Sus Reparaciones","ND",1,0
+"eco_acti_359","eco_acti_27","359","Fabricación de Otros Tipos de Equipo de Transporte N.C.P.","ND",1,0
+"eco_acti_361","eco_acti_27","361","Fabricación de Muebles","ND",1,0
+"eco_acti_369","eco_acti_27","369","Industrias Manufactureras N.C.P.","ND",1,0
+"eco_acti_37","eco_acti_27","37","Reciclamiento de Desperdicios y Desechos","ND",1,0
+"eco_acti_401","eco_acti_40","401","Generación, Captación y Distribución de Energía Eléctrica","ND",1,0
+"eco_acti_402","eco_acti_40","402","Fabricación de Gas; Distribución de Combustibles Gaseosos Por Tuberías","ND",1,0
+"eco_acti_403","eco_acti_40","403","Suministro de Vapor y Agua Caliente","ND",1,0
+"eco_acti_410","eco_acti_40","410","Captación, Depuración y Distribución de Agua","ND",1,0
+"eco_acti_450","eco_acti_45","450","Construcción","ND",1,0
+"eco_acti_501","eco_acti_50","501","Venta de Vehículos Automotores","ND",1,0
+"eco_acti_502","eco_acti_50","502","Mantenimiento y Reparación de Vehículos Automotores","ND",1,0
+"eco_acti_503","eco_acti_50","503","Venta de Partes, Piezas y Accesorios de Vehículos Automotores","ND",1,0
+"eco_acti_504","eco_acti_50","504","Venta, Mantenimiento y Reparación de Motocicletas y Sus Partes","ND",1,0
+"eco_acti_505","eco_acti_50","505","Venta Al Por Menor de Combustible Para Automotores","ND",1,0
+"eco_acti_511","eco_acti_50","511","Venta Al Por Mayor A Cambio de Una Retribución O Por Contrata","ND",1,0
+"eco_acti_512","eco_acti_50","512","Venta Al Por Mayor de Materias Primas Agropecuarias","ND",1,0
+"eco_acti_513","eco_acti_50","513","Venta Al Por Mayor de Enseres Domésticos","ND",1,0
+"eco_acti_514","eco_acti_50","514","Venta Al Por Mayor de Productos Intermedios, Desechos No Agropecuarios","ND",1,0
+"eco_acti_515","eco_acti_50","515","Venta Al Por Mayor de Maquinaria, Equipo y Materiales Conexos","ND",1,0
+"eco_acti_519","eco_acti_50","519","Venta Al Por Mayor de Otros Productos","ND",1,0
+"eco_acti_521","eco_acti_50","521","Comercio Al Por Menor No Especializado En Almacenes","ND",1,0
+"eco_acti_522","eco_acti_50","522","Venta Por Menor de Alimentos, Bebidas, Tabacos En Almc. Especializados","ND",1,0
+"eco_acti_523","eco_acti_50","523","Comercio Al Por Menor de Otros Prod. Nuevos En Almc. Especializados","ND",1,0
+"eco_acti_524","eco_acti_50","524","Venta Al Por Menor En Almacenes de Artículos Usados","ND",1,0
+"eco_acti_525","eco_acti_50","525","Comercio Al Por Menor No Realizado En Almacenes","ND",1,0
+"eco_acti_526","eco_acti_50","526","Reparación de Efectos Personales y Enseres Domésticos","ND",1,0
+"eco_acti_551","eco_acti_55","551","Hoteles; Campamentos y Otros Tipos de Hospedaje Temporal","ND",1,0
+"eco_acti_552","eco_acti_55","552","Restaurantes, Bares y Cantinas","ND",1,0
+"eco_acti_601","eco_acti_60","601","Transporte Por Ferrocarriles","ND",1,0
+"eco_acti_602","eco_acti_60","602","Otros Tipos de Transporte Por Vía Terrestre","ND",1,0
+"eco_acti_603","eco_acti_60","603","Transporte Por Tuberías","ND",1,0
+"eco_acti_611","eco_acti_60","611","Transporte Marítimo y de Cabotaje","ND",1,0
+"eco_acti_612","eco_acti_60","612","Transporte Por Vías de Navegación Interiores","ND",1,0
+"eco_acti_62","eco_acti_60","62","Transporte Por Vía Aérea","ND",1,0
+"eco_acti_63","eco_acti_60","63","Act. de Transporte Complementarias y Auxiliares; Agencias de Viaje","ND",1,0
+"eco_acti_641","eco_acti_60","641","Actividades Postales y de Correo","ND",1,0
+"eco_acti_642","eco_acti_60","642","Telecomunicaciones","ND",1,0
+"eco_acti_651","eco_acti_65","651","Intermediación Monetaria","ND",1,0
+"eco_acti_659","eco_acti_65","659","Otros Tipos de Intermediación Financiera","ND",1,0
+"eco_acti_660","eco_acti_65","660","Financiación Planes de Seg. y de Pensiones, Excepto Afiliación Oblig.","ND",1,0
+"eco_acti_671","eco_acti_65","671","Act. Aux. de La Intermediación Financiera, Excepto Planes de Seguros","ND",1,0
+"eco_acti_672","eco_acti_65","672","Act. Auxiliares de Financiación de Planes de Seguros y de Pensiones","ND",1,0
+"eco_acti_701","eco_acti_70","701","Actividades Inmobiliarias Realizadas Con Bienes Propios O Arrendados","ND",1,0
+"eco_acti_702","eco_acti_70","702","Act. Inmobiliarias Realizadas A Cambio de Retribución O Por Contrata","ND",1,0
+"eco_acti_711","eco_acti_70","711","Alquiler Equipo de Transporte","ND",1,0
+"eco_acti_712","eco_acti_70","712","Alquiler de Otros Tipos de Maquinaria y Equipo","ND",1,0
+"eco_acti_713","eco_acti_70","713","Alquiler de Efectos Personales y Enseres Domésticos N.C.P.","ND",1,0
+"eco_acti_72","eco_acti_70","72","Servicios Informáticos","ND",1,0
+"eco_acti_725","eco_acti_70","eco_acti_725","Mantenimiento y Reparación de Maquinaria de Oficina","ND",1,0
+"eco_acti_73","eco_acti_70","eco_acti_73","Actividades de Investigaciones y Desarrollo Experimental","ND",1,0
+"eco_acti_741","eco_acti_70","741","Actividades Jurídicas y de Asesoramiento Empresarial En General","ND",1,0
+"eco_acti_742","eco_acti_70","742","Actividades de Arquitectura E Ingeniería y Otras Actividades Técnicas","ND",1,0
+"eco_acti_743","eco_acti_70","743","Publicidad","ND",1,0
+"eco_acti_749","eco_acti_70","749","Act. Empresariales y de Profesionales Prestadas A Empresas N.C.P.","ND",1,0
+"eco_acti_751","eco_acti_75","751","Gobierno Central y Administración Pública","ND",1,0
+"eco_acti_753","eco_acti_75","753","Actividades de Planes de Seguridad Social de Afiliación Obligatoria","ND",1,0
+"eco_acti_800","eco_acti_80","800","Enseñanza Preescolar, Primaria, Secundaria y Superior ; Profesores","ND",1,0
+"eco_acti_851","eco_acti_85","851","Actividades Relacionadas Con La Salud Humana","ND",1,0
+"eco_acti_852","eco_acti_85","852","Actividades Veterinarias","ND",1,0
+"eco_acti_853","eco_acti_85","853","Actividades de Servicios Sociales","ND",1,0
+"eco_acti_900","eco_acti_90","900","Eliminación de Desperdicios y Aguas Residuales, Saneamiento","ND",1,0
+"eco_acti_911","eco_acti_90","911","Act. de Organizaciones Empresariales, Profesionales y de Empleadores","ND",1,0
+"eco_acti_912","eco_acti_90","912","Actividades de Sindicatos y de Otras Organizaciones","ND",1,0
+"eco_acti_921","eco_acti_90","921","Act. de Cinematografía, Radio y Tv y Otras Act. de Entretenimiento","ND",1,0
+"eco_acti_922","eco_acti_90","922","Actividades de Agencias de Noticias y Servicios Periodísticos","ND",1,0
+"eco_acti_923","eco_acti_90","923","Actividades de Bibliotecas, Archivos y Museos y Otras Act. Culturales","ND",1,0
+"eco_acti_924","eco_acti_90","924","Actividades Deportivas y Otras Actividades de Esparcimiento","ND",1,0
+"eco_acti_930","eco_acti_90","930","Otras Actividades de Servicios","ND",1,0
+"eco_acti_950","eco_acti_95","950","Consejo de Administración de Edificios y Condominios","ND",1,0
+"eco_acti_990","eco_acti_99","990","Organizaciones y Órganos Extraterritoriales","ND",1,0
+"eco_acti_11111","eco_acti_011",11111,"Cultivo de Trigo","SI",1,1
+"eco_acti_11112","eco_acti_011",11112,"Cultivo de Maiz","SI",1,1
+"eco_acti_11113","eco_acti_011",11113,"Cultivo de Avena","SI",1,1
+"eco_acti_11114","eco_acti_011",11114,"Cultivo de Arroz","SI",1,1
+"eco_acti_11115","eco_acti_011",11115,"Cultivo de Cebada","SI",1,1
+"eco_acti_11119","eco_acti_011",11119,"Cultivo de Otros Cereales","SI",1,1
+"eco_acti_11121","eco_acti_011",11121,"Cultivo Forrajeros En Praderas Naturales","SI",1,1
+"eco_acti_11122","eco_acti_011",11122,"Cultivo Forrajeros En Praderas Mejoradas O Sembradas","SI",1,1
+"eco_acti_11131","eco_acti_011",11131,"Cultivo de Porotos O Frijol","SI",1,1
+"eco_acti_11132","eco_acti_011",11132,"Cultivo, Producción de Lupino","SI",1,1
+"eco_acti_11139","eco_acti_011",11139,"Cultivo de Otras Legumbres","SI",1,1
+"eco_acti_11141","eco_acti_011",11141,"Cultivo de Papas","SI",1,1
+"eco_acti_11142","eco_acti_011",11142,"Cultivo de Camotes O Batatas","SI",1,1
+"eco_acti_11149","eco_acti_011",11149,"Cultivo de Otros Tubérculos N.C.P","SI",1,1
+"eco_acti_11151","eco_acti_011",11151,"Cultivo de Raps","SI",1,1
+"eco_acti_11152","eco_acti_011",11152,"Cultivo de Maravilla","SI",1,1
+"eco_acti_11159","eco_acti_011",11159,"Cultivo de Otras Oleaginosas N.C.P.","SI",1,1
+"eco_acti_11160","eco_acti_011",11160,"Producción de Semillas de Cereales, Legumbres, Oleaginosas","SI",1,1
+"eco_acti_11191","eco_acti_011",11191,"Cultivo de Remolacha","SI",1,1
+"eco_acti_11192","eco_acti_011",11192,"Cultivo de Tabaco","SI",1,1
+"eco_acti_11193","eco_acti_011",11193,"Cultivo de Fibras Vegetales Industriales","SI",1,1
+"eco_acti_11194","eco_acti_011",11194,"Cultivo de Plantas Aromáticas O Medicinales","SI",1,1
+"eco_acti_11199","eco_acti_011",11199,"Otros Cultivos N.C.P.","SI",1,1
+"eco_acti_11211","eco_acti_011",11211,"Cultivo Tradicional de Hortalizas Frescas","SI",1,1
+"eco_acti_11212","eco_acti_011",11212,"Cultivo de Hortalizas En Invernaderos y Cultivos Hidroponicos","SI",1,1
+"eco_acti_11213","eco_acti_011",11213,"Cultivo Orgánico de Hortalizas","SI",1,1
+"eco_acti_11220","eco_acti_011",11220,"Cultivo de Plantas Vivas y Productos de La Floricultura","SI",1,1
+"eco_acti_11230","eco_acti_011",11230,"Producción de Semillas de Flores, Prados, Frutas y Hortalizas","SI",1,1
+"eco_acti_11240","eco_acti_011",11240,"Producción En Viveros; Excepto Especies Forestales","SI",1,1
+"eco_acti_11250","eco_acti_011",11250,"Cultivo y Recolección de Hongos, Trufas y Savia; Producción de Jarabe de Arce de Azúcar y Azúcar","SI",1,1
+"eco_acti_11311","eco_acti_011",11311,"Cultivo de Uva Destinada A Producción de Pisco y Aguardiente","SI",1,1
+"eco_acti_11312","eco_acti_011",11312,"Cultivo de Uva Destinada A Producción de Vino","SI",1,1
+"eco_acti_11313","eco_acti_011",11313,"Cultivo de Uva de Mesa","SI",1,1
+"eco_acti_11321","eco_acti_011",11321,"Cultivo de Frutales En Árboles O Arbustos Con Ciclo de Vida Mayor A Una Temporada","SI",1,1
+"eco_acti_11322","eco_acti_011",11322,"Cultivo de Frutales Menores En Plantas Con Ciclo de Vida de Una Temporada","SI",1,1
+"eco_acti_11330","eco_acti_011",11330,"Cultivo de Plantas Cuyas Hojas O Frutas Se Utilizan Para Preparar Bebidas","SI",1,1
+"eco_acti_11340","eco_acti_011",11340,"Cultivo de Especias","SI",1,1
+"eco_acti_12111","eco_acti_012",12111,"Cría de Ganado Bovino Para La Producción Lechera","SI",1,1
+"eco_acti_12112","eco_acti_012",12112,"Cría de Ganado Para Producción de Carne, O Como Ganado Reproductor","SI",1,1
+"eco_acti_12120","eco_acti_012",12120,"Cría de Ganado Ovino Y/O Explotación Lanera","SI",1,1
+"eco_acti_12130","eco_acti_012",12130,"Cría de Equinos (Caballares, Mulares)","SI",1,1
+"eco_acti_12210","eco_acti_012",12210,"Cría de Porcinos","SI",1,1
+"eco_acti_12221","eco_acti_012",12221,"Cría de Aves de Corral Para La Producción de Carne","SI",1,1
+"eco_acti_12222","eco_acti_012",12222,"Cría de Aves de Corral Para La Producción de Huevos","SI",1,1
+"eco_acti_12223","eco_acti_012",12223,"Cría de Aves Finas O No Tradicionales","SI",1,1
+"eco_acti_12230","eco_acti_012",12230,"Cría de Animales Domésticos; Perros y Gatos","SI",1,1
+"eco_acti_12240","eco_acti_012",12240,"Apicultura","SI",1,1
+"eco_acti_12250","eco_acti_012",12250,"Ranicultura, Helicicultura U Otra Actividad Con Animales Menores O Insectos","SI",1,1
+"eco_acti_12290","eco_acti_012",12290,"Otras Explotaciones de Animales No Clasificados En Otra Parte, Incluido Sus Subproductos","SI",1,1
+"eco_acti_13000","eco_acti_013",13000,"Explotación Mixta","SI",1,1
+"eco_acti_14011","eco_acti_014",14011,"Servicio de Corte y Enfardado de Forraje","SI",1,1
+"eco_acti_14012","eco_acti_014",14012,"Servicio de Recolección, Empacado, Trilla, Descascaramiento y Desgrane; y Similares","SI",1,1
+"eco_acti_14013","eco_acti_014",14013,"Servicio de Roturación Siembra y Similares","SI",1,1
+"eco_acti_14014","eco_acti_014",14014,"Destrucción de Plagas; Pulverizaciones, Fumigaciones U Otras","SI",1,1
+"eco_acti_14015","eco_acti_014",14015,"Cosecha, Poda, Amarre y Labores de Adecuación de La Planta U Otras","SI",1,1
+"eco_acti_14019","eco_acti_014",14019,"Otros Servicios Agrícolas N.C.P.","SI",1,1
+"eco_acti_14021","eco_acti_014",14021,"Servicios de Adiestramiento, Guardería y Cuidados de Mascotas; Excepto Actividades Veterinarias","SI",1,1
+"eco_acti_14022","eco_acti_014",14022,"Servicios Ganaderos, Excepto Actividades Veterinarias","SI",1,1
+"eco_acti_15010","eco_acti_015",15010,"Caza de Mamíferos Marinos; Excepto Ballenas","SI",1,1
+"eco_acti_15090","eco_acti_015",15090,"Caza Ordinaria y Mediante Trampas, y Actividades de Servicios Conexas","SI",1,1
+"eco_acti_20010","eco_acti_020",20010,"Explotación de Bosques","SI",1,1
+"eco_acti_20020","eco_acti_020",20020,"Recolección de Productos Forestales Silvestres","SI",1,1
+"eco_acti_20030","eco_acti_020",20030,"Explotación de Viveros de Especies Forestales","SI",1,1
+"eco_acti_20041","eco_acti_020",20041,"Servicios de Forestación","SI",1,1
+"eco_acti_20042","eco_acti_020",20042,"Servicios de Corta de Madera","SI",1,1
+"eco_acti_20043","eco_acti_020",20043,"Servicios de Control de Incendios Forestales","SI",1,1
+"eco_acti_20049","eco_acti_020",20049,"Otras Actividades de Servicios Conexas A La Silvicultura N.C.P.","SI",1,1
+"eco_acti_51010","eco_acti_051",51010,"Cultivo de Especies Acuáticas En Cuerpo de Agua Dulce","SI",1,1
+"eco_acti_51020","eco_acti_051",51020,"Reproducción y Crianzas de Peces Marinos","SI",1,1
+"eco_acti_51030","eco_acti_051",51030,"Cultivo, Reproducción y Crecimientos de Vegetales Acuáticos","SI",1,1
+"eco_acti_51040","eco_acti_051",51040,"Reproducción y Cría de Moluscos y Crustaceos.","SI",1,1
+"eco_acti_51090","eco_acti_051",51090,"Servicios Relacionados Con La Acuicultura, No Incluye Servicios Profesionales y de Extracción","SI",1,1
+"eco_acti_52010","eco_acti_052",52010,"Pesca Industrial","SI",1,1
+"eco_acti_52020","eco_acti_052",52020,"Actividad Pesquera de Barcos Factorías","SI",1,1
+"eco_acti_52030","eco_acti_052",52030,"Pesca Artesanal. Extracción de Recursos Acuáticos En General; Incluye Ballenas","SI",1,1
+"eco_acti_52040","eco_acti_052",52040,"Recolección de Productos Marinos, Como Perlas Naturales, Esponjas, Corales y Algas.","SI",1,1
+"eco_acti_52050","eco_acti_052",52050,"Servicios Relacionados Con La Pesca, No Incluye Servicios Profesionales","SI",1,1
+"eco_acti_100000","eco_acti_100",100000,"Extracción, Aglomeración de Carbón de Piedra, Lignito y Turba","SI",1,1
+"eco_acti_111000","eco_acti_111",111000,"Extracción de Petróleo Crudo y Gas Natural","SI",1,1
+"eco_acti_112000","eco_acti_111",112000,"Actividades de Servicios Relacionadas Con La Extracción de Petróleo y Gas","SI",1,1
+"eco_acti_120000","eco_acti_112",120000,"Extracción de Minerales de Uranio y Torio","SI",1,1
+"eco_acti_131000","eco_acti_112",131000,"Extracción de Minerales de Hierro","SI",1,1
+"eco_acti_132010","eco_acti_112",132010,"Extracción de Oro y Plata","SI",1,1
+"eco_acti_132020","eco_acti_112",132020,"Extracción de Zinc y Plomo","SI",1,1
+"eco_acti_132030","eco_acti_112",132030,"Extracción de Manganeso","SI",1,1
+"eco_acti_132090","eco_acti_112",132090,"Extracción de Otros Minerales Metalíferos N.C.P.","SI",1,1
+"eco_acti_133000","eco_acti_112",133000,"Extracción de Cobre","SI",1,1
+"eco_acti_141000","eco_acti_14",141000,"Extracción de Piedra, Arena y Arcilla","SI",1,1
+"eco_acti_142100","eco_acti_14",142100,"Extracción de Nitratos y Yodo","SI",1,1
+"eco_acti_142200","eco_acti_14",142200,"Extracción de Sal","SI",1,1
+"eco_acti_142300","eco_acti_14",142300,"Extracción de Litio y Cloruros, Excepto Sal","SI",1,1
+"eco_acti_142900","eco_acti_14",142900,"Explotación de Otras Minas y Canteras N.C.P.","SI",1,1
+"eco_acti_151110","eco_acti_151",151110,"Producción, Procesamiento de Carnes Rojas y Productos Cárnicos","SI",1,1
+"eco_acti_151120","eco_acti_151",151120,"Conservación de Carnes Rojas (Frigoríficos)","SI",1,1
+"eco_acti_151130","eco_acti_151",151130,"Producción, Procesamiento y Conservación de Carnes de Ave y Otras Carnes Distintas A Las Rojas","SI",1,1
+"eco_acti_151140","eco_acti_151",151140,"Elaboración de Cecinas, Embutidos y Carnes En Conserva.","SI",1,1
+"eco_acti_151210","eco_acti_151",151210,"Producción de Harina de Pescado","SI",1,1
+"eco_acti_151221","eco_acti_151",151221,"Fabricación de Productos Enlatados de Pescado y Mariscos","SI",1,1
+"eco_acti_151222","eco_acti_151",151222,"Elaboración de Congelados de Pescados y Mariscos","SI",1,1
+"eco_acti_151223","eco_acti_151",151223,"Elaboración de Productos Ahumados, Salados, Deshidratados y Otros Procesos Similares","SI",1,1
+"eco_acti_151230","eco_acti_151",151230,"Elaboración de Productos En Base A Vegetales Acuáticos","SI",1,1
+"eco_acti_151300","eco_acti_151",151300,"Elaboración y Conservación de Frutas, Legumbres y Hortalizas","SI",1,1
+"eco_acti_151410","eco_acti_151",151410,"Elaboración de Aceites y Grasas de Origen Vegetal","SI",1,1
+"eco_acti_151420","eco_acti_151",151420,"Elaboración de Aceites y Grasas de Origen Animal, Excepto Las Mantequillas","SI",1,1
+"eco_acti_151430","eco_acti_151",151430,"Elaboración de Aceites y Grasas de Origen Marino","SI",1,1
+"eco_acti_152010","eco_acti_152",152010,"Elaboración de Leche, Mantequilla, Productos Lácteos y Derivados","SI",1,1
+"eco_acti_152020","eco_acti_152",152020,"Elaboración de Quesos","SI",1,1
+"eco_acti_152030","eco_acti_152",152030,"Fabricación de Postres A Base de Leche (Helados, Sorbetes y Otros Similares)","SI",1,1
+"eco_acti_153110","eco_acti_153",153110,"Elaboración de Harinas de Trigo","SI",1,1
+"eco_acti_153120","eco_acti_153",153120,"Actividades de Molienda de Arroz","SI",1,1
+"eco_acti_153190","eco_acti_153",153190,"Elaboración de Otras Molineras y Alimentos A Base de Cereales","SI",1,1
+"eco_acti_153210","eco_acti_153",153210,"Elaboración de Almidones y Productos Derivados Del Almidón","SI",1,1
+"eco_acti_153220","eco_acti_153",153220,"Elaboración de Glucosa y Otros Azúcares Diferentes de La Remolacha","SI",1,1
+"eco_acti_153300","eco_acti_153",153300,"Elaboración de Alimentos Preparados Para Animales","SI",1,1
+"eco_acti_154110","eco_acti_154",154110,"Fabricación de Pan, Productos de Panadería y Pastelería","SI",1,1
+"eco_acti_154120","eco_acti_154",154120,"Fabricación de Galletas","SI",1,1
+"eco_acti_154200","eco_acti_154",154200,"Elaboración de Azúcar de Remolacha O Cana","SI",1,1
+"eco_acti_154310","eco_acti_154",154310,"Elaboración de Cacao y Chocolates","SI",1,1
+"eco_acti_154320","eco_acti_154",154320,"Fabricación de Productos de Confitería","SI",1,1
+"eco_acti_154400","eco_acti_154",154400,"Elaboración de Macarrones, Fideos, Alcuzcuz y Productos Farinaceos Similares","SI",1,1
+"eco_acti_154910","eco_acti_154",154910,"Elaboración de Te, Café, Infusiones","SI",1,1
+"eco_acti_154920","eco_acti_154",154920,"Elaboración de Levaduras Naturales O Artificiales","SI",1,1
+"eco_acti_154930","eco_acti_154",154930,"Elaboración de Vinagres, Mostazas, Mayonesas y Condimentos En General","SI",1,1
+"eco_acti_154990","eco_acti_154",154990,"Elaboración de Otros Productos Alimenticios No Clasificados En Otra Parte","SI",1,1
+"eco_acti_155110","eco_acti_155",155110,"Elaboración de Piscos (Industrias Pisqueras)","SI",1,1
+"eco_acti_155120","eco_acti_155",155120,"Elaboración de Bebidas Alcohólicas y de Alcohol Etílico A Partir de Sustancias Fermentadas y Otros","SI",1,1
+"eco_acti_155200","eco_acti_155",155200,"Elaboración de Vinos","SI",1,1
+"eco_acti_155300","eco_acti_155",155300,"Elaboración de Bebidas Malteadas, Cervezas y Maltas","SI",1,1
+"eco_acti_155410","eco_acti_155",155410,"Elaboración de Bebidas No Alcohólicas","SI",1,1
+"eco_acti_155420","eco_acti_155",155420,"Envasado de Agua Mineral Natural, de Manantial y Potable Preparada","SI",1,1
+"eco_acti_155430","eco_acti_155",155430,"Elaboración de Hielo","SI",1,1
+"eco_acti_160010","eco_acti_16",160010,"Fabricación de Cigarros y Cigarrillos","SI",1,1
+"eco_acti_160090","eco_acti_16",160090,"Fabricación de Otros Productos Del Tabaco","SI",1,1
+"eco_acti_171100","eco_acti_171",171100,"Preparación de Hilatura de Fibras Textiles; Tejedura Prod. Textiles","SI",1,1
+"eco_acti_171200","eco_acti_171",171200,"Acabado de Productos Textil","SI",1,1
+"eco_acti_172100","eco_acti_172",172100,"Fabricación de Artículos Confeccionados de Materias Textiles, Excepto Prendas de Vestir","SI",1,1
+"eco_acti_172200","eco_acti_172",172200,"Fabricación de Tapices y Alfombra","SI",1,1
+"eco_acti_172300","eco_acti_172",172300,"Fabricación de Cuerdas, Cordeles, Bramantes y Redes","SI",1,1
+"eco_acti_172910","eco_acti_172",172910,"Fabricación de Tejidos de Uso Industrial Como Tejidos Impregnados, Moltoprene, Batista, Etc.","SI",1,1
+"eco_acti_172990","eco_acti_172",172990,"Fabricación de Otros Productos Textiles N.C.P.","SI",1,1
+"eco_acti_173000","eco_acti_173",173000,"Fabricación de Tejidos de Punto","SI",1,1
+"eco_acti_181010","eco_acti_181",181010,"Fabricación de Prendas de Vestir Textiles y Similares","SI",1,1
+"eco_acti_181020","eco_acti_181",181020,"Fabricación de Prendas de Vestir de Cuero Natural, Artificial, Plástico","SI",1,1
+"eco_acti_181030","eco_acti_181",181030,"Fabricación de Accesorios de Vestir","SI",1,1
+"eco_acti_181040","eco_acti_181",181040,"Fabricación de Ropa de Trabajo","SI",1,1
+"eco_acti_182000","eco_acti_182",182000,"Adobo y Tenidos de Pieles; Fabricación de Artículos de Piel","SI",1,1
+"eco_acti_191100","eco_acti_182",191100,"Curtido y Adobo de Cueros","SI",1,1
+"eco_acti_191200","eco_acti_182",191200,"Fabricación de Maletas, Bolsos de Mano y Similares; Artículos de Talabartería y Guarnicionería","SI",1,1
+"eco_acti_192000","eco_acti_192",192000,"Fabricación de Calzado","SI",1,1
+"eco_acti_201000","eco_acti_201",201000,"Aserrado y Acepilladura de Maderas","SI",1,1
+"eco_acti_202100","eco_acti_202",202100,"Fabricación de Tableros, Paneles y Hojas de Madera Para Enchapado","SI",1,1
+"eco_acti_202200","eco_acti_202",202200,"Fabricación de Partes y Piezas de Carpintería Para Edificios y Construcciones","SI",1,1
+"eco_acti_202300","eco_acti_202",202300,"Fabricación de Recipientes de Madera","SI",1,1
+"eco_acti_202900","eco_acti_202",202900,"Fabricación de Otros Productos de Madera; Artículos de Corcho, Paja y Materiales Trenzables","SI",1,1
+"eco_acti_210110","eco_acti_210",210110,"Fabricación de Celulosa y Otras Pastas de Madera","SI",1,1
+"eco_acti_210121","eco_acti_210",210121,"Fabricación de Papel de Periódico","SI",1,1
+"eco_acti_210129","eco_acti_210",210129,"Fabricación de Papel y Cartón N.C.P.","SI",1,1
+"eco_acti_210200","eco_acti_210",210200,"Fabricación de Papel y Cartón Ondulado y de Envases de Papel y Cartón","SI",1,1
+"eco_acti_210900","eco_acti_210",210900,"Fabricación de Otros Artículos de Papel y Cartón","SI",1,1
+"eco_acti_221101","eco_acti_221",221101,"Edición Principalmente de Libros","SI",1,1
+"eco_acti_221109","eco_acti_221",221109,"Edición de Folletos, Partituras y Otras Publicaciones","SI",1,1
+"eco_acti_221200","eco_acti_221",221200,"Edición de Periódicos, Revistas y Publicaciones Periódicas","SI",1,1
+"eco_acti_221300","eco_acti_221",221300,"Edición de Grabaciones","SI",1,1
+"eco_acti_221900","eco_acti_221",221900,"Otras Actividades de Edición","SI",1,1
+"eco_acti_222101","eco_acti_222",222101,"Impresión Principalmente de Libros","SI",1,1
+"eco_acti_222109","eco_acti_222",222109,"Otras Actividades de Impresión N.C.P.","SI",1,1
+"eco_acti_222200","eco_acti_222",222200,"Actividades de Servicio Relacionada Con La Impresión","SI",1,1
+"eco_acti_223000","eco_acti_222",223000,"Reproducción de Grabaciones","SI",1,1
+"eco_acti_231000","eco_acti_23",231000,"Fabricación de Productos de Hornos Coque","SI",1,1
+"eco_acti_232000","eco_acti_23",232000,"Fabricación de Productos de Refinación de Petróleo","SI",1,1
+"eco_acti_233000","eco_acti_233",233000,"Elaboración de Combustible Nuclear","SI",1,1
+"eco_acti_241110","eco_acti_241",241110,"Fabricación de Carbón Vegetal, y Briquetas de Carbón Vegetal","SI",1,1
+"eco_acti_241190","eco_acti_241",241190,"Fabricación de Sustancias Químicas Básicas, Excepto Abonos y Compuestos de Nitrógeno","SI",1,1
+"eco_acti_241200","eco_acti_241",241200,"Fabricación de Abonos y Compuestos de Nitrógeno","SI",1,1
+"eco_acti_241300","eco_acti_241",241300,"Fabricación de Plásticos En Formas Primarias y de Caucho Sintético","SI",1,1
+"eco_acti_242100","eco_acti_242",242100,"Fabricación de Plaguicidas y Otros Productos Químicos de Uso Agropecuario","SI",1,1
+"eco_acti_242200","eco_acti_242",242200,"Fabricación de Pinturas, Barnices y Productos de Revestimiento Similares","SI",1,1
+"eco_acti_242300","eco_acti_242",242300,"Fabricación de Productos Farmaceuticos, Sustancias Químicas Medicinales y Productos Botánicos","SI",1,1
+"eco_acti_242400","eco_acti_242",242400,"Fabricaciones de Jabones y Detergentes, Preparados Para Limpiar, Perfumes y Preparados de Tocador","SI",1,1
+"eco_acti_242910","eco_acti_242",242910,"Fabricación de Explosivos y Productos de Pirotecnia","SI",1,1
+"eco_acti_242990","eco_acti_242",242990,"Fabricación de Otros Productos Químicos N.C.P.","SI",1,1
+"eco_acti_243000","eco_acti_243",243000,"Fabricación de Fibras Manufacturadas","SI",1,1
+"eco_acti_251110","eco_acti_251",251110,"Fabricación de Cubiertas y Cámaras de Caucho","SI",1,1
+"eco_acti_251120","eco_acti_251",251120,"Recauchado y Renovación de Cubiertas de Caucho","SI",1,1
+"eco_acti_251900","eco_acti_251",251900,"Fabricación de Otros Productos de Caucho","SI",1,1
+"eco_acti_252010","eco_acti_252",252010,"Fabricación de Planchas, Láminas, Cintas, Tiras de Plástico","SI",1,1
+"eco_acti_252020","eco_acti_252",252020,"Fabricación de Tubos, Mangueras Para La Construcción","SI",1,1
+"eco_acti_252090","eco_acti_252",252090,"Fabricación de Otros Artículos de Plástico","SI",1,1
+"eco_acti_261010","eco_acti_261",261010,"Fabricación, Manipulado y Transformación de Vidrio Plano","SI",1,1
+"eco_acti_261020","eco_acti_261",261020,"Fabricación de Vidrio Hueco","SI",1,1
+"eco_acti_261030","eco_acti_261",261030,"Fabricación de Fibras de Vidrio","SI",1,1
+"eco_acti_261090","eco_acti_261",261090,"Fabricación de Artículos de Vidrio N.C.P.","SI",1,1
+"eco_acti_269101","eco_acti_269",269101,"Fabricación de Productos de Cerámica No Refractaria Para Uso No Estructural Con Fines Ornamentales","SI",1,1
+"eco_acti_269109","eco_acti_269",269109,"Fabricación de Productos de Cerámica No Refractaria Para Uso No Estructural N.C.P.","SI",1,1
+"eco_acti_269200","eco_acti_269",269200,"Fabricación de Productos de Cerámicas Refractaria","SI",1,1
+"eco_acti_269300","eco_acti_269",269300,"Fabricación de Productos de Arcilla y Cerámicas No Refractarias Para Uso Estructural","SI",1,1
+"eco_acti_269400","eco_acti_269",269400,"Fabricación de Cemento, Cal y Yeso","SI",1,1
+"eco_acti_269510","eco_acti_269",269510,"Elaboración de Hormigón, Artículos de Hormigón y Mortero (Mezcla Para Construcción)","SI",1,1
+"eco_acti_269520","eco_acti_269",269520,"Fabricación de Productos de Fibrocemento y Asbestocemento","SI",1,1
+"eco_acti_269530","eco_acti_269",269530,"Fabricación de Paneles de Yeso Para La Construcción","SI",1,1
+"eco_acti_269590","eco_acti_269",269590,"Fabricación de Artículos de Cemento y Yeso N.C.P.","SI",1,1
+"eco_acti_269600","eco_acti_269",269600,"Corte, Tallado y Acabado de La Piedra","SI",1,1
+"eco_acti_269910","eco_acti_269",269910,"Fabricación de Mezclas Bituminosas A Base de Asfalto, de Betunes Naturales, y Productos Similares","SI",1,1
+"eco_acti_269990","eco_acti_269",269990,"Fabricación de Otros Productos Minerales No Metálicos N.C.P","SI",1,1
+"eco_acti_271000","eco_acti_271",271000,"Industrias Basicas de Hierro y Acero","SI",1,1
+"eco_acti_272010","eco_acti_272",272010,"Elaboración de Productos de Cobre En Formas Primarias.","SI",1,1
+"eco_acti_272020","eco_acti_272",272020,"Elaboración de Productos de Aluminio En Formas Primarias","SI",1,1
+"eco_acti_272090","eco_acti_272",272090,"Fabricación de Productos Primarios de Metales Preciosos y de Otros Metales No Ferrosos N.C.P.","SI",1,1
+"eco_acti_273100","eco_acti_273",273100,"Fundición de Hierro y Acero","SI",1,1
+"eco_acti_273200","eco_acti_273",273200,"Fundición de Metales No Ferrosos","SI",1,1
+"eco_acti_281100","eco_acti_281",281100,"Fabricación de Productos Metálicos de Uso Estructural","SI",1,1
+"eco_acti_281211","eco_acti_281",281211,"Fabricación de Recipientes de Gas Comprimido O Licuado","SI",1,1
+"eco_acti_281219","eco_acti_281",281219,"Fabricación de Tanques, Depósitos y Recipientes de Metal N.C.P.","SI",1,1
+"eco_acti_281280","eco_acti_281",281280,"Reparación de Tanques, Depósitos y Recipientes de Metal","SI",1,1
+"eco_acti_281310","eco_acti_281",281310,"Fabricación de Generadores de Vapor, Excepto Calderas de Agua Caliente Para Calefacción","SI",1,1
+"eco_acti_281380","eco_acti_281",281380,"Reparación de Generadores de Vapor, Excepto Calderas de Agua Caliente Para Calefacción Central","SI",1,1
+"eco_acti_289100","eco_acti_289",289100,"Forja, Prensado, Estampado y Laminado de Metal; Incluye Pulvimetalurgia","SI",1,1
+"eco_acti_289200","eco_acti_289",289200,"Tratamientos y Revestimientos de Metales; Obras de Ingeniería Mecánica En General","SI",1,1
+"eco_acti_289310","eco_acti_289",289310,"Fabricación de Artículos de Cuchillería","SI",1,1
+"eco_acti_289320","eco_acti_289",289320,"Fabricación de Herramientas de Mano y Artículos de Ferretería","SI",1,1
+"eco_acti_289910","eco_acti_289",289910,"Fabricación de Cables, Alambres y Productos de Alambre","SI",1,1
+"eco_acti_289990","eco_acti_289",289990,"Fabricación de Otros Productos Elaborados de Metal N.C.P.","SI",1,1
+"eco_acti_291110","eco_acti_291",291110,"Fabricación de Motores y Turbinas, Excepto Para Aeronaves, Vehículos Automotores y Motocicletas","SI",1,1
+"eco_acti_291180","eco_acti_291",291180,"Reparación de Motores y Turbinas, Excepto Para Aeronaves, Vehículos Automotores y Motocicletas","SI",1,1
+"eco_acti_291210","eco_acti_291",291210,"Fabricación de Bombas, Grifos, Válvulas, Compresores, Sistemas Hidráulicos","SI",1,1
+"eco_acti_291280","eco_acti_291",291280,"Reparación de Bombas, Compresores, Sistemas Hidráulicos, Válvulas y Artículos de Grifería","SI",1,1
+"eco_acti_291310","eco_acti_291",291310,"Fabricación de Cojinetes, Engranajes, Trenes de Engranajes y Piezas de Transmisión","SI",1,1
+"eco_acti_291380","eco_acti_291",291380,"Reparación de Cojinetes, Engranajes, Trenes de Engranajes y Piezas de Transmisión","SI",1,1
+"eco_acti_291410","eco_acti_291",291410,"Fabricación de Hornos, Hogares y Quemadores","SI",1,1
+"eco_acti_291480","eco_acti_291",291480,"Reparación de Hornos, Hogares y Quemadores","SI",1,1
+"eco_acti_291510","eco_acti_291",291510,"Fabricación de Equipo de Elevación y Manipulación","SI",1,1
+"eco_acti_291580","eco_acti_291",291580,"Reparación de Equipo de Elevación y Manipulación","SI",1,1
+"eco_acti_291910","eco_acti_291",291910,"Fabricación de Otro Tipo de Maquinarias de Uso General","SI",1,1
+"eco_acti_291980","eco_acti_291",291980,"Reparación Otros Tipos de Maquinaria y Equipos de Uso General","SI",1,1
+"eco_acti_292110","eco_acti_292",292110,"Fabricación de Maquinaria Agropecuaria y Forestal","SI",1,1
+"eco_acti_292180","eco_acti_292",292180,"Reparación de Maquinaria Agropecuaria y Forestal","SI",1,1
+"eco_acti_292210","eco_acti_292",292210,"Fabricación de Máquinas Herramientas","SI",1,1
+"eco_acti_292280","eco_acti_292",292280,"Reparación de Máquinas Herramientas","SI",1,1
+"eco_acti_292310","eco_acti_292",292310,"Fabricación de Maquinaria Metalúrgica","SI",1,1
+"eco_acti_292380","eco_acti_292",292380,"Reparación de Maquinaria Para La Industria Metalúrgica","SI",1,1
+"eco_acti_292411","eco_acti_292",292411,"Fabricación de Maquinaria Para Minas y Canteras y Para Obras de Construcción","SI",1,1
+"eco_acti_292412","eco_acti_292",292412,"Fabricación de Partes Para Máquinas de Sondeo O Perforación","SI",1,1
+"eco_acti_292480","eco_acti_292",292480,"Reparación de Maquinaria Para La Explotación de Petróleo, Minas, Canteras, y Obras de Construcción","SI",1,1
+"eco_acti_292510","eco_acti_292",292510,"Fabricación de Maquinaria Para La Elaboración de Alimentos, Bebidas y Tabacos","SI",1,1
+"eco_acti_292580","eco_acti_292",292580,"Reparación de Maquinaria Para La Elaboración de Alimentos, Bebidas y Tabacos","SI",1,1
+"eco_acti_292610","eco_acti_292",292610,"Fabricación de Maquinaria Para La Elaboración de Prendas Textiles, Prendas de Vestir y Cueros","SI",1,1
+"eco_acti_292680","eco_acti_292",292680,"Reparación de Maquinaria Para La Industria Textil, de La Confección, Del Cuero y Del Calzado","SI",1,1
+"eco_acti_292710","eco_acti_292",292710,"Fabricación de Armas y Municiones","SI",1,1
+"eco_acti_292780","eco_acti_292",292780,"Reparación de Armas","SI",1,1
+"eco_acti_292910","eco_acti_292",292910,"Fabricación de Otros Tipos de Maquinarias de Uso Especial","SI",1,1
+"eco_acti_292980","eco_acti_292",292980,"Reparación de Otros Tipos de Maquinaria de Uso Especial","SI",1,1
+"eco_acti_293000","eco_acti_293",293000,"Fabricación de Aparatos de Uso Doméstico N.C.P.","SI",1,1
+"eco_acti_300010","eco_acti_300",300010,"Fabricación y Armado de Computadores y Hardware En General","SI",1,1
+"eco_acti_300020","eco_acti_300",300020,"Fabricación de Maquinaria de Oficina, Contabilidad, N.C.P.","SI",1,1
+"eco_acti_311010","eco_acti_311",311010,"Fabricación de Motores, Generadores y Transformadores Eléctricos","SI",1,1
+"eco_acti_311080","eco_acti_311",311080,"Reparación de Motores, Generadores y Transformadores Eléctricos","SI",1,1
+"eco_acti_312010","eco_acti_312",312010,"Fabricación de Aparatos de Distribución y Control","SI",1,1
+"eco_acti_312080","eco_acti_312",312080,"Reparación de Aparatos de Distribución y Control","SI",1,1
+"eco_acti_313000","eco_acti_313",313000,"Fabricación de Hilos y Cables Aislados","SI",1,1
+"eco_acti_314000","eco_acti_314",314000,"Fabricación de Acumuladores de Pilas y Baterías Primarias","SI",1,1
+"eco_acti_315010","eco_acti_315",315010,"Fabricación de Lámparas y Equipo de Iluminación","SI",1,1
+"eco_acti_315080","eco_acti_315",315080,"Reparación de Equipo de Iluminación","SI",1,1
+"eco_acti_319010","eco_acti_319",319010,"Fabricación de Otros Tipos de Equipo Eléctrico N.C.P.","SI",1,1
+"eco_acti_319080","eco_acti_319",319080,"Reparación de Otros Tipos de Equipo Eléctrico N.C.P.","SI",1,1
+"eco_acti_321010","eco_acti_321",321010,"Fabricación de Componentes Electrónicos","SI",1,1
+"eco_acti_321080","eco_acti_321",321080,"Reparación de Componentes Electrónicos","SI",1,1
+"eco_acti_322010","eco_acti_322",322010,"Fabricación de Transmisores de Radio y Televisión, Aparatos Para Telefonía y Telegrafía Con Hilos","SI",1,1
+"eco_acti_322080","eco_acti_322",322080,"Reparación de Transmisores de Radio y Televisión, Aparatos Para Telefonía y Telegrafía Con Hilos","SI",1,1
+"eco_acti_323000","eco_acti_323",323000,"Fabricación de Receptores (Radio y Tv); Aparatos de Grabación y Reproducción (Audio y Video)","SI",1,1
+"eco_acti_331110","eco_acti_331",331110,"Fabricación de Equipo Médico y Quirúrgico, y de Aparatos Ortopédicos","SI",1,1
+"eco_acti_331120","eco_acti_331",331120,"Laboratorios Dentales","SI",1,1
+"eco_acti_331180","eco_acti_331",331180,"Reparación de Equipo Médico y Quirúrgico, y de Aparatos Ortopédicos","SI",1,1
+"eco_acti_331210","eco_acti_331",331210,"Fabricación de Instrumentos y Aparatos Para Medir, Verificar, Ensayar, Navegar y Otros Fines","SI",1,1
+"eco_acti_331280","eco_acti_331",331280,"Reparación de Instrumentos y Aparatos Para Medir, Verificar, Ensayar, Navegar y Otros Fines","SI",1,1
+"eco_acti_331310","eco_acti_331",331310,"Fabricación de Equipos de Control de Procesos Industriales","SI",1,1
+"eco_acti_331380","eco_acti_331",331380,"Reparación de Equipos de Control de Procesos Industriales","SI",1,1
+"eco_acti_332010","eco_acti_332",332010,"Fabricación Y/O Reparación de Lentes y Artículos Oftalmológicos","SI",1,1
+"eco_acti_332020","eco_acti_332",332020,"Fabricación de Instrumentos de Optica N.C.P. y Equipos Fotográficos","SI",1,1
+"eco_acti_332080","eco_acti_332",332080,"Reparación de Instrumentos de Optica N.C.P y Equipo Fotográficos","SI",1,1
+"eco_acti_333000","eco_acti_333",333000,"Fabricación de Relojes","SI",1,1
+"eco_acti_341000","eco_acti_34",341000,"Fabricación de Vehículos Automotores","SI",1,1
+"eco_acti_342000","eco_acti_34",342000,"Fabricación de Carrocerías Para Vehículos Automotores; Fabricación de Remolques y Semi Remolques","SI",1,1
+"eco_acti_343000","eco_acti_34",343000,"Fabricación de Partes y Accesorios Para Vehículos Automotores y Sus Motores","SI",1,1
+"eco_acti_351110","eco_acti_351",351110,"Construcción y Reparación de Buques; Astilleros","SI",1,1
+"eco_acti_351120","eco_acti_351",351120,"Construcción de Embarcaciones Menores","SI",1,1
+"eco_acti_351180","eco_acti_351",351180,"Reparación de Embarcaciones Menores","SI",1,1
+"eco_acti_351210","eco_acti_351",351210,"Construcción de Embarcaciones de Recreo y Deporte","SI",1,1
+"eco_acti_351280","eco_acti_351",351280,"Reparación de Embarcaciones de Recreo y Deportes","SI",1,1
+"eco_acti_352000","eco_acti_352",352000,"Fabricación de Locomotoras y de Material Rodante Para Ferrocarriles y Tranvías","SI",1,1
+"eco_acti_353010","eco_acti_353",353010,"Fabricación de Aeronaves y Naves Espaciales","SI",1,1
+"eco_acti_353080","eco_acti_353",353080,"Reparación de Aeronaves y Naves Espaciales","SI",1,1
+"eco_acti_359100","eco_acti_359",359100,"Fabricación de Motocicletas","SI",1,1
+"eco_acti_359200","eco_acti_359",359200,"Fabricación de Bicicletas y de Sillones de Ruedas Para Invalidos","SI",1,1
+"eco_acti_359900","eco_acti_359",359900,"Fabricación de Otros Equipos de Transporte N.C.P.","SI",1,1
+"eco_acti_361010","eco_acti_361",361010,"Fabricación de Muebles Principalmente de Madera","SI",1,1
+"eco_acti_361020","eco_acti_361",361020,"Fabricación de Otros Muebles N.C.P., Incluso Colchones","SI",1,1
+"eco_acti_369100","eco_acti_369",369100,"Fabricación de Joyas y Productos Conexos","SI",1,1
+"eco_acti_369200","eco_acti_369",369200,"Fabricación de Instrumentos de Música","SI",1,1
+"eco_acti_369300","eco_acti_369",369300,"Fabricación de Artículos de Deporte","SI",1,1
+"eco_acti_369400","eco_acti_369",369400,"Fabricación de Juegos y Juguetes","SI",1,1
+"eco_acti_369910","eco_acti_369",369910,"Fabricación de Plumas y Lápices de Toda Clase y Artículos de Escritorio En General","SI",1,1
+"eco_acti_369920","eco_acti_369",369920,"Fabricación de Brochas, Escobas y Cepillos","SI",1,1
+"eco_acti_369930","eco_acti_369",369930,"Fabricación de Fósforos","SI",1,1
+"eco_acti_369990","eco_acti_369",369990,"Fabricación de Artículos de Otras Industrias N.C.P.","SI",1,1
+"eco_acti_371000","eco_acti_37",371000,"Reciclamiento de Desperdicios y Desechos Metálicos","SI",1,1
+"eco_acti_372010","eco_acti_37",372010,"Reciclamiento de Papel","SI",1,1
+"eco_acti_372020","eco_acti_37",372020,"Reciclamiento de Vidrio","SI",1,1
+"eco_acti_372090","eco_acti_37",372090,"Reciclamiento de Otros Desperdicios y Desechos N.C.P.","SI",1,1
+"eco_acti_401011","eco_acti_401",401011,"Generación Hidroeléctrica","SI",1,1
+"eco_acti_401012","eco_acti_401",401012,"Generación En Centrales Termoeléctrica de Ciclos Combinados","SI",1,1
+"eco_acti_401013","eco_acti_401",401013,"Generación En Otras Centrales Termoeléctricas","SI",1,1
+"eco_acti_401019","eco_acti_401",401019,"Generación En Otras Centrales N.C.P.","SI",1,1
+"eco_acti_401020","eco_acti_401",401020,"Transmisión de Energía Eléctrica","SI",1,1
+"eco_acti_401030","eco_acti_401",401030,"Distribución de Energia Eléctrica","SI",1,1
+"eco_acti_402000","eco_acti_402",402000,"Fabricación de Gas; Distribución de Combustibles Gaseosos Por Tuberías","SI",1,1
+"eco_acti_403000","eco_acti_403",403000,"Suministro de Vapor y Agua Caliente","SI",1,1
+"eco_acti_410000","eco_acti_410",410000,"Captación, Depuración y Distribución de Agua","ND",1,1
+"eco_acti_451010","eco_acti_450",451010,"Preparación Del Terreno, Excavaciones y Movimientos de Tierras","SI",1,1
+"eco_acti_451020","eco_acti_450",451020,"Servicios de Demolición y El Derribo de Edificios y Otras Estructuras","SI",1,1
+"eco_acti_452010","eco_acti_450",452010,"Construcción de Edificios Completos O de Partes de Edificios","SI",1,1
+"eco_acti_452020","eco_acti_450",452020,"Obras de Ingeniería","SI",1,1
+"eco_acti_453000","eco_acti_450",453000,"Acondicionamiento de Edificios","SI",1,1
+"eco_acti_454000","eco_acti_450",454000,"Obras Menores En Construcción (Contratistas, Albaniles, Carpinteros)","SI",1,1
+"eco_acti_455000","eco_acti_450",455000,"Alquiler de Equipo de Construcción O Demolición Dotado de Operarios","SI",1,1
+"eco_acti_501010","eco_acti_501",501010,"Venta Al Por Mayor de Vehículos Automotores (Importación, Distribución) Excepto Motocicletas","SI",1,1
+"eco_acti_501020","eco_acti_501",501020,"Venta O Compraventa Al Por Menor de Vehículos Automotores Nuevos O Usados; Excepto Motocicletas","SI",1,1
+"eco_acti_502010","eco_acti_502",502010,"Servicio de Lavado de Vehículos Automotores","ND",1,1
+"eco_acti_502020","eco_acti_502",502020,"Servicios de Remolque de Vehículos (Gruas)","SI",1,1
+"eco_acti_502080","eco_acti_502",502080,"Mantenimiento y Reparación de Vehículos Automotores","ND",1,1
+"eco_acti_503000","eco_acti_503",503000,"Venta de Partes, Piezas y Accesorios de Vehículos Automotores","SI",1,1
+"eco_acti_504010","eco_acti_504",504010,"Venta de Motocicletas","SI",1,1
+"eco_acti_504020","eco_acti_504",504020,"Venta de Piezas y Accesorios de Motocicletas","SI",1,1
+"eco_acti_504080","eco_acti_504",504080,"Reparación de Motocicletas","ND",1,1
+"eco_acti_505000","eco_acti_505",505000,"Venta Al Por Menor de Combustible Para Automotores","SI",1,1
+"eco_acti_511010","eco_acti_511",511010,"Corretaje de Productos Agrícolas","SI",1,1
+"eco_acti_511020","eco_acti_511",511020,"Corretaje de Ganado (Ferias de Ganado)","SI",1,1
+"eco_acti_511030","eco_acti_511",511030,"Otros Tipos de Corretajes O Remates N.C.P. (No Incluye Servicios de Martillero)","SI",1,1
+"eco_acti_512110","eco_acti_512",512110,"Venta Al Por Mayor de Animales Vivos","SI",1,1
+"eco_acti_512120","eco_acti_512",512120,"Venta Al Por Mayor de Productos Pecuarios (Lanas, Pieles, Cueros Sin Procesar); Excepto Alimentos","SI",1,1
+"eco_acti_512130","eco_acti_512",512130,"Venta Al Por Mayor de Materias Primas Agrícolas","SI",1,1
+"eco_acti_512210","eco_acti_512",512210,"Mayorista de Frutas y Verduras","SI",1,1
+"eco_acti_512220","eco_acti_512",512220,"Mayoristas de Carnes","SI",1,1
+"eco_acti_512230","eco_acti_512",512230,"Mayoristas de Productos Del Mar (Pescado, Mariscos, Algas)","SI",1,1
+"eco_acti_512240","eco_acti_512",512240,"Mayoristas de Vinos y Bebidas Alcohólicas y de Fantasía","SI",1,1
+"eco_acti_512250","eco_acti_512",512250,"Venta Al Por Mayor de Confites","SI",1,1
+"eco_acti_512260","eco_acti_512",512260,"Venta Al Por Mayor de Tabaco y Productos Derivados","SI",1,1
+"eco_acti_512290","eco_acti_512",512290,"Venta Al Por Mayor de Huevos, Leche, Abarrotes, y Otros Alimentos N.C.P.","SI",1,1
+"eco_acti_513100","eco_acti_513",513100,"Venta Al Por Mayor de Productos Textiles, Prendas de Vestir y Calzado","SI",1,1
+"eco_acti_513910","eco_acti_513",513910,"Venta Al Por Mayor de Muebles","SI",1,1
+"eco_acti_513920","eco_acti_513",513920,"Venta Al Por Mayor de Artículos Eléctricos y Electrónicos Para El Hogar","SI",1,1
+"eco_acti_513930","eco_acti_513",513930,"Venta Al Por Mayor de Artículos de Perfumería, Cosméticos, Jabones y Productos de Limpieza","SI",1,1
+"eco_acti_513940","eco_acti_513",513940,"Venta Al Por Mayor de Papel y Cartón","SI",1,1
+"eco_acti_513951","eco_acti_513",513951,"Venta Al Por Mayor de Libros","SI",1,1
+"eco_acti_513952","eco_acti_513",513952,"Venta Al Por Mayor de Revistas y Periódicos","SI",1,1
+"eco_acti_513960","eco_acti_513",513960,"Venta Al Por Mayor de Productos Farmaceuticos","SI",1,1
+"eco_acti_513970","eco_acti_513",513970,"Venta Al Por Mayor de Instrumentos Científicos y Quirúrgicos","SI",1,1
+"eco_acti_513990","eco_acti_513",513990,"Venta Al Por Mayor de Otros Enseres Domésticos N.C.P.","SI",1,1
+"eco_acti_514110","eco_acti_514",514110,"Venta Al Por Mayor de Combustibles Líquidos","SI",1,1
+"eco_acti_514120","eco_acti_514",514120,"Venta Al Por Mayor de Combustibles Sólidos","SI",1,1
+"eco_acti_514130","eco_acti_514",514130,"Venta Al Por Mayor de Combustibles Gaseosos","SI",1,1
+"eco_acti_514140","eco_acti_514",514140,"Venta Al Por Mayor de Productos Conexos A Los Combustibles","SI",1,1
+"eco_acti_514200","eco_acti_514",514200,"Venta Al Por Mayor de Metales y Minerales Metalíferos","SI",1,1
+"eco_acti_514310","eco_acti_514",514310,"Venta Al Por Mayor de Madera No Trabajada y Productos Resultantes de Su Elaboración Primaria","SI",1,1
+"eco_acti_514320","eco_acti_514",514320,"Venta Al Por Mayor de Materiales de Construcción, Artículos de Ferretería y Relacionados","SI",1,1
+"eco_acti_514910","eco_acti_514",514910,"Venta Al Por Mayor de Productos Químicos","SI",1,1
+"eco_acti_514920","eco_acti_514",514920,"Venta Al Por Mayor de Desechos Metálicos (Chatarra)","SI",1,1
+"eco_acti_514930","eco_acti_514",514930,"Venta Al Por Mayor de Insumos Veterinarios","SI",1,1
+"eco_acti_514990","eco_acti_514",514990,"Venta Al Por Mayor de Otros Productos Intermedios, Desperdicios y Desechos N.C.P.","SI",1,0
+"eco_acti_515001","eco_acti_515",515001,"Venta Al Por Mayor de Maquinaria Agrícola y Forestal","SI",1,1
+"eco_acti_515002","eco_acti_515",515002,"Venta Al Por Mayor de Maquinaria Metalúrgica","SI",1,1
+"eco_acti_515003","eco_acti_515",515003,"Venta Al Por Mayor de Maquinaria Para La Minería","SI",1,1
+"eco_acti_515004","eco_acti_515",515004,"Venta Al Por Mayor de Maquinaria Para La Construcción","SI",1,1
+"eco_acti_515005","eco_acti_515",515005,"Venta Al Por Mayor de Maquinaria Para La Elaboración de Alimentos, Bebidas y Tabaco","SI",1,1
+"eco_acti_515006","eco_acti_515",515006,"Venta Al Por Mayor de Maquinaria Para Textiles y Cueros","SI",1,1
+"eco_acti_515007","eco_acti_515",515007,"Venta Al Por Mayor de Máquinas y Equipos de Oficina; Incluye Materiales Conexos","SI",1,1
+"eco_acti_515008","eco_acti_515",515008,"Venta Al Por Mayor de Maquinaria y Equipo de Transporte Excepto Vehículos Automotores","SI",1,1
+"eco_acti_515009","eco_acti_515",515009,"Venta Al Por Mayor de Maquinaria, Herramientas, Equipo y Materiales N.C.P.","SI",1,1
+"eco_acti_519000","eco_acti_519",519000,"Venta Al Por Mayor de Otros Productos N.C.P.","SI",1,0
+"eco_acti_521111","eco_acti_521",521111,"Grandes Establecimientos (Venta de Alimentos); Hipermercados","SI",1,1
+"eco_acti_521112","eco_acti_521",521112,"Almacenes Medianos (Venta de Alimentos); Supermercados, Minimarkets","SI",1,1
+"eco_acti_521120","eco_acti_521",521120,"Almacenes Pequenos (Venta de Alimentos)","SI",1,1
+"eco_acti_521200","eco_acti_521",521200,"Grandes Tiendas - Productos de Ferretería y Para El Hogar","SI",1,1
+"eco_acti_521300","eco_acti_521",521300,"Grandes Tiendas - Vestuario y Productos Para El Hogar","SI",1,1
+"eco_acti_521900","eco_acti_521",521900,"Venta Al Por Menor de Otros Productos En Pequenos Almacenes No Especializados","SI",1,1
+"eco_acti_522010","eco_acti_522",522010,"Venta Al Por Menor de Bebidas y Licores (Botillerías)","SI",1,1
+"eco_acti_522020","eco_acti_522",522020,"Venta Al Por Menor de Carnes (Rojas, Blancas, Otras) Productos Cárnicos y Similares","SI",1,1
+"eco_acti_522030","eco_acti_522",522030,"Comercio Al Por Menor de Verduras y Frutas (Verdulería)","SI",1,1
+"eco_acti_522040","eco_acti_522",522040,"Venta Al Por Menor de Pescados, Mariscos y Productos Conexos","SI",1,1
+"eco_acti_522050","eco_acti_522",522050,"Venta Al Por Menor de Productos de Panadería y Pastelería","SI",1,1
+"eco_acti_522060","eco_acti_522",522060,"Venta Al Por Menor de Alimentos Para Mascotas y Animales En General","SI",1,1
+"eco_acti_522070","eco_acti_522",522070,"Venta Al Por Menor de Aves y Huevos","SI",1,1
+"eco_acti_522090","eco_acti_522",522090,"Venta Al Por Menor de Productos de Confiterías, Cigarrillos, y Otros","SI",1,1
+"eco_acti_523111","eco_acti_523",523111,"Farmacias - Pertenecientes A Cadena de Establecimientos","SI",1,1
+"eco_acti_523112","eco_acti_523",523112,"Farmacias Independientes","SI",1,1
+"eco_acti_523120","eco_acti_523",523120,"Venta Al Por Menor de Productos Medicinales","SI",1,1
+"eco_acti_523130","eco_acti_523",523130,"Venta Al Por Menor de Artículos Ortopédicos","SI",1,1
+"eco_acti_523140","eco_acti_523",523140,"Venta Al Por Menor de Artículos de Tocador y Cosméticos","SI",1,1
+"eco_acti_523210","eco_acti_523",523210,"Venta Al Por Menor de Calzado","SI",1,1
+"eco_acti_523220","eco_acti_523",523220,"Venta Al Por Menor de Prendas de Vestir En General, Incluye Accesorios","SI",1,1
+"eco_acti_523230","eco_acti_523",523230,"Venta Al Por Menor de Lanas, Hilos y Similares","SI",1,1
+"eco_acti_523240","eco_acti_523",523240,"Venta Al Por Menor de Maleterías, Talabarterías y Artículos de Cuero","SI",1,1
+"eco_acti_523250","eco_acti_523",523250,"Venta Al Por Menor de Ropa Interior y Prendas de Uso Personal","SI",1,1
+"eco_acti_523290","eco_acti_523",523290,"Comercio Al Por Menor de Textiles Para El Hogar y Otros Productos Textiles N.C.P.","SI",1,1
+"eco_acti_523310","eco_acti_523",523310,"Venta Al Por Menor de Artículos Electrodomésticos y Electrónicos Para El Hogar","SI",1,1
+"eco_acti_523320","eco_acti_523",523320,"Venta Al Por Menor de Cristales, Lozas, Porcelana, Menaje (Cristalerías)","SI",1,1
+"eco_acti_523330","eco_acti_523",523330,"Venta Al Por Menor de Muebles; Incluye Colchones","SI",1,1
+"eco_acti_523340","eco_acti_523",523340,"Venta Al Por Menor de Instrumentos Musicales (Casa de Música)","SI",1,1
+"eco_acti_523350","eco_acti_523",523350,"Venta Al Por Menor de Discos, Cassettes, Dvd y Videos","SI",1,1
+"eco_acti_523360","eco_acti_523",523360,"Venta Al Por Menor de Lámparas, Apliqués y Similares","SI",1,1
+"eco_acti_523390","eco_acti_523",523390,"Venta Al Por Menor de Aparatos, Artículos, Equipo de Uso Doméstico N.C.P.","SI",1,1
+"eco_acti_523410","eco_acti_523",523410,"Venta Al Por Menor de Artículos de Ferretería y Materiales de Construcción","SI",1,1
+"eco_acti_523420","eco_acti_523",523420,"Venta Al Por Menor de Pinturas, Barnices y Lacas","SI",1,1
+"eco_acti_523430","eco_acti_523",523430,"Comercio Al Por Menor de Productos de Vidrio","SI",1,1
+"eco_acti_523911","eco_acti_523",523911,"Comercio Al Por Menor de Artículos Fotográficos","SI",1,1
+"eco_acti_523912","eco_acti_523",523912,"Comercio Al Por Menor de Artículos Ópticos","SI",1,1
+"eco_acti_523921","eco_acti_523",523921,"Comercio Por Menor de Juguetes","SI",1,1
+"eco_acti_523922","eco_acti_523",523922,"Comercio Al Por Menor de Libros","SI",1,1
+"eco_acti_523923","eco_acti_523",523923,"Comercio Al Por Menor de Revistas y Diarios","SI",1,1
+"eco_acti_523924","eco_acti_523",523924,"Comercio de Artículos de Suministros de Oficinas y Artículos de Escritorio En General","SI",1,1
+"eco_acti_523930","eco_acti_523",523930,"Comercio Al Por Menor de Computadoras, Softwares y Suministros","SI",1,1
+"eco_acti_523941","eco_acti_523",523941,"Comercio Al Por Menor de Armerías, Artículos de Caza y Pesca","SI",1,1
+"eco_acti_523942","eco_acti_523",523942,"Comercio Al Por Menor de Bicicletas y Sus Repuestos","SI",1,1
+"eco_acti_523943","eco_acti_523",523943,"Comercio Al Por Menor de Artículos Deportivos","SI",1,1
+"eco_acti_523950","eco_acti_523",523950,"Comercio Al Por Menor de Artículos de Joyería, Fantasías y Relojerías","SI",1,1
+"eco_acti_523961","eco_acti_523",523961,"Venta Al Por Menor de Gas Licuado En Bombonas","SI",1,1
+"eco_acti_523969","eco_acti_523",523969,"Venta Al Por Menor de Carbón, Lena y Otros Combustibles de Uso Doméstico","SI",1,1
+"eco_acti_523991","eco_acti_523",523991,"Comercio Al Por Menor de Artículos Típicos (Artesanías)","SI",1,1
+"eco_acti_523992","eco_acti_523",523992,"Venta Al Por Menor de Flores, Plantas, Árboles, Semillas, Abonos","SI",1,1
+"eco_acti_523993","eco_acti_523",523993,"Venta Al Por Menor de Mascotas y Accesorios","SI",1,1
+"eco_acti_523999","eco_acti_523",523999,"Ventas Al Por Menor de Otros Productos En Almacenes Especializados N.C.P.","SI",1,1
+"eco_acti_524010","eco_acti_524",524010,"Comercio Al Por Menor de Antiguedades","SI",1,1
+"eco_acti_524020","eco_acti_524",524020,"Comercio Al Por Menor de Ropa Usada","SI",1,1
+"eco_acti_524090","eco_acti_524",524090,"Comercio Al Por Menor de Artículos y Artefactos Usados N.C.P.","SI",1,1
+"eco_acti_525110","eco_acti_525",525110,"Venta Al Por Menor En Empresas de Venta A Distancia Por Correo","SI",1,1
+"eco_acti_525120","eco_acti_525",525120,"Venta Al Por Menor En Empresas de Venta A Distancia Vía Telefónica","SI",1,1
+"eco_acti_525130","eco_acti_525",525130,"Venta Al Por Menor En Empresas de Venta A Distancia Vía Internet; Comercio Electrónico","SI",1,1
+"eco_acti_525200","eco_acti_525",525200,"Venta Al Por Menor En Puestos de Venta y Mercados","SI",1,1
+"eco_acti_525911","eco_acti_525",525911,"Venta Al Por Menor Realizada Por Independientes En Transporte Público (Ley 20.388)","SI",1,1
+"eco_acti_525919","eco_acti_525",525919,"Venta Al Por Menor No Realizada En Almacenes de Productos Propios N.C.P.","SI",1,1
+"eco_acti_525920","eco_acti_525",525920,"Máquinas Expendedoras","SI",1,1
+"eco_acti_525930","eco_acti_525",525930,"Venta Al Por Menor A Cambio de Una Retribución O Por Contrata","SI",1,1
+"eco_acti_525990","eco_acti_525",525990,"Otros Tipos de Venta Al Por Menor No Realizada En Almacenes N.C.P.","SI",1,1
+"eco_acti_526010","eco_acti_526",526010,"Reparación de Calzado y Otros Artículos de Cuero","ND",1,1
+"eco_acti_526020","eco_acti_526",526020,"Reparaciones Eléctricas y Electrónicas","ND",1,1
+"eco_acti_526030","eco_acti_526",526030,"Reparación de Relojes y Joyas","ND",1,1
+"eco_acti_526090","eco_acti_526",526090,"Otras Reparaciones de Efectos Personales y Enseres Domésticos N.C.P.","ND",1,1
+"eco_acti_551010","eco_acti_551",551010,"Hoteles","SI",1,1
+"eco_acti_551020","eco_acti_551",551020,"Moteles","SI",1,1
+"eco_acti_551030","eco_acti_551",551030,"Residenciales","SI",1,1
+"eco_acti_551090","eco_acti_551",551090,"Otros Tipos de Hospedaje Temporal Como Camping, Albergues, Posadas, Refugios y Similares","SI",1,1
+"eco_acti_552010","eco_acti_552",552010,"Restaurantes","SI",1,1
+"eco_acti_552020","eco_acti_552",552020,"Establecimientos de Comida Rápida (Bares, Fuentes de Soda, Gelaterías, Pizzerías y Similares)","SI",1,1
+"eco_acti_552030","eco_acti_552",552030,"Casinos y Clubes Sociales","SI",1,1
+"eco_acti_552040","eco_acti_552",552040,"Servicios de Comida Preparada En Forma Industrial","SI",1,1
+"eco_acti_552050","eco_acti_552",552050,"Servicios de Banquetes, Bodas y Otras Celebraciones","SI",1,1
+"eco_acti_552090","eco_acti_552",552090,"Servicios de Otros Establecimientos Que Expenden Comidas y Bebidas","SI",1,1
+"eco_acti_601001","eco_acti_601",601001,"Transporte Interurbano de Pasajeros Por Ferrocarriles","SI",1,1
+"eco_acti_601002","eco_acti_601",601002,"Transporte de Carga Por Ferrocarriles","SI",1,1
+"eco_acti_602110","eco_acti_602",602110,"Transporte Urbano de Pasajeros Vía Ferrocarril (Incluye Metro)","NO",1,1
+"eco_acti_602120","eco_acti_602",602120,"Transporte Urbano de Pasajeros Vía Autobus (Locomoción Colectiva)","NO",1,1
+"eco_acti_602130","eco_acti_602",602130,"Transporte Interurbano de Pasajeros Vía Autobus","NO",1,1
+"eco_acti_602140","eco_acti_602",602140,"Transporte Urbano de Pasajeros Vía Taxi Colectivo","NO",1,1
+"eco_acti_602150","eco_acti_602",602150,"Servicios de Transporte Escolar","NO",1,1
+"eco_acti_602160","eco_acti_602",602160,"Servicios de Transporte de Trabajadores","NO",1,1
+"eco_acti_602190","eco_acti_602",602190,"Otros Tipos de Transporte Regular de Pasajeros Por Vía Terrestre N.C.P.","NO",1,1
+"eco_acti_602210","eco_acti_602",602210,"Transportes Por Taxis Libres y Radiotaxis","NO",1,1
+"eco_acti_602220","eco_acti_602",602220,"Servicios de Transporte A Turistas","NO",1,1
+"eco_acti_602230","eco_acti_602",602230,"Transporte de Pasajeros En Vehículos de Tracción Humana y Animal","NO",1,1
+"eco_acti_602290","eco_acti_602",602290,"Otros Tipos de Transporte No Regular de Pasajeros N.C.P.","NO",1,1
+"eco_acti_602300","eco_acti_602",602300,"Transporte de Carga Por Carretera","SI",1,1
+"eco_acti_603000","eco_acti_603",603000,"Transporte Por Tuberías","SI",1,1
+"eco_acti_611001","eco_acti_611",611001,"Transporte Marítimo y de Cabotaje de Pasajeros","SI",1,1
+"eco_acti_611002","eco_acti_611",611002,"Transporte Marítimo y de Cabotaje de Carga","SI",1,1
+"eco_acti_612001","eco_acti_612",612001,"Transporte de Pasajeros Por Vías de Navegación Interiores","SI",1,1
+"eco_acti_612002","eco_acti_612",612002,"Transporte de Carga Por Vías de Navegación Interiores","SI",1,1
+"eco_acti_621010","eco_acti_62",621010,"Transporte Regular Por Vía Aérea de Pasajeros","SI",1,1
+"eco_acti_621020","eco_acti_62",621020,"Transporte Regular Por Vía Aérea de Carga","SI",1,1
+"eco_acti_622001","eco_acti_62",622001,"Transporte No Regular Por Vía Aérea de Pasajeros","SI",1,1
+"eco_acti_622002","eco_acti_62",622002,"Transporte No Regular Por Vía Aérea de Carga","SI",1,1
+"eco_acti_630100","eco_acti_63",630100,"Manipulación de La Carga","SI",1,1
+"eco_acti_630200","eco_acti_63",630200,"Servicios de Almacenamiento y Depósito","SI",1,1
+"eco_acti_630310","eco_acti_63",630310,"Terminales Terrestres de Pasajeros","SI",1,1
+"eco_acti_630320","eco_acti_63",630320,"Estacionamiento de Vehículos y Parquímetros","SI",1,1
+"eco_acti_630330","eco_acti_63",630330,"Puertos y Aeropuertos","SI",1,1
+"eco_acti_630340","eco_acti_63",630340,"Servicios Prestados Por Concesionarios de Carreteras","SI",1,1
+"eco_acti_630390","eco_acti_63",630390,"Otras Actividades Conexas Al Transporte N.C.P.","SI",1,1
+"eco_acti_630400","eco_acti_63",630400,"Agencias y Organizadores de Viajes; Actividades de Asistencia A Turistas N.C.P.","SI",1,1
+"eco_acti_630910","eco_acti_63",630910,"Agencias de Aduanas","ND",1,1
+"eco_acti_630920","eco_acti_63",630920,"Agencias de Transporte","ND",1,1
+"eco_acti_641100","eco_acti_641",641100,"Actividades Postales Nacionales","ND",1,1
+"eco_acti_641200","eco_acti_641",641200,"Actividades de Correo Distintas de Las Actividades Postales Nacionales","ND",1,1
+"eco_acti_642010","eco_acti_642",642010,"Servicios de Telefonía Fija","SI",1,1
+"eco_acti_642020","eco_acti_642",642020,"Servicios de Telefonía Móvil","SI",1,1
+"eco_acti_642030","eco_acti_642",642030,"Portadores Telefónicos (Larga Distancia Nacional E Internacional)","SI",1,1
+"eco_acti_642040","eco_acti_642",642040,"Servicios de Televisión No Abierta","SI",1,1
+"eco_acti_642050","eco_acti_642",642050,"Proveedores de Internet","SI",1,1
+"eco_acti_642061","eco_acti_642",642061,"Centros de Llamados; Incluye Envío de Fax","SI",1,1
+"eco_acti_642062","eco_acti_642",642062,"Centros de Acceso A Internet","SI",1,1
+"eco_acti_642090","eco_acti_642",642090,"Otros Servicios de Telecomunicaciones N.C.P.","SI",1,1
+"eco_acti_651100","eco_acti_651",651100,"Banca Central","SI",1,0
+"eco_acti_651910","eco_acti_651",651910,"Bancos","SI",1,0
+"eco_acti_651920","eco_acti_651",651920,"Financieras","SI",1,1
+"eco_acti_651990","eco_acti_651",651990,"Otros Tipos de Intermediación Monetaria N.C.P.","SI",1,1
+"eco_acti_659110","eco_acti_659",659110,"Leasing Financiero","SI",1,1
+"eco_acti_659120","eco_acti_659",659120,"Leasing Habitacional","SI",1,1
+"eco_acti_659210","eco_acti_659",659210,"Financiamiento Del Fomento de La Producción","SI",1,0
+"eco_acti_659220","eco_acti_659",659220,"Actividades de Crédito Prendario","SI",1,1
+"eco_acti_659231","eco_acti_659",659231,"Factoring","SI",1,1
+"eco_acti_659232","eco_acti_659",659232,"Securitizadoras","SI",1,0
+"eco_acti_659290","eco_acti_659",659290,"Otros Instituciones Financieras N.C.P.","SI",1,1
+"eco_acti_659911","eco_acti_659",659911,"Administradoras de Fondos de Inversión","SI",1,1
+"eco_acti_659912","eco_acti_659",659912,"Administradoras de Fondos Mutuos","SI",1,1
+"eco_acti_659913","eco_acti_659",659913,"Administradoras de Fices (Fondos de Inversión de Capital Extranjero)","SI",1,1
+"eco_acti_659914","eco_acti_659",659914,"Administradoras de Fondos Para La Vivienda","SI",1,1
+"eco_acti_659915","eco_acti_659",659915,"Administradoras de Fondos Para Otros Fines Y/O Generales","SI",1,1
+"eco_acti_659920","eco_acti_659",659920,"Sociedades de Inversión y Rentistas de Capitales Mobiliarios En General","NO",1,1
+"eco_acti_660101","eco_acti_660",660101,"Planes de Seguro de Vida","SI",1,0
+"eco_acti_660102","eco_acti_660",660102,"Planes de Reaseguros de Vida","SI",1,0
+"eco_acti_660200","eco_acti_660",660200,"Administradoras de Fondos de Pensiones (Afp)","SI",1,0
+"eco_acti_660301","eco_acti_660",660301,"Planes de Seguros Generales","SI",1,0
+"eco_acti_660302","eco_acti_660",660302,"Planes de Reaseguros Generales","SI",1,0
+"eco_acti_660400","eco_acti_660",660400,"Isapres","SI",1,0
+"eco_acti_671100","eco_acti_671",671100,"Administración de Mercados Financieros","SI",1,1
+"eco_acti_671210","eco_acti_671",671210,"Corredores de Bolsa","SI",1,1
+"eco_acti_671220","eco_acti_671",671220,"Agentes de Valores","SI",1,1
+"eco_acti_671290","eco_acti_671",671290,"Otros Servicios de Corretaje","SI",1,1
+"eco_acti_671910","eco_acti_671",671910,"Cámara de Compensación","SI",1,1
+"eco_acti_671921","eco_acti_671",671921,"Administradora de Tarjetas de Crédito","SI",1,1
+"eco_acti_671929","eco_acti_671",671929,"Empresas de Asesoría, Consultoría Financiera y de Apoyo Al Giro","ND",1,1
+"eco_acti_671930","eco_acti_671",671930,"Clasificadores de Riesgos","SI",1,1
+"eco_acti_671940","eco_acti_671",671940,"Casas de Cambio y Operadores de Divisa","ND",1,1
+"eco_acti_671990","eco_acti_671",671990,"Otras Actividades Auxiliares de La Intermediación Financiera N.C.P.","SI",1,1
+"eco_acti_672010","eco_acti_672",672010,"Corredores de Seguros","ND",1,1
+"eco_acti_672020","eco_acti_672",672020,"Agentes y Liquidadores de Seguros","NO",2,1
+"eco_acti_672090","eco_acti_672",672090,"Otras Actividades Auxiliares de La Financiación de Planes de Seguros y de Pensiones N.C.P.","ND","ND",1
+"eco_acti_701001","eco_acti_701",701001,"Arriendo de Inmuebles Amoblados O Con Equipos y Maquinarias","SI",1,1
+"eco_acti_701009","eco_acti_701",701009,"Compra, Venta y Alquiler (Excepto Amoblados) de Inmuebles Propios O Arrendados","NO",1,1
+"eco_acti_702000","eco_acti_702",702000,"Corredores de Propiedades","ND","ND",1
+"eco_acti_711101","eco_acti_711",711101,"Alquiler de Autos y Camionetas Sin Chofer","SI",1,1
+"eco_acti_711102","eco_acti_711",711102,"Alquiler de Otros Equipos de Transporte Por Vía Terrestre Sin Operarios","SI",1,1
+"eco_acti_711200","eco_acti_711",711200,"Alquiler de Transporte Por Vía Acuática Sin Tripulación","SI",1,1
+"eco_acti_711300","eco_acti_711",711300,"Alquiler de Equipo de Transporte Por Vía Aérea Sin Tripulantes","SI",1,1
+"eco_acti_712100","eco_acti_712",712100,"Alquiler de Maquinaria y Equipo Agropecuario","SI",1,1
+"eco_acti_712200","eco_acti_712",712200,"Alquiler de Maquinaria y Equipo de Construcción E Ingeniería Civil","SI",1,1
+"eco_acti_712300","eco_acti_712",712300,"Alquiler de Maquinaria y Equipo de Oficina (Sin Operarios Ni Servicio Administrativo)","SI",1,1
+"eco_acti_712900","eco_acti_712",712900,"Alquiler de Otros Tipos de Maquinarias y Equipos N.C.P.","SI",1,1
+"eco_acti_713010","eco_acti_713",713010,"Alquiler de Bicicletas y Artículos Para Deportes","SI",1,1
+"eco_acti_713020","eco_acti_713",713020,"Arriendo de Videos, Juegos de Video, y Equipos Reproductores de Video, Música y Similares","SI",1,1
+"eco_acti_713030","eco_acti_713",713030,"Alquiler de Mobiliario Para Eventos (Sillas, Mesas, Mesones, Vajillas, Toldos y Relacionados)","SI",1,1
+"eco_acti_713090","eco_acti_713",713090,"Alquiler de Otros Efectos Personales y Enseres Domésticos N.C.P.","SI",1,1
+"eco_acti_722000","eco_acti_72",722000,"Asesores y Consultores En Informática (Software)","NO",2,1
+"eco_acti_724000","eco_acti_72",724000,"Procesamiento de Datos y Actividades Relacionadas Con Bases de Datos","ND",1,1
+"eco_acti_726000","eco_acti_72",726000,"Empresas de Servicios Integrales de Informática","ND",1,1
+"eco_acti_725000","eco_acti_725",725000,"Mantenimiento y Reparación de Maquinaria de Oficina, Contabilidad E Informática","SI",1,1
+"eco_acti_731000","eco_acti_73",731000,"Investigaciones y Desarrollo Experimental En El Campo de Las Ciencias Naturales y La Ingeniería","ND",1,1
+"eco_acti_732000","eco_acti_73",732000,"Investigaciones y Desarrollo Experimental En El Campo de Las Ciencias Sociales y Las Humanidades","ND",1,1
+"eco_acti_741110","eco_acti_741",741110,"Servicios Jurídicos","NO",2,1
+"eco_acti_741120","eco_acti_741",741120,"Servicio Notarial","NO",2,0
+"eco_acti_741130","eco_acti_741",741130,"Conservador de Bienes Raices","NO",2,0
+"eco_acti_741140","eco_acti_741",741140,"Receptores Judiciales","NO",2,1
+"eco_acti_741190","eco_acti_741",741190,"Arbitrajes, Síndicos, Peritos y Otros","NO",2,1
+"eco_acti_741200","eco_acti_741",741200,"Actividades de Contabilidad, Teneduría de Libros y Auditoría; Asesoramientos Tributarios","NO",2,1
+"eco_acti_741300","eco_acti_741",741300,"Investigación de Mercados y Realización de Encuestas de Opinión Pública","ND","ND",1
+"eco_acti_741400","eco_acti_741",741400,"Actividades de Asesoramiento Empresarial y En Materia de Gestión","NO","ND",1
+"eco_acti_742110","eco_acti_742",742110,"Servicios de Arquitectura y Técnico Relacionado","NO",2,1
+"eco_acti_742121","eco_acti_742",742121,"Empresas de Servicios Geológicos y de Prospección","SI",1,1
+"eco_acti_742122","eco_acti_742",742122,"Servicios Profesionales En Geología y Prospección","NO",2,1
+"eco_acti_742131","eco_acti_742",742131,"Empresas de Servicios de Topografía y Agrimensura","SI",1,1
+"eco_acti_742132","eco_acti_742",742132,"Servicios Profesionales de Topografía y Agrimensura","NO",2,1
+"eco_acti_742141","eco_acti_742",742141,"Servicios de Ingeniería Prestados Por Empresas N.C.P.","SI",1,1
+"eco_acti_742142","eco_acti_742",742142,"Servicios de Ingeniería Prestados Por Profesionales N.C.P.","NO",2,1
+"eco_acti_742190","eco_acti_742",742190,"Otros Servicios Desarrollados Por Profesionales","NO",2,1
+"eco_acti_742210","eco_acti_742",742210,"Servicio de Revisión Técnica de Vehículos Automotores","SI",1,1
+"eco_acti_742290","eco_acti_742",742290,"Otros Servicios de Ensayos y Analisis Técnicos","ND",1,1
+"eco_acti_743001","eco_acti_743",743001,"Empresas de Publicidad","SI",1,1
+"eco_acti_743002","eco_acti_743",743002,"Servicios Personales En Publicidad","NO",2,1
+"eco_acti_749110","eco_acti_749",749110,"Servicios Suministro de Personal; Empresas Servicios Transitorios","SI",1,1
+"eco_acti_749190","eco_acti_749",749190,"Servicios de Reclutamiento de Personal","SI",1,1
+"eco_acti_749210","eco_acti_749",749210,"Actividades de Investigación","ND","ND",1
+"eco_acti_749221","eco_acti_749",749221,"Servicios Integrales de Seguridad","ND",1,1
+"eco_acti_749222","eco_acti_749",749222,"Transporte de Valores","SI",1,1
+"eco_acti_749229","eco_acti_749",749229,"Servicios Personales Relacionados Con Seguridad","NO",2,1
+"eco_acti_749310","eco_acti_749",749310,"Empresas de Limpieza de Edificios Residenciales y No Residenciales","SI",1,1
+"eco_acti_749320","eco_acti_749",749320,"Desratización y Fumigación No Agrícola","ND",1,1
+"eco_acti_749401","eco_acti_749",749401,"Servicios de Revelado, Impresión, Ampliación de Fotografías","SI",1,1
+"eco_acti_749402","eco_acti_749",749402,"Actividades de Fotografía Publicitaria","ND","ND",1
+"eco_acti_749409","eco_acti_749",749409,"Servicios Personales de Fotografía","NO",2,1
+"eco_acti_749500","eco_acti_749",749500,"Servicios de Envasado y Empaque","SI",1,1
+"eco_acti_749911","eco_acti_749",749911,"Servicios de Cobranza de Cuentas","ND",1,1
+"eco_acti_749912","eco_acti_749",749912,"Evaluación y Calificación Del Grado de Solvencia","ND",1,1
+"eco_acti_749913","eco_acti_749",749913,"Asesorías En La Gestión de La Compra O Venta de Pequenas y Medianas Empresas","ND",1,1
+"eco_acti_749921","eco_acti_749",749921,"Disenadores de Vestuario","ND","ND",1
+"eco_acti_749922","eco_acti_749",749922,"Disenadores de Interiores","ND","ND",1
+"eco_acti_749929","eco_acti_749",749929,"Otros Disenadores N.C.P.","ND","ND",1
+"eco_acti_749931","eco_acti_749",749931,"Empresas de Taquigrafía, Reproducción, Despacho de Correspondencia, y Otras Labores de Oficina","SI",1,1
+"eco_acti_749932","eco_acti_749",749932,"Servicios Personales de Traducción, Interpretación y Labores de Oficina","NO",2,1
+"eco_acti_749933","eco_acti_749",749933,"Empresas de Traducción E Interpretación","SI",1,1
+"eco_acti_749934","eco_acti_749",749934,"Servicios de Fotocopias","SI",1,1
+"eco_acti_749940","eco_acti_749",749940,"Agencias de Contratación de Actores","SI",1,1
+"eco_acti_749950","eco_acti_749",749950,"Actividades de Subasta (Martilleros)","SI",1,1
+"eco_acti_749961","eco_acti_749",749961,"Galerías de Arte","SI",1,1
+"eco_acti_749962","eco_acti_749",749962,"Ferias de Exposiciones Con Fines Empresariales","ND",1,1
+"eco_acti_749970","eco_acti_749",749970,"Servicios de Contestación de Llamadas (Call Center)","SI",1,1
+"eco_acti_749990","eco_acti_749",749990,"Otras Actividades Empresariales N.C.P.","SI",1,1
+"eco_acti_751110","eco_acti_751",751110,"Gobierno Central","ND",1,0
+"eco_acti_751120","eco_acti_751",751120,"Municipalidades","ND",1,0
+"eco_acti_751200","eco_acti_751",751200,"Actividades Del Poder Judicial","ND",1,0
+"eco_acti_751300","eco_acti_751",751300,"Actividades Del Poder Legislativo","ND",1,0
+"eco_acti_752100","eco_acti_751",752100,"Relaciones Exteriores","ND",1,0
+"eco_acti_752200","eco_acti_751",752200,"Actividades de Defensa","ND",1,0
+"eco_acti_752300","eco_acti_751",752300,"Actividades de Mantenimiento Del Orden Público y de Seguridad","ND",1,1
+"eco_acti_753010","eco_acti_753",753010,"Actividades de Planes de Seguridad Social de Afiliación Obligatoria Relacionados Con Salud","ND",1,0
+"eco_acti_753020","eco_acti_753",753020,"Cajas de Compensación","ND",1,1
+"eco_acti_753090","eco_acti_753",753090,"Otras Actividades de Planes de Seguridad Social de Afiliación Obligatoria","ND",1,0
+"eco_acti_801010","eco_acti_800",801010,"Establecimientos de Enseñanza Preescolar","SI",1,1
+"eco_acti_801020","eco_acti_800",801020,"Establecimientos de Enseñanza Primaria","SI",1,1
+"eco_acti_802100","eco_acti_800",802100,"Establecimientos de Enseñanza Secundaria de Formación General","SI",1,1
+"eco_acti_802200","eco_acti_800",802200,"Establecimientos de Enseñanza Secundaria de Formación Técnica y Profesional","SI",1,1
+"eco_acti_803010","eco_acti_800",803010,"Universidades","SI",1,0
+"eco_acti_803020","eco_acti_800",803020,"Institutos Profesionales","SI",1,0
+"eco_acti_803030","eco_acti_800",803030,"Centros de Formación Técnica","SI",1,1
+"eco_acti_809010","eco_acti_800",809010,"Establecimientos de Enseñanza Primaria y Secundaria Para Adultos","SI",1,1
+"eco_acti_809020","eco_acti_800",809020,"Establecimientos de Enseñanza Preuniversitaria","SI",1,1
+"eco_acti_809030","eco_acti_800",809030,"Educación Extraescolar (Escuela de Conducción, Música, Modelaje, Etc.)","SI",1,1
+"eco_acti_809041","eco_acti_800",809041,"Educación A Distancia (Internet, Correspondencia, Otras)","NO",1,1
+"eco_acti_809049","eco_acti_800",809049,"Servicios Personales de Educación","NO",2,1
+"eco_acti_851110","eco_acti_851",851110,"Hospitales y Clínicas","SI",1,0
+"eco_acti_851120","eco_acti_851",851120,"Clínicas Psiquiatricas, Centros de Rehabilitación, Asilos y Clínicas de Reposo","SI",1,1
+"eco_acti_851211","eco_acti_851",851211,"Servicios de Médicos En Forma Independiente","NO",2,1
+"eco_acti_851212","eco_acti_851",851212,"Establecimientos Médicos de Atención Ambulatoria (Centros Médicos)","ND",1,1
+"eco_acti_851221","eco_acti_851",851221,"Servicios de Odontólogos En Forma Independiente","NO",2,1
+"eco_acti_851222","eco_acti_851",851222,"Centros de Atención Odontológica","ND",1,1
+"eco_acti_851910","eco_acti_851",851910,"Laboratorios Clínicos; Incluye Bancos de Sangre","ND",1,1
+"eco_acti_851920","eco_acti_851",851920,"Otros Profesionales de La Salud","NO",2,1
+"eco_acti_851990","eco_acti_851",851990,"Otras Actividades Empresariales Relacionadas Con La Salud Humana","ND",1,1
+"eco_acti_852010","eco_acti_852",852010,"Actividades de Clínicas Veterinarias","ND",1,1
+"eco_acti_852021","eco_acti_852",852021,"Servicios de Médicos Veterinarios En Forma Independiente","NO",2,1
+"eco_acti_852029","eco_acti_852",852029,"Servicios de Otros Profesionales Independientes En El Área Veterinaria","NO",2,1
+"eco_acti_853100","eco_acti_853",853100,"Servicios Sociales Con Alojamiento","ND",1,1
+"eco_acti_853200","eco_acti_853",853200,"Servicios Sociales Sin Alojamiento","ND",1,1
+"eco_acti_900010","eco_acti_900",900010,"Servicios de Vertederos","SI",1,1
+"eco_acti_900020","eco_acti_900",900020,"Barrido de Exteriores","SI",1,1
+"eco_acti_900030","eco_acti_900",900030,"Recogida y Eliminación de Desechos","SI",1,1
+"eco_acti_900040","eco_acti_900",900040,"Servicios de Evacuación de Riles y Aguas Servidas","SI",1,1
+"eco_acti_900050","eco_acti_900",900050,"Servicios de Tratamiento de Riles y Aguas Servidas","SI",1,1
+"eco_acti_900090","eco_acti_900",900090,"Otras Actividades de Manejo de Desperdicios","SI",1,1
+"eco_acti_911100","eco_acti_911",911100,"Actividades de Organizaciones Empresariales y de Empleadores","ND",1,1
+"eco_acti_911210","eco_acti_911",911210,"Colegios Profesionales","ND",1,0
+"eco_acti_911290","eco_acti_911",911290,"Actividades de Otras Organizaciones Profesionales","ND",1,1
+"eco_acti_912000","eco_acti_912",912000,"Actividades de Sindicatos","ND",1,1
+"eco_acti_919100","eco_acti_912",919100,"Actividades de Organizaciones Religiosas","ND",1,0
+"eco_acti_919200","eco_acti_912",919200,"Actividades de Organizaciones Políticas","ND",1,1
+"eco_acti_919910","eco_acti_912",919910,"Centros de Madres y Unidades Vecinales y Comunales","ND",1,0
+"eco_acti_919920","eco_acti_912",919920,"Clubes Sociales","ND",1,0
+"eco_acti_919930","eco_acti_912",919930,"Servicios de Institutos de Estudios, Fundaciones, Corporaciones de Desarrollo (Educación, Salud)","ND",1,0
+"eco_acti_919990","eco_acti_912",919990,"Actividades de Otras Asociaciones N.C.P.","ND",1,1
+"eco_acti_921110","eco_acti_921",921110,"Producción de Películas Cinematográficas","ND",1,1
+"eco_acti_921120","eco_acti_921",921120,"Distribuidora Cinematográficas","SI",1,1
+"eco_acti_921200","eco_acti_921",921200,"Exhibición de Filmes y Videocintas","SI",1,1
+"eco_acti_921310","eco_acti_921",921310,"Actividades de Televisión","ND",1,1
+"eco_acti_921320","eco_acti_921",921320,"Actividades de Radio","ND",1,1
+"eco_acti_921411","eco_acti_921",921411,"Servicios de Producción de Recitales y Otros Eventos Musicales Masivos","ND",1,1
+"eco_acti_921419","eco_acti_921",921419,"Servicios de Producción Teatral y Otros N.C.P.","ND",1,1
+"eco_acti_921420","eco_acti_921",921420,"Actividades Empresariales de Artistas","SI",1,1
+"eco_acti_921430","eco_acti_921",921430,"Actividades Artísticas; Funciones de Artistas, Actores, Músicos, Conferencistas, Otros","NO",2,1
+"eco_acti_921490","eco_acti_921",921490,"Agencias de Venta de Billetes de Teatro, Salas de Concierto y de Teatro","ND",1,1
+"eco_acti_921911","eco_acti_921",921911,"Instructores de Danza","NO",2,1
+"eco_acti_921912","eco_acti_921",921912,"Actividades de Discotecas, Cabaret, Salas de Baile y Similares","SI",1,1
+"eco_acti_921920","eco_acti_921",921920,"Actividades de Parques de Atracciones y Centros Similares","SI",1,1
+"eco_acti_921930","eco_acti_921",921930,"Espectáculos Circenses, de Títeres U Otros Similares","SI",1,1
+"eco_acti_921990","eco_acti_921",921990,"Otras Actividades de Entretenimiento N.C.P.","ND","ND",1
+"eco_acti_922001","eco_acti_922",922001,"Agencias de Noticias","ND",1,1
+"eco_acti_922002","eco_acti_922",922002,"Servicios Periodísticos Prestado Por Profesionales","NO",2,1
+"eco_acti_923100","eco_acti_923",923100,"Actividades de Bibliotecas y Archivos","ND",1,1
+"eco_acti_923200","eco_acti_923",923200,"Actividades de Museos y Preservación de Lugares y Edificios Históricos","ND",1,1
+"eco_acti_923300","eco_acti_923",923300,"Actividades de Jardines Botánicos y Zoológicos y de Parques Nacionales","ND",1,1
+"eco_acti_924110","eco_acti_924",924110,"Explotación de Instalaciones Especializadas Para Las Practicas Deportivas","ND",1,1
+"eco_acti_924120","eco_acti_924",924120,"Actividades de Clubes de Deportes y Estadios","ND",1,1
+"eco_acti_924131","eco_acti_924",924131,"Futbol Profesional","ND",1,1
+"eco_acti_924132","eco_acti_924",924132,"Futbol Amateur","ND",1,1
+"eco_acti_924140","eco_acti_924",924140,"Hipódromos","SI",1,1
+"eco_acti_924150","eco_acti_924",924150,"Promoción y Organización de Espectáculos Deportivos","ND",1,1
+"eco_acti_924160","eco_acti_924",924160,"Escuelas Para Deportes","SI",1,1
+"eco_acti_924190","eco_acti_924",924190,"Otras Actividades Relacionadas Al Deporte N.C.P.","ND",1,1
+"eco_acti_924910","eco_acti_924",924910,"Sistemas de Juegos de Azar Masivos.","SI",1,0
+"eco_acti_924920","eco_acti_924",924920,"Actividades de Casino de Juegos","SI",1,0
+"eco_acti_924930","eco_acti_924",924930,"Salas de Billar, Bowling, Pool y Juegos Electrónicos","SI",1,1
+"eco_acti_924940","eco_acti_924",924940,"Contratación de Actores Para Cine, Tv, y Teatro","SI",1,1
+"eco_acti_924990","eco_acti_924",924990,"Otros Servicios de Diversión y Esparcimientos N.C.P.","ND","ND",1
+"eco_acti_930100","eco_acti_930",930100,"Lavado y Limpieza de Prendas de Tela y de Piel, Incluso Las Limpiezas En Seco","SI",1,1
+"eco_acti_930200","eco_acti_930",930200,"Peluquerías y Salones de Belleza","ND","ND",1
+"eco_acti_930310","eco_acti_930",930310,"Servicios Funerarios","SI",1,1
+"eco_acti_930320","eco_acti_930",930320,"Servicios En Cementerios","SI",1,1
+"eco_acti_930330","eco_acti_930",930330,"Servicios de Carrozas Fúnebres (Transporte de Cadáveres)","SI",1,1
+"eco_acti_930390","eco_acti_930",930390,"Otras Actividades de Servicios Funerarios y Otras Actividades Conexas","SI",1,1
+"eco_acti_930910","eco_acti_930",930910,"Actividades de Mantenimiento Físico Corporal (Baños, Turcos, Saunas)","SI",1,1
+"eco_acti_930990","eco_acti_930",930990,"Otras Actividades de Servicios Personales N.C.P.","NO",2,1
+"eco_acti_950001","eco_acti_950",950001,"Hogares Privados Individuales Con Servicio Doméstico","NO","ND",0
+"eco_acti_950002","eco_acti_950",950002,"Consejo de Administración de Edificios y Condominios","NO",1,0
+"eco_acti_990000","eco_acti_990",990000,"Organizaciones y Órganos Extraterritoriales","ND",1,0
