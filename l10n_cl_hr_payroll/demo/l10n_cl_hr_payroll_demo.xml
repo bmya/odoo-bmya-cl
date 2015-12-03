@@ -7,35 +7,35 @@
         <!-- Indicadores Inputs -->
 
         <record id="hr_indicadores_mayo" model="hr.indicadores">
-            <field name="name">Mayo de 2015</field>
-            <field name="uf">24904.75</field>
-            <field name="utm">43499</field>
-            <field name="asignacion_familiar_primer">236094</field>
-            <field name="asignacion_familiar_segundo">344840</field>
-            <field name="asignacion_familiar_tercer">537834</field>
+            <field name="name">Noviembre de 2015</field>
+            <field name="uf">25598.41</field>
+            <field name="utm">44776</field>
+            <field name="asignacion_familiar_primer">252882</field>
+            <field name="asignacion_familiar_segundo">369362</field>
+            <field name="asignacion_familiar_tercer">576080</field>
             <field name="caja_compensacion">0.60</field>
-            <field name="asignacion_familiar_monto_a">9242</field>
-            <field name="asignacion_familiar_monto_b">5294</field>
-            <field name="asignacion_familiar_monto_c">1673</field>
+            <field name="asignacion_familiar_monto_a">9899</field>
+            <field name="asignacion_familiar_monto_b">6075</field>
+            <field name="asignacion_familiar_monto_c">1920</field>
             <field name="fonasa">6.40</field>
             <field name="mutual_seguridad">1.29</field>
             <field name="pensiones_ips">18.84</field>
-            <field name="sueldo_minimo">225000</field>
+            <field name="sueldo_minimo">241000</field>
             <field name="tasa_mutual">1.29</field>
             <field name="tope_imponible_afp">73.20</field>
             <field name="tope_imponible_ips">60</field>
             <field name="tope_imponible_salud">5.12</field>
             <field name="tope_imponible_seguro_cesantia">109.80</field>
-            <field name="uta">521988</field>
+            <field name="uta">537312</field>
             <field name="deposito_convenido">900</field>
-            <field name="sueldo_minimo_otro">0</field>
+            <field name="sueldo_minimo_otro">179912</field>
             <field name="contrato_plazo_fijo_empleador">2.40</field>
             <field name="contrato_plazo_indefinido_empleador">3.0</field>
             <field name="contrato_plazo_indefinido_empleador_otro">0.8</field>
             <field name="tasa_afp_cuprum">11.48</field>
             <field name="tasa_afp_capital">11.44</field>
             <field name="tasa_afp_provida">11.54</field>
-            <field name="tasa_afp_modelo">11.44</field>
+            <field name="tasa_afp_modelo">10.77</field>
             <field name="tasa_afp_planvital">10.47</field>
             <field name="tasa_afp_habitat">11.27</field>
             <field name="tasa_sis_cuprum">1.15</field>
@@ -75,7 +75,7 @@
             <field name="name">00001</field>
             <field name="employee_id" ref="hr_employee_data_demo"/>
             <field name="type_id"     ref="hr_contract_type_not_defined"/>
-            <field name="date_start">2015-05-01</field>
+            <field name="date_start">2015-10-01</field>
             <field name="wage">1085000</field>
             <field name="colacion">60000</field>
             <field name="movilizacion">75000</field>

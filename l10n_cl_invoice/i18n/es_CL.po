@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20150401\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-11 11:56+0000\n"
-"PO-Revision-Date: 2015-10-11 11:28-0300\n"
+"PO-Revision-Date: 2015-12-03 00:54-0300\n"
 "Last-Translator: Daniel Blanco - Blanco Martín & Asociados "
 "<daniel@blancomartin.cl>\n"
 "Language-Team: Blanco Martín & Asociados <info@blancomartin.cl>\n"
@@ -20,11 +20,13 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_invoice_form
+#, fuzzy
 msgid "- Next Number:"
 msgstr "- Próximo Número:"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_account_move
+#, fuzzy
 msgid "Account Entry"
 msgstr "Entrada de Cuenta"
 
@@ -32,61 +34,73 @@ msgstr "Entrada de Cuenta"
 #: field:sii.concept_type,active:0 field:sii.document_class,active:0
 #: field:sii.document_letter,active:0 field:sii.document_type,active:0
 #: field:sii.optional_type,active:0 field:sii.responsability,active:0
+#, fuzzy
 msgid "Active"
-msgstr "Activa"
+msgstr "Activar"
 
 #. module: l10n_cl_invoice
 #: field:sii.optional_type,apply_rule:0
+#, fuzzy
 msgid "Apply rule"
 msgstr "Aplicar regla"
 
 #. module: l10n_cl_invoice
 #: view:account.journal.document_config:l10n_cl_invoice.view_account_journal_document_config_form
+#, fuzzy
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_type,code:0 field:sii.responsability,code:0
+#, fuzzy
 msgid "Code"
 msgstr "Código"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_class,code_template:0
+#, fuzzy
 msgid "Code Template for Journal"
 msgstr "Plantilla para Diario"
 
 #. module: l10n_cl_invoice
 #: sql_constraint:sii.responsability:0
+#, fuzzy
 msgid "Code must be unique!"
 msgstr "¡El código debe ser único!"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_res_company
+#, fuzzy
 msgid "Companies"
 msgstr "Compañías"
 
 #. module: l10n_cl_invoice
 #: field:sii.point_of_sale,company_id:0
+#, fuzzy
 msgid "Company"
 msgstr "Compañía"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_concept_type
+#, fuzzy
 msgid "Concept Types"
 msgstr "Tipos de Concepto"
 
 #. module: l10n_cl_invoice
 #: view:account.journal.document_config:l10n_cl_invoice.view_account_journal_document_config_form
+#, fuzzy
 msgid "Confirm"
 msgstr "Confirmar"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_res_country
+#, fuzzy
 msgid "Country"
-msgstr "País"
+msgstr "Country"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_cl_form
+#, fuzzy
 msgid "Create Journal Documents"
 msgstr "Crear Documentos"
 
@@ -97,6 +111,7 @@ msgstr "Crear Documentos"
 #: field:sii.document_letter,create_uid:0 field:sii.document_type,create_uid:0
 #: field:sii.optional_type,create_uid:0 field:sii.point_of_sale,create_uid:0
 #: field:sii.responsability,create_uid:0
+#, fuzzy
 msgid "Created by"
 msgstr "Creado por"
 
@@ -108,33 +123,39 @@ msgstr "Creado por"
 #: field:sii.document_type,create_date:0 field:sii.optional_type,create_date:0
 #: field:sii.point_of_sale,create_date:0
 #: field:sii.responsability,create_date:0
+#, fuzzy
 msgid "Created on"
-msgstr "Creado el"
+msgstr "Creado en"
 
 #. module: l10n_cl_invoice
 #: field:account.journal.document_config,credit_notes:0
 #: selection:sii.document_class,document_type:0
+#, fuzzy
 msgid "Credit Notes"
 msgstr "Notas de Crédito"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_res_currency
+#, fuzzy
 msgid "Currency"
 msgstr "Moneda"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_class,dte:0
+#, fuzzy
 msgid "DTE"
 msgstr "DTE"
 
 #. module: l10n_cl_invoice
 #: field:account.journal.document_config,debit_notes:0
 #: selection:sii.document_class,document_type:0
+#, fuzzy
 msgid "Debit Notes"
 msgstr "Notas de Débito"
 
 #. module: l10n_cl_invoice
 #: help:res.company,invoice_vat_discrimination_default:0
+#, fuzzy
 msgid ""
 "Definie behaviour on invoices reports. Discrimination or not will depend in "
 "partner and company responsability and SII letters setup:            * If No "
@@ -152,41 +173,49 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: help:account.invoice,vat_discriminated:0
+#, fuzzy
 msgid "Discriminate VAT on Quotations and Sale Orders?"
 msgstr "¿Discrimina IVA en cotizaciones y órdenes de venta?"
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,vat_discriminated:0
+#, fuzzy
 msgid "Discriminate VAT?"
 msgstr "¿Discrimina IVA?"
 
 #. module: l10n_cl_invoice
 #: selection:account.journal.document_config,debit_notes:0
+#, fuzzy
 msgid "Do not use"
 msgstr "No usar"
 
 #. module: l10n_cl_invoice
 #: view:account.move.line:l10n_cl_invoice.view_account_move_line_filter
+#, fuzzy
 msgid "Document Class"
 msgstr "Clase de Documento"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_class
+#, fuzzy
 msgid "Document Classes"
 msgstr "Clases de Documento"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_class,doc_code_prefix:0
+#, fuzzy
 msgid "Document Code Prefix"
 msgstr "Prefijo del Documento"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_class,document_letter_id:0
+#, fuzzy
 msgid "Document Letter"
 msgstr "Letra del Documento"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_letter
+#, fuzzy
 msgid "Document Letters"
 msgstr "Letras de Documento"
 
@@ -195,11 +224,13 @@ msgstr "Letras de Documento"
 #: field:account.move,document_number:0
 #: field:account.move,sii_document_number:0
 #: field:account.move.line,document_number:0
+#, fuzzy
 msgid "Document Number"
 msgstr "Número de Documento"
 
 #. module: l10n_cl_invoice
 #: field:account.journal,document_sequence_type:0
+#, fuzzy
 msgid "Document Sequence Type"
 msgstr "Tipo de Secuencia de Documento"
 
@@ -210,58 +241,69 @@ msgstr "Tipo de Secuencia de Documento"
 #: field:account.move,document_class_id:0
 #: field:account.move.line,document_class_id:0
 #: field:sii.document_class,document_type:0
+#, fuzzy
 msgid "Document Type"
 msgstr "Tipo de Documento"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_type
+#, fuzzy
 msgid "Document Types"
 msgstr "Tipos de Documento"
 
 #. module: l10n_cl_invoice
 #: field:res.partner,document_number:0
+#, fuzzy
 msgid "Document number"
 msgstr "Número de Documento"
 
 #. module: l10n_cl_invoice
 #: field:res.partner,document_type_id:0
+#, fuzzy
 msgid "Document type"
 msgstr "Tipo de Documento"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_cl_form
+#, fuzzy
 msgid "Documents"
 msgstr "Documentos"
 
 #. module: l10n_cl_invoice
 #: field:account.journal,journal_document_class_ids:0
+#, fuzzy
 msgid "Documents Class"
 msgstr "Clases de Documentos"
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,journal_document_class_id:0
+#, fuzzy
 msgid "Documents Type"
 msgstr "Tipos de Documentos"
 
 #. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_invoice_form
+#, fuzzy
 msgid "Draft Refund"
 msgstr "Reemolso en Borrador"
 
 #. module: l10n_cl_invoice
 #: field:account.journal.sii_document_class,sequence_id:0
+#, fuzzy
 msgid "Entry Sequence"
 msgstr "Secuencia de Entrada"
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,exempt_amount:0
 #: field:account.invoice.line,exempt_amount:0
+#, fuzzy
 msgid "Exempt Amount"
 msgstr "Monto Exento"
 
 #. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_account_invoice_filter
 #: view:account.move.line:l10n_cl_invoice.view_account_move_line_filter
+#, fuzzy
 msgid "Group By"
 msgstr "Agrupar Por"
 
@@ -271,42 +313,50 @@ msgstr "Agrupar Por"
 #: field:sii.document_class,id:0 field:sii.document_letter,id:0
 #: field:sii.document_type,id:0 field:sii.optional_type,id:0
 #: field:sii.point_of_sale,id:0 field:sii.responsability,id:0
+#, fuzzy
 msgid "ID"
 msgstr "ID"
 
 #. module: l10n_cl_invoice
 #: help:sii.document_letter,vat_discriminated:0
+#, fuzzy
 msgid "If True, the vat will be discriminated on invoice report."
 msgstr ""
 "Si es verdadero, el IVA se discriminará en el documento tributario de salida."
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_account_invoice
+#, fuzzy
 msgid "Invoice"
 msgstr "Documento de Salida"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_account_invoice_line
+#, fuzzy
 msgid "Invoice Line"
 msgstr "Línea de Documento"
 
 #. module: l10n_cl_invoice
 #: field:res.company,invoice_vat_discrimination_default:0
+#, fuzzy
 msgid "Invoice VAT discrimination default"
 msgstr "IVA Discriminado por defecto"
 
 #. module: l10n_cl_invoice
 #: field:sii.responsability,issued_letter_ids:0
+#, fuzzy
 msgid "Issued Document Letters"
 msgstr "Letras de Documento Emitidas"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_letter,issuer_ids:0
+#, fuzzy
 msgid "Issuers"
 msgstr "Emisores"
 
 #. module: l10n_cl_invoice
 #: help:sii.document_class,document_type:0
+#, fuzzy
 msgid ""
 "It defines some behaviours on automatic journal selection and        in "
 "menus where it is shown."
@@ -317,17 +367,20 @@ msgstr ""
 #. module: l10n_cl_invoice
 #: field:account.journal.sii_document_class,journal_id:0
 #: model:ir.model,name:l10n_cl_invoice.model_account_journal
+#, fuzzy
 msgid "Journal"
 msgstr "Diario"
 
 #. module: l10n_cl_invoice
 #: view:account.journal.document_config:l10n_cl_invoice.view_account_journal_document_config_form
 #: model:ir.actions.act_window,name:l10n_cl_invoice.action_account_journal_document_config_form
+#, fuzzy
 msgid "Journal Documents Configuration"
 msgstr "Configuración de Documentos del Diario"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_account_move_line
+#, fuzzy
 msgid "Journal Items"
 msgstr "Elementos del Diario"
 
@@ -335,6 +388,7 @@ msgstr "Elementos del Diario"
 #: view:account.journal.sii_document_class:l10n_cl_invoice.view_journal_sii_document_class_form
 #: view:account.journal.sii_document_class:l10n_cl_invoice.view_journal_sii_document_class_tree
 #: model:ir.model,name:l10n_cl_invoice.model_account_journal_sii_document_class
+#, fuzzy
 msgid "Journal SII Documents"
 msgstr "Documentos Tributarios SII del Diario"
 
@@ -345,8 +399,9 @@ msgstr "Documentos Tributarios SII del Diario"
 #: field:sii.document_letter,write_uid:0 field:sii.document_type,write_uid:0
 #: field:sii.optional_type,write_uid:0 field:sii.point_of_sale,write_uid:0
 #: field:sii.responsability,write_uid:0
+#, fuzzy
 msgid "Last Updated by"
-msgstr "Ultima Actualización por"
+msgstr "Ultima actualización por:"
 
 #. module: l10n_cl_invoice
 #: field:account.journal.document_config,write_date:0
@@ -355,45 +410,53 @@ msgstr "Ultima Actualización por"
 #: field:sii.document_letter,write_date:0 field:sii.document_type,write_date:0
 #: field:sii.optional_type,write_date:0 field:sii.point_of_sale,write_date:0
 #: field:sii.responsability,write_date:0
+#, fuzzy
 msgid "Last Updated on"
-msgstr "Ultima Actualización"
+msgstr "Ultima actualización:"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_search
+#, fuzzy
 msgid "Liquidity"
 msgstr "Liquidez"
 
 #. module: l10n_cl_invoice
 #: view:res.currency:l10n_cl_invoice.view_currency_form
+#, fuzzy
 msgid "Miscellaneous"
-msgstr "Miscelánea"
+msgstr "Varios"
 
 #. module: l10n_cl_invoice
 #: field:sii.concept_type,name:0 field:sii.document_class,name:0
 #: field:sii.document_letter,name:0 field:sii.document_type,name:0
 #: field:sii.optional_type,name:0 field:sii.point_of_sale,name:0
 #: field:sii.responsability,name:0
+#, fuzzy
 msgid "Name"
 msgstr "Nombre"
 
 #. module: l10n_cl_invoice
 #: sql_constraint:sii.document_letter:0 sql_constraint:sii.responsability:0
+#, fuzzy
 msgid "Name must be unique!"
 msgstr "¡El Nombre debe ser único!"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_class,report_name:0
+#, fuzzy
 msgid "Name on Reports"
 msgstr "Nombre en Reportes"
 
 #. module: l10n_cl_invoice
 #: help:sii.document_class,report_name:0
+#, fuzzy
 msgid "Name that will be printed in reports, for example \"CREDIT NOTE\""
 msgstr ""
 "Nombre que será impreso en los reportes, por ejemplo \"Nota de Crédito\""
 
 #. module: l10n_cl_invoice
 #: field:account.invoice.line,printed_price_net:0
+#, fuzzy
 msgid "Net Price"
 msgstr "Precio Neto"
 
@@ -405,22 +468,26 @@ msgstr "Número"
 
 #. module: l10n_cl_invoice
 #: sql_constraint:sii.point_of_sale:0
+#, fuzzy
 msgid "Number Must be Unique per Company!"
 msgstr "¡El nombre debe ser único por Compañía!"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_optional_type
+#, fuzzy
 msgid "Optional Types"
 msgstr "Tipos Opcionales"
 
 #. module: l10n_cl_invoice
 #: selection:sii.document_class,document_type:0
+#, fuzzy
 msgid "Other Documents"
 msgstr "Otros Documentos"
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,other_taxes_amount:0
 #: field:account.invoice.line,other_taxes_amount:0
+#, fuzzy
 msgid "Other Taxes Amount"
 msgstr "Otros montos de Impuestos"
 
@@ -434,6 +501,7 @@ msgstr "Otros"
 #: selection:account.journal,document_sequence_type:0
 #: selection:account.journal.document_config,credit_notes:0
 #: selection:account.journal.document_config,debit_notes:0
+#, fuzzy
 msgid "Own Sequence"
 msgstr "Secuencia Propia"
 
@@ -445,17 +513,20 @@ msgstr "Cliente/Proveedor"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_point_of_sale
+#, fuzzy
 msgid "Point Of Sales"
 msgstr "Punto de Ventas"
 
 #. module: l10n_cl_invoice
 #: field:account.journal,point_of_sale:0
 #: field:account.journal,point_of_sale_id:0
+#, fuzzy
 msgid "Point of sale"
 msgstr "Punto de venta"
 
 #. module: l10n_cl_invoice
 #: help:sii.document_class,doc_code_prefix:0
+#, fuzzy
 msgid ""
 "Prefix for Documents Codes on Invoices         and Account Moves. For eg. "
 "'FAC' will build 'FAC 00001' Document Number"
@@ -466,81 +537,94 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_invoice_form
+#, fuzzy
 msgid "Print Invoice"
 msgstr "Imprimir Factura"
 
 #. module: l10n_cl_invoice
 #: field:sii.concept_type,product_types:0
+#, fuzzy
 msgid "Product types"
 msgstr "Tipos de Productos"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_search
+#, fuzzy
 msgid "Purchase"
 msgstr "Compra"
 
 #. module: l10n_cl_invoice
 #: selection:sii.document_class,document_type:0
+#, fuzzy
 msgid "Purchase Invoices"
 msgstr "Factura de Compra"
 
 #. module: l10n_cl_invoice
 #: field:res.country,rut_otro:0
+#, fuzzy
 msgid "RUT otro"
 msgstr "RUT otro"
 
 #. module: l10n_cl_invoice
 #: field:res.country,rut_juridica:0
+#, fuzzy
 msgid "RUT persona juridica"
 msgstr "RUT Persona Jurídica"
 
 #. module: l10n_cl_invoice
 #: field:res.country,rut_natural:0
+#, fuzzy
 msgid "RUT persona natural"
 msgstr "RUT persona natural"
 
 #. module: l10n_cl_invoice
 #: field:sii.responsability,received_letter_ids:0
+#, fuzzy
 msgid "Received Document Letters"
 msgstr "Letras de Documentos Recibidos"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_letter,receptor_ids:0
+#, fuzzy
 msgid "Receptors"
 msgstr "Receptores"
 
 #. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_invoice_form
+#, fuzzy
 msgid "Refund Invoice"
 msgstr "Nota de Cŕedito"
 
 #. module: l10n_cl_invoice
 #: field:account.journal,dte_register:0
+#, fuzzy
 msgid "Register Electronic Documents?"
 msgstr "¿Registra Documentos Tributarios Electrónicos?"
 
 #. module: l10n_cl_invoice
 #: field:account.journal,free_tax_zone:0
+#, fuzzy
 msgid "Register Free-Tax Zone Documents?"
 msgstr "¿Registra Documentos de Zona Franca?"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_responsability
 msgid "Responsabilities"
-msgstr "Responsabilidades"
+msgstr "Tipos de Contribuyente"
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,responsability_id:0
 msgid "Responsability"
-msgstr "Responsabilidad"
+msgstr "Tipo de Contribuyente"
 
 #. module: l10n_cl_invoice
 #: field:res.partner,responsability_id:0
 msgid "Resposability"
-msgstr "Responsabilidad"
+msgstr "Tipo de Contribuyente"
 
 #. module: l10n_cl_invoice
 #: view:res.currency:l10n_cl_invoice.view_currency_form
+#, fuzzy
 msgid "SII"
 msgstr "SII"
 
@@ -548,6 +632,7 @@ msgstr "SII"
 #: field:account.tax.code,sii_code:0 field:res.currency,sii_code:0
 #: field:sii.concept_type,sii_code:0 field:sii.document_class,sii_code:0
 #: field:sii.document_type,sii_code:0 field:sii.optional_type,sii_code:0
+#, fuzzy
 msgid "SII Code"
 msgstr "Código SII"
 
@@ -555,16 +640,19 @@ msgstr "Código SII"
 #: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_concept_type
 #: view:sii.concept_type:l10n_cl_invoice.view_sii_concept_type_form
 #: view:sii.concept_type:l10n_cl_invoice.view_sii_concept_type_tree
+#, fuzzy
 msgid "SII Concept type"
 msgstr "Tipo de Concepto"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_sii_config
+#, fuzzy
 msgid "SII Configuration"
 msgstr "Configuración SII"
 
 #. module: l10n_cl_invoice
 #: field:res.currency,sii_desc:0
+#, fuzzy
 msgid "SII Description"
 msgstr "Descripción SII"
 
@@ -573,22 +661,26 @@ msgstr "Descripción SII"
 #: model:ir.model,name:l10n_cl_invoice.model_sii_document_class
 #: view:sii.document_class:l10n_cl_invoice.view_sii_document_class_form
 #: view:sii.document_class:l10n_cl_invoice.view_sii_document_class_tree
+#, fuzzy
 msgid "SII Document Class"
-msgstr "Clase de Documento SII"
+msgstr "Clases de Documento SII"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_letter,sii_document_class_ids:0
+#, fuzzy
 msgid "SII Document Classes"
 msgstr "Clases de Documento SII"
 
 #. module: l10n_cl_invoice
 #: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_document_letter
+#, fuzzy
 msgid "SII Document Letter"
 msgstr "Letra prefijo del Documento"
 
 #. module: l10n_cl_invoice
 #: view:sii.document_letter:l10n_cl_invoice.view_sii_document_letter_form
 #: view:sii.document_letter:l10n_cl_invoice.view_sii_document_letter_tree
+#, fuzzy
 msgid "SII Document class"
 msgstr "Clase de Documento SII"
 
@@ -596,6 +688,7 @@ msgstr "Clase de Documento SII"
 #: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_document_type
 #: view:sii.document_type:l10n_cl_invoice.view_sii_document_type_form
 #: view:sii.document_type:l10n_cl_invoice.view_sii_document_type_tree
+#, fuzzy
 msgid "SII Document type"
 msgstr "Tipo de Documento SII"
 
@@ -603,6 +696,7 @@ msgstr "Tipo de Documento SII"
 #: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_optional_type
 #: view:sii.optional_type:l10n_cl_invoice.view_sii_optional_type_form
 #: view:sii.optional_type:l10n_cl_invoice.view_sii_optional_type_tree
+#, fuzzy
 msgid "SII Optional type"
 msgstr "Tipo Opcional SII"
 
@@ -611,6 +705,7 @@ msgstr "Tipo Opcional SII"
 #: model:ir.model,name:l10n_cl_invoice.model_sii_point_of_sale
 #: view:sii.point_of_sale:l10n_cl_invoice.view_sii_point_of_sale_form
 #: view:sii.point_of_sale:l10n_cl_invoice.view_sii_point_of_sale_tree
+#, fuzzy
 msgid "SII Point Of Sale"
 msgstr "Punto de Venta"
 
@@ -618,41 +713,48 @@ msgstr "Punto de Venta"
 #: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_responsability
 #: view:sii.responsability:l10n_cl_invoice.view_sii_responsability_form
 #: view:sii.responsability:l10n_cl_invoice.view_sii_responsability_tree
+#, fuzzy
 msgid "SII Responsability"
 msgstr "Responsabilidad IVA"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_sii_responsability
 msgid "SII VAT Responsability"
-msgstr "Responsabilidad ante el IVA"
+msgstr "Tipo de Contribuyente"
 
 #. module: l10n_cl_invoice
 #: field:res.currency,sii_dt_from:0
+#, fuzzy
 msgid "SII Valid from"
 msgstr "SII Válido desde"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_sii_concept_type
+#, fuzzy
 msgid "SII concept types"
 msgstr "Tipos de Concepto"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_sii_document_type
+#, fuzzy
 msgid "SII document types"
 msgstr "Tipos de Documentos Tributarios SII"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_sii_optional_type
+#, fuzzy
 msgid "SII optional types"
 msgstr "Tipos Opcionales SII"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_search
+#, fuzzy
 msgid "Sale"
 msgstr "Venta"
 
 #. module: l10n_cl_invoice
 #: selection:sii.document_class,document_type:0
+#, fuzzy
 msgid "Sale Invoices"
 msgstr "Facturas de Venta"
 
@@ -660,32 +762,38 @@ msgstr "Facturas de Venta"
 #: selection:account.journal,document_sequence_type:0
 #: selection:account.journal.document_config,credit_notes:0
 #: selection:account.journal.document_config,debit_notes:0
+#, fuzzy
 msgid "Same Invoice Sequence"
 msgstr "Misma Secuencia que la Factura"
 
 #. module: l10n_cl_invoice
 #: field:account.journal.sii_document_class,sequence:0
+#, fuzzy
 msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_sii_document_letter
+#, fuzzy
 msgid "Sii Document letter"
 msgstr "Letra de Documentos"
 
 #. module: l10n_cl_invoice
 #: field:res.partner,start_date:0
+#, fuzzy
 msgid "Start-up Date"
 msgstr "Inicio de Actividades"
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,printed_amount_untaxed:0
 #: field:account.invoice.line,printed_price_subtotal:0
+#, fuzzy
 msgid "Subtotal"
 msgstr "Subtotal"
 
 #. module: l10n_cl_invoice
 #: sql_constraint:account.invoice:0
+#, fuzzy
 msgid "Supplier Invoice Number must be unique per Supplier and Company!"
 msgstr ""
 "¡El número de factura de proveedor debe ser único por proveedor y por "
@@ -694,16 +802,19 @@ msgstr ""
 #. module: l10n_cl_invoice
 #: field:account.invoice,printed_amount_tax:0
 #: field:account.invoice,printed_tax_ids:0
+#, fuzzy
 msgid "Tax"
 msgstr "Impuesto"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_account_tax_code
+#, fuzzy
 msgid "Tax Code"
 msgstr "Código  de Impuesto"
 
 #. module: l10n_cl_invoice
 #: help:account.journal.sii_document_class,sequence_id:0
+#, fuzzy
 msgid ""
 "This field contains the information related to the numbering of the "
 "documents entries of this document type."
@@ -714,6 +825,7 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: help:sii.concept_type,product_types:0
+#, fuzzy
 msgid ""
 "Translate this product types to this SII concept.        Types must be a "
 "subset of adjust,        consu and service separated by commas."
@@ -724,16 +836,19 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: field:account.invoice.line,printed_price_unit:0
+#, fuzzy
 msgid "Unit Price"
 msgstr "Precio Unitario"
 
 #. module: l10n_cl_invoice
 #: field:account.journal,use_documents:0
+#, fuzzy
 msgid "Use Documents?"
 msgstr "¿Usa Documentos Tributarios?"
 
 #. module: l10n_cl_invoice
 #: help:account.journal,document_sequence_type:0
+#, fuzzy
 msgid "Use own sequence or invoice sequence on Debit and Credit Notes?"
 msgstr ""
 "¿Utilizar secuencia propia para las notas de débito y crédito, o utilizar la "
@@ -741,31 +856,37 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,vat_tax_ids:0
+#, fuzzy
 msgid "VAT Taxes"
 msgstr "Impuestos IVA"
 
 #. module: l10n_cl_invoice
 #: field:sii.optional_type,value_computation:0
+#, fuzzy
 msgid "Value computation"
 msgstr "Cómputo del Valor"
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,vat_amount:0 field:account.invoice.line,vat_amount:0
+#, fuzzy
 msgid "Vat Amount"
 msgstr "Monto de IVA"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_letter,vat_discriminated:0
+#, fuzzy
 msgid "Vat Discriminated on Invoices?"
 msgstr "¿Se discrimina el IVA en las Facturas?"
 
 #. module: l10n_cl_invoice
 #: selection:res.company,invoice_vat_discrimination_default:0
+#, fuzzy
 msgid "Yes, Discriminate Default"
 msgstr "Si, Discrimina IVA por Defecto"
 
 #. module: l10n_cl_invoice
 #: selection:res.company,invoice_vat_discrimination_default:0
+#, fuzzy
 msgid "Yes, No Discriminate Default"
 msgstr "Si, NO Discrimina IVA por Defecto"
 
@@ -779,6 +900,7 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_search
+#, fuzzy
 msgid "liquidity"
 msgstr "liquidez"
 
@@ -796,11 +918,13 @@ msgstr "Otros"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_search
+#, fuzzy
 msgid "purchase"
 msgstr "compra"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_search
+#, fuzzy
 msgid "sale"
 msgstr "venta"
 
