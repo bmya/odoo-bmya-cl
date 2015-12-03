@@ -1,0 +1,309 @@
+************* Module data
+F:  1, 0: error while code parsing: Unable to load file 'data/__init__.py' ([Errno 2] No such file or directory: 'data/__init__.py') (parse-error)
+************* Module demo
+F:  1, 0: error while code parsing: Unable to load file 'demo/__init__.py' ([Errno 2] No such file or directory: 'demo/__init__.py') (parse-error)
+************* Module hr_payroll
+C:184, 0: Trailing whitespace (trailing-whitespace)
+C:197, 0: Trailing whitespace (trailing-whitespace)
+C:207, 0: Exactly one space required after comma
+    colacion = fields.Float('Colacion',  help="Colacion")
+                                      ^ (bad-whitespace)
+C:230, 0: Trailing whitespace (trailing-whitespace)
+C:239, 0: Trailing whitespace (trailing-whitespace)
+C:245, 0: Exactly one space required after assignment
+    _inherit ='hr.payslip.employees'
+             ^ (bad-whitespace)
+C:246, 0: Trailing whitespace (trailing-whitespace)
+C:260, 0: No space allowed around keyword argument assignment
+            context = context)
+                    ^ (bad-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
+F: 33, 0: Unable to import 'openerp' (import-error)
+C: 37, 0: Invalid class name "hr_indicadores_previsionales" (invalid-name)
+C: 37, 0: Missing class docstring (missing-docstring)
+W: 37, 0: Class has no __init__ method (no-init)
+C: 61, 4: Invalid class attribute name "contrato_plazo_indefinido_empleador" (invalid-name)
+C: 64, 4: Invalid class attribute name "contrato_plazo_indefinido_empleador_otro" (invalid-name)
+C:133, 4: Invalid class attribute name "uf" (invalid-name)
+R: 37, 0: Too few public methods (0/2) (too-few-public-methods)
+C:142, 0: Invalid class name "hr_payslip" (invalid-name)
+W:142, 0: Class has no __init__ method (no-init)
+C:155, 4: Invalid argument name "cr" (invalid-name)
+C:155, 4: Missing method docstring (missing-docstring)
+E:155, 4: Use of super on an old style class (super-on-old-class)
+R:142, 0: Too few public methods (1/2) (too-few-public-methods)
+C:164, 0: Invalid class name "hr_payslip_run" (invalid-name)
+C:164, 0: Missing class docstring (missing-docstring)
+W:164, 0: Class has no __init__ method (no-init)
+R:164, 0: Too few public methods (0/2) (too-few-public-methods)
+C:173, 0: Invalid class name "hr_isapre" (invalid-name)
+C:173, 0: Missing class docstring (missing-docstring)
+W:173, 0: Class has no __init__ method (no-init)
+R:173, 0: Too few public methods (0/2) (too-few-public-methods)
+C:181, 0: Invalid class name "hr_afp" (invalid-name)
+C:181, 0: Missing class docstring (missing-docstring)
+W:181, 0: Class has no __init__ method (no-init)
+R:181, 0: Too few public methods (0/2) (too-few-public-methods)
+C:193, 0: Invalid class name "hr_contract" (invalid-name)
+C:193, 0: Missing class docstring (missing-docstring)
+W:193, 0: Class has no __init__ method (no-init)
+C:221, 4: Invalid class attribute name "seguro_complementario_cotizacion_uf" (invalid-name)
+R:193, 0: Too few public methods (0/2) (too-few-public-methods)
+C:227, 0: Invalid class name "hr_type_employee" (invalid-name)
+C:227, 0: Missing class docstring (missing-docstring)
+W:227, 0: Class has no __init__ method (no-init)
+R:227, 0: Too few public methods (0/2) (too-few-public-methods)
+C:235, 0: Invalid class name "hr_employee" (invalid-name)
+C:235, 0: Missing class docstring (missing-docstring)
+W:235, 0: Class has no __init__ method (no-init)
+R:235, 0: Too few public methods (0/2) (too-few-public-methods)
+C:243, 0: Invalid class name "hr_payslip_employees" (invalid-name)
+C:243, 0: Missing class docstring (missing-docstring)
+W:243, 0: Class has no __init__ method (no-init)
+C:247, 4: Invalid argument name "cr" (invalid-name)
+C:247, 4: Missing method docstring (missing-docstring)
+E:247, 4: Use of super on an old style class (super-on-old-class)
+E:248,19: Instance of 'hr_payslip_employees' has no 'pool' member (no-member)
+R:243, 0: Too few public methods (1/2) (too-few-public-methods)
+************* Module i18n
+F:  1, 0: error while code parsing: Unable to load file 'i18n/__init__.py' ([Errno 2] No such file or directory: 'i18n/__init__.py') (parse-error)
+************* Module __init__
+C:  1, 0: Missing module docstring (missing-docstring)
+************* Module __openerp__
+C:  1, 0: Missing module docstring (missing-docstring)
+W: 21, 0: Statement seems to have no effect (pointless-statement)
+************* Module README
+E:  1, 0: invalid syntax (syntax-error)
+************* Module report
+W:  6, 0: Cannot decode using encoding "utf-8", unexpected byte at position 62 (invalid-encoded-data)
+C:  1, 0: Missing module docstring (missing-docstring)
+************* Module report.report_hr_salary_book
+W:  6, 0: Cannot decode using encoding "utf-8", unexpected byte at position 62 (invalid-encoded-data)
+C: 75, 0: Trailing whitespace (trailing-whitespace)
+C: 77, 0: Trailing whitespace (trailing-whitespace)
+C:101, 0: Trailing whitespace (trailing-whitespace)
+C:114, 0: Trailing whitespace (trailing-whitespace)
+C:116, 0: Trailing whitespace (trailing-whitespace)
+C:129, 0: Trailing whitespace (trailing-whitespace)
+C:131, 0: Trailing whitespace (trailing-whitespace)
+C:152, 0: Trailing whitespace (trailing-whitespace)
+C:198, 0: Trailing whitespace (trailing-whitespace)
+C:200, 0: Trailing whitespace (trailing-whitespace)
+C:263, 0: Trailing whitespace (trailing-whitespace)
+C:265, 0: Trailing whitespace (trailing-whitespace)
+C:  1, 0: Missing module docstring (missing-docstring)
+F: 26, 0: Unable to import 'openerp.osv' (import-error)
+F: 27, 0: Unable to import 'openerp.report' (import-error)
+C: 30, 0: Invalid class name "report_hr_salary_employee_bymonth" (invalid-name)
+C: 30, 0: Missing class docstring (missing-docstring)
+C: 32, 4: Invalid argument name "cr" (invalid-name)
+E: 32, 4: Use of super on an old style class (super-on-old-class)
+E: 36, 8: Instance of 'report_hr_salary_employee_bymonth' has no 'localcontext' member (no-member)
+W: 57, 8: Redefining built-in 'max' (redefined-builtin)
+C: 48, 4: Missing method docstring (missing-docstring)
+R: 48, 4: Too many arguments (6/5) (too-many-arguments)
+E: 50, 8: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+E: 57,14: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+W: 48,30: Unused argument 'form' (unused-argument)
+W: 76, 8: Redefining built-in 'max' (redefined-builtin)
+C: 65, 4: Missing method docstring (missing-docstring)
+E: 67, 8: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+E: 76,14: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+C: 85, 4: Missing method docstring (missing-docstring)
+E: 92, 8: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+E:102,18: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+W:108,16: Unused variable 'index' (unused-variable)
+W:130, 8: Redefining built-in 'max' (redefined-builtin)
+C:119, 4: Missing method docstring (missing-docstring)
+R:119, 4: Too many arguments (6/5) (too-many-arguments)
+E:121, 8: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+E:130,14: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+C:139, 4: Missing method docstring (missing-docstring)
+E:146, 8: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+E:155,18: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+W:163,16: Unused variable 'index' (unused-variable)
+C:203, 4: Missing method docstring (missing-docstring)
+E:210, 8: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+E:219,18: Instance of 'report_hr_salary_employee_bymonth' has no 'cr' member (no-member)
+W:227,16: Unused variable 'index' (unused-variable)
+C:269, 0: Invalid class name "wrapped_report_employee_salary_bymonth" (invalid-name)
+C:269, 0: Missing class docstring (missing-docstring)
+W:269, 0: Class has no __init__ method (no-init)
+R:269, 0: Too few public methods (0/2) (too-few-public-methods)
+************* Module security
+F:  1, 0: error while code parsing: Unable to load file 'security/__init__.py' ([Errno 2] No such file or directory: 'security/__init__.py') (parse-error)
+************* Module static
+F:  1, 0: error while code parsing: Unable to load file 'static/__init__.py' ([Errno 2] No such file or directory: 'static/__init__.py') (parse-error)
+************* Module text
+E:  1, 0: invalid syntax (syntax-error)
+************* Module views
+F:  1, 0: error while code parsing: Unable to load file 'views/__init__.py' ([Errno 2] No such file or directory: 'views/__init__.py') (parse-error)
+************* Module wizard
+W:  6, 0: Cannot decode using encoding "utf-8", unexpected byte at position 62 (invalid-encoded-data)
+C:  1, 0: Missing module docstring (missing-docstring)
+************* Module wizard.hr_form_employee_book
+W:  6, 0: Cannot decode using encoding "utf-8", unexpected byte at position 62 (invalid-encoded-data)
+C:  1, 0: Missing module docstring (missing-docstring)
+F: 24, 0: Unable to import 'openerp' (import-error)
+C: 28, 0: Invalid class name "hr_salary_employee_bymonth" (invalid-name)
+C: 28, 0: Missing class docstring (missing-docstring)
+W: 28, 0: Class has no __init__ method (no-init)
+C: 41, 4: Invalid argument name "cr" (invalid-name)
+E: 54,14: Instance of 'hr_salary_employee_bymonth' has no 'read' member (no-member)
+E: 57,15: Instance of 'hr_salary_employee_bymonth' has no 'pool' member (no-member)
+R: 28, 0: Too few public methods (1/2) (too-few-public-methods)
+
+
+Report
+======
+257 statements analysed.
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |66     |67       |-1.00      |
++-----------+-------+---------+-----------+
+|refactor   |13     |13       |=          |
++-----------+-------+---------+-----------+
+|warning    |23     |23       |=          |
++-----------+-------+---------+-----------+
+|error      |21     |21       |=          |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++-----------------------------+------+--------+---------+-----------+
+|module                       |error |warning |refactor |convention |
++=============================+======+========+=========+===========+
+|report.report_hr_salary_book |66.67 |39.13   |23.08    |36.36      |
++-----------------------------+------+--------+---------+-----------+
+|hr_payroll                   |14.29 |39.13   |69.23    |51.52      |
++-----------------------------+------+--------+---------+-----------+
+|wizard.hr_form_employee_book |9.52  |8.70    |7.69     |6.06       |
++-----------------------------+------+--------+---------+-----------+
+|text                         |4.76  |0.00    |0.00     |0.00       |
++-----------------------------+------+--------+---------+-----------+
+|README                       |4.76  |0.00    |0.00     |0.00       |
++-----------------------------+------+--------+---------+-----------+
+|wizard                       |0.00  |4.35    |0.00     |1.52       |
++-----------------------------+------+--------+---------+-----------+
+|report                       |0.00  |4.35    |0.00     |1.52       |
++-----------------------------+------+--------+---------+-----------+
+|__openerp__                  |0.00  |4.35    |0.00     |1.52       |
++-----------------------------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|missing-docstring      |26          |
++-----------------------+------------+
+|invalid-name           |20          |
++-----------------------+------------+
+|trailing-whitespace    |17          |
++-----------------------+------------+
+|no-member              |16          |
++-----------------------+------------+
+|too-few-public-methods |11          |
++-----------------------+------------+
+|no-init                |11          |
++-----------------------+------------+
+|parse-error            |6           |
++-----------------------+------------+
+|invalid-encoded-data   |4           |
++-----------------------+------------+
+|import-error           |4           |
++-----------------------+------------+
+|unused-variable        |3           |
++-----------------------+------------+
+|super-on-old-class     |3           |
++-----------------------+------------+
+|redefined-builtin      |3           |
++-----------------------+------------+
+|bad-whitespace         |3           |
++-----------------------+------------+
+|too-many-arguments     |2           |
++-----------------------+------------+
+|syntax-error           |2           |
++-----------------------+------------+
+|unused-argument        |1           |
++-----------------------+------------+
+|pointless-statement    |1           |
++-----------------------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 1.95/10 (previous run: 1.91/10, +0.04)
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |335    |49.56 |335      |=          |
++----------+-------+------+---------+-----------+
+|docstring |140    |20.71 |140      |=          |
++----------+-------+------+---------+-----------+
+|comment   |173    |25.59 |173      |=          |
++----------+-------+------+---------+-----------+
+|empty     |28     |4.14  |28       |=          |
++----------+-------+------+---------+-----------+
+
+
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |7      |7          |=          |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |12     |12         |=          |8.33        |100.00   |
++---------+-------+-----------+-----------+------------+---------+
+|method   |10     |10         |=          |20.00       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |0      |0          |=          |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    __init__ 
+      \-hr_payroll (__init__)
+      \-report (__init__)
+      \-wizard (__init__)
+    report 
+      \-report_hr_salary_book (report)
+
+
+
