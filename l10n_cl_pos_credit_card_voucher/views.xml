@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="assets_frontend" name="l10n_cl_pos_credit_card_voucher assets" inherit_id="point_of_sale.index">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/l10n_cl_pos_credit_card_voucher/static/src/js/pos_cc_voucher.js"></script>
+            </xpath>
+        </template>
+
+        <template id="index" name="l10n_cl_pos_credit_card_voucher index" inherit_id="point_of_sale.index">
+            <xpath expr="//link[@id='pos-stylesheet']" position="after">
+                <link rel="stylesheet" href="/l10n_cl_pos_credit_card_voucher/static/src/css/pos_cc_voucher.css"/>
+            </xpath>
+        </template>
+
+        <record model="ir.ui.view" id="view_account_journal_pos_user_form_add_cc_voucher">
+            <field name="name">POS Journal CCVoucher</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='self_checkout_payment_method']" position="after">
+                    <field name="add_credit_card_voucher_number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_cc_voucher_form">
+            <field name="name">account.invoice.ccv.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tax_line']" position="before">
+                    <field name="ccvoucher_line_ids">
+                        <tree editable="bottom" string="Credit Card Vouchers">
+                            <field name="voucher_number"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+
+     </data>
+</openerp>
