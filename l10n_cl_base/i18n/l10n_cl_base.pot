@@ -1,0 +1,356 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_cl_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20151008\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-10 04:45+0000\n"
+"PO-Revision-Date: 2015-11-10 04:45+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_fantasy_name:0
+msgid "Add Fantasy Name to Partners"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_fantasy_name:0
+msgid "Add a fields to your partners with their fantasy name, and\n"
+"allows you to search them by this name."
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_invoice:0
+msgid "Allows to have your stubs presented to the same sales journal"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Apply"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_banks_sbif:0
+msgid "Banks in Chile, According SBIF"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+#: model:ir.ui.menu,name:l10n_cl_base.menu_chilean_base_configuration
+msgid "Chilean Localization"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+#: model:ir.actions.act_window,name:l10n_cl_base.action_chilean_base_configuration
+msgid "Configure"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Easily configure your options for chilean localization."
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_aeroo_einvoice:0
+msgid "Electronic Invoice Format"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_aeroo_stock:0
+msgid "Electronic Stock picking"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_credit_card_voucher:0
+msgid "Exclude your final consumer credit card sales from VAT report"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Finance"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_base_rut:0
+msgid "Format RUT to 99.999.999-X"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Human Resources"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,id:0
+msgid "ID"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_toponyms:0
+msgid "Include Chilean Counties"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_partner_activities:0
+msgid "Include Partner's turn"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_account_vat_ledger:0
+msgid "Install VAT Ledger"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_hr_payroll:0
+msgid "Install l10n_cl_hr_payroll for payroll and AFPs chilean\n"
+"modules"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_hr_payroll:0
+msgid "Install payroll and AFPs chilean modules"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_account_bank_voucher:0
+msgid "Installs account_bank_voucher, allowing you to reconcile payments\n"
+"to/from partners directly in bank statement."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_invoice_printed:0
+msgid "Installs invoice_printed module, to\n"
+"interact with prnfiscal dependency in your local machine, in order to have your\n"
+"fiscal documents rendered in TXT format. This allows printing in fiscal\n"
+"printers, or connect to external electronic invoices services"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_base_rut:0
+msgid "Installs l10n_cl_base_rut\n"
+"to have the RUT formatted correctly."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_hr_previred:0
+msgid "Installs l10n_cl_hr_previred module, to update needed indexes\n"
+"in order to issue your payroll"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_invoice:0
+msgid "Installs l10n_cl_invoice Link your invoicing, picking and\n"
+"receipts stubs with journals for easiest configuration."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_partner_activities:0
+msgid "Installs l10n_cl_partner_activities\n"
+"module, which includes your partners' turns in their record using the SII\n"
+"activities table and allows you to select the activity when invoicing."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_hr_send_to_previred:0
+msgid "Installs l10n_cl_send_to_previred module, which allows you to\n"
+"send a monthly report with 105 fields per employee, to Previred."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_toponyms:0
+msgid "Installs l10n_cl_toponyms, which\n"
+"includes all chilean counties to partners."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_vat:0
+msgid "Installs l10n_cl_vat and\n"
+"dependencies in order to have the RUT validated correctly."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_account_vat_ledger:0
+msgid "Installs module l10n_cl_account_vat_ledger, allowing to\n"
+"export sales and purchases VAT ledger in XLS format. Requires Aeroo Reports."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_banks_sbif:0
+msgid "Installs module l10n_cl_banks_sbif, and includes authorized\n"
+"banks, and financial institutions in Chile."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_credit_card_voucher:0
+msgid "Installs module l10n_cl_credit_card_voucher, allowing you\n"
+"to link the sales note with a credit card voucher, in order to keep\n"
+"it unreported in boletas sales."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_financial_indicators:0
+msgid "Installs module l10n_cl_financial_indicators, allowing to\n"
+"update indicators daily, from SBIF."
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_aeroo_einvoice:0
+#: help:chilean.base.config.settings,module_l10n_cl_aeroo_stock:0
+msgid "Installs output form report\n"
+"including PDF417 electronic stamp"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_wssii_fe:0
+msgid "Installs several dependencies in\n"
+"order to performn Electronic invoicing, sales reports in xml, and "
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_invoice_printed:0
+msgid "Invoice in TXT Format"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Invoicing"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Partner Activities"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Partners"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_aeroo_receipt:0
+msgid "Payment Receipt Form"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Payroll"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_aeroo_purchase:0
+msgid "Purchase Order Form"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Purchases"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "RUT (VAT) Validation"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_account_bank_voucher:0
+msgid "Reconcile payments directly importing vouchers to account bank statement"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_aeroo_receipt:0
+msgid "Report for payment receipt"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_aeroo_purchase:0
+msgid "Report for purchase order"
+msgstr ""
+
+#. module: l10n_cl_base
+#: help:chilean.base.config.settings,module_l10n_cl_aeroo_sale:0
+msgid "Report for sales order"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Reporting"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Sales"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_aeroo_sale:0
+msgid "Sales Order Form"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "Send Files to Previred"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_hr_send_to_previred:0
+msgid "Send payroll Information to Previred monthly"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_hr_previred:0
+msgid "Update Previred's Monthly indexes"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_financial_indicators:0
+msgid "Update UF, UTM, Dollar and Euro automatically"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_wssii_fe:0
+msgid "Use Electronic Invoicing"
+msgstr ""
+
+#. module: l10n_cl_base
+#: field:chilean.base.config.settings,module_l10n_cl_vat:0
+msgid "Validate Chilean VAT (RUT)"
+msgstr ""
+
+#. module: l10n_cl_base
+#: view:chilean.base.config.settings:l10n_cl_base.view_chilean_base_configuration
+msgid "or"
+msgstr ""
+
