@@ -18,14 +18,12 @@
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <field name="name" position="after">
-                    <field name="partner_activities_ids" placeholder="Giros del Partner" widget="many2many_tags" options="{'no_create': True}"/>
+                    <field name="partner_activities_ids" 
+                        placeholder="Giros del Partner" widget="many2many_tags" 
+                        options="{'no_create': True}" domain="[('parent_id', '>=', 1)]"/>
                 </field>
             </field>
         </record>
-
-
-        
-        
 
         <!--<record model="ir.ui.view" id="view_partner_activity_kanban_view">
             <field name="name">view.partner.activities.kanban.inherit</field>
