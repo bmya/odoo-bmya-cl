@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20150401\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-11 11:56+0000\n"
-"PO-Revision-Date: 2015-12-03 00:54-0300\n"
+"PO-Revision-Date: 2015-12-05 21:37-0300\n"
 "Last-Translator: Daniel Blanco - Blanco Martín & Asociados "
 "<daniel@blancomartin.cl>\n"
 "Language-Team: Blanco Martín & Asociados <info@blancomartin.cl>\n"
@@ -58,9 +58,8 @@ msgstr "Código"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_class,code_template:0
-#, fuzzy
 msgid "Code Template for Journal"
-msgstr "Plantilla para Diario"
+msgstr "Plantilla para Libro"
 
 #. module: l10n_cl_invoice
 #: sql_constraint:sii.responsability:0
@@ -94,9 +93,8 @@ msgstr "Confirmar"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_res_country
-#, fuzzy
 msgid "Country"
-msgstr "Country"
+msgstr "País"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_cl_form
@@ -241,9 +239,8 @@ msgstr "Tipo de Secuencia de Documento"
 #: field:account.move,document_class_id:0
 #: field:account.move.line,document_class_id:0
 #: field:sii.document_class,document_type:0
-#, fuzzy
 msgid "Document Type"
-msgstr "Tipo de Documento"
+msgstr "Tipo de Identificación"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_type
@@ -253,15 +250,13 @@ msgstr "Tipos de Documento"
 
 #. module: l10n_cl_invoice
 #: field:res.partner,document_number:0
-#, fuzzy
 msgid "Document number"
-msgstr "Número de Documento"
+msgstr "Número de Identificación"
 
 #. module: l10n_cl_invoice
 #: field:res.partner,document_type_id:0
-#, fuzzy
 msgid "Document type"
-msgstr "Tipo de Documento"
+msgstr "Tipo de Identificación"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_cl_form
@@ -713,9 +708,8 @@ msgstr "Punto de Venta"
 #: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_responsability
 #: view:sii.responsability:l10n_cl_invoice.view_sii_responsability_form
 #: view:sii.responsability:l10n_cl_invoice.view_sii_responsability_tree
-#, fuzzy
 msgid "SII Responsability"
-msgstr "Responsabilidad IVA"
+msgstr "Tipo de Contribuyente"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_sii_responsability
@@ -754,9 +748,8 @@ msgstr "Venta"
 
 #. module: l10n_cl_invoice
 #: selection:sii.document_class,document_type:0
-#, fuzzy
 msgid "Sale Invoices"
-msgstr "Facturas de Venta"
+msgstr "Documentos Tributarios de Venta"
 
 #. module: l10n_cl_invoice
 #: selection:account.journal,document_sequence_type:0
