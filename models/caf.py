@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api
+from openerp.tools.translate import _
+from openerp.exceptions import Warning
+
 try:
     import xmltodict
 except ImportError:
@@ -68,7 +71,11 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         self.rut_n = 'CL' + result['RE'].replace('-','')
         # validar si el RUT del CAF es igual al RUT de la compañia 
         # seleccionada
-        self.status = 'in_use'
+        if self.rut_n != self.company_id.vat:
+            raise Warning(_(
+                'Company vat %s should be the same that assigned company\'s vat: %s!') % (self.rut_n, self.company_id.vat))
+        else:
+            self.status = 'in_use'
 
     @api.one
     def action_cancel(self):
