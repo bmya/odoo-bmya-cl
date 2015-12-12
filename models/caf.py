@@ -54,9 +54,20 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         'res.company', 'Company', required=False,
         default=lambda self: self.env.user.company_id)
 
-    # dte_id = fields.Many2one(
-    #     
-    #     '')
+    sequence_id = fields.Many2one(
+        'ir.sequence', 'Sequence', required=False)
+
+    use_level = fields.Float(string="Use Level", compute='_use_level')
+
+    @api.depends('start_nm', 'final_nm', 'sequence_id', 'status')
+    def _use_level(self):
+        for r in self:
+            try:
+                r.use_level = 100 * (1 - float(r.sequence_id.number_next_actual) / float(r.final_nm - r.start_nm))
+                print r.use_level, r.sequence_id.number_next_actual, r.final_nm, r.start_nm                
+
+            except ZeroDivisionError:
+                r.use_level = 0
 
     @api.one
     def action_enable(self):
@@ -74,6 +85,11 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         if self.rut_n != self.company_id.vat:
             raise Warning(_(
                 'Company vat %s should be the same that assigned company\'s vat: %s!') % (self.rut_n, self.company_id.vat))
+
+        elif r.sequence_id.number_next_actual < r.start_nm or r.sequence_id.number_next_actual > r.final_rm:
+            raise Warning(_(
+                'Folio Number %s should be between Start %s and End %s CAF Authorization Interval!') % (r.sequence_id.number_next_actual, r.start_nm, r.final_nm))
+
         else:
             self.status = 'in_use'
 

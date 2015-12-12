@@ -36,6 +36,8 @@
                             <field name="final_nm" readonly="1"/>
                             <field name="company_id"/>
                             <field name="rut_n" readonly="1"/>
+                            <field name="sequence_id"/>
+                            <field name="use_level" widget="progressbar"/>
                         </group>
                     </sheet>
                 </form>
