@@ -37,7 +37,7 @@
                             <field name="company_id"/>
                             <field name="rut_n" readonly="1"/>
                             <field name="sequence_id"/>
-                            <field name="use_level" widget="progressbar"/>
+                            <field name="use_level" widget="progressbar" backgrounds="blue:status == 'in_use';red:status == 'spent'"/>
                         </group>
                     </sheet>
                 </form>
@@ -61,7 +61,16 @@
             </field>
         </record>
 
-                
+        <!-- Vista de formulario de la Secuencia -->
+        <!--<record id="view_sequence_dte_caf_form" model="ir.ui.view">
+            <field name="name">Sequence</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view" />
+            <field name="arch" type="xml">
+                <field name="dte_caf_id"/>
+                <field name="sii_code"/>
+            </field>
+        </record>-->
 
 		<!-- accion -->
         <!--<act_window id="action_partner_inventory"
