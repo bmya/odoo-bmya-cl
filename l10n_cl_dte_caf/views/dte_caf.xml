@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+
+        <!-- Vista de formulario de la Secuencia -->
+        <record id="view_sequence_dte_caf_form" model="ir.ui.view">
+            <field name="name">ir.sequence.caf.form</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view" />
+            <field name="arch" type="xml">
+                <field name="number_next_actual" position="after">
+                    <field name="sii_document_class"/>
+                    <field name="is_dte"/>
+                </field>
+                <xpath expr='//notebook' position="inside">
+                    <page string="CAF Files"
+                        attrs="{'invisible': [('is_dte','=',False)]}">
+                        <field name="dte_caf_ids">
+                            <tree string="DTE CAF Files">
+                                <!--<field name="caf_file" filename="filename" attrs="{'invisible':[('status', '!=', 'draft')]}"/>-->
+                                <field name="name"/>
+                                <field name="issued_date" readonly="1"/>
+                                <field name="use_level" widget="progressbar"/>
+                                <field name="status" readonly="1"/>
+                                <button string="Enable" type="object" name="action_enable"
+                                status="draft" class="oe_highlight"
+                                attrs="{'invisible':[('status','!=','draft')]}" />
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--<record id="view_l10n_cl_invoice_sequence_enabled_subtree" model="ir.ui.view">
+            <field name="name">ir.sequence.journal.caf.subtree</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="l10n_cl_invoice.view_account_journal_cl_form" />
+            <field name="arch" type="xml">
+                <field name="journal_document_class_ids" position="inside">
+                    <field name="is_dte"/>
+                </field>
+            </field>
+        </record>-->
+
+
     	<!-- vista de formulario -->
         <record id="view_dte_caf_form" model="ir.ui.view">
             <field name="name">dte.caf.form</field>
@@ -30,13 +74,14 @@
                             <field name="filename" invisible="1"/>
                         </group>
                         <group col="4">
-                            <field name="sii_code" readonly="1"/>
+                            <field name="sii_document_class" readonly="1"/>
                             <field name="issued_date" readonly="1"/>
                             <field name="start_nm" readonly="1"/>
                             <field name="final_nm" readonly="1"/>
                             <field name="company_id"/>
                             <field name="rut_n" readonly="1"/>
                             <field name="sequence_id"/>
+                                <!--context="{'default_dte_caf_id':  active_id}"-->
                             <field name="use_level" widget="progressbar" backgrounds="blue:status == 'in_use';red:status == 'spent'"/>
                         </group>
                     </sheet>
@@ -51,7 +96,7 @@
             <field name="arch" type="xml">
                 <tree string="CAF Files" colors="blue:status == 'draft';black:status == 'in_use';gray:status == 'spent';red:status == 'cancelled'">
                     <field name="name"/>
-                    <field name="sii_code"/>
+                    <field name="sii_document_class"/>
                     <field name="start_nm" />
                     <field name="final_nm" />
                     <field name="company_id" />
@@ -60,17 +105,6 @@
                 </tree>
             </field>
         </record>
-
-        <!-- Vista de formulario de la Secuencia -->
-        <!--<record id="view_sequence_dte_caf_form" model="ir.ui.view">
-            <field name="name">Sequence</field>
-            <field name="model">ir.sequence</field>
-            <field name="inherit_id" ref="base.sequence_view" />
-            <field name="arch" type="xml">
-                <field name="dte_caf_id"/>
-                <field name="sii_code"/>
-            </field>
-        </record>-->
 
 		<!-- accion -->
         <!--<act_window id="action_partner_inventory"
