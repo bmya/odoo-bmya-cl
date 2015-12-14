@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api
+from openerp.tools.translate import _
+from openerp.exceptions import Warning
+
 try:
     import xmltodict
 except ImportError:
@@ -40,8 +43,8 @@ class caf(models.Model):
         ('draft', 'Draft'),
         ('in_use', 'In Use'),
         ('spent', 'Spent'),
-        ('cancelled', 'Cancelled')], string='Status', default='draft',
-        help='''Draft:  means it has not been used yet. You must put in in used
+        ('cancelled', 'Cancelled')], string='Status',
+        default='draft', help='''Draft: means it has not been used yet. You must put in in used
 in order to make it available for use. Spent: means that the number interval
 has been exhausted. Cancelled means it has been deprecated by hand.''')
 
@@ -51,9 +54,33 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         'res.company', 'Company', required=False,
         default=lambda self: self.env.user.company_id)
 
-    # dte_id = fields.Many2one(
-    #     
-    #     '')
+    sequence_id = fields.Many2one(
+        'ir.sequence', 'Sequence', required=False)
+
+    use_level = fields.Float(string="Use Level", compute='_use_level')
+
+    @api.depends('start_nm', 'final_nm', 'sequence_id', 'status')
+    def _use_level(self):
+        for r in self:
+            if r.status not in ['draft','cancelled']:
+                try:            
+                    r.use_level = 100 * (float(r.sequence_id.number_next_actual - 1) / float(r.final_nm - r.start_nm + 1))
+                except ZeroDivisionError:
+                    r.use_level = 0
+                print r.use_level, r.sequence_id.number_next_actual, r.final_nm, r.start_nm
+                if r.sequence_id.number_next_actual > r.final_nm and r.status == 'in_use':
+                    #r.status = 'spent'
+                    self.env.cr.execute("""UPDATE dte_caf SET status = 'spent' WHERE filename = '%s'""" % r.filename)
+                    print 'spent'
+                elif r.sequence_id.number_next_actual <= r.final_nm and r.status == 'spent':
+                    #r.status = 'in_use'
+                    self.env.cr.execute("""UPDATE dte_caf SET status = 'in_use' WHERE filename = '%s'""" % r.filename)
+                    print 'in_use'
+                
+            else:
+                r.use_level = 0
+
+
 
     @api.one
     def action_enable(self):
@@ -66,9 +93,19 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         self.sii_code = result['TD']
         self.issued_date = result['FA']
         self.rut_n = 'CL' + result['RE'].replace('-','')
-        # validar si el RUT del CAF es igual al RUT de la compañia 
-        # seleccionada
-        self.status = 'in_use'
+        if not self.sequence_id:
+            raise Warning(_(
+                'You should select a DTE sequence before enabling this CAF record'))
+        elif self.rut_n != self.company_id.vat:
+            raise Warning(_(
+                'Company vat %s should be the same that assigned company\'s vat: %s!') % (self.rut_n, self.company_id.vat))
+
+        elif self.sequence_id.number_next_actual < self.start_nm or self.sequence_id.number_next_actual > self.final_nm:
+            raise Warning(_(
+                'Folio Number %s should be between %s and %s CAF Authorization Interval!') % (self.sequence_id.number_next_actual, self.start_nm, self.final_nm))
+
+        else:
+            self.status = 'in_use'
 
     @api.one
     def action_cancel(self):
@@ -77,3 +114,19 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
     @api.one
     def _get_filename(self):
         self.name = self.filename
+
+
+#class sequence_caf(models.Model):
+#    _name = 'sequence.caf'
+#    _inherit = 'ir.sequence'
+
+    # dte_caf_id = fields.Many2one(
+    # 
+
+#    sii_code = fields.Integer('SII Document Class')
+#
+#    @api.one
+#    def _get_sii_code(self):
+#        if self.dte_caf_id:
+#            return self.dte_caf_id.sii_code
+#
