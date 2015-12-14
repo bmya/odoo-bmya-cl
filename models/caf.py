@@ -31,7 +31,7 @@ class caf(models.Model):
         
     issued_date = fields.Date('Issued Date')
     
-    sii_code = fields.Integer('SII Document Code')
+    sii_document_class = fields.Integer('SII Document Class')
 
     start_nm = fields.Integer(
         string='Start Number', help='CAF Starts from this number')
@@ -90,7 +90,7 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
 
         self.start_nm = result['RNG']['D']
         self.final_nm = result['RNG']['H']
-        self.sii_code = result['TD']
+        self.sii_document_class = result['TD']
         self.issued_date = result['FA']
         self.rut_n = 'CL' + result['RE'].replace('-','')
         if not self.sequence_id:
@@ -99,11 +99,12 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         elif self.rut_n != self.company_id.vat:
             raise Warning(_(
                 'Company vat %s should be the same that assigned company\'s vat: %s!') % (self.rut_n, self.company_id.vat))
-
+        elif self.sii_document_class != self.sequence_id.sii_document_class:
+            raise Warning(_(
+                '''SII Document Type for this CAF is %s and selected sequence associated document class is %s. This values should be equal for DTE Invoicing to work properly!''') % (self.sii_document_class, self.sequence_id.sii_document_class))
         elif self.sequence_id.number_next_actual < self.start_nm or self.sequence_id.number_next_actual > self.final_nm:
             raise Warning(_(
                 'Folio Number %s should be between %s and %s CAF Authorization Interval!') % (self.sequence_id.number_next_actual, self.start_nm, self.final_nm))
-
         else:
             self.status = 'in_use'
 
@@ -116,17 +117,31 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         self.name = self.filename
 
 
-#class sequence_caf(models.Model):
-#    _name = 'sequence.caf'
-#    _inherit = 'ir.sequence'
+class sequence_caf(models.Model):
+    _inherit = "ir.sequence"
+    
+    sii_document_class = fields.Integer('SII Code', readonly=True, compute='_get_sii_document_class')
 
-    # dte_caf_id = fields.Many2one(
-    # 
+    is_dte = fields.Boolean('IS DTE?', readonly=True, compute='_check_dte')
+    
+    dte_caf_ids = fields.One2many(
+        'dte.caf', 'sequence_id', 'DTE Caf')
 
-#    sii_code = fields.Integer('SII Document Class')
-#
-#    @api.one
-#    def _get_sii_code(self):
-#        if self.dte_caf_id:
-#            return self.dte_caf_id.sii_code
-#
+    @api.one
+    def _get_sii_document_class(self):
+        r = self
+        obj = r.env['account.journal.sii_document_class'].search([('sequence_id', '=', r.id)])
+        r.sii_document_class = obj.sii_document_class_id.sii_code
+        
+
+    @api.one
+    def _check_dte(self):
+        r = self
+        obj = r.env['account.journal.sii_document_class'].search([('sequence_id', '=', r.id)])
+        r.is_dte = obj.sii_document_class_id.dte and obj.sii_document_class_id.document_type in ['invoice', 'debit_note', 'credit_note']
+
+
+
+        
+
+    
