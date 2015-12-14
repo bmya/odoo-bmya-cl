@@ -20,8 +20,6 @@
             <field name="arch" type="xml">
                 <field name="type" position="after">
                     <field name="use_documents" attrs="{'invisible': [('type','not in',['purchase','sale','purchase_refund','sale_refund'])]}"/>
-                    <field name="dte_register" attrs="{'invisible': [('type','not in',['purchase','sale','purchase_refund','sale_refund'])]}"/>
-                    <field name="free_tax_zone" attrs="{'invisible': [('type','not in',['purchase','sale','purchase_refund','sale_refund'])]}"/>
                 </field>
                     
                 <notebook position="inside">
