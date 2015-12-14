@@ -10,6 +10,10 @@
                 <group>
                     <!--<field name="debit_notes" invisible="context.get('type', False) != 'sale'"/>
                     <field name="credit_notes" invisible="context.get('type', False) != 'sale_refund'"/>-->
+                    <field name="dte_register"/>
+                    <field name="non_dte_register"/>
+                    <field name="free_tax_zone"/>
+
                 </group>
                 <footer>
                     <button string="Confirm" name="confirm" type="object" class="oe_highlight"/>
