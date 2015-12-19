@@ -51,6 +51,7 @@ class sii_document_class(models.Model):
     document_type = fields.Selection(
         [
             ('invoice', 'Invoices'),
+            ('invoice_in', 'Purchase Invoices'),
             ('debit_note', 'Debit Notes'),
             ('credit_note', 'Credit Notes'),
             ('other_document', 'Other Documents')
