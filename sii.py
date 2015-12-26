@@ -50,10 +50,10 @@ class sii_document_class(models.Model):
         help='Name that will be printed in reports, for example "CREDIT NOTE"')
     document_type = fields.Selection(
         [
-            ('out_invoice', 'Sale Invoices'),
-            ('credit_note', 'Credit Notes'),
+            ('invoice', 'Invoices'),
+            ('invoice_in', 'Purchase Invoices'),
             ('debit_note', 'Debit Notes'),
-            ('in_invoice', 'Purchase Invoices'),
+            ('credit_note', 'Credit Notes'),
             ('other_document', 'Other Documents')
         ],
         string='Document Type',

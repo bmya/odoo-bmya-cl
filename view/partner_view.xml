@@ -16,6 +16,18 @@
                     <field name="document_type_id" colspan="1"/>
                     <field name="document_number" colspan="1"/>                        
                 </field>
+                <field name="last_reconciliation_date" position="attributes">
+                    <attribute name="attrs">{'invisible':1}</attribute>
+                </field>
+
+                <field name="property_account_position" position="attributes">
+                    <attribute name="attrs">{'invisible':1}</attribute>
+                </field>
+
+                <field name="vat" position="attributes">
+                    <attribute name="attrs">{'invisible':1}</attribute>
+                </field>
+
             </field>
         </record>
 
