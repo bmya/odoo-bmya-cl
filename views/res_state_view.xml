@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="view_country_state_city_tree" model="ir.ui.view">
+            <field name="name">res.country.state.city.tree</field>
+            <field name="model">res.country.state.city</field>
+            <field name="arch" type="xml">
+                <tree string="City">
+                    <field name="name"/>
+                    <field name="complete_name"/>
+                    <field name="country_id"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_country_state_city_form" model="ir.ui.view">
+            <field name="name">res.country.state.city.form</field>
+            <field name="model">res.country.state.city</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label for="name" string="Name"/>
+                    <field name="name"/>
+                    <label for="code" string="City Code"/>
+                    <field name="code"/>
+                    <label for="country_id" string="Country"/>
+                    <field name="country_id"/>
+                    <label for="state_id" string="State"/>
+                    <field name="state_id"/>
+                    <label for="type" string="Type"/>
+                    <field name="type"/>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

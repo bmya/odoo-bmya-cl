@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Chile Localization Toponyms",
-    "version": "1.0",
+    "version": "2.0",
     "description": """
 Chilean toponyms.
 
@@ -30,19 +30,17 @@ Lista de regiones, provincias y comunas chilenas
     "website": "http://cubicERP.com",
     "category": "Localization/Toponyms",
     "depends": [
-			"base_state_ubication",
-			],
-	"data":[
-        "l10n_cl_toponyms_data.xml",
-			],
-    "demo_xml": [
-			],
-    "update_xml": [
-			],
+                "base_state_ubication",
+            ],
+    "data":[
+        "data/l10n_cl_toponyms_data.xml",
+        "views/res_partner_view.xml",
+        "views/res_state_view.xml"
+        ],
+    "demo_xml": [],
+    "update_xml": [],
     "active": False,
     "installable": True,
     "certificate" : "",
-    "images": [
-                        ],
+    "images": [],
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

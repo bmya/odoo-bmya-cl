@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-# Copyright (c) 2012 Gabriel Henao.
+# Copyright (c) 2012 Cubic ERP - Teradata SAC. (http://cubicerp.com).
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
@@ -27,9 +27,14 @@
 #
 ##############################################################################
 
+from openerp.osv import fields, osv
 
 
+class res_partner(osv.osv):
+    
+    _inherit = 'res.partner'
+    _columns = {
+        'city': fields.many2one("res.country.state.city", 'City', domain="[('state_id','=',state_id),('type','=','normal')]"),
+        }
+        
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-
-import res_partner
-import res_state_city
