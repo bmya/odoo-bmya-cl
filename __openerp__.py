@@ -22,6 +22,7 @@
     'name': 'Chilean Financial Indicators',
     'version': '0.1',
     'category': 'Tools',
+    'license': 'AGPL-3',
     'complexity': 'easy',
     'description': '''Update UF, UTM and Dollar Official Value in a daily basis
 using SBIF webservices''',
