@@ -48,9 +48,12 @@ class account_journal_document_config(osv.osv_memory):
             elif journal_type in ['purchase', 'purchase_refund']:
                 letter_ids = [x.id for x in responsability.received_letter_ids]
             
-            if journal_type in ['sale', 'purchase']:
-                self.create_journal_document(cr, uid, letter_ids, 'invoice', journal.id, non_dte_register, dte_register, free_tax_zone, credit_notes, debit_notes, context)
-                self.create_journal_document(cr, uid, letter_ids, 'debit_note', journal.id, non_dte_register, dte_register, free_tax_zone, credit_notes, debit_notes, context)
+            if journal_type == 'sale':
+                for doc_type in ['invoice', 'debit_note']:
+                    self.create_journal_document(cr, uid, letter_ids, doc_type, journal.id, non_dte_register, dte_register, free_tax_zone, credit_notes, debit_notes, context)
+            elif journal_type == 'purchase':
+                for doc_type in ['invoice', 'debit_note', 'invoice_in']:
+                    self.create_journal_document(cr, uid, letter_ids, doc_type, journal.id, non_dte_register, dte_register, free_tax_zone, credit_notes, debit_notes, context)
             elif journal_type in ['sale_refund', 'purchase_refund']:
                 self.create_journal_document(cr, uid, letter_ids, 'credit_note', journal.id, non_dte_register, dte_register, free_tax_zone, ccredit_notes, debit_notes, ontext)
 
@@ -73,7 +76,7 @@ class account_journal_document_config(osv.osv_memory):
         for document_class in document_class_obj.browse(cr, uid, document_class_ids, context=context):
 
             if not document_class.dte:
-                if non_dte_register and (not 'ZF' in document_class.report_name and not '1057' in document_class.report_name):
+                if non_dte_register and (not 'ZF' in document_class.report_name or not '1057' in document_class.report_name):
                     pass
                 elif 'ZF' in document_class.report_name:
                     if free_tax_zone:
@@ -83,7 +86,7 @@ class account_journal_document_config(osv.osv_memory):
                 else:
                     continue
             else:
-                if dte_register and (not 'ZF' in document_class.report_name and not '1057' in document_class.report_name):
+                if dte_register and (not 'ZF' in document_class.report_name or not '1057' in document_class.report_name):
                     pass
                 elif ('ZF' in document_class.report_name or '1057' in document_class.report_name):
                     if free_tax_zone:
@@ -92,48 +95,8 @@ class account_journal_document_config(osv.osv_memory):
                         continue
                 else:
                     continue
+
                     
-
-
-            #if non_dte_register: # documentos manuales
-            #    if not document_class.dte and 'ZF' not in document_class.report_name:
-            #        pass
-            #    else:
-            #        continue
-            #
-            #if free_tax_zone:
-            #    if 'ZF' in document_class.report_name:
-            #        pass
-            #    else:
-            #        continue
-            #if dte_register:
-            #    if document_class.dte:
-            #        pass
-            #    else:
-            #        continue
-
-            #   if non_dte_register and not free_tax_zone:
-            #           pass
-            #       else:
-            #           continue
-            #   elif non_dte_register and free_tax_zone:
-            #       if document_class.dte and 'ZF' not in document_class.report_name:
-            #           continue
-            #       else:
-            #           pass
-            #   elif dte_register:
-            #       if document_class.dte:
-            #           pass
-            #       else:
-            #           continue
-            #   else:
-            #       pass
-            #   if free_tax_zone:
-            #       if 'ZF' in document_class.report_name:
-            #           pass
-            #       else:
-            #           continue
-            #    sequence_id = False
             sequence_id = self.create_sequence(cr, uid, document_class.name, journal, context)
             vals = {
                 'sii_document_class_id': document_class.id,
