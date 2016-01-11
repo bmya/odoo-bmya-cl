@@ -926,7 +926,7 @@ msgstr "venta"
 #: view:account.invoice:l10n_cl_invoice.view_supplier_invoice_form
 msgid ""
 "{'readonly':['|','|',('state','!=','draft'),('sii_document_number','!=',"
-"False),('internal_number','!=',False)]}"
+"False),('move_name','!=',False)]}"
 msgstr ""
 
 #. module: l10n_cl_invoice

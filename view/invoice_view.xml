@@ -53,9 +53,7 @@
                     <field name="available_journal_document_class_ids" invisible="1"/>
                     <field name="use_documents" invisible="1"/>
                     <field name="sii_document_number" invisible="1"/>
-                    <!--
-                    <field name="internal_number" invisible="1"/>
-                    -->
+                    <field name="move_name" invisible="1"/>
                 </form>
 
                 <field name="partner_bank_id" position="before">
@@ -80,7 +78,7 @@
 
                 <!-- Esto es por un mini bug de odoo ya que no se deberia poder cabmiar de diario y que se mantenga secuencia o numeraion de otro diario, hay que exigir borrar los numeros  -->
                 <field name="journal_id" position="attributes">
-                    <attribute name="attrs">{'readonly':['|','|',('state','!=','draft'),('sii_document_number','!=',False),('internal_number','!=',False)]}</attribute>
+                    <attribute name="attrs">{'readonly':['|','|',('state','!=','draft'),('sii_document_number','!=',False),('move_name','!=',False)]}</attribute>
                 </field>
 
                 <field name="journal_id" position="after">
@@ -104,7 +102,7 @@
                     <field name="available_journal_document_class_ids" invisible="1"/>
                     <field name="use_documents" invisible="1"/>
                     <field name="sii_document_number" invisible="1"/>
-                    <!-- <field name="internal_number" invisible="1"/>-->
+                    <field name="move_name" invisible="1"/>
                 </form>
                 <!--
                 <field name="supplier_invoice_number" position="attributes">
@@ -120,7 +118,7 @@
 
                 <!-- Esto es por un mini bug de odoo ya que no se deberia poder cabmiar de diario y que se mantenga secuencia o numeraion de otro diario, hay que exigir borrar los numeros  -->
                 <field name="journal_id" position="attributes">
-                    <attribute name="attrs">{'readonly':['|','|',('state','!=','draft'),('sii_document_number','!=',False),('internal_number','!=',False)]}</attribute>
+                    <attribute name="attrs">{'readonly':['|','|',('state','!=','draft'),('sii_document_number','!=',False),('move_name','!=',False)]}</attribute>
                 </field>
 
                 <field name="journal_id" position="after">
