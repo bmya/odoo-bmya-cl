@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from openerp.exceptions import Warning
 import os, sys, urllib3, json
 import logging
-# urllib3.disable_warnings()
+
 http = urllib3.PoolManager()
 
 _logger = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ class webservices_generic(models.Model):
         rr = self.generic_connection()
         # analiza la respuesta
         try:
-            _logger.warning('status %s' % (r.status))
+            _logger.info('status %s' % (r.status))
         except:
             _logger.warning('exception status')
 
@@ -54,13 +54,13 @@ class webservices_generic(models.Model):
         # token junto con los datos (por ejemplo sbif)
         elif self.auth_method == 'data_token':
             headers={}
-            _logger.warning('entra por metodo data_token')
+            _logger.info('entra por metodo data_token')
             
             connection = '{}?{}={}&{}={}'.format(
                 self.url, self.auth_method_name, self.token,
                 self.response_format_name, self.response_format)
             
-            _logger.warning('conection: %s' % connection)
+            _logger.info('conection: %s' % connection)
             
         # esquema de datos complejo (no funciona) por ejemplo, Sugarcrm
         elif self.auth_method == 'user_password':
@@ -83,24 +83,22 @@ class webservices_generic(models.Model):
         # realiza la conexión
         print 'datos que envia', connection
         r = http.urlopen(self.http_auth_method, connection, headers=headers)
-        print 'encabezados de respuesta'
-        print r.headers
-        print 'datos que recibe'
-        print r.data
+        _logger.info('encabezados de respuesta: %s' % r.headers)
+        _logger.info('datos de la respuesta: %s' % r.data)
         rr = {}
         rr['headers'] = r.headers
         rr['status'] = r.status
         if r.status == 200:
             if self.response_format == 'JSON':
                 rr['data'] = json.loads(r.data)
-                print 'formato json, status 200'
+                _logger.info('formato json, status 200')
             else:
                 # para trabajar con otros formatos de respuesta (no implementado)
                 rr['data'] = r.data
-                print 'formato NO json status 200'
+                _logger.warning('formato json, status: %s' % r.status)
         else:
             rr['data'] = r.data
-            print 'formato NO json status distinto a 200'
+            _logger.warning('formato NO json, status: %s' % r.status)
         return rr
         
 
