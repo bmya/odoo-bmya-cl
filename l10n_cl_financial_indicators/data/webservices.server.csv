@@ -1,0 +1,5 @@
+"id","active","additional_parameter","auth_method","auth_method_name","http_auth_method","name","response_format","response_format_name","scope","just_url","url"
+"sbif_usd","True","formato","data_token","apikey","GET","SBIFUSD","JSON","formato","generic","FALSE","http://api.sbif.cl/api-sbifv3/recursos_api/dolar/"
+"sbif_uf","True","formato","data_token","apikey","GET","SBIFUF","JSON","formato","generic","FALSE","http://api.sbif.cl/api-sbifv3/recursos_api/uf/"
+"sbif_utm","True","formato","data_token","apikey","GET","SBIFUTM","JSON","formato","generic","FALSE","http://api.sbif.cl/api-sbifv3/recursos_api/utm/"
+"sbif_eur","True","formato","data_token","apikey","GET","SBIFEUR","JSON","formato","generic","FALSE","http://api.sbif.cl/api-sbifv3/recursos_api/euro/"

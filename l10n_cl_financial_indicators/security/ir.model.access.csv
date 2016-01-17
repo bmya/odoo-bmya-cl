@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_financial_indicators_user,financial.indicator.user,model_financial_indicators,,1,0,0,0
+access_financial_indicators_manager,financial.indicator.manager,model_financial_indicators,,1,1,1,1
