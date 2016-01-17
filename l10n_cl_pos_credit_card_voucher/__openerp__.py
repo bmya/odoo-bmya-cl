@@ -1,6 +1,7 @@
 {
     'name': "Chilean Localization - Point of sale credit card voucher",
     'version': "1.0",
+    'license': 'AGPL-3',
     'author': "Daniel Blanco Martin - Blanco Martín & Asociados",
     'website': "http://blancomartin.cl",
     'category': "Tools",
@@ -10,7 +11,6 @@
 """,
     'data': ['views.xml'],
     'qweb': ['static/src/xml/pos_cc_voucher.xml'],
-    'demo': [],
     'installable': True,
     'category': 'Localization/Chile',
 }
