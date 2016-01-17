@@ -1,20 +1,12 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api
+# from openerp.osv import fields as old_fields
 from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 import logging
 from openerp.tools.translate import _
 import json
 import openerp.addons.decimal_precision as dp
-# import openerp.tools.config as cf
-
-#print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa"
-#print wsg
-# from openerp.osv import fields as old_fields
-# import openerp.addons.decimal_precision as dp
-
-# urllib3.disable_warnings()
-# http = urllib3.PoolManager()
 
 indicadores = {
     'SBIFUSD':['dolar', 'Dolares', 'sbif_usd', 'USD'],
@@ -31,25 +23,25 @@ class l10n_cl_financial_indicators(models.Model):
     @api.multi
     def action_update_currency(self):
         self.ensure_one()
-        _logger.warning('nombre: %s' % self.name)
-        _logger.warning('url: %s' % self.url)
+        _logger.info('nombre: %s' % self.name)
+        _logger.info('url: %s' % self.url)
         a = self.generic_connection()
-        _logger.warning('Datos recibidos... status: %s' % a['status'])
+        _logger.info('Datos recibidos... status: %s' % a['status'])
         if a['status'] != 200:
             _logger.warning('no se pudo conectar: %s' % a['data'])
             return
 
         data_json = a['data']
         
-        _logger.warning('datos mostrados localmente... Fecha: %s, Valor: %s' %
+        _logger.info('datos mostrados localmente... Fecha: %s, Valor: %s' %
             (data_json[indicadores[self.name][1]][0]['Fecha'],
-             data_json[indicadores[self.name][1]][0]['Valor'])
+             data_json[indicadores[self.name][1]][0]['Valor']))
         
         rate = float(
             data_json[indicadores[self.name][1]][0]['Valor'].replace(
                 '.', '').replace(',', '.'))
 
-        _logger.warning('rate: %s' % str(rate))
+        _logger.info('rate: %s' % str(rate))
 
         rate_name = fields.Datetime.to_string(datetime.utcnow().replace(
             hour=0, minute=0, second=0, microsecond=0))
@@ -71,7 +63,7 @@ class l10n_cl_financial_indicators(models.Model):
                 }
             self.env['res.currency.rate'].create(values)
             _logger.info(
-                'Se actualizó la moneda "%s"' % indicadores[self.name][1])
+                'Se actualizó la moneda "%s".' % indicadores[self.name][1])
     
     '''
     Ejemplo de resultado bueno:
@@ -79,23 +71,22 @@ class l10n_cl_financial_indicators(models.Model):
     Ejemplo de resultado malo:
     Result: {"CodigoHTTP": 404, "CodigoError": 81, "Mensaje": "El recurso correspondiente al dia actual aun no ha sido cargado" }!
     '''
-    # _columns = {
-    #     'rate': old_fields.function(
-    #         _printed_pices, type='float',
-    #         digits_compute=dp.get_precision('Account'),
-    #         string='Unit Price', multi='printed',),
-    # 
-    # 
  
     @api.multi
     def currency_schedule_update(self):
+        
         self.ensure_one()
-    
+
         for indic in indicadores.iteritems():
 
-            sbif_svr_data = self.env['webservices.server'].browse(
+            sbif_svr_data = self.env['webservices.server'].search(
                 [('name', '=', indic[0])])
-            print 'encontrados!...'
+
+            # print 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu'
+            # print sbif_svr_data.name
+            _logger.info(
+                'Iterando la moneda "%s" por proceso planificado'
+                % indic[0])
 
             sbif_svr_data.action_update_currency()
 
