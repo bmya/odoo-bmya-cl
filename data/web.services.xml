@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="False">
+        <record model='webservices.server' id='tog_SRV'>
+            <field name='name'>Toggl Server</field>
+            <field name='url'>https://toggl.com/reports/api/v2</field>
+            <field name='token'>820ae331b777dbb09de47794d318bd58</field>
+            <field name='auth_method'>headers_token</field>
+            <field name='active' eval="True"/>
+        </record>
+    </data>
+</openerp>

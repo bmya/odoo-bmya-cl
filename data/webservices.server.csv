@@ -1,0 +1,8 @@
+id,active,additional_parameter,auth_method,auth_method_name,http_auth_method,name,password,password_var,response_format,response_format_name,scope,just_url,custom_library,token,url,user,user_var
+webservices_generic.tog_SRV,TRUE,,headers_token,api_token,POST,Toggl Server,,,JSON,,generic,FALSE,,820ae331b777dbb09de47794d318bd58,https://toggl.com/reports/api/v2,,
+suite_crm,TRUE,input_type,user_password,login,POST,MYCRM,albondiga,password,JSON,response_type,generic,TRUE,Y,,http://crm.crmalert.me/service/v4_1/rest.php,admin,user_name
+sii_cert_seed,TRUE,,headers_key,Semilla,POST,SIICertificacionSemilla,,,XML,,by_user,FALSE,,,url =  'https://maullin.sii.cl/DTEWS/CrSeed.jws?WSDL,,
+sii_cert_token,TRUE,,headers_key,getToken,POST,SIICertificacionToken,,,XML,,by_user,FALSE,,,https://maullin.sii.cl/DTEWS/GetTokenFromSeed.jws?WSDL,,
+sii_prod_seed,TRUE,,headers_key,Semilla,POST,SIIProduccionSemilla,,,XML,,by_user,FALSE,,,url =  'https://palena.sii.cl/DTEWS/CrSeed.jws?WSDL,,
+sii_prod_token,TRUE,,headers_key,getToken,POST,SIIProduccionToken,,,XML,,by_user,FALSE,,,https://maullin.sii.cl/DTEWS/GetTokenFromSeed.jws?WSDL,,
+mandrill_api,TRUE,,data_token,,POST,Mandrill,,,JSON,,generic,FALSE,P,rgj7d6qidFnJc4EO4Cfn5w,,,
