@@ -17,7 +17,6 @@
 #
 ##############################################################################
 
-
 {
     'name': 'Chilean Financial Indicators',
     'version': '0.1',
@@ -28,7 +27,7 @@
 using SBIF webservices''',
     'author': 'Blanco Martin & Asociados',
     'website': 'http://blancomartin.cl',
-    'depends': ['base'],
+    'depends': ['base','webservices_generic'],
     'init_xml': [],
     'update_xml': [
         'ir_cron.xml'
@@ -36,6 +35,11 @@ using SBIF webservices''',
     'demo_xml': [
     ],
     'test': [
+    ],
+    'data': [
+        'views/update_button.xml',
+        'data/res.currency.csv',
+        'data/webservices.server.csv',
     ],
     'installable': True,
 }
