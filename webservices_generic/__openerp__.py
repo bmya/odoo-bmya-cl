@@ -27,6 +27,9 @@
     'description': "Data Model that allows to act as a repository for generic web services connection",
     'author': 'Blanco Martin & Asociados',
     'website': 'http://blancomartin.cl',
+    "external_dependencies": {
+        'python': ['urllib3']
+    },
     'data': [
         'views/ws_servers.xml',
         # 'data/web.services.xml',

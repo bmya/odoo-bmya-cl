@@ -3,7 +3,12 @@ from openerp import fields, api, models, _
 import time, md5
 from datetime import datetime, timedelta
 from openerp.exceptions import Warning
-import os, sys, urllib3, json
+import os, sys, json
+try:
+    import urllib3
+except ImportError:
+    pass
+
 import logging
 
 http = urllib3.PoolManager()
