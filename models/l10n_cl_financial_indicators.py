@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api
-# from openerp.osv import fields as old_fields
+#from openerp.osv import fields as old_fields
 from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 import logging
@@ -72,11 +72,8 @@ class l10n_cl_financial_indicators(models.Model):
     Result: {"CodigoHTTP": 404, "CodigoError": 81, "Mensaje": "El recurso correspondiente al dia actual aun no ha sido cargado" }!
     '''
  
-    @api.multi
     def currency_schedule_update(self):
         
-        self.ensure_one()
-
         for indic in indicadores.iteritems():
 
             sbif_svr_data = self.env['webservices.server'].search(
