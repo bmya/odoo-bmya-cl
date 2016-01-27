@@ -31,16 +31,19 @@ Account Invoice Partner Commercial
 Allows partners to be chosen as commercial in accounts, and inherit them by default when 
 creating an associated invoice.. 
 It also choose the salesperson when creating invoices from stock.picking
-Inspired from account_invoice_commercial (Adhoc SA)
+Inspired from account_invoice_commercial (Adhoc SA).
     """,
     'author':  'Blanco Martin & Asociados',
-    'website': 'blancomartin.cl',
+    'website': 'http://blancomartin.cl',
     'images': [
     ],
     'depends': [
         'account',
+        'l10n_cl_invoice'
     ],
     'data': [
+        'views/partner_commercial.xml',
+        'data/ir.values.xml'
     ],
     'demo': [
     ],

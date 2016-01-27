@@ -28,8 +28,9 @@ Payroll Analytic Accounting.
     -This module lets you choose the analytic account in the employee contract for a specific salary rule. 
     
     """,
+    'license': 'AGPL-3',
     'category': 'Accounting',
-    'author': 'Blanco Martín & Asociados - Nelson Ramírez Sánchez',
+    'author': 'Blanco MartÃ­n & Asociados - Nelson RamÃ­rez SÃ¡nchez',
     'website': 'http://blancomartin.cl',
     'depends': [
         'hr_payroll_account','account_analytic_analysis'

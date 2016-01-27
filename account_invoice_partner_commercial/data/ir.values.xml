@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="False">
+
+
+        <record id="ir_values_responsability_id" model="ir.values">
+            <field name="name">responsability_id</field>
+            <field name="company_id">1</field>
+            <field name="value"></field>
+            <field name="key">default</field>
+            <field name="value_unpickle" ref="l10n_cl_invoice.res_IVARI"/>
+            <field name="key2"></field>
+            <field name="model">res.partner</field>
+        </record>
+
+
+        <record id="ir_values_document_type_id" model="ir.values">
+            <field name="name">document_type_id</field>
+            <field name="company_id">1</field>
+            <field name="value"></field>
+            <field name="key">default</field>
+            <field name="value_unpickle" ref="l10n_cl_invoice.dt_RUT"/>
+            <field name="key2"></field>
+            <field name="model">res.partner</field>
+        </record>
+
+
+        <record id="ir_values_country_id" model="ir.values">
+            <field name="name">country_id</field>
+            <field name="company_id">1</field>
+            <field name="value"></field>
+            <field name="key">default</field>
+            <field name="value_unpickle" ref="base.cl"/>
+            <field name="key2"></field>
+            <field name="model">res.partner</field>
+        </record>
+
+        <record id="ir_values_user_id" model="ir.values">
+            <field name="name">user_id</field>
+            <field name="company_id">1</field>
+            <field name="value"></field>
+            <field name="key">default</field>
+            <!--<field name="value_unpickle" eval="ref('base.user_root')"/>- (is the same f*ck'ng thing) -->
+            <field name="value_unpickle" ref="base.user_root"/>
+            <field name="key2"></field>
+            <field name="model">res.partner</field>
+        </record>
+
+
+    </data>
+</openerp>

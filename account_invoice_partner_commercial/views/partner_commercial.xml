@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	 <record id="view_partner_commercial_form" model="ir.ui.view">
+            <field name="name">partner.commercial.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            	 <!--<xpath expr="//form/sheet/notebook/page[@string='Sales & Purchases']/group/group//field[@name='supplier']" position="after">-->
+            	 <xpath expr="//form/sheet/notebook/page/group/group//field[@name='customer']" position="before">
+                    <field name="is_commercial_partner"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/group/group//field[@name='customer']" position="attributes">
+                	<attribute name="attrs">{'readonly':[('is_commercial_partner', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/group/group//field[@name='supplier']" position="attributes">
+                	<attribute name="attrs">{'readonly':[('is_commercial_partner', '=', True)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    	 <record id="view_partner_commercial_tree" model="ir.ui.view">
+            <field name="name">partner.commercial.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="email" position="after">
+                	<field name="property_product_pricelist"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
