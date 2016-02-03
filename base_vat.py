@@ -21,7 +21,9 @@ class res_partner(models.Model):
             body, vdig = vat[:-1], vat[-1].upper()
         try:
             vali = range(2,8) + [2,3]
-            operar = '0123456789K0'[11 - (sum([int(digit)*factor for digit, factor in zip(body[::-1],vali)]) % 11)]
+            operar = '0123456789K0'[11 - (
+                sum([int(digit)*factor for digit,
+                factor in zip(body[::-1],vali)]) % 11)]
             if operar == vdig:
                 return True
             else:
@@ -38,4 +40,6 @@ class res_partner(models.Model):
 
         self.vat = 'CL%s' % formated_vat
 
-        self.formated_vat = formated_vat[0:2] + '.' + formated_vat[2:5] + '.' + formated_vat[5:8] +'-' + formated_vat[-1]
+        self.formated_vat = '%s.%s.%s-%s' % (
+            formated_vat[0:2], formated_vat[2:5], formated_vat[5:8],
+            formated_vat[-1])
