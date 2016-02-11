@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <record id="view_bmya_base_configuration" model="ir.ui.view">
+        <field name="name">bmya.base.config.settings</field>
+        <field name="model">bmya.base.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Configure" class="oe_form_configuration" version="7.0">
+                <header>
+                    <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                </header>
+                <separator string="BMyA Custom Setup"/>
+                <div>
+                    <p>
+                        <label
+                            string="Configure your Odoo options from here in a convenient and easy way. You won't need to install modules separatedly."/>
+                    </p>
+                </div>
+                <separator string="Products" invisible="True" />
+                <group invisible="True">
+                </group>
+                
+                <separator string="Accounting" invisible="True" />
+                <group invisible="True">
+                </group>
+
+                <separator string="Sales" invisible="True" />
+                <group invisible="True">
+                </group>
+
+                <separator string="Purchases" invisible="True" />
+                <group invisible="True">
+                </group>
+
+                <separator string="Projects" invisible="True" />
+                <group invisible="True">
+                </group>
+
+                <separator string="Stock" invisible="True" />
+                <group invisible="True">
+                </group>
+
+                <separator string="Partners"/>
+                <group>
+                    <label for="id" string="Data"/>
+                    <div name="partners_data">
+                        <div name='module_base_state_active'>
+                            <field name="module_base_state_active"
+                                class="oe_inline"/>
+                            <label for="module_base_state_active"/>
+                        </div>                    
+                    </div>                    
+                    <label for="id" string="Common Features"/>
+                    <div name="partner_features">  
+                        <div name='module_partner_social_fields'>
+                            <field name="module_partner_social_fields"
+                                class="oe_inline"/>
+                            <label for="module_partner_social_fields"/>
+                        </div>
+                        <!-- <div name='module_tko_partner_multiple_phones_emails_tab'>
+                            <field name="module_tko_partner_multiple_phones_emails_tab"
+                                class="oe_inline"/>
+                            <label for="module_tko_partner_multiple_phones_emails_tab"/>
+                        </div>-->
+                        <div name='module_partner_views_fields'>
+                            <field name="module_partner_views_fields"
+                                class="oe_inline"/>
+                            <label for="module_partner_views_fields"/>
+                        </div>
+                        <div name='module_partner_search_by_ref'>
+                            <field name="module_partner_search_by_ref"
+                                class="oe_inline"/>
+                            <label for="module_partner_search_by_ref"/>
+                        </div>
+                        <div name='module_partner_search_by_vat'>
+                            <field name="module_partner_search_by_vat"
+                                class="oe_inline"/>
+                            <label for="module_partner_search_by_vat"/>
+                        </div>
+                        <div name='module_partner_credit_limit'>
+                            <field name="module_partner_credit_limit"
+                                class="oe_inline"/>
+                            <label for="module_partner_credit_limit"/>
+                        </div>
+                        <div name='module_partner_vat_unique'>
+                            <field name="module_partner_vat_unique"
+                                class="oe_inline"/>
+                            <label for="module_partner_vat_unique"/>
+                        </div>
+                    </div>
+                    <label for="id" string="Advanced Features"/>
+                    <div name="partner_advance_features">
+                        <div name='module_partner_person'>
+                            <field name="module_partner_person"
+                                class="oe_inline"/>
+                            <label for="module_partner_person"/>
+                        </div>            
+                        <div name='module_partner_state'>
+                            <field name="module_partner_state"
+                                class="oe_inline"/>
+                            <label for="module_partner_state"/>
+                        </div>
+                    </div>
+                </group>
+                
+                <separator string="Usability And Tools" />
+                <group>
+                    <label for="id" string="Web interface"/>
+                    <div name="web_features">
+                        <div name='module_web_recipients_uncheck'>
+                            <field name="module_web_recipients_uncheck"
+                                class="oe_inline"/>
+                            <label for="module_web_recipients_uncheck"/>
+                        </div>
+                        <div name='module_web_ckeditor4'>
+                            <field name="module_web_ckeditor4"
+                                class="oe_inline"/>
+                            <label for="module_web_ckeditor4"/>
+                        </div>
+                        <div name='module_web_sheet_full_width'>
+                            <field name="module_web_sheet_full_width"
+                                class="oe_inline"/>
+                            <label for="module_web_sheet_full_width"/>
+                        </div>
+                        <div name='module_web_m2x_options'>
+                            <field name="module_web_m2x_options"
+                                class="oe_inline"/>
+                            <label for="module_web_m2x_options"/>
+                        </div>
+                        <div name='module_web_group_expand'>
+                            <field name="module_web_group_expand" class="oe_inline"/>
+                            <label for="module_web_group_expand"/>
+                        </div>     
+                    </div>
+                    <label for="id" string="Tools"/>
+                    <div name="tools">
+                        <div name='module_mass_editing'>
+                            <field name="module_mass_editing"
+                                class="oe_inline"/>
+                            <label for="module_mass_editing"/>
+                        </div>
+                        <div name='module_tko_mail_smtp_per_user'>
+                            <field name="module_tko_mail_smtp_per_user"
+                                class="oe_inline"/>
+                            <label for="module_tko_mail_smtp_per_user"/>
+                        </div>
+                    </div>                      
+                    <label for="id" string="Knowledge &amp; Docs"/>
+                    <div name="documentation">
+                        <div name='module_document_url'>
+                            <field name="module_document_url"
+                                class="oe_inline"/>
+                            <label for="module_document_url"/>
+                        </div>
+                        <div name='module_attachment_preview'>
+                            <field name="module_attachment_preview"
+                                class="oe_inline"/>
+                            <label for="module_attachment_preview"/>
+                        </div>
+                        <div name='module_help_doc'>
+                            <field name="module_help_doc"
+                                class="oe_inline"/>
+                            <label for="module_help_doc"/>
+                        </div>
+                        <div name='module_help_online'>
+                            <field name="module_help_online"
+                                class="oe_inline"/>
+                            <label for="module_help_online"/>
+                        </div>
+                    </div>                    
+                    <label for="id" string="Reporting"/>
+                    <div name="export">
+                        <div name='module_web_export_view'>
+                            <field name="module_web_export_view" class="oe_inline" readonly="0"/>
+                            <label for="module_web_export_view"/>
+                        </div>
+                    </div>                                    
+                </group>
+
+
+                <separator string="Fixes" />
+                <group>
+                    <label for="id" string="Mail Fixes"/>
+                    <!-- <div name="mail_fixes"> 
+                        <div name='module_mail_sender_patch'>
+                            <field name="module_mail_sender_patch"
+                                class="oe_inline"/>
+                            <label for="module_mail_sender_patch"/>
+                        </div> 
+                    </div>-->
+                    <label for="id" string="Portal Fixes"/>
+                    <div name="portal_fixes"> 
+                        <div name='module_portal_fix'>
+                            <field name="module_portal_fix"
+                                class="oe_inline"/>
+                            <label for="module_portal_fix"/>
+                        </div> 
+                    </div>
+                </group>
+                
+                <separator string="Technical" />
+                <group>
+                    <label for="id" string="Support"/>
+                    <div name="support">
+                        <div name='module_auth_admin_passkey'>
+                            <field name="module_auth_admin_passkey" class="oe_inline"/>
+                            <label for="module_auth_admin_passkey"/>
+                        </div>    
+                        <div name='module_support_branding_bmya'>
+                            <field name="module_support_branding_bmya" class="oe_inline"/>
+                            <label for="module_support_branding_bmya"/>
+                        </div>      
+                        <div name='module_auth_server_admin_passwd_passkey'>
+                            <field name="module_auth_server_admin_passwd_passkey" class="oe_inline"/>
+                            <label for="module_auth_server_admin_passwd_passkey"/>
+                        </div>        
+                    </div>
+                    <label for="id" string="Server"/>
+                    <div name="server">
+                        <div name='module_disable_openerp_online'>
+                            <field name="module_disable_openerp_online" class="oe_inline"/>
+                            <label for="module_disable_openerp_online"/>
+                        </div>        
+                        <div name='module_cron_run_manually'>
+                            <field name="module_cron_run_manually"
+                                class="oe_inline"/>
+                            <label for="module_cron_run_manually"/>
+                        </div>            
+                    </div>
+                </group>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Base Config Settings Action -->
+    <record id="action_bmya_base_setup" model="ir.actions.act_window">
+        <field name="name">BMyA Base Setup</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bmya.base.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+
+    <template id="website_favicon" inherit_id="web.layout">
+        <!-- <xpath expr="//title" position="replace"></xpath>-->
+        <xpath expr="//meta[@http-equiv='content-type']" position="after">
+            <link rel="shortcut icon" href="/bmya_base_setup/static/src/img/favicon.ico" type="image/x-icon"/>
+        </xpath>
+    </template>
+    <template id="website_favicon_ws" inherit_id="website.layout">
+        <xpath expr="//meta[@name='keywords']" position="after">
+            <link rel="shortcut icon" href="/bmya_base_setup/static/src/img/favicon.ico" type="image/x-icon"/>
+        </xpath>
+    </template>
+
+    <!-- Base Config Settings Menu -->
+    <menuitem id="menu_bmya_base_setup" action="action_bmya_base_setup"
+        name="BMyA Base Setup" parent="base.menu_config" sequence="101"/>
+    </data>
+</openerp>

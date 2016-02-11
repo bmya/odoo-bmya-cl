@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="True">
+		<record id="base.main_company" model="res.company">
+		    <field name="name">Blanco Martín EIRL</field>
+		    <field name="rml_header1"></field>
+		    <field name="currency_id" ref="CLP"/>
+		    <field name="street">Apoquindo 6410 Of 212</field>
+		    <field name="zip"></field>
+		    <field name="city">Santiago</field>
+		    <field name="country_id" ref="cl"/>
+		    <field name="email">info@blancomartin.cl</field>
+		    <field name="phone">+56 2 2840-0990</field>
+		    <field name="fax"></field>
+		    <field name="website">www.blancomartin.cl</field>
+		    <field name="vat">CL762012243</field>
+		    <field name="company_registry"></field>
+		</record>
+    </data>
+</openerp>

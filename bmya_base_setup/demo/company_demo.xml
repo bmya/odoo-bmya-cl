@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="True">
+        <record id="bmya" model="res.company">
+	    <field name="inherit_id" ref="base.main_company"/>
+	    <!--<field name="name">Foo</field>-->
+	    <field name="logo" type="base64" file="bmya_base_setup/static/src/img/company_logo.png"/>
+	    <!--<field name="street">5 rue Foo Bar</field>-->
+	</record> 
+    </data>
+</openerp>

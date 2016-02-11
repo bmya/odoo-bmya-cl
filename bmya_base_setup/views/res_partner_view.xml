@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="True">
+        <record model='res.partner' id='par_cfa'>
+            <field name='name'>Blanco Martín EIRL</field>
+            <field name="is_company" eval="True" />
+			<field name="supplier" eval="True" />
+            <field name="customer" eval="False" />
+            <field name="street">Apoquindo 6410 Of 212</field>
+		    <field name="zip"></field>
+		    <field name="city">Santiago</field>
+		    <field name="country_id" ref="base.cl"/>
+		    <field name="email">info@blancomartin.cl</field>
+		    <field name="notify_email">always</field>
+		    <field name="phone">+56 2 2840-0990</field>
+		    <field name="website">www.blancomartin.cl</field>
+		    <field name="vat">CL762012243</field>
+        </record> 
+    </data>
+</openerp>

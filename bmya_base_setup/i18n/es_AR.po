@@ -1,0 +1,536 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bmya_base_setup
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150401\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-12 13:53+0000\n"
+"PO-Revision-Date: 2015-10-12 11:23-0300\n"
+"Last-Translator: Daniel Blanco - Blanco Martín & Asociados "
+"<daniel@blancomartin.cl>\n"
+"Language-Team: Blanco Martín & Asociados <info@blancomartin.cl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: es_AR\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Accounting"
+msgstr "Contabilidad"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_views_fields:0
+msgid "Add Fields on Partners Views"
+msgstr "Agrega Campos a las vistas de Clientes/Proveedores"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_tko_partner_multiple_phones_emails_tab:0
+msgid "Add Multiple Phones and Emails Tab to Partners"
+msgstr "Agrega Múltiples Teléfonos y Correos a Clientes/Proveedores"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_vat_unique:0
+msgid ""
+"Add a constraint on partners so that vat must be unique except in\n"
+"partner with parent/child relationship."
+msgstr ""
+"Agrega una restricción a los clientes y proveedores para que el RUT tenga "
+"que ser único, excepto en aquellos que tengan una relación padre/hijo."
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_person:0
+msgid "Add person information to partners."
+msgstr "Agregar información de persona natural a los clientes/proveedores."
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_social_fields:0
+msgid "Add social fields to partners"
+msgstr "Añadir campos sociales a los clientes/proveedores."
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Advanced Features"
+msgstr "Características Avanzadas"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_auth_server_admin_passwd_passkey:0
+msgid "Allow database login with instance admin password"
+msgstr "Permite login al sistema utilizando la contraseña del admin"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_web_group_expand:0
+msgid "Allow group by lists to be expanded and collapased with buttons"
+msgstr ""
+"Permite que los grupos por listas sean expandibles y colapsables por medio "
+"de botones."
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_help_online:0
+msgid ""
+"Allows the creation of an online help available from the lists\n"
+"and forms in Odoo."
+msgstr ""
+"Permite la creación de una ayuda en línea desde las listas y formularios de "
+"Odoo."
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: bmya_base_setup
+#: model:ir.actions.act_window,name:bmya_base_setup.action_bmya_base_setup
+#: model:ir.ui.menu,name:bmya_base_setup.menu_bmya_base_setup
+msgid "BMyA Base Setup"
+msgstr "Configuración de Opciones BMyA"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "BMyA Custom Setup"
+msgstr "Configuración de Opciones BMyA"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Common Features"
+msgstr "Características Estándar"
+
+#. module: bmya_base_setup
+#: model:ir.model,name:bmya_base_setup.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Configure"
+msgstr "Configurar"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid ""
+"Configure your Odoo options from here in a convenient and easy way. You "
+"won't need to install modules separatedly."
+msgstr ""
+"Configure sus opciones en Odoo desde aquí, de una forma conveniente y "
+"sencilla. No necesitará instalar módulos por separado."
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,create_uid:0
+msgid "Created by"
+msgstr "Creado Por"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Data"
+msgstr "Datos"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_disable_openerp_online:0
+msgid "Disable Odoo Online"
+msgstr "Disable Odoo Online"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_cron_run_manually:0
+msgid "Enable Run Cron Manually"
+msgstr "Activar Ejecutar Cron manualmente"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_portal_fix:0
+msgid ""
+"Fix company assigne on portal user creation from partner\n"
+"(assign partner company)"
+msgstr ""
+"Fix company assigne on portal user creation from partner\n"
+"(assign partner company)"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Fixes"
+msgstr "Correcciones"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_base_state_active:0
+msgid "Hide USA states and add active field for states"
+msgstr "Ocultar Estados de EEUU y añadir campo activo para los estados"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_help_doc:0
+msgid "Install Help Documentation"
+msgstr "Instalar documentación de ayuda"
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_tko_mail_smtp_per_user:0
+msgid ""
+"Installs Module tko_mail_smtp_per_user, allowing to use\n"
+"specific incoming and outgoing email server."
+msgstr ""
+"Instala el módulo tko_mail_smtp_per_user, permitiendo el uso de servidores "
+"de email  entrantes y salientes específicos."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_attachment_preview:0
+msgid "Installs the attachment_preview module."
+msgstr ""
+"Instala el módulo attachment_preview, que permite visualizar un adjunto sin "
+"descargarlo."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_auth_admin_passkey:0
+msgid "Installs the auth_admin_passkey module."
+msgstr "Instala el módulo auth_admin_passkey."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_auth_server_admin_passwd_passkey:0
+msgid "Installs the auth_server_admin_passwd_passkey module."
+msgstr "Instala el módulo auth_server_admin_passwd_passkey."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_base_state_active:0
+msgid "Installs the base_state_active module."
+msgstr "Instala el módulo base_state_active."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_bmya_support:0
+msgid "Installs the bmya_support module."
+msgstr "Instala el módulo bmya_support."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_cron_run_manually:0
+msgid "Installs the cron_run_manually module."
+msgstr ""
+"Instala el módulo  cron_run_manually, que permite forzar la ejecución de una "
+"tarea programada mediante un botón."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_disable_openerp_online:0
+msgid "Installs the disable_openerp_online module."
+msgstr "Instala el módulo disable_openerp_online."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_document_url:0
+msgid "Installs the document_url module."
+msgstr "Instala el módulo document_url."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_help_doc:0
+msgid "Installs the help_doc module."
+msgstr "Instala el módulo help_doc."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_help_online:0
+msgid "Installs the help_online module."
+msgstr "Instala el módulo help_online."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_mail_sender_patch:0
+msgid "Installs the mail_sender_patch module."
+msgstr "Instala el módulo mail_sender_patch."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_mass_editing:0
+msgid "Installs the mass_editing module."
+msgstr "Instala el módulo mass_editing."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_web_ckeditor4:0
+msgid "Installs the module_web_ckeditor4 module."
+msgstr "Instala el módulo module_web_ckeditor4."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_credit_limit:0
+msgid "Installs the partner_credit_limit module."
+msgstr "Instala el módulo partner_credit_limit."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_person:0
+msgid ""
+"Installs the partner_person module. Add firstname, lastname,\n"
+"birthdate, etc."
+msgstr ""
+"Instala el módulo partner_person module. Agrega apellido, nombre, fecha de "
+"nacimiento, etc."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_school:0
+msgid "Installs the partner_school module."
+msgstr "Instala el módulo partner_school."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_search_by_ref:0
+msgid "Installs the partner_search_by_ref module."
+msgstr "Instala el módulo partner_search_by_ref."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_search_by_vat:0
+msgid "Installs the partner_search_by_vat module."
+msgstr "Instala el módulo partner_search_by_vat."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_social_fields:0
+msgid "Installs the partner_social_fields module."
+msgstr "Instala el módulo partner_social_fields."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_state:0
+msgid "Installs the partner_state module."
+msgstr "Instala el módulo partner_state."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_vat_unique:0
+msgid "Installs the partner_vat_unique module."
+msgstr "Instala el módulo partner_vat_unique."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_partner_views_fields:0
+msgid "Installs the partner_views_fields module."
+msgstr "Instala el módulo partner_views_fields."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_portal_fix:0
+msgid "Installs the portal_fix module."
+msgstr "Instala el módulo portal_fix."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_web_export_view:0
+msgid "Installs the web_export_view module."
+msgstr "Instala el módulo web_export_view."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_web_group_expand:0
+msgid "Installs the web_group_expand module."
+msgstr "Instala el módulo web_group_expand."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_web_m2x_options:0
+msgid "Installs the web_m2x_options module."
+msgstr "Instala el módulo web_m2x_options."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_web_recipients_uncheck:0
+msgid "Installs the web_recipients_uncheck module."
+msgstr "Instala el módulo web_recipients_uncheck."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_web_sheet_full_width:0
+msgid "Installs the web_sheet_full_width module."
+msgstr "Instala el módulo web_sheet_full_width."
+
+#. module: bmya_base_setup
+#: help:bmya.base.config.settings,module_tko_partner_multiple_phones_emails_tab:0
+msgid "Installs tko_partner_multiple_phones_emails_tab."
+msgstr "Instala el módulo tko_partner_multiple_phones_emails_tab."
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Knowledge & Docs"
+msgstr "Conocimiento & Docs"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,write_uid:0
+msgid "Last Updated by"
+msgstr "Ultima Actualización Por"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,write_date:0
+msgid "Last Updated on"
+msgstr "Ultima Actualización"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Mail Fixes"
+msgstr "Correcciones de EMail"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_school:0
+msgid "Manage School Data on partners"
+msgstr "Gestionar datos de escuelas en los clientes/proveedores"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_state:0
+msgid "Manage different states on partners"
+msgstr "Gestionar diferentes estados para clientes/proveedores"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_mass_editing:0
+msgid "Mass Editing"
+msgstr "Edición Masiva"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_web_m2x_options:0
+msgid ""
+"Modifies \"many2one\" and \"many2manytags\" form widgets so as\n"
+"to add some new display control options."
+msgstr ""
+"Modifica los widgets \"many2one\" and \"many2manytags\" en los formularios "
+"para agregar nuevas opciones de control en la presentación."
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_document_url:0
+msgid "Module that allows to attach an URL as a document."
+msgstr "Modulo que permite adjuntar una URL como documento."
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Partners"
+msgstr "Clientes/Proveedores"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_mail_sender_patch:0
+msgid "Patch mail sender when using own smtp server instead of localhost"
+msgstr ""
+"Repara el remitente de email cuando se usa servidor SMTP en lugar de usar "
+"localhost."
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Portal Fixes"
+msgstr "Correcciones al Portal"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Products"
+msgstr "Productos"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Projects"
+msgstr "Proyectos"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_web_ckeditor4:0
+msgid "Provides a widget for editing HTML fields using CKEditor 4.x"
+msgstr "Provee un widget para editar campos HTML, tuilizando CKEditor 4.x"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Purchases"
+msgstr "Compras"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Reporting"
+msgstr "Reportes"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_credit_limit:0
+msgid ""
+"Restrict credit limit edition on partners and restrict sale orders\n"
+"approval for partners without credit"
+msgstr ""
+"Restringe la modificación del límite de crédito en los clientes y restringe "
+"la aprobación de las órdenes de compra para clientes sin crédito disponible."
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_search_by_ref:0
+msgid "Search Partners by Reference"
+msgstr "Buscar Clientes/Proveedores por Referencia"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_partner_search_by_vat:0
+msgid "Search Partners by VAT"
+msgstr "Buacar Clientes/Proveedores por RUT"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Server"
+msgstr "Servidor"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Stock"
+msgstr "Stock"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Support"
+msgstr "Soporte"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Technical"
+msgstr "Técnicos"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_attachment_preview:0
+msgid ""
+"The module adds a little print preview icon right of download links\n"
+"for attachments or binary fields"
+msgstr ""
+"Este módulo agrega un ícono de vista previa de impresión a la derecha de los "
+"enlaces de descarga para adjuntos o para campos binarios."
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Tools"
+msgstr "Herramientas"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_web_recipients_uncheck:0
+msgid "Uncheck recipients on res.partner"
+msgstr "Desmarcar destinatarios en clientes/proveedores"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Usability And Tools"
+msgstr "Usabilidad y Herramientas"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_auth_admin_passkey:0
+msgid "Use admin password as a passkey for all active logins"
+msgstr ""
+"Utilice la contraseña de administrador como una clave de acceso para todos "
+"los inicios de sesión activos"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_bmya_support:0
+msgid "Use support from BMyA"
+msgstr "Utilice Soporte de BMyA"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_web_sheet_full_width:0
+msgid "Use the whole available screen width when displaying sheets"
+msgstr "Utilice la pantalla completa cuando muestre planillas."
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_tko_mail_smtp_per_user:0
+msgid "Users can have their own Mail Server."
+msgstr "Los usuarios pueden tener su propio servidor de email"
+
+#. module: bmya_base_setup
+#: field:bmya.base.config.settings,module_web_export_view:0
+msgid "Web Export View. Export to csv"
+msgstr "Vista de Exportación Web. Exportar a CSV"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "Web interface"
+msgstr "Interfase Web"
+
+#. module: bmya_base_setup
+#: view:bmya.base.config.settings:bmya_base_setup.view_bmya_base_configuration
+msgid "or"
+msgstr "o"
