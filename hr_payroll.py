@@ -213,6 +213,8 @@ class hr_contract(models.Model):
     mutual_seguridad = fields.Boolean('Mutual Seguridad')
     otro_no_imp = fields.Float(
         'Otros No Imponible', help="Otros Haberes No Imponibles")
+    otro_no_imp_2 = fields.Float(
+        'Otros No Imponible 2', help="Otros Haberes No Imponibles")
     otros_imp = fields.Float(
         'Otros Imponible', help="Otros Haberes Imponibles")
     pension = fields.Boolean('Pensionado')

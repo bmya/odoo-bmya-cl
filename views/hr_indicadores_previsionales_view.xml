@@ -9,6 +9,7 @@
             	<field name="wage" position="after">	
             		<field name="otros_imp" string="Otros Imponible"/>
             		<field name="otro_no_imp" string="Otros No Imponible"/>
+            		<field name="otro_no_imp_2" string="Otros No Imponible 2"/>
             		<field name="colacion" string="Colacion"/>
             		<field name="movilizacion" string="Movilizacion"/>
             		<field name="viatico_santiago" string="Viatico Santiago"/>
