@@ -55,7 +55,7 @@ class account_journal_document_config(osv.osv_memory):
                 for doc_type in ['invoice', 'debit_note', 'invoice_in']:
                     self.create_journal_document(cr, uid, letter_ids, doc_type, journal.id, non_dte_register, dte_register, free_tax_zone, credit_notes, debit_notes, context)
             elif journal_type in ['sale_refund', 'purchase_refund']:
-                self.create_journal_document(cr, uid, letter_ids, 'credit_note', journal.id, non_dte_register, dte_register, free_tax_zone, ccredit_notes, debit_notes, ontext)
+                self.create_journal_document(cr, uid, letter_ids, 'credit_note', journal.id, non_dte_register, dte_register, free_tax_zone, credit_notes, debit_notes, context)
 
     def create_sequence(self, cr, uid, name, journal, context=None):
         vals = {
