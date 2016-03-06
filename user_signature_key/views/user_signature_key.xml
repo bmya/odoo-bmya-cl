@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<openerp>
+    <data>
+
+		<!-- pestaña -->
+		         <record id="view_sequence_user_signature_form" model="ir.ui.view">
+            <field name="name">view.sequence.user.signature.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Signature Certificate">
+                        <div domain="[('id', '=', uid)]}">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button string="Check Signature" type="object" name="action_check" class="oe_highlight"
+                                        attrs="{'invisible':[('status','!=','unverified')]}"/>
+
+                                    <button string="Clean Signature" type="object" name="action_clean1"
+                                        attrs="{'invisible': [('status', '=', 'unverified')]}"/>
+                                </div>
+                                <div class="col-md-5 oe_right">
+                                    <field name="status" widget="statusbar"/>
+                                </div>
+                            </div>
+                            <group>
+                                <field name="key_file" filename="filename"/>
+                                <field name="filename" invisible="1"/>
+                                <field name="dec_pass" password="True"/>
+                            </group>
+                            <div attrs="{'invisible': [
+                                ('status', '=', 'unverified')]}">
+                                <group col="4">
+                                    <field name="not_before" readonly="True"/>
+                                    <field name="not_after" readonly="True"/>
+                                </group>
+                                <group>
+                                    <field name="issuer_country" readonly="True"/>
+                                    <field name="issuer_organization" readonly="True"/>
+                                    <field name="issuer_common_name" readonly="True"/>
+                                    <field name="issuer_email_address" readonly="True"/>
+                                    <field name="issuer_serial_number" readonly="True"/>
+                                    <field name="subject_c" readonly="True"/>
+                                    <field name="subject_title" readonly="True"/>
+                                    <field name="subject_common_name" readonly="True"/>
+                                    <field name="subject_email_address" readonly="True"/>
+                                    <field name="subject_serial_number" readonly="True"/>
+                                </group>
+                            </div>
+                            <!-- usuarios autorizados para usar esta firma digital -->
+                            <!--<field name="res_users_dte_wsii_ids">
+                                <tree string="Authorized Users">
+                                    <field name="name"/>
+                                </tree>
+                            </field>-->
+                        </div>
+                        <div domain="[('id', '!=', uid)]}">
+                            <div class="row" style="color:red;">
+                                <p>You can not handle signature certificates other than your own.</p>
+                            </div>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- wizard confirmacion  -->
+         <record id="view_clean_signature_confirmation" model="ir.ui.view">
+            <field name="name">view.clean.signature.confirmation</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+				<form string="Clean Signature Information">
+					<group>
+						<label string="This operation will clear all your 
+							signature information. After this, you will need to
+							attach a signature file again. Are you sure of this?
+							"/>
+					</group>
+					<footer>
+						<button name="action_clean" string="Yes" type="object"
+							class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+            </field>
+        </record>
+
+        <record id="popup_certificate_form" model="ir.ui.view">
+            <field name="name">res.user_cert_popup.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+				<form string="Certificate Stuff">
+					<field name="filename"/>
+				</form>
+			</field>
+		</record>
+
+    </data>
+</openerp>
