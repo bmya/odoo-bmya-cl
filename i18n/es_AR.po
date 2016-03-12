@@ -637,12 +637,12 @@ msgstr "Fecha de Comienzo"
 
 #. module: l10n_cl_invoice
 #: help:res.company,map_customer_invoice_journals:0
-msgid "Suggest and Check journal on customer invoices based in their responsability. Suggested to be used on Argentinian Companies"
+msgid "Suggest and Check journal on customer invoices based in their responsability. Suggested to be used on Chilean Companies"
 msgstr "Sugerencias y diario de Cheque en facturas de cliente basadas en su responsabilidad. Sugerida para ser utilizada en Compañías Chiles."
 
 #. module: l10n_cl_invoice
 #: help:res.company,map_supplier_invoice_journals:0
-msgid "Suggest and Check journal on supplier invoices based in their responsability. Suggested to be used on Argentinian Companies"
+msgid "Suggest and Check journal on supplier invoices based in their responsability. Suggested to be used on Chilean Companies"
 msgstr "Sugerencias y diario de Cheque en facturas de proveedor basadas en su responsabilidad. Sugerida para ser utilizada en Compañías Chiles."
 
 #. module: l10n_cl_invoice
