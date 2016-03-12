@@ -28,7 +28,7 @@
     'author': 'Blanco Martin & Asociados',
     'website': 'http://blancomartin.cl',
     "external_dependencies": {
-        'python': ['urllib3']
+        'python': ['urllib3', 'pysftp']
     },
     'data': [
         'views/ws_servers.xml',
