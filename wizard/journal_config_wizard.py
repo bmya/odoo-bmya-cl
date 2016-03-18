@@ -14,11 +14,15 @@ class account_journal_document_config(osv.osv_memory):
     _columns = {
         'debit_notes': fields.selection(
             [('dont_use','Do not use'), ('own_sequence','Use')],
-            string='Debit Notes', required=True,),
+            string='Debit Notes', required=True, default='own_sequence'),
         'credit_notes': fields.selection(
-            [('own_sequence','Use')], string='Credit Notes', required=True,),
+            [('own_sequence','Use')], string='Credit Notes', required=True,
+            default='own_sequence'),
         'dte_register': fields.boolean(
-            'Register Electronic Documents?', default=True),
+            'Register Electronic Documents?', default=True, help="""
+This option allows you to register electronic documents (DTEs) issued by MiPyme SII Portal, Third parties services, or by
+Odoo itself (to register  DTEs issued by Odoo l10n_cl_dte/caf modules are needed.
+"""),
         'non_dte_register': fields.boolean(
             'Register Manual Documents?'),
         'free_tax_zone': fields.boolean(
@@ -26,14 +30,16 @@ class account_journal_document_config(osv.osv_memory):
         'settlement_invoice': fields.boolean(
             'Register Settlement Invoices?'),
         'weird_documents': fields.boolean(
-            'Weird Documents', help='Include weird invoices as ...'),
+            'Unusual Documents', help="""
+Include unusual taxes documents, as transfer invoice, and reissue
+"""),
         'excempt_documents': fields.boolean('VAT Excempt Invoices'),
     }
 
-    _defaults= {
-        'debit_notes': 'own_sequence',
-        'credit_notes': 'own_sequence',
-    }
+#    _defaults= {
+#        'debit_notes': 'own_sequence',
+#        'credit_notes': 'own_sequence',
+#    }
 
     def confirm(self, cr, uid, ids, context=None):
         """
@@ -73,6 +79,7 @@ class account_journal_document_config(osv.osv_memory):
                         cr, uid, letter_ids, doc_type, journal.id, wz, context)
                     #self.create_journal_document(cr, uid, letter_ids, doc_type, journal.id, non_dte_register, dte_register, settlement_invoice, free_tax_zone, credit_notes, debit_notes, context)
             elif journal_type in ['sale_refund', 'purchase_refund']:
+                print('notas de credito de compra o venta')
                 self.create_journal_document(
                     cr, uid, letter_ids, 'credit_note', journal.id, wz, context)
 
@@ -89,6 +96,7 @@ class account_journal_document_config(osv.osv_memory):
     def create_journal_document(self, cr, uid, letter_ids, document_type,
                                 journal_id, wz, context=None):
 
+        print(document_type, letter_ids)
         if_zf = [] if wz.free_tax_zone else [901, 906, 907]
         if_lf = [] if wz.settlement_invoice else [40, 43]
         if_tr = [] if wz.weird_documents else [29, 108, 914, 911, 904, 905]
@@ -104,8 +112,6 @@ class account_journal_document_config(osv.osv_memory):
                 ('document_type', '=', document_type),
                 ('sii_code', 'not in', dt_types_exclude)], context=context)
 
-
-        # ('sii_code', 'not in', dt_types_exclude)
         journal_document_obj = self.pool['account.journal.sii_document_class']
         journal = self.pool['account.journal'].browse(
             cr, uid, journal_id, context=context)
