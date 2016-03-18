@@ -4,8 +4,8 @@ dc_a_f_dtn,True,dl_a,30,False,FAC ,invoice,FACTURA ,Factura,FVA
 dc_y_f_dtn,True,dl_c,32,False,FNA ,invoice,F-EXENTA ,Factura de Ventas y Servicios no Afectos o Exentos de IVA,FVE
 dc_a_f_dte,True,dl_a,33,True,FAC ,invoice,FACTURA ,Factura Electrónica,FVA
 dc_y_f_dte,True,dl_c,34,True,FNA ,invoice,F-EXENTA ,Factura no Afecta o Exenta Electrónica,FVE
-dc_l_f_dtn,True,dl_l,40,False,FAL ,invoice,L-FACTURA ,Liquidación Factura,LFE
-dc_l_f_dte,True,dl_l,43,True,FAL ,invoice,L-FACTURA ,Liquidación Factura Electrónica,LFE
+dc_l_f_dtn,True,dl_l,40,False,FAL ,invoice,L-FACTURAM ,Liquidación Factura,LFM
+dc_l_f_dte,True,dl_l,43,True,FAL ,invoice,L-FACTURAE ,Liquidación Factura Electrónica,LFE
 dc_fc_f_dtn,True,dl_a,45,False,FAC ,invoice_in,FACTURA ,Factura de Compra,FCA
 dc_fc_f_dte,True,dl_a,46,True,FAC ,invoice_in,FACTURA ,Factura de Compra Electrónica,FCA
 dc_nd_f_dtn,True,dl_a,55,False,N/D ,debit_note,NOTA DE DEBITO ,Nota de Débito,NDA

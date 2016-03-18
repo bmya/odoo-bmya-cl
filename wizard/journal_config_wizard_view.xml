@@ -13,7 +13,9 @@
                     <field name="dte_register"/>
                     <field name="non_dte_register"/>
                     <field name="free_tax_zone"/>
-
+                    <field name="settlement_invoice"/>
+                    <field name="weird_documents"/>
+                    <field name="excempt_documents"/>
                 </group>
                 <footer>
                     <button string="Confirm" name="confirm" type="object" class="oe_highlight"/>
