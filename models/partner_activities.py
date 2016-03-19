@@ -76,3 +76,13 @@ class partner_turns(models.Model):
     partner_activities_ids = fields.Many2many(
         'partner.activities', id1='partner_id', id2='activities_id',
         string='Activities Names')
+
+class company_turns(models.Model):
+
+    _description = 'Company registered turns'
+    _inherit = 'res.company'
+
+    company_activities_ids = fields.Many2many(
+        string='Activities Names',
+        related='partner_id.partner_activities_ids',
+        relation='partner.activities')
