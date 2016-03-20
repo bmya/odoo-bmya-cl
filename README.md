@@ -50,6 +50,96 @@ Sistema para mantenimiento de archivos de códigos de autorización de folios (C
  
 ### Dependencias
 
+## Propuesta para armado de Módulos relativos a WebServices SII
+
+Se basa en el siguiente link del SII:
+
+http://www.sii.cl/factura_electronica/formato_xml.htm
+
+
+Estructura Propuesta para Módulos de Odoo - WS Sii
+--------------------------------------------------
+
+dte_caf
+-------
+Bajar schema XML de Archivo de Consumo de Folios
+Bajar descripción del formato del Archivo de Consumo de Folios
+
+dte_wssii
+---------
+Documentos Tributarios Electrónicos:
+
+Bajar schema XML de Documentos Tributarios Electrónicos (Incluye Documentos de exportación)
+Bajar diagrama de schema XML de Documentos Tributarios Electrónicos
+Ejemplo XML de Documentos Tributarios Electrónicos
+
+dte_wssii(?)
+------------
+Boletas Electrónicas
+
+Bajar schema XML de Boletas Electrónicas
+Bajar diagrama de schema XML de Boletas Electrónicas
+Bajar descripción del formato de Boletas Electrónicas
+
+
+dte_gd
+------
+Libro de Guías de Despacho Electrónicas:
+Bajar Schema XML de Libro de Guías de Despacho Electrónicas
+Bajar Diagrama de Schema XML de Libro de Guías de Despacho Electrónicas
+
+dte_exchange
+------------
+Intercambio entre Contribuyentes:
+
+Bajar schema XML de Intercambio entre Contribuyentes
+Bajar diagrama de schema XML de Intercambio entre Contribuyentes
+Bajar descripción del formato de Intercambio entre Contribuyentes
+
+dte_rec
+-------
+Recibo de las Mercaderías o Servicios prestados, según Ley 19.983:
+
+Bajar schema XML de Recibo ley 19.983
+Bajar diagrama de schema XML de Recibo ley 19.983
+Bajar descripción del formato del 19.983
+
+
+????? ()
+-----
+Respuesta SII a Envíos Automáticos:
+
+Bajar schema XML de Respuesta SII a Envíos Automáticos
+Bajar diagrama de schema XML de Respuesta SII a Envíos Automáticos
+
+Bajar schema Respuesta SII a Envíos Automáticos de Libros
+Bajar diagrama de schema de Respuesta SII a Envíos Automáticos de Libros
+
+
+
+
+Los módulos de libros de compras y ventas, son dependientes de account_vat_ledger,
+puesto que son módulos que heredan de ellos y agregan una pestaña para lograr la funcionalidad
+buscada.
+
+	account_vat_ledger_iecv
+	-----------------------
+	Información Electrónica de Compras y Ventas:
+
+	Bajar schema XML de Información Electrónica de Compras y Ventas
+	Bajar diagrama de schema XML de Información Electrónica de Compras y Ventas
+
+	account_vat_ledger_be
+	---------------------
+	Libro de Boletas Electrónicas
+
+	Bajar schema XML de Libro de Boletas Electrónicas
+	Bajar diagrama de schema XML de Libro Boletas Electrónicas
+	Bajar descripción del formato del Libro de Boletas Electrónicas
+	Archivo de Consumo de Folios
+
+
+
 
 ## Cómo contribuir
 Seguimos estas lineas básicas y recomendaciones:
