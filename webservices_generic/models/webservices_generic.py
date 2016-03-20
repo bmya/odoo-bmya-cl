@@ -9,6 +9,13 @@ try:
 except ImportError:
     pass
 
+
+try:
+    import pysftp
+except ImportError:
+    pass
+
+
 import logging
 
 http = urllib3.PoolManager()
@@ -18,7 +25,8 @@ _logger = logging.getLogger(__name__)
 available_format = [
     ('JSON', 'JSON'),
     ('XML', 'XML'),
-    ('HTML', 'HTML')
+    ('HTML', 'HTML'),
+    ('SFTP', 'SFTP')
 ]
 
 class webservices_generic(models.Model):
