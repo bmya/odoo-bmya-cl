@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Chilean VAT Ledger',
+    'license': 'AGPL-3',
     'description': '''
 Chilean VAT Ledger Management
 =================================
