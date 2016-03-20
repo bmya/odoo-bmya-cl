@@ -2,6 +2,25 @@
 [![Code Climate](https://codeclimate.com/github/bmya/odoo-bmya-cl/badges/gpa.svg)](https://codeclimate.com/github/bmya/odoo-bmya-cl)
 [![Test Coverage](https://codeclimate.com/github/bmya/odoo-bmya-cl/badges/coverage.svg)](https://codeclimate.com/github/bmya/odoo-bmya-cl/coverage)
 
+#NOTE
+
+We don't accept issues or pull requests in this repository, since this is a merged repo from individual modules placed at github.com/odoo-chile
+
+For collab and issues, please go directly to github.com/odoo-chile and look for the (offending) module.
+
+This repo is currently being updated in a weekly basis, merging modules from Odoo-chile.
+
+Thanks!
+
+#NOTA
+
+No estamos aceptando issues o pull request en este repositorio, ya que es un funto de fusión desde módulos individuales, los cuales estan ubicados en github.com/odoo-chile
+
+Para colaboraciones e incidencias, por favor vayan directamente a github.com/odoo-chile y busquen el módulo que falla o quieren mejorar.
+
+Gracias!
+
+
 
 #English
 
