@@ -39,7 +39,11 @@ class res_partner(models.Model):
             str(self.formated_vat))).zfill(9).upper()
 
         self.vat = 'CL%s' % formated_vat
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 8.0
         self.formated_vat = '%s.%s.%s-%s' % (
             formated_vat[0:2], formated_vat[2:5], formated_vat[5:8],
             formated_vat[-1])
