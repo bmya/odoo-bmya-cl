@@ -19,7 +19,7 @@
         <record model='sii.responsability' id='res_IVAE'>
             <field name='code'>IVAE</field>
             <field name='name'>IVA Exento</field>
-            <field name='active' eval="True"/>
+            <field name='active' eval="False"/>
         </record>
         <record model='sii.responsability' id='res_EXT'>
             <field name='code'>EXT</field>
