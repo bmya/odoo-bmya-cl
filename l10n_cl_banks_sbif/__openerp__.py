@@ -28,12 +28,12 @@
     'description': '''
     Update Chilean Banks and add their Official codes, according to SBIFs codes
     ''',
-    'author': u'Blanco Martin & Asociados',
+    'author': 'Blanco Martin & Asociados',
     'website': 'http://blancomartin.cl',
-    'depends': ['account', 'account_chart'],
+    'depends': ['account'],
     'installable': True,
     'license': 'AGPL-3',
-    'name': u'Chile - Bancos con codificación oficial de SBIF',
+    'name': 'Chile - Bancos con codificación oficial de SBIF',
     'test': [],
     'data': [
         'data/res.bank.csv', 'view/res_bank_sbif.xml'
