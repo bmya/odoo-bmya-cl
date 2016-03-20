@@ -150,7 +150,8 @@ class account_journal(models.Model):
         related='point_of_sale_id.number', string='Point of sale',
         readonly=True)
 
-    use_documents = new_fields.Boolean('Use Documents?')
+    use_documents = new_fields.Boolean(
+        'Use Documents?', default='_get_default_doc')
 
     document_sequence_type = new_fields.Selection(
             [('own_sequence', 'Own Sequence'),
@@ -166,6 +167,13 @@ class account_journal(models.Model):
 
     excempt_documents = new_fields.Boolean(
         'Excempt Documents Available', compute='_check_activities')
+
+
+    @api.multi
+    def _get_default_doc(self):
+        self.ensure_one()
+        if 'sale' in self.type or 'purchase' in self.type:
+            self.use_documents = True
 
     @api.multi
     @api.depends('journal_activities_ids', 'type')
