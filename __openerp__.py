@@ -36,9 +36,9 @@
     'data': [
         # 'security/l10n_cl_partner_activities.xml',
         'data/partner.activities.csv',
-        'view/sii_menuitem.xml',
-        'view/partner_activities.xml',
-        'view/invoice_turn.xml',
+        'views/sii_menuitem.xml',
+        'views/partner_activities.xml',
+        'views/invoice_turn.xml',
         'security/ir.model.access.csv',
     ],
     'version': '0.1.001',
