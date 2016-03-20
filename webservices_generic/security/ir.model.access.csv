@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_webservices_server,access_webservices_server,model_webservices_server,,1,0,0,0
+access_ws_srv_users,access_ws_srv_users,model_ws_srv_users,,1,0,0,0

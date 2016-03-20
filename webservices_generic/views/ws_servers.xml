@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<!-- vista de formulario -->
+        
+        <record id="view_webservices_server_form" model="ir.ui.view">
+            <field name="name">webservices.server.form</field>
+            <field name="model">webservices.server</field>
+            <field name="arch" type="xml">
+                <form string="webservices Server Data">
+                	<header>
+                        
+                    </header>
+                    <sheet>
+                        <div name="buttons" class="oe_right oe_button_box">
+                            <button string="Test Connection" type="object" name="action_test_connection"
+                                    class="oe_stat_button" icon="fa-bolt" attrs="{'invisible':[('custom_library', 'in', ['S', 'P'])]}"/>
+                        </div>
+                    	<separator string="General" colspan="2" />
+                		<group colspan="2" col="4">
+                        	<field name="name"/>
+                        </group>
+                        <group colspan="2" col="4">
+    						<field name="active"/>
+                            <field name="custom_library"/>
+                        </group>
+                        <group colspan="2" col="4">
+                            <field name="url" attrs="{'invisible':[('custom_library', '=', 'P')]}"/>
+                        </group>
+                        <group colspan="2" col="4">
+                            <field name="scope"/>
+                            <field name="auth_method"/>
+                        </group>
+                        <separator string="API Data"/>
+                        <group colspan="2" col="4">
+                            <field name="http_auth_method" attrs="{'invisible':['|',('auth_method', '=', 'user_password'),('custom_library', 'in', ['S', 'P'])]}"/>
+                        </group>
+                        <!-- <group colspan="2" col="4" attrs="{'invisible':[('auth_method', '=', 'user_password')]}">
+                            <field name="request_format_name" />
+                            <field name="request_format" />
+                        </group> -->
+                        <group colspan="2" col="4" attrs="{'invisible':['|',('auth_method', '=', 'user_password'),('custom_library','=', 'P')]}">
+                            <field name="response_format_name" />
+                            <field name="response_format" />
+                        </group>
+
+
+                        <separator string="Authentication" colspan="2" />
+                        <group colspan="2" col="4" attrs="{'invisible':[('auth_method', '!=', 'user_password')]}">
+                            <field name="user_var" attrs="{'invisible':[('custom_library', 'in', ['S', 'P'])]}"/>
+                            <field name="password_var" attrs="{'invisible':[('custom_library', 'in', ['S', 'P'])]}"/>
+                            <field name="user"/>
+                            <field name="password" password="True"/>
+                        </group>
+                        <group colspan="2" col="4">
+                            <field name="auth_method_name" attrs="{'invisible':['|',('auth_method', '=', 'user_password'),('custom_library', 'in', ['S','P'])]}"/>
+                            <field name="token" placeholder="Please enter your API token here..." password="True" attrs="{'invisible':[('auth_method', '=', 'user_password')]}"/>
+                        </group>
+                        <notebook colspan="4" attrs="{'invisible':[('scope', '=', 'generic')]}">
+                        	<page string="Webservices Users">
+                        		<button string="Get Users" type="object" name="action_get_users"
+                                class="oe_highlight"/>
+                                <field name="srv_users_ids">
+                        		    <tree string="Webservices Users" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="usr_id"/>
+                                        <field name="ws_server_id"/>
+                                        <field name="user_id"/>
+                                    </tree>
+                                </field>
+                        	</page>
+                        </notebook>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- vista de arbol -->
+        <record id="view_webservices_server_tree" model="ir.ui.view">
+            <field name="name">webservices.server.tree</field>
+            <field name="model">webservices.server</field>
+            <field name="arch" type="xml">
+                <tree string="Webservices Server Data">
+                    <field name="name"/>
+                	<field name="url"/>
+					<field name="scope"/>
+                    <field name="auth_method"/>
+                    <field name="http_auth_method" />
+                    <field name="response_format" />
+					<field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+		<!-- accion -->
+        <record model="ir.actions.act_window" id="act_webservices_server">
+            <field name="name">Webservices Server Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">webservices.server</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Please input server ID</p>
+            </field>
+        </record>
+		<!-- menu -->
+        <menuitem name="Webservices Server" action="act_webservices_server" id="menu_action_act_webservices_server" parent="base.menu_config" sequence="120"/>
+        
+   </data>
+</openerp>
