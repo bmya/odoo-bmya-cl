@@ -67,5 +67,5 @@
         'security/ir.model.access.csv',
         'security/l10n_cl_invoice_security.xml',
     ],
-    'version': '0.1',
+    'version': '1.0',
 }
