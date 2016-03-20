@@ -1,0 +1,29 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_cl_banks_sbif
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150401\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-11 11:59+0000\n"
+"PO-Revision-Date: 2015-10-11 10:54-0300\n"
+"Last-Translator: Daniel Blanco - Blanco Martín & Asociados "
+"<daniel@blancomartin.cl>\n"
+"Language-Team: Blanco Martín & Asociados <info@blancomartin.cl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: es_CL\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. module: l10n_cl_banks_sbif
+#: model:ir.model,name:l10n_cl_banks_sbif.model_res_bank
+msgid "Bank"
+msgstr "Banco"
+
+#. module: l10n_cl_banks_sbif
+#: field:res.bank,sbif_code:0
+msgid "Cod. SBIF"
+msgstr "Cód. SBIF"
