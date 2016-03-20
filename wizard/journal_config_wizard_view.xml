@@ -22,7 +22,7 @@
                            attrs="{'invisible':[('dte_register', '=', False),
                            ('non_dte_register', '=', False)]}">
                         <field name="settlement_invoice"/>
-                        <field name="excempt_documents"/>
+                        <!--<field name="excempt_documents"/>-->
                         <field name="free_tax_zone"
                                attrs="{'invisible':[('non_dte_register', '=', False)]}"/>
                         <field name="weird_documents"

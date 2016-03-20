@@ -35,22 +35,21 @@ Odoo itself (to register  DTEs issued by Odoo l10n_cl_dte/caf modules are needed
             'Unusual Documents', help="""
 Include unusual taxes documents, as transfer invoice, and reissue
 """),
-        'excempt_documents': fields.boolean('VAT Excempt Invoices',
-                                            default='_get_excempt_value'),
-        'excempt_available': fields.boolean('Is Excempt an option?',
-                                            default='_get_excempt_avail')
+#        'excempt_documents': fields.boolean(
+#            'VAT Excempt Invoices', readonly=True,
+#            default='_get_journal_excempt'),
+
+        'other_available': fields.boolean(
+            'Others available?', default='_get_other_avail')
     }
 
     @api.model
-    def _get_excempt_value(self):
-        _logger.info('ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ')
-        _logger.info(self.company_id.activities_ids)
-
+    def _get_other_avail(self):
         return True
 
-    @api.model
-    def _get_excempt_avail(self):
-        return True
+    # @api.model
+    # def _get_journal_excempt(self):
+    #     return True
 
     _defaults= {
 #        'debit_notes': 'own_sequence',
@@ -118,7 +117,9 @@ Include unusual taxes documents, as transfer invoice, and reissue
         if_lf = [] if wz.settlement_invoice else [40, 43]
         if_tr = [] if wz.weird_documents else [29, 108, 914, 911, 904, 905]
         # if_pr = [] if wz.purchase_invoices else [45, 46]
-        if_na = [] if wz.excempt_documents else [32, 34]
+        journal = self.pool['account.journal'].browse(
+            cr, uid, journal_id, context=context)
+        if_na = [] if journal.excempt_documents else [32, 34]
         dt_types_exclude = if_zf + if_lf + if_tr + if_na
         print(dt_types_exclude)
 
@@ -130,8 +131,7 @@ Include unusual taxes documents, as transfer invoice, and reissue
                 ('sii_code', 'not in', dt_types_exclude)], context=context)
 
         journal_document_obj = self.pool['account.journal.sii_document_class']
-        journal = self.pool['account.journal'].browse(
-            cr, uid, journal_id, context=context)
+
         sequence = 10
 
         for document_class in document_class_obj.browse(
