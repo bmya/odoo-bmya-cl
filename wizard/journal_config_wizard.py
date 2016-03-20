@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 from openerp.osv import fields, osv, orm
+from openerp import api
 from openerp.tools.translate import _
 import logging
+from openerp.exceptions import Warning
 
 
 _logger = logging.getLogger(__name__)
@@ -33,13 +35,28 @@ Odoo itself (to register  DTEs issued by Odoo l10n_cl_dte/caf modules are needed
             'Unusual Documents', help="""
 Include unusual taxes documents, as transfer invoice, and reissue
 """),
-        'excempt_documents': fields.boolean('VAT Excempt Invoices'),
+        'excempt_documents': fields.boolean('VAT Excempt Invoices',
+                                            default='_get_excempt_value'),
+        'excempt_available': fields.boolean('Is Excempt an option?',
+                                            default='_get_excempt_avail')
     }
 
-#    _defaults= {
+    @api.model
+    def _get_excempt_value(self):
+        _logger.info('ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ')
+        _logger.info(self.company_id.activities_ids)
+
+        return True
+
+    @api.model
+    def _get_excempt_avail(self):
+        return True
+
+    _defaults= {
 #        'debit_notes': 'own_sequence',
 #        'credit_notes': 'own_sequence',
-#    }
+    }
+
 
     def confirm(self, cr, uid, ids, context=None):
         """
@@ -77,7 +94,7 @@ Include unusual taxes documents, as transfer invoice, and reissue
                 for doc_type in ['invoice', 'debit_note', 'invoice_in']:
                     self.create_journal_document(
                         cr, uid, letter_ids, doc_type, journal.id, wz, context)
-                    #self.create_journal_document(cr, uid, letter_ids, doc_type, journal.id, non_dte_register, dte_register, settlement_invoice, free_tax_zone, credit_notes, debit_notes, context)
+                    # self.create_journal_document(cr, uid, letter_ids, doc_type, journal.id, non_dte_register, dte_register, settlement_invoice, free_tax_zone, credit_notes, debit_notes, context)
             elif journal_type in ['sale_refund', 'purchase_refund']:
                 print('notas de credito de compra o venta')
                 self.create_journal_document(
