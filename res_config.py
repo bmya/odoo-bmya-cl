@@ -103,10 +103,8 @@ allows you to search them by this name.""")
         'Include Chilean Counties', help="""Installs l10n_cl_toponyms, which
 includes all chilean counties to partners.""")
 
-    module_l10n_cl_vat = fields.Boolean(
-        'Validate Chilean VAT (RUT)', help="""Installs l10n_cl_vat and
-dependencies in order to have the RUT validated correctly.""")
     module_l10n_cl_base_rut = fields.Boolean(
-        'Format RUT to 99.999.999-X', help="""Installs l10n_cl_base_rut
-to have the RUT formatted correctly.""")
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        'Validate Chilean VAT (RUT) and format to 99.999.999-X',
+        help="""Installs l10n_cl_base_rut in ordar to validate de VAT (RUT) \
+        ant to have it formatted correctly, according Chilean usage.""")
+
