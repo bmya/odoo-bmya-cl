@@ -6,16 +6,24 @@ import re
 class res_partner(models.Model):
     _inherit = 'res.partner'
 
+    def _get_default_tp_type(self):
+        return self.env.ref('l10n_cl_invoice.res_IVARI').id
+
+    def _get_default_doc_type(self):
+        return self.env.ref('l10n_cl_invoice.dt_RUT').id
+
     responsability_id = fields.Many2one(
-        'sii.responsability', 'Resposability')
+        'sii.responsability', 'Responsability', default=_get_default_tp_type)
     document_type_id = fields.Many2one(
-        'sii.document_type', 'Document type')
+        'sii.document_type', 'Document type', default=_get_default_doc_type)
     document_number = fields.Char('Document number', size=64)
     
     start_date = fields.Date('Start-up Date')
 
     tp_sii_code = fields.Char('Tax Payer SII Code', compute='_get_tp_sii_code',
         readonly=True)
+
+    is_company = fields.Boolean('Is Company', default=True)
 
     @api.multi
     @api.onchange('responsability_id')
