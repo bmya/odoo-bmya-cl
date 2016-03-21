@@ -24,15 +24,19 @@
                     
                 <notebook position="inside">
                     <page string="Documents" attrs="{'invisible': ['|',('use_documents','=',False),('type','not in',['purchase','sale','purchase_refund','sale_refund'])]}">
-                        <button name="%(action_account_journal_document_config_form)d" string="Create Journal Documents" type="action" context="{'type':type}"/>
+                        <button name="%(action_account_journal_document_config_form)d"
+                                string="Create Journal Documents" type="action"
+                                context="{'type':type, 'excempt_documents': excempt_documents}"/>
                         <group>
                             <field name="point_of_sale_id" attrs="{'invisible': ['|',('type','not in',['sale','sale_refund'])],'required': [('use_documents','=',True),('type','in',['sale','sale_refund'])]}" context="{'default_company_id':company_id}"/>
                             <field name="point_of_sale" attrs="{'invisible': ['|',('type','not in',['sale','sale_refund'])]}"/>
                             <field name="journal_activities_ids"
-                                   attrs="{'invisible': ['|',('type','not in',['sale','sale_refund'])]}"
+                                   attrs="{'invisible': ['|',('type','not in',['sale','sale_refund'])],'required': [('use_documents','=',True),('type','in',['sale','sale_refund'])]}" context="{'default_company_id':company_id}"
                                    placeholder="Giros del Diario" widget="many2many_tags"
                                    options="{'no_create': True}"
                                    domain="[('partner_ids', '=', company_id)]"/>
+                            <field name="excempt_documents" readonly="True"/>
+                            <!--attrs="{'readonly': [('type', 'like', 'sale')]}"-->
                         </group>
                         <field name='journal_document_class_ids' context="{'journal_type':type}"/>
                     </page>
