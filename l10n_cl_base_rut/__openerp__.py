@@ -2,17 +2,16 @@
 {
     'author': u'Blanco Martín & Asociados',
     'category': 'Localization/Chile',
-    'depends': ['base_vat','l10n_cl_vat'],
-    'description': u'''\n\nIncorporate a field with the RUT (VAT) formatted 
-according chilean customs.\n\n''',
+    'depends': ['base_vat'],
+    'description': '''Incorporate a field with the RUT (VAT) formatted \
+according chilean customs, and check valid vat for Chile''',
     'installable': True,
     'license': 'AGPL-3',
     'name': 'VAT Localization Chile',
     'test': [],
     'update_xml': [],
-    'version': '8.0.1',
+    'version': '1.0',
     'website': 'https://blancomartin.cl',
     'auto-install': False,
     'active': False
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
