@@ -15,10 +15,6 @@ Odoo's 'vat' field.
 
 Is a required module form l10n_cl_invoice stubs generator
 
-## Dependencies
-This module depends on l10n_cl_vat (Vat validator) Module.
-
-
 ## Credits
 <p>
 <img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
