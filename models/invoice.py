@@ -421,8 +421,10 @@ class account_invoice(models.Model):
                              _('Operation Type Must be "Sale" or "Purchase"'))
 
         if not company.partner_id.responsability_id.id:
-            raise except_orm(_('Your company has not setted any responsability'),
-                             _('Please, set your company responsability in the company partner before continue.'))
+            raise except_orm(_('You have not settled a tax payer type for your\
+             company.'),
+             _('Please, set your company tax payer type (in company or \
+             partner before to continue.'))
 
         document_letter_ids = document_letter_obj.search(cr, uid, [(
             'issuer_ids', 'in', issuer_responsability_id),
