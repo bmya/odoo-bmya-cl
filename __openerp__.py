@@ -10,7 +10,7 @@ according chilean customs, and check valid vat for Chile''',
     'name': 'VAT Localization Chile',
     'test': [],
     'update_xml': [],
-    'version': '8.0.1',
+    'version': '1.0',
     'website': 'https://blancomartin.cl',
     'auto-install': False,
     'active': False
