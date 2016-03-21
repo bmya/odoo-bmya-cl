@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {   'active': False,
-    'author': u'Blanco Martín & Asociados',
+    'author': u'Blanco Martín & Asociados, Chilean Localization Team 9.0',
     'website': 'http://blancomartin.cl',
     'category': 'Localization/Chile',
     'demo_xml': [
