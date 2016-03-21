@@ -10,7 +10,6 @@ class res_partner(models.Model):
         translate=True, string='Printable VAT', store=True,
         help='Show formatted vat')
 
-    @api.onchange('vat')
     def check_vat_cl (self, vat):
         body, vdig = '', ''
         if len(vat) > 9:
