@@ -9,7 +9,6 @@
     'depends': [   
         'account',
         'account_accountant',
-        'l10n_cl_vat',
         'l10n_cl_base_rut',
         'l10n_cl_partner_activities'
         ],
@@ -67,5 +66,5 @@
         'security/ir.model.access.csv',
         'security/l10n_cl_invoice_security.xml',
     ],
-    'version': '1.0',
+    'version': '1.1',
 }
