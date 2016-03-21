@@ -14,6 +14,16 @@ class res_partner(models.Model):
     
     start_date = fields.Date('Start-up Date')
 
+    tp_sii_code = fields.Char('Tax Payer SII Code', compute='_get_tp_sii_code',
+        readonly=True)
+
+    @api.multi
+    @api.onchange('responsability_id')
+    def _get_tp_sii_code(self):
+        for record in self:
+            record.tp_sii_code=str(record.responsability_id.tp_sii_code)
+
+
     @api.onchange('document_number', 'document_type_id')
     def onchange_document(self):
         mod_obj = self.env['ir.model.data']
