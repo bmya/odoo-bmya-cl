@@ -23,7 +23,7 @@
     'name': 'Chile Localization Chart Account BMyA',
     'author': u'Blanco Martin & Asociados - Nelson Ramírez Sánchez - Daniel Blanco',
     'website': 'http://blancomartin.cl',
-    'depends': ['account_chart'],
+    # 'depends': ['account_chart'],
     'license': 'AGPL-3',
     'version': '1.0',
     'category': 'Localization/Chile',
