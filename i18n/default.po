@@ -531,12 +531,6 @@ msgstr ""
 "en el Número del Documento."
 
 #. module: l10n_cl_invoice
-#: view:account.invoice:l10n_cl_invoice.view_invoice_form
-#, fuzzy
-msgid "Print Invoice"
-msgstr "Imprimir Factura"
-
-#. module: l10n_cl_invoice
 #: field:sii.concept_type,product_types:0
 #, fuzzy
 msgid "Product types"

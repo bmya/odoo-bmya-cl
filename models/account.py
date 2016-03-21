@@ -6,7 +6,7 @@ from openerp.exceptions import Warning
 
 
 class sii_tax_code(models.Model):
-    _inherit = 'account.tax.code'
+    _name = 'account.tax.code'
 
     def _get_parent_sii_code(self, cr, uid, ids, field_name, args, context=None):
         r = {}
