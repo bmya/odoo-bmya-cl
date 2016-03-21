@@ -39,13 +39,7 @@
 						</div>
 						<label for="id" string="RUT (VAT) Validation"/>
 						<div name="partners">
-							<div name='module_l10n_cl_vat'>
-								<field name="module_l10n_cl_vat"
-									class="oe_inline" />
-								<label for="module_l10n_cl_vat" />
-							</div>
-							<div name='module_l10n_cl_base_rut'
-								attrs="{'invisible':[('module_l10n_cl_vat','=',False)]}">
+							<div name='module_l10n_cl_base_rut'>
 								<field name="module_l10n_cl_base_rut"
 									class="oe_inline"/>
 								<label for="module_l10n_cl_base_rut" />
