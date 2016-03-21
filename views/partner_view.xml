@@ -7,15 +7,18 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
-                <field name="last_reconciliation_date" position="before">
-                    <field name="responsability_id" widget="selection"/>
-                    <!--<field name="iibb"/>-->
-                    <field name="start_date"/>
-                </field>
-                <field name="property_account_position" position="before">
+                <!--<field name="property_account_position" position="before">-->
+                <field name="website" position="after">
                     <field name="document_type_id" colspan="1"/>
-                    <field name="document_number" colspan="1"/>                        
+                    <field name="document_number" colspan="1"/>
+                    <field name="responsability_id" widget="selection"/>
                 </field>
+                <!--<field name="last_reconciliation_date" position="before">
+                    <field name="responsability_id" widget="selection"/>
+                    <field name="iibb"/>
+                    <field name="start_date"/>
+                </field>-->
+
                 <field name="last_reconciliation_date" position="attributes">
                     <attribute name="attrs">{'invisible':1}</attribute>
                 </field>

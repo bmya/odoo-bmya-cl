@@ -9,7 +9,7 @@
         </record> 
         <record model='sii.document_type' id='dt_RUN'>
             <field name='code'>RUN</field>
-            <field name='name'>RUN Cédula Nacional</field>
+            <field name='name'>Cédula</field>
             <field name='sii_code'>82</field>
             <field name='active' eval="True"/>
         </record> 
