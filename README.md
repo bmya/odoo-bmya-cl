@@ -1,8 +1,9 @@
 
 # l10n_cl_base_rut
 
-Odoo - Adds Chilean formatted VAT (RUT) to partners
-===================================================
+Odoo - Adds Chilean formatted VAT (RUT) to partners.
+Validates the RUT without other modules dependency
+====================================================
 
 You can check functionality in the following blog:
 
@@ -23,8 +24,9 @@ Is a required module form l10n_cl_invoice stubs generator
 
 # l10n_cl_base_rut
 
-Odoo - Agrega el RUT formateado para los Clientes/Proveedores
-=============================================================
+Odoo - Agrega el RUT formateado para los Clientes/Proveedores.
+Valida el RUT directamente, sin depender de otros módulos
+==============================================================
 
 Puede revisar la funcionalidad en el siguiente blog:
 
@@ -36,9 +38,6 @@ Permite el ingreso de este dato en esta modalidad, enviando el dato al
 campo 'vat' de Odoo.
 
 Is a required module form l10n_cl_invoice stubs generator
-
-## Dependencias
-Este módulo depende del validador de rut l10n_cl_vat (Vat validator).
 
 
 ## Créditos
