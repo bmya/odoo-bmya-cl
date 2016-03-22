@@ -3,6 +3,10 @@ from openerp import osv, models, fields, api, _
 from openerp.osv import fields as old_fields
 from openerp.exceptions import except_orm, Warning
 import openerp.addons.decimal_precision as dp
+from inspect import currentframe, getframeinfo
+
+
+
 
 
 class account_invoice_line(models.Model):
@@ -104,6 +108,23 @@ class account_invoice_line(models.Model):
 class account_invoice(models.Model):
     _inherit = "account.invoice"
 
+    def get_document_class_default(self, document_classes):
+        # frameinfo = getframeinfo(currentframe())
+        # print(frameinfo.filename, frameinfo.lineno)
+        if self.turn_issuer.vat_affected != 'SI':
+            exempt_ids = [
+                self.env.ref('l10n_cl_invoice.dc_y_f_dtn').id,
+                self.env.ref('l10n_cl_invoice.dc_y_f_dte').id]
+            for document_class in document_classes:
+                if document_class.sii_document_class_id.id in exempt_ids:
+                    document_class_id = document_class.id
+                    break
+                else:
+                    document_class_id = document_classes.ids[0]
+        else:
+            document_class_id = document_classes.ids[0]
+        return document_class_id
+
     def _issuer_required(self):
         return False
 
@@ -114,9 +135,6 @@ class account_invoice(models.Model):
             printed_amount_untaxed = invoice.amount_untaxed
             printed_tax_ids = [x.id for x in invoice.tax_line]
 
-            # vat_amount = sum(
-            #     line.vat_amount for line in invoice.invoice_line)
-            # Por errores de redonde cambiamos la forma anterior por esta nueva
             vat_amount = sum([
                 x.tax_amount for x in invoice.tax_line if x.tax_code_id.parent_id.name == 'IVA'])
 
@@ -179,30 +197,6 @@ class account_invoice(models.Model):
         'Giro Emisor', readonly=True, store=True, required=_issuer_required,
         states={'draft': [('readonly', False)]})
 
-
-    # @api.onchange('turn_issuer')
-    # def _onchange_turn_issuer(self):
-    #     if self.turn_issuer.vat_affected != 'SI':
-    #         exempt_ids = [
-    #             self.env.ref('l10n_cl_invoice.dc_y_f_dtn').id,
-    #             self.env.ref('l10n_cl_invoice.dc_y_f_dte').id]
-    #         domain = [
-    #             ('journal_id', '=', self.journal_id.id),
-    #             '|', ('sii_document_class_id.id', 'in', exempt_ids),
-    #                  ('sii_document_class_id.document_letter_id', '=', False)]
-
-
-
-    #     print ('entrada onchange')
-    #     if self.turn_issuer.vat_affected == 'SI':
-    #         print('available document class')
-    #         print(self.available_journal_document_class_ids)
-    #     else:
-    #         print('available document class exempt')
-    #         print(self.available_journal_document_class_ids)
-    #         #self.journal_document_class_id =
-    #         #self.env.ref('l10n_cl_invoice.res_IVARI').id
-
     @api.multi
     def name_get(self):
         TYPES = {
@@ -229,7 +223,7 @@ class account_invoice(models.Model):
         return recs.name_get()
 
     @api.one
-    @api.depends('journal_id', 'partner_id')
+    @api.depends('journal_id', 'partner_id', 'turn_issuer')
     def _get_available_journal_document_class(self):
         invoice_type = self.type
         document_class_ids = []
@@ -260,7 +254,8 @@ class account_invoice(models.Model):
                         'account.journal.sii_document_class'].search(
                         domain + [('sii_document_class_id.document_type', '=', document_type)])
                     if document_classes.ids:
-                        document_class_id = document_classes.ids[0]
+                        # revisar si hay condicion de exento, para poner como primera alternativa estos
+                        document_class_id = self.get_document_class_default(document_classes)
 
                 # For domain, we search all documents
                 document_classes = self.env[
@@ -269,7 +264,9 @@ class account_invoice(models.Model):
 
                 # If not specific document type found, we choose another one
                 if not document_class_id and document_class_ids:
-                    document_class_id = document_class_ids[0]
+                    # revisar si hay condicion de exento, para poner como primera alternativa estos
+                    # to-do: manejar más fino el documento por defecto.
+                    document_class_id = self.get_document_class_default(document_classes)
         self.available_journal_document_class_ids = document_class_ids
         self.journal_document_class_id = document_class_id
 
@@ -296,14 +293,6 @@ class account_invoice(models.Model):
 
     available_journal_document_class_ids = fields.Many2many(
         'account.journal.sii_document_class',
-        # TODO hay un warning cada vez que se crea una factura que dice:
-        # No such field(s) in model account.invoice:available_journal_document_class_ids
-        # la unica forma que encontre de sacarlo es agregando el store, lo dejo
-        # por las dudas pero la idea es ver si la api se arregla, no hace falta
-        # y podemos borrar esto
-        # 'available_journal_class_invoice_rel',
-        # 'invoice_id', 'journal_class_id',
-        # store=True,
         compute='_get_available_journal_document_class',
         string='Available Journal Document Classes')
     supplier_invoice_number = fields.Char(
@@ -336,14 +325,6 @@ class account_invoice(models.Model):
         string='Responsability',
         related='commercial_partner_id.formated_vat',)
 
-    #journal_id_code = fields.Char('Journal ID Code', compute='_get_journal_id_code',
-    #    readonly=True)
-    #@api.multi
-    #@api.onchange('journal_id')
-    #def _get_journal_id_code(self):
-    #    for record in self:
-    #        record.journal_id_code=str(record.journal_id.id)
-
     @api.one
     @api.depends('sii_document_number', 'number')
     def _get_document_number(self):
@@ -358,7 +339,6 @@ class account_invoice(models.Model):
         compute='_get_document_number',
         string='Document Number',
         readonly=True,
-        # store=True
     )
     next_invoice_number = fields.Integer(
         related='journal_document_class_id.sequence_id.number_next_actual',
