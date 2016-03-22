@@ -80,6 +80,9 @@
                 </field>
 
                 <field name="journal_id" position="after">
+                    <field name="turn_issuer"
+                           domain="[('journal_ids', '=', journal_id)]"
+                           options="{'no_create': True}"/>
                     <field name="journal_document_class_id" attrs="{'invisible':[('use_documents','=',False)],'required':[('use_documents','=',True)],'readonly':['|',('state','!=','draft'),('sii_document_number','!=',False)]}" domain="[('id','in',available_journal_document_class_ids[0][2])]"/>
                 </field>    
 

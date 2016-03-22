@@ -104,6 +104,9 @@ class account_invoice_line(models.Model):
 class account_invoice(models.Model):
     _inherit = "account.invoice"
 
+    def _issuer_required(self):
+        return False
+
     def _printed_prices(self, cr, uid, ids, name, args, context=None):
         res = {}
 
@@ -171,6 +174,35 @@ class account_invoice(models.Model):
             string='Other Taxes Amount', multi='printed')
     }
 
+    turn_issuer = fields.Many2one(
+        'partner.activities',
+        'Giro Emisor', readonly=True, store=True, required=_issuer_required,
+        states={'draft': [('readonly', False)]})
+
+
+    # @api.onchange('turn_issuer')
+    # def _onchange_turn_issuer(self):
+    #     if self.turn_issuer.vat_affected != 'SI':
+    #         exempt_ids = [
+    #             self.env.ref('l10n_cl_invoice.dc_y_f_dtn').id,
+    #             self.env.ref('l10n_cl_invoice.dc_y_f_dte').id]
+    #         domain = [
+    #             ('journal_id', '=', self.journal_id.id),
+    #             '|', ('sii_document_class_id.id', 'in', exempt_ids),
+    #                  ('sii_document_class_id.document_letter_id', '=', False)]
+
+
+
+    #     print ('entrada onchange')
+    #     if self.turn_issuer.vat_affected == 'SI':
+    #         print('available document class')
+    #         print(self.available_journal_document_class_ids)
+    #     else:
+    #         print('available document class exempt')
+    #         print(self.available_journal_document_class_ids)
+    #         #self.journal_document_class_id =
+    #         #self.env.ref('l10n_cl_invoice.res_IVARI').id
+
     @api.multi
     def name_get(self):
         TYPES = {
@@ -214,11 +246,12 @@ class account_invoice(models.Model):
             if self.use_documents:
                 letter_ids = self.get_valid_document_letters(
                     self.partner_id.id, operation_type, self.company_id.id)
+
                 domain = [
                     ('journal_id', '=', self.journal_id.id),
                     '|', ('sii_document_class_id.document_letter_id',
                           'in', letter_ids),
-                    ('sii_document_class_id.document_letter_id', '=', False)]
+                         ('sii_document_class_id.document_letter_id', '=', False)]
 
                 # If document_type in context we try to serch specific document
                 document_type = self._context.get('document_type', False)
@@ -302,6 +335,14 @@ class account_invoice(models.Model):
     formated_vat = fields.Char(
         string='Responsability',
         related='commercial_partner_id.formated_vat',)
+
+    #journal_id_code = fields.Char('Journal ID Code', compute='_get_journal_id_code',
+    #    readonly=True)
+    #@api.multi
+    #@api.onchange('journal_id')
+    #def _get_journal_id_code(self):
+    #    for record in self:
+    #        record.journal_id_code=str(record.journal_id.id)
 
     @api.one
     @api.depends('sii_document_number', 'number')
