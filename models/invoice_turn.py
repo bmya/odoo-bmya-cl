@@ -37,7 +37,7 @@ class invoice_turn(models.Model):
 
     invoice_turn = fields.Many2one(
         'partner.activities',
-        'Giro',
+        'Giro Receptor',
         readonly=True,
         store=True,
         states={'draft': [('readonly', False)]})
