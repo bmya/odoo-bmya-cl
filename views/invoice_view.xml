@@ -77,14 +77,23 @@
                 <!-- Esto es por un mini bug de odoo ya que no se deberia poder cabmiar de diario y que se mantenga secuencia o numeraion de otro diario, hay que exigir borrar los numeros  -->
                 <field name="journal_id" position="attributes">
                     <attribute name="attrs">{'readonly':['|','|',('state','!=','draft'),('sii_document_number','!=',False),('internal_number','!=',False)]}</attribute>
+                    <attribute name="options">{'no_create': True}</attribute>
                 </field>
 
                 <field name="journal_id" position="after">
                     <field name="turn_issuer"
                            domain="[('journal_ids', '=', journal_id)]"
+                           attrs="{'required':[('use_documents','=',True)]}"
                            options="{'no_create': True}"/>
-                    <field name="journal_document_class_id" attrs="{'invisible':[('use_documents','=',False)],'required':[('use_documents','=',True)],'readonly':['|',('state','!=','draft'),('sii_document_number','!=',False)]}" domain="[('id','in',available_journal_document_class_ids[0][2])]"/>
-                </field>    
+                    <field name="journal_document_class_id"
+                           attrs="{'invisible':[('use_documents','=',False)],'required':[('use_documents','=',True)],'readonly':['|',('state','!=','draft'),('sii_document_number','!=',False)]}"
+                           options="{'no_create': True}"
+                           domain="[('id','in',available_journal_document_class_ids[0][2])]"/>
+                </field>
+
+                <field name="account_id" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </field>
 
                 <label string="Draft Refund" position="after">
                         <label string="- Next Number: " attrs="{'invisible': ['|',('document_number','!=',False),('state','!=','draft')]}" class="oe_inline"/>
