@@ -3,10 +3,11 @@ from openerp import osv, models, fields, api, _
 from openerp.osv import fields as old_fields
 from openerp.exceptions import except_orm, Warning
 import openerp.addons.decimal_precision as dp
-from inspect import currentframe, getframeinfo
-
-
-
+# from inspect import currentframe, getframeinfo
+# estas 2 lineas son para imprimir el numero de linea del script
+# (solo para debug)
+# frameinfo = getframeinfo(currentframe())
+# print(frameinfo.filename, frameinfo.lineno)
 
 
 class account_invoice_line(models.Model):
@@ -14,6 +15,7 @@ class account_invoice_line(models.Model):
     """
     En Chile como no se discriminan los impuestos en las facturas, excepto el IVA,
     agrego campos que ignoran el iva solamente a la hora de imprimir los valores.
+    (excepción: liquidación factura)
     """
 
     _inherit = "account.invoice.line"
@@ -46,6 +48,8 @@ class account_invoice_line(models.Model):
             # Antes habiamos agregado un vampo vat_tax en los code pero el tema
             # es que tambien hay que agregarlo en el template de los tax code y
             # en los planes de cuenta, resulta medio engorroso
+            # Daniel Blanco: esto me gusta más con el campo "vat tax" en los impuestos
+            # queda para arreglarlo.
             vat_taxes = [
                 x for x in line.invoice_line_tax_id if x.tax_code_id.parent_id.name == 'IVA']
             taxes = tax_obj.compute_all(cr, uid,
@@ -109,8 +113,6 @@ class account_invoice(models.Model):
     _inherit = "account.invoice"
 
     def get_document_class_default(self, document_classes):
-        # frameinfo = getframeinfo(currentframe())
-        # print(frameinfo.filename, frameinfo.lineno)
         if self.turn_issuer.vat_affected != 'SI':
             exempt_ids = [
                 self.env.ref('l10n_cl_invoice.dc_y_f_dtn').id,
