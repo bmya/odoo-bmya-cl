@@ -49,9 +49,7 @@
                     <field name="available_journal_document_class_ids" invisible="1"/>
                     <field name="use_documents" invisible="1"/>
                     <field name="sii_document_number" invisible="1"/>
-                    <!--
-                    <field name="internal_number" invisible="1"/>
-                    -->
+                    <field name="move_name" invisible="1"/>
                 </form>
 
                 <field name="partner_bank_id" position="before">
@@ -112,7 +110,7 @@
                     <field name="available_journal_document_class_ids" invisible="1"/>
                     <field name="use_documents" invisible="1"/>
                     <field name="sii_document_number" invisible="1"/>
-                    <!-- <field name="internal_number" invisible="1"/>-->
+                    <field name="move_name" invisible="1"/>
                 </form>
                 <!--
                 <field name="supplier_invoice_number" position="attributes">
