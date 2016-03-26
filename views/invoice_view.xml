@@ -60,7 +60,7 @@
                     <field name="reference"/>
                 </field>
                 
-                <!--
+                <!-- already invisible, posible deprecated
                 <xpath expr="//page[@string='Other Info']//field[@name='name']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
@@ -112,7 +112,7 @@
                     <field name="sii_document_number" invisible="1"/>
                     <field name="move_name" invisible="1"/>
                 </form>
-                <!--
+                <!-- posible deprecated
                 <field name="supplier_invoice_number" position="attributes">
                     <attribute name="attrs">{'required':[('use_documents','=',True)]}</attribute>
                 </field>
