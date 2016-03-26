@@ -8,5 +8,3 @@ class sii_country(models.Model):
     rut_natural = fields.Char('RUT persona natural', size=11)
     rut_juridica = fields.Char('RUT persona juridica', size=11)
     rut_otro = fields.Char('RUT otro', size=11)
-    
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
