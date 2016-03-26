@@ -334,10 +334,14 @@ class invoice(models.Model):
                     for line in inv.invoice_line:
                         lines = {
                             'NroLinDet': line_number,
-                            #codigo = line.product_id.code
+                            'CdgItem':{
+                                'TpoCodigo': 'INT1',
+                                'VlrCodigo': line.product_id.default_code or '',
+                            },
                             'NmbItem': line.name,
                             'QtyItem': int(round(line.quantity, 0)),
                             'PrcItem': int(round(line.price_unit, 0)),
+                            'DscItem': int(round(line.discount, 0)),
                             'MontoItem': int(round(line.price_subtotal, 0))
                         }
                         line_number = line_number + 1
@@ -399,8 +403,7 @@ class invoice(models.Model):
                         '<Documento_ID', '<Documento ID')
                     # print(xml_pret)   
 
-                    envelope_efact = '''
-<?xml version="1.0" encoding="utf-8"?>
+                    envelope_efact = '''<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <PonerDTE xmlns="https://www.efacturadelsur.cl">
