@@ -16,12 +16,12 @@
                     <field name="responsability_id" widget="selection"/>
                     <field name="iibb"/>
                     <field name="start_date"/>
-                </field>-->
+                </field>
 
                 <field name="last_reconciliation_date" position="attributes">
                     <attribute name="attrs">{'invisible':1}</attribute>
                 </field>
-      
+      			-->
                 <field name="property_account_position_id" position="attributes">
                     <attribute name="attrs">{'invisible':1}</attribute>
                 </field>
