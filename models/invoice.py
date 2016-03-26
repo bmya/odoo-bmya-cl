@@ -10,6 +10,7 @@ import logging
 import sys
 import traceback
 import datetime
+import lxml.etree as etree
 
 from inspect import currentframe, getframeinfo
 # estas 2 lineas son para imprimir el numero de linea del script
@@ -278,6 +279,8 @@ class invoice(models.Model):
     def do_dte_send_invoice(self):
         # hardcodeamos la accion provisoriamente
         dte_service = 'EFACTURADELSUR'
+        dte_usuario = 'miusuario'
+        dte_passwrd = 'micontrasenia'
         frameinfo = getframeinfo(currentframe())
         print(frameinfo.filename, frameinfo.lineno)
         for inv in self:
@@ -318,26 +321,27 @@ class invoice(models.Model):
                 elif dte_service == 'EFACTURADELSUR':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
+
                     # definicion de los giros del emisor
                     giros_emisor = []
+                    for turn in inv.company_id.company_activities_ids:
+                        giros_emisor.extend([{'Acteco': turn.code}])
                     # ....
 
                     # definicion de las lineas
                     line_number = 1
-                    invoice_lines = {}
+                    invoice_lines = []
                     for line in inv.invoice_line:
                         lines = {
-                            'Detalle':{
-                                'NroLinDet': line_number,
-                                #codigo = line.product_id.code
-                                'NmbItem': line.name,
-                                'QtyItem': line.quantity,
-                                'PrcItem': line.price_unit,
-                                'MontoItem': line.price_subtotal
-                            }
+                            'NroLinDet': line_number,
+                            #codigo = line.product_id.code
+                            'NmbItem': line.name,
+                            'QtyItem': int(round(line.quantity, 0)),
+                            'PrcItem': int(round(line.price_unit, 0)),
+                            'MontoItem': int(round(line.price_subtotal, 0))
                         }
-                        line_number = +1
-                        invoice_lines.update(lines)
+                        line_number = line_number + 1
+                        invoice_lines.extend([{'Detalle': lines}])
 
                     print(invoice_lines)
                     #########################
@@ -350,7 +354,7 @@ class invoice(models.Model):
                                 # 'Folio': inv.sii_document_number,
                                 'Folio': folio,
                                 'FchEmis': inv.date_invoice,
-                                'FmaPago': inv.payment_term.name,
+                                'FmaPago': _(inv.payment_term.name),
                                 'FchVenc': inv.date_due,
                             },
                             'Emisor':{
@@ -359,7 +363,7 @@ class invoice(models.Model):
                                 'GiroEmis': inv.turn_issuer.name,
                                 'Telefono': inv.company_id.phone,
                                 'CorreoEmisor': inv.company_id.dte_email, # crear
-                                'Acteco': [], # giros de la compañia - codigos
+                                'item': giros_emisor, # giros de la compañia - codigos
                                 'DirOrigen': inv.company_id.street,
                                 'CmnaOrigen': inv.company_id.state_id.name,
                                 'CiudadOrigen': inv.company_id.city,
@@ -373,19 +377,44 @@ class invoice(models.Model):
                                 'CiudadRecep': inv.partner_id.city,
                             },
                             'Totales':{
-                                'MntNeto': inv.amount_untaxed,
-                                'TasaIVA': inv.amount_total / inv.amount_untaxed -1,
-                                'IVA': inv.amount_tax,
-                                'MntTotal': inv.amount_total,
+                                'MntNeto': int(round(inv.amount_untaxed, 0)),
+                                'TasaIVA': int(round((inv.amount_total / inv.amount_untaxed -1) * 100, 0)),
+                                'IVA': int(round(inv.amount_tax, 0)),
+                                'MntTotal': int(round(inv.amount_total, 0)),
                             }
                         },
-                        'detalle': invoice_lines,
                     }
-                    print(dte)
-                    # pruebo a asignar el folio a la factura (puede no funcionar)
-                    # inv.sii_document_number = folio
-                    #xml = dicttoxml.dicttoxml(dte, attr_type=False, custom_root='DTE xmlns="http://www.sii.cl/SiiDte" version="1.0"')
-                    #print(xml)
+                    dte.update({'item': invoice_lines})
+                    # print(dte)
+
+                    xml = dicttoxml.dicttoxml(
+                        dte, attr_type=False,
+                        custom_root='DTE xmlns="http://www.sii.cl/SiiDte" version="1.0"').replace(
+                            '</DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">', '</DTE>').replace(
+                            '<item>','').replace('</item>','')
+                    root = etree.XML( xml )
+                    xml_pret = (
+                        etree.tostring(root, pretty_print=True)).replace(
+                        '</Documento_ID>', '</Documento>').replace(
+                        '<Documento_ID', '<Documento ID')
+                    # print(xml_pret)   
+
+                    envelope_efact = '''
+<?xml version="1.0" encoding="utf-8"?>
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+<soap12:Body>
+<PonerDTE xmlns="https://www.efacturadelsur.cl">
+<usuario>{}</usuario>
+<contrasena>{}</contrasena>
+<xml>
+{}</xml>
+<enviar>boolean</enviar>
+</PonerDTE>
+</soap12:Body>
+</soap12:Envelope>'''.format(dte_usuario, dte_passwrd, xml_pret)
+
+                    inv.sii_xml_request = envelope_efact
+                    # .replace('Documento_ID', 'Documento ID')
                 elif dte_service == 'FACTURACION':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
@@ -403,55 +432,6 @@ class invoice(models.Model):
             else:
                 frameinfo = getframeinfo(currentframe())
                 print(frameinfo.filename, frameinfo.lineno)
-'''
-HIPOTESIS 1: JINJA2
-Invoice_Data = {
-    'head': {
-        'sii_document_number': ,
-        'sii_document_class_id.0': ,
-        'sii_document_number': ,
-        'date_invoice': ,
-        'payment_term': ,
-        'date_due': ,
-        'amount_untaxed': ,
-        'percent_tax': ,
-        'amount_tax': ,
-        'amount_total': ,
-    },
-    'company': {
-        'vat': ,  # | format_vat
-        'name': ,  # |fixlen(50)
-        'issuer_turn': , n
-        'phone': , #
-        'email': ,
-        'turn_codes':[
-        # ...
-        ]
-        'street': ,  # |fixlen(48)
-        'comuna': , # state_id.1 # comuna
-        'city': , # cidad
-    },
-    'partner': {
-        'vat': , # |format_vat
-        'name': ,
-        'invoice_turn': ,
-        'street': ,
-        'comuna': , # comuna,
-        'city': ,
-    },
-    'lines':{
-        'name': ,
-        'quantity': ,
-        'printed_price_net': ,
-        'price_subtotal': ,
-    }
-}
-
-'''
-
-'''
-HIPOTESS 2: DICIONARIO CO NOMBRES EL XML (XMLTODICT DIRECTO)
-'''
 
 
 '''
