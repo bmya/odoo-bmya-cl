@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data noupdate="True">
-        <record model='decimal.precision' id='product.decimal_account'>
-            <field name='name'>Tax</field>
-            <field name='digits'>3</field>
-        </record>
-    </data>
-</openerp>

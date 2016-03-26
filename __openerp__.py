@@ -43,7 +43,6 @@
         'data/country.xml',
         #'data/res.currency.csv',
         'data/sii.concept_type.csv',
-        'data/decimal_precision_data.xml',
         'views/partner_view.xml',
         'views/company_view.xml',
         'views/country_view.xml',
