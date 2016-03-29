@@ -11,6 +11,7 @@ import sys
 import traceback
 import datetime
 import lxml.etree as etree
+import collections
 
 from inspect import currentframe, getframeinfo
 # estas 2 lineas son para imprimir el numero de linea del script
@@ -56,6 +57,7 @@ except ImportError:
 # timbre patrón. Permite parsear y formar la tupla patrón corespondiente al documento
 timbre  = """<TED version="1.0"><DD><RE>99999999-9</RE><TD>11</TD><F>1</F><FE>2000-01-01</FE><RR>99999999-9</RR><RSR>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</RSR><MNT>10000</MNT><IT1>IIIIIII</IT1><CAF version="1.0"><DA><RE>99999999-9</RE><RS>YYYYYYYYYYYYYYY</RS><TD>10</TD><RNG><D>1</D><H>1000</H></RNG><FA>2000-01-01</FA><RSAPK><M>DJKFFDJKJKDJFKDJFKDJFKDJKDnbUNTAi2IaDdtAndm2p5udoqFiw==</M><E>Aw==</E></RSAPK><IDK>300</IDK></DA><FRMA algoritmo="SHA1withRSA">J1u5/1VbPF6ASXkKoMOF0Bb9EYGVzQ1AMawDNOy0xSuAMpkyQe3yoGFthdKVK4JaypQ/F8afeqWjiRVMvV4+s4Q==</FRMA></CAF><TSTED>2014-04-24T12:02:20</TSTED></DD><FRMT algoritmo="SHA1withRSA">jiuOQHXXcuwdpj8c510EZrCCw+pfTVGTT7obWm/fHlAa7j08Xff95Yb2zg31sJt6lMjSKdOK+PQp25clZuECig==</FRMT></TED>"""
 result = xmltodict.parse(timbre)
+# result es un OrderedDict patrón
 # hardcodeamos este valor por ahora
 
 
@@ -198,7 +200,7 @@ class invoice(models.Model):
         print(frameinfo.filename, frameinfo.lineno)
         ted = False
         if self.sii_caf:
-            # si no hay CAF satea toda esta parte
+            # si no hay CAF saltea toda esta parte
             # hardcodeo de datos a usar en el ensamblado del timbre.
             # luego serán entregados por objetos de Odoo
 
@@ -283,7 +285,7 @@ class invoice(models.Model):
         dte_passwrd = 'micontrasenia'
         frameinfo = getframeinfo(currentframe())
         print(frameinfo.filename, frameinfo.lineno)
-        for inv in self:
+        for inv in self.with_context(lang='es_CL'):
             # Ignore invoices with caf
             # apenas valido:
             # si es wssii: (esto lo se, diciendo "si la secuencia del comprobante del diario es DTE (is_dte)")
@@ -314,93 +316,91 @@ class invoice(models.Model):
                 # varias opciones... por ahora tenemos varios.....
                 # por ahora, van hardcodeados acá pero la idea es hacer un modulo
                 # para contener la plantilla txt o xml que pide cada provider.
+                ##############################################################
+                # XML file is equal for seral services
+                frameinfo = getframeinfo(currentframe())
+                print(frameinfo.filename, frameinfo.lineno)
+
+                # definicion de los giros del emisor
+                giros_emisor = []
+                for turn in inv.company_id.company_activities_ids:
+                    giros_emisor.extend([{'Acteco': turn.code}])
+                # ....
+
+                # definicion de las lineas
+                line_number = 1
+                invoice_lines = []
+                for line in inv.invoice_line:
+                    lines = collections.OrderedDict()
+                    lines['NroLinDet'] = line_number
+                    lines['CdgItem'] = collections.OrderedDict()
+                    lines['CdgItem']['TpoCodigo'] = 'INT1'
+                    lines['CdgItem']['VlrCodigo'] = line.product_id.default_code or ''
+                    lines['NmbItem'] = line.name
+                    lines['QtyItem'] = int(round(line.quantity, 0))
+                    lines['PrcItem'] = int(round(line.price_unit, 0))
+                    lines['UnmdItem'] = line.uos_id.name
+                    lines['DscItem'] = int(round(line.discount, 0))
+                    lines['MontoItem'] = int(round(line.price_subtotal, 0))
+                    line_number = line_number + 1
+                    invoice_lines.extend([{'Detalle': lines}])
+
+                print(invoice_lines)
+                #########################
+                folio = self.get_folio(inv)
+                dte = collections.OrderedDict()
+                dte1 = collections.OrderedDict()
+
+                # dte['Documento ID'] = 'F{}T{}'.format(folio, inv.sii_document_class_id.sii_code)
+                dte['Encabezado'] = collections.OrderedDict()
+                dte['Encabezado']['IdDoc'] = collections.OrderedDict()
+                dte['Encabezado']['IdDoc']['TipoDTE'] = inv.sii_document_class_id.sii_code
+                dte['Encabezado']['IdDoc']['Folio'] = folio
+                dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
+                dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.name
+                dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
+                dte['Encabezado']['Emisor'] = collections.OrderedDict()
+                dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(inv.company_id.vat)
+                dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
+                dte['Encabezado']['Emisor']['GiroEmis'] = inv.turn_issuer.name
+                dte['Encabezado']['Emisor']['Telefono'] = inv.company_id.phone or ''
+                dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
+                dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
+                dte['Encabezado']['Emisor']['DirOrigen'] = inv.company_id.street
+                dte['Encabezado']['Emisor']['CmnaOrigen'] = inv.company_id.state_id.name
+                dte['Encabezado']['Emisor']['CiudadOrigen'] = inv.company_id.city
+                dte['Encabezado']['Receptor'] = collections.OrderedDict()
+                dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(inv.partner_id.vat)
+                dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
+                dte['Encabezado']['Receptor']['GiroRecep'] = inv.invoice_turn.name
+                dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
+                dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
+                dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
+                dte['Encabezado']['Totales'] = collections.OrderedDict()
+                dte['Encabezado']['Totales']['MntNeto'] = int(round(inv.amount_untaxed, 0))
+                dte['Encabezado']['Totales']['TasaIVA'] = int(round((inv.amount_total / inv.amount_untaxed -1) * 100, 0))
+                dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
+                dte['Encabezado']['Totales']['MntTotal'] = int(round(inv.amount_total, 0))
+                dte['item'] = invoice_lines
+                doc_id = '<Documento ID="F{}T{}">'.format(folio, inv.sii_document_class_id.sii_code)
+                # print(doc_id)
+                dte1['Documento ID'] = dte
+                ##############################################################
                 if dte_service == 'WSSII':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
                     pass
                 elif dte_service == 'EFACTURADELSUR':
-                    frameinfo = getframeinfo(currentframe())
-                    print(frameinfo.filename, frameinfo.lineno)
-
-                    # definicion de los giros del emisor
-                    giros_emisor = []
-                    for turn in inv.company_id.company_activities_ids:
-                        giros_emisor.extend([{'Acteco': turn.code}])
-                    # ....
-
-                    # definicion de las lineas
-                    line_number = 1
-                    invoice_lines = []
-                    for line in inv.invoice_line:
-                        lines = {
-                            'NroLinDet': line_number,
-                            'CdgItem':{
-                                'TpoCodigo': 'INT1',
-                                'VlrCodigo': line.product_id.default_code or '',
-                            },
-                            'NmbItem': line.name,
-                            'QtyItem': int(round(line.quantity, 0)),
-                            'PrcItem': int(round(line.price_unit, 0)),
-                            'DscItem': int(round(line.discount, 0)),
-                            'MontoItem': int(round(line.price_subtotal, 0))
-                        }
-                        line_number = line_number + 1
-                        invoice_lines.extend([{'Detalle': lines}])
-
-                    print(invoice_lines)
-                    #########################
-                    folio = self.get_folio(inv)
-                    dte = {
-                        'Documento ID': 'F{}T{}'.format(folio, inv.sii_document_class_id.sii_code),
-                        'Encabezado':{
-                            'IdDoc':{
-                                'TipoDTE': inv.sii_document_class_id.sii_code,
-                                # 'Folio': inv.sii_document_number,
-                                'Folio': folio,
-                                'FchEmis': inv.date_invoice,
-                                'FmaPago': _(inv.payment_term.name),
-                                'FchVenc': inv.date_due,
-                            },
-                            'Emisor':{
-                                'RUTEmisor': self.format_vat(inv.company_id.vat),
-                                'RznSoc': inv.company_id.name,
-                                'GiroEmis': inv.turn_issuer.name,
-                                'Telefono': inv.company_id.phone,
-                                'CorreoEmisor': inv.company_id.dte_email, # crear
-                                'item': giros_emisor, # giros de la compañia - codigos
-                                'DirOrigen': inv.company_id.street,
-                                'CmnaOrigen': inv.company_id.state_id.name,
-                                'CiudadOrigen': inv.company_id.city,
-                            },
-                            'Receptor':{
-                                'RUTRecep': self.format_vat(inv.partner_id.vat),
-                                'RznSocRecep': inv.partner_id.name,
-                                'GiroRecep': inv.invoice_turn.name,
-                                'DirRecep': inv.partner_id.street,
-                                'CmnaRecep': inv.partner_id.state_id.name,
-                                'CiudadRecep': inv.partner_id.city,
-                            },
-                            'Totales':{
-                                'MntNeto': int(round(inv.amount_untaxed, 0)),
-                                'TasaIVA': int(round((inv.amount_total / inv.amount_untaxed -1) * 100, 0)),
-                                'IVA': int(round(inv.amount_tax, 0)),
-                                'MntTotal': int(round(inv.amount_total, 0)),
-                            }
-                        },
-                    }
-                    dte.update({'item': invoice_lines})
                     # print(dte)
 
                     xml = dicttoxml.dicttoxml(
-                        dte, attr_type=False,
+                        dte1, attr_type=False,
                         custom_root='DTE xmlns="http://www.sii.cl/SiiDte" version="1.0"').replace(
                             '</DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">', '</DTE>').replace(
                             '<item>','').replace('</item>','')
                     root = etree.XML( xml )
                     xml_pret = (
-                        etree.tostring(root, pretty_print=True)).replace(
-                        '</Documento_ID>', '</Documento>').replace(
-                        '<Documento_ID', '<Documento ID')
+                        etree.tostring(root, pretty_print=True))
                     # print(xml_pret)   
 
                     envelope_efact = '''<?xml version="1.0" encoding="utf-8"?>
@@ -416,8 +416,10 @@ class invoice(models.Model):
 </soap12:Body>
 </soap12:Envelope>'''.format(dte_usuario, dte_passwrd, xml_pret)
 
-                    inv.sii_xml_request = envelope_efact
-                    # .replace('Documento_ID', 'Documento ID')
+                    inv.sii_xml_request = envelope_efact.replace(
+                        '<Documento_ID>', doc_id).replace(
+                        '</Documento_ID>', '</Documento>')
+                    # print(type(inv.sii_xml_request))
                 elif dte_service == 'FACTURACION':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
@@ -435,8 +437,6 @@ class invoice(models.Model):
             else:
                 frameinfo = getframeinfo(currentframe())
                 print(frameinfo.filename, frameinfo.lineno)
-
-
 '''
 
             if inv.sii_caf:
@@ -604,9 +604,6 @@ class invoice(models.Model):
             # TODO ver que algunso campos no tienen sentido porque solo se
             # escribe aca si no hay errores
             '''
-
-
-
 #### CODIGO DE PRUEBA #####
 
 #from signsharsa import i
@@ -615,10 +612,6 @@ class invoice(models.Model):
 # esta biblioteca sirve para detectar encoding y cambiarla
 # util para codificar en ISO-8859-1
 
-# codigo de autorizacion de folios entregado por SII (para tipo de documento 34)
-# despues va a haber que tenerlos metido en un diccionario o tupla, o tabla
-# para seleccionar desde ahi el caf de acuerdo al documento.
-# tendrá también una asociación one2one por ejemplo, a una secuencia de Odoo
 frameinfo = getframeinfo(currentframe())
 print(frameinfo.filename, frameinfo.lineno)
 
