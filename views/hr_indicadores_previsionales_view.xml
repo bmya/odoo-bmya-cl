@@ -24,6 +24,7 @@
 			<field name="afp_id" string="AFP"/>
 			<field name="aporte_voluntario" string="Aporte Voluntario"/>
 			<field name="mutual_seguridad"/>
+ 			<field name="colacion_opcional"/>
 			<field name="anticipo_sueldo"/>
 			</group>
             	</group>	
