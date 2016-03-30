@@ -127,6 +127,16 @@ class account_invoice(models.Model):
             document_class_id = document_classes.ids[0]
         return document_class_id
 
+    # determina el giro issuer por default
+    @api.multi
+    @api.depends('partner_id')
+    def _get_available_issuer_turns(self):
+        for rec in self:
+            available_turn_ids = rec.company_id.company_activities_ids
+            for turn in available_turn_ids:
+                rec.turn_issuer = turn.id
+
+
     def _issuer_required(self):
         return False
 
@@ -197,7 +207,9 @@ class account_invoice(models.Model):
     turn_issuer = fields.Many2one(
         'partner.activities',
         'Giro Emisor', readonly=True, store=True, required=_issuer_required,
-        states={'draft': [('readonly', False)]})
+        states={'draft': [('readonly', False)]},
+        compute=_get_available_issuer_turns)
+
 
     @api.multi
     def name_get(self):

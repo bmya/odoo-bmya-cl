@@ -7,6 +7,11 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <!--<field name="property_account_position" position="before">-->
+                <field name="ref" position="replace"/>
+                <field name="category_id" position="before">
+                    <field name="ref" placeholder="Reference/Name fantasy"/>
+                </field>
+
                 <field name="website" position="after">
                     <field name="document_type_id" colspan="1"/>
                     <field name="document_number" colspan="1"/>
