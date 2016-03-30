@@ -175,10 +175,10 @@ class account_journal(models.Model):
         if 'sale' in self.type or 'purchase' in self.type:
             self.use_documents = True
 
-    @api.multi
+    @api.one
     @api.depends('journal_activities_ids', 'type')
     def _check_activities(self):
-        self.ensure_one()
+        # self.ensure_one()
         # si entre los giros del diario hay alguno que está excento
         # el boolean es True
         try:

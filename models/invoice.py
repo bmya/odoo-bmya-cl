@@ -137,8 +137,6 @@ class account_invoice(models.Model):
                 rec.turn_issuer = turn.id
 
 
-    def _issuer_required(self):
-        return False
 
     def _printed_prices(self, cr, uid, ids, name, args, context=None):
         res = {}
@@ -206,7 +204,7 @@ class account_invoice(models.Model):
 
     turn_issuer = fields.Many2one(
         'partner.activities',
-        'Giro Emisor', readonly=True, store=True, required=_issuer_required,
+        'Giro Emisor', readonly=True, store=True, required=False,
         states={'draft': [('readonly', False)]},
         compute=_get_available_issuer_turns)
 
