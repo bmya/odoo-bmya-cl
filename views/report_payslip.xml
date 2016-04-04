@@ -14,7 +14,7 @@
                                  <td colspan="2"><strong>RUT EMPRESA:</strong></td>
                            </tr>
                            <tr>
-                                 <th colspan="2">BLANCO MARTIN ASOCIADOS</th>
+                                 <th colspan="2"><span t-field="res_company.name"/></th>
                                  <th colspan="2">76.201.224−3</th>
                             </tr>
       </thead>
