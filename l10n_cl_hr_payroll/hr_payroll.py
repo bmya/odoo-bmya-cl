@@ -31,7 +31,10 @@
 #
 ##############################################################################
 from openerp import models, fields
+
 # from datetime import date, datetime, timedelta
+
+
 
 
 class hr_indicadores_previsionales(models.Model):
@@ -205,6 +208,7 @@ class hr_contract(models.Model):
         'Carga Familiar',
         help="Carga Familiar para el calculo de asignacion familiar")
     colacion = fields.Float('Colacion', help="Colacion")
+    colacion_opcional = fields.Boolean('Colacion Opcional')
     isapre_id = fields.Many2one('hr.isapre', 'ISAPRE')
     isapre_cotizacion_uf = fields.Float(
         'Cotizacion UF',  help="Cotizacion Pactada en UF")
