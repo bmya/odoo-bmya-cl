@@ -1,9 +1,4 @@
 # l10n_cl_pos_basic_users
-#[![Build Status](https://travis-ci.org/odoo-chile/l10n_cl_base.svg)](https://travis-ci.org/odoo-chile/l10n_cl_base)
-#[![Coverage Status](https://coveralls.io/repos/odoo-chile/l10n_cl_base/badge.svg?branch=8.0&service=github)](https://coveralls.io/github/odoo-chile/l10n_cl_base?branch=8.0)
-#[![Code Climate](https://codeclimate.com/github/odoo-chile/l10n_cl_base/badges/gpa.svg)](https://codeclimate.com/github/odoo-chile/l10n_cl_base)
-
-# l10n_cl_base
 
 Odoo - Chilean Localization POS Basic Users
 ===========================================
