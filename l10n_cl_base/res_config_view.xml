@@ -25,12 +25,6 @@
 					<group>
 						<label for="id" string="Partners" />
 						<div name="fantasyname">
-							<div name='module_l10n_cl_fantasy_name'>
-								<field name="module_l10n_cl_fantasy_name"
-									class="oe_inline"  readonly="1" />
-								<label for="module_l10n_cl_fantasy_name" />
-							</div>
-
 							<div name='module_l10n_cl_toponyms'>
 								<field name="module_l10n_cl_toponyms"
 									class="oe_inline" />
