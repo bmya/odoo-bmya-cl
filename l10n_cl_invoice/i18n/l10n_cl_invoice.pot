@@ -4,16 +4,31 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0-20150401\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-11 11:56+0000\n"
-"PO-Revision-Date: 2015-10-11 11:56+0000\n"
+"POT-Creation-Date: 2016-03-21 19:58+0000\n"
+"PO-Revision-Date: 2016-03-21 19:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: l10n_cl_invoice
+#: help:account.journal.document_config,weird_documents:0
+msgid "\n"
+"Include unusual taxes documents, as transfer invoice, and reissue\n"
+""
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: help:account.journal.document_config,dte_register:0
+msgid "\n"
+"This option allows you to register electronic documents (DTEs) issued by MiPyme SII Portal, Third parties services, or by\n"
+"Odoo itself (to register  DTEs issued by Odoo l10n_cl_dte/caf modules are needed.\n"
+""
+msgstr ""
 
 #. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_invoice_form
@@ -141,7 +156,10 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: help:res.company,invoice_vat_discrimination_default:0
-msgid "Definie behaviour on invoices reports. Discrimination or not will depend in partner and company responsability and SII letters setup:            * If No Discriminate Default, if no match found it won't discriminate by default            * If Discriminate Default, if no match found it would discriminate by default            "
+msgid "Define behaviour on invoices reports. Discrimination or not         will depend in partner and company responsability and SII letters        setup:\n"
+"            * If No Discriminate Default, if no match found it won't             discriminate by default.\n"
+"            * If Discriminate Default, if no match found it would             discriminate by default.\n"
+"            "
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -177,11 +195,6 @@ msgstr ""
 #. module: l10n_cl_invoice
 #: field:sii.document_class,document_letter_id:0
 msgid "Document Letter"
-msgstr ""
-
-#. module: l10n_cl_invoice
-#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_letter
-msgid "Document Letters"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -254,6 +267,21 @@ msgid "Exempt Amount"
 msgstr ""
 
 #. module: l10n_cl_invoice
+#: view:res.company:l10n_cl_invoice.view_company_inherit_form
+msgid "Giros de La Compañia"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:account.journal:l10n_cl_invoice.view_account_journal_cl_form
+msgid "Giros del Diario"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:res.partner:l10n_cl_invoice.view_res_partner_form
+msgid "Giros del Partner"
+msgstr ""
+
+#. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_account_invoice_filter
 #: view:account.move.line:l10n_cl_invoice.view_account_move_line_filter
 msgid "Group By"
@@ -293,6 +321,11 @@ msgid "Invoice VAT discrimination default"
 msgstr ""
 
 #. module: l10n_cl_invoice
+#: selection:sii.document_class,document_type:0
+msgid "Invoices"
+msgstr ""
+
+#. module: l10n_cl_invoice
 #: field:sii.responsability,issued_letter_ids:0
 msgid "Issued Document Letters"
 msgstr ""
@@ -329,6 +362,16 @@ msgstr ""
 #: view:account.journal.sii_document_class:l10n_cl_invoice.view_journal_sii_document_class_tree
 #: model:ir.model,name:l10n_cl_invoice.model_account_journal_sii_document_class
 msgid "Journal SII Documents"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.journal,journal_activities_ids:0
+msgid "Journal Turns"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:partner.activities,journal_ids:0
+msgid "Journals"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -410,11 +453,6 @@ msgid "Number Must be Unique per Company!"
 msgstr ""
 
 #. module: l10n_cl_invoice
-#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_optional_type
-msgid "Optional Types"
-msgstr ""
-
-#. module: l10n_cl_invoice
 #: selection:sii.document_class,document_type:0
 msgid "Other Documents"
 msgstr ""
@@ -431,9 +469,12 @@ msgid "Others"
 msgstr ""
 
 #. module: l10n_cl_invoice
+#: field:account.journal.document_config,other_available:0
+msgid "Others available?"
+msgstr ""
+
+#. module: l10n_cl_invoice
 #: selection:account.journal,document_sequence_type:0
-#: selection:account.journal.document_config,credit_notes:0
-#: selection:account.journal.document_config,debit_notes:0
 msgid "Own Sequence"
 msgstr ""
 
@@ -448,7 +489,6 @@ msgid "Point Of Sales"
 msgstr ""
 
 #. module: l10n_cl_invoice
-#: field:account.journal,point_of_sale:0
 #: field:account.journal,point_of_sale_id:0
 msgid "Point of sale"
 msgstr ""
@@ -509,13 +549,23 @@ msgid "Refund Invoice"
 msgstr ""
 
 #. module: l10n_cl_invoice
-#: field:account.journal,dte_register:0
+#: field:account.journal.document_config,dte_register:0
 msgid "Register Electronic Documents?"
 msgstr ""
 
 #. module: l10n_cl_invoice
-#: field:account.journal,free_tax_zone:0
-msgid "Register Free-Tax Zone Documents?"
+#: field:account.journal.document_config,free_tax_zone:0
+msgid "Register Free-Tax Zone or # 1057 Resolution Documents?"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.journal.document_config,non_dte_register:0
+msgid "Register Manual Documents?"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: field:account.journal.document_config,settlement_invoice:0
+msgid "Register Settlement Invoices?"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -525,12 +575,8 @@ msgstr ""
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,responsability_id:0
-msgid "Responsability"
-msgstr ""
-
-#. module: l10n_cl_invoice
 #: field:res.partner,responsability_id:0
-msgid "Resposability"
+msgid "Responsability"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -553,11 +599,6 @@ msgstr ""
 #: view:sii.concept_type:l10n_cl_invoice.view_sii_concept_type_form
 #: view:sii.concept_type:l10n_cl_invoice.view_sii_concept_type_tree
 msgid "SII Concept type"
-msgstr ""
-
-#. module: l10n_cl_invoice
-#: model:ir.ui.menu,name:l10n_cl_invoice.menu_sii_config
-msgid "SII Configuration"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -594,6 +635,11 @@ msgstr ""
 #: view:sii.document_type:l10n_cl_invoice.view_sii_document_type_form
 #: view:sii.document_type:l10n_cl_invoice.view_sii_document_type_tree
 msgid "SII Document type"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_partner_activities
+msgid "SII Economical Activities"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -649,15 +695,13 @@ msgid "Sale"
 msgstr ""
 
 #. module: l10n_cl_invoice
-#: selection:sii.document_class,document_type:0
-msgid "Sale Invoices"
+#: selection:account.journal,document_sequence_type:0
+msgid "Same Invoice Sequence"
 msgstr ""
 
 #. module: l10n_cl_invoice
-#: selection:account.journal,document_sequence_type:0
-#: selection:account.journal.document_config,credit_notes:0
-#: selection:account.journal.document_config,debit_notes:0
-msgid "Same Invoice Sequence"
+#: help:account.journal,journal_activities_ids:0
+msgid "Select the turns you want to             invoice in this Journal"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -698,8 +742,13 @@ msgid "Tax Code"
 msgstr ""
 
 #. module: l10n_cl_invoice
+#: field:sii.responsability,tp_sii_code:0
+msgid "Tax Payer SII Code"
+msgstr ""
+
+#. module: l10n_cl_invoice
 #: help:account.journal.sii_document_class,sequence_id:0
-msgid "This field contains the information related to the numbering of the documents entries of this document type."
+msgid "This field contains the information related to the numbering         of the documents entries of this document type."
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -713,13 +762,24 @@ msgid "Unit Price"
 msgstr ""
 
 #. module: l10n_cl_invoice
+#: field:account.journal.document_config,weird_documents:0
+msgid "Unusual Documents"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: selection:account.journal.document_config,credit_notes:0
+#: selection:account.journal.document_config,debit_notes:0
+msgid "Use"
+msgstr ""
+
+#. module: l10n_cl_invoice
 #: field:account.journal,use_documents:0
 msgid "Use Documents?"
 msgstr ""
 
 #. module: l10n_cl_invoice
 #: help:account.journal,document_sequence_type:0
-msgid "Use own sequence or invoice sequence on Debit and Credit Notes?"
+msgid "Use own sequence or invoice sequence on Debit and Credit                  Notes?"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -781,6 +841,11 @@ msgstr ""
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_search
 msgid "sale"
+msgstr ""
+
+#. module: l10n_cl_invoice
+#: view:res.partner:l10n_cl_invoice.view_res_partner_form
+msgid "{'invisible':1}"
 msgstr ""
 
 #. module: l10n_cl_invoice

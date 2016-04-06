@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0-20150401\n"
+"Project-Id-Version: l10n_cl_invoice - Odoo V8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-11 11:56+0000\n"
-"PO-Revision-Date: 2015-12-05 21:37-0300\n"
+"POT-Creation-Date: 2016-03-21 19:58+0000\n"
+"PO-Revision-Date: 2016-03-21 17:06-0300\n"
 "Last-Translator: Daniel Blanco - Blanco Martín & Asociados "
 "<daniel@blancomartin.cl>\n"
 "Language-Team: Blanco Martín & Asociados <info@blancomartin.cl>\n"
@@ -19,63 +19,79 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. module: l10n_cl_invoice
+#: help:account.journal.document_config,weird_documents:0
+msgid ""
+"\n"
+"Include unusual taxes documents, as transfer invoice, and reissue\n"
+msgstr ""
+"\n"
+"Incluye documentos tributarios poco usuales, como factura de traspaso y "
+"reexpedición\n"
+
+#. module: l10n_cl_invoice
+#: help:account.journal.document_config,dte_register:0
+msgid ""
+"\n"
+"This option allows you to register electronic documents (DTEs) issued by "
+"MiPyme SII Portal, Third parties services, or by\n"
+"Odoo itself (to register  DTEs issued by Odoo l10n_cl_dte/caf modules are "
+"needed.\n"
+msgstr ""
+"\n"
+"Esta opción permite registrar documentos tributarios electrónicos (DTEs) "
+"enviados a través del portal MiPyme, servicios de terceros, o por Odoo mismo "
+"(para registrar DTESs enviados directamente desde Odoo se requieren los "
+"módulos l10n_cl_dte/caf instalados.\n"
+
+#. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_invoice_form
-#, fuzzy
 msgid "- Next Number:"
 msgstr "- Próximo Número:"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_account_move
-#, fuzzy
 msgid "Account Entry"
-msgstr "Entrada de Cuenta"
+msgstr "Cuenta"
 
 #. module: l10n_cl_invoice
 #: field:sii.concept_type,active:0 field:sii.document_class,active:0
 #: field:sii.document_letter,active:0 field:sii.document_type,active:0
 #: field:sii.optional_type,active:0 field:sii.responsability,active:0
-#, fuzzy
 msgid "Active"
-msgstr "Activar"
+msgstr "Activo"
 
 #. module: l10n_cl_invoice
 #: field:sii.optional_type,apply_rule:0
-#, fuzzy
 msgid "Apply rule"
 msgstr "Aplicar regla"
 
 #. module: l10n_cl_invoice
 #: view:account.journal.document_config:l10n_cl_invoice.view_account_journal_document_config_form
-#, fuzzy
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_type,code:0 field:sii.responsability,code:0
-#, fuzzy
 msgid "Code"
 msgstr "Código"
 
 #. module: l10n_cl_invoice
 #: field:sii.document_class,code_template:0
 msgid "Code Template for Journal"
-msgstr "Plantilla para Libro"
+msgstr "Plantilla de Código para Diario"
 
 #. module: l10n_cl_invoice
 #: sql_constraint:sii.responsability:0
-#, fuzzy
 msgid "Code must be unique!"
-msgstr "¡El código debe ser único!"
+msgstr "El código debe ser único!"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_res_company
-#, fuzzy
 msgid "Companies"
 msgstr "Compañías"
 
 #. module: l10n_cl_invoice
 #: field:sii.point_of_sale,company_id:0
-#, fuzzy
 msgid "Company"
 msgstr "Compañía"
 
@@ -93,8 +109,9 @@ msgstr "Confirmar"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_res_country
+#, fuzzy
 msgid "Country"
-msgstr "País"
+msgstr "Country"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_cl_form
@@ -155,11 +172,13 @@ msgstr "Notas de Débito"
 #: help:res.company,invoice_vat_discrimination_default:0
 #, fuzzy
 msgid ""
-"Definie behaviour on invoices reports. Discrimination or not will depend in "
-"partner and company responsability and SII letters setup:            * If No "
-"Discriminate Default, if no match found it won't discriminate by "
-"default            * If Discriminate Default, if no match found it would "
-"discriminate by default            "
+"Define behaviour on invoices reports. Discrimination or not         will "
+"depend in partner and company responsability and SII letters        setup:\n"
+"            * If No Discriminate Default, if no match found it "
+"won't             discriminate by default.\n"
+"            * If Discriminate Default, if no match found it "
+"would             discriminate by default.\n"
+"            "
 msgstr ""
 "Define comportamiento en los documentos de salida. Discriminación o no de "
 "IVA dependerá de la responsabilidad del cliente/proveedor ante el IVA y de "
@@ -212,12 +231,6 @@ msgid "Document Letter"
 msgstr "Letra del Documento"
 
 #. module: l10n_cl_invoice
-#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_letter
-#, fuzzy
-msgid "Document Letters"
-msgstr "Letras de Documento"
-
-#. module: l10n_cl_invoice
 #: field:account.invoice,sii_document_number:0
 #: field:account.move,document_number:0
 #: field:account.move,sii_document_number:0
@@ -239,8 +252,9 @@ msgstr "Tipo de Secuencia de Documento"
 #: field:account.move,document_class_id:0
 #: field:account.move.line,document_class_id:0
 #: field:sii.document_class,document_type:0
+#, fuzzy
 msgid "Document Type"
-msgstr "Tipo de Identificación"
+msgstr "Tipo de Documento"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_document_type
@@ -250,13 +264,15 @@ msgstr "Tipos de Documento"
 
 #. module: l10n_cl_invoice
 #: field:res.partner,document_number:0
+#, fuzzy
 msgid "Document number"
-msgstr "Número de Identificación"
+msgstr "Número de Documento"
 
 #. module: l10n_cl_invoice
 #: field:res.partner,document_type_id:0
+#, fuzzy
 msgid "Document type"
-msgstr "Tipo de Identificación"
+msgstr "Tipo de Documento"
 
 #. module: l10n_cl_invoice
 #: view:account.journal:l10n_cl_invoice.view_account_journal_cl_form
@@ -294,6 +310,23 @@ msgstr "Secuencia de Entrada"
 #, fuzzy
 msgid "Exempt Amount"
 msgstr "Monto Exento"
+
+#. module: l10n_cl_invoice
+#: view:res.company:l10n_cl_invoice.view_company_inherit_form
+msgid "Giros de La Compañia"
+msgstr "Giros de La Compañia"
+
+#. module: l10n_cl_invoice
+#: view:account.journal:l10n_cl_invoice.view_account_journal_cl_form
+#, fuzzy
+msgid "Giros del Diario"
+msgstr " D, <borrar>, <supr>  Borrar una entrada"
+
+#. module: l10n_cl_invoice
+#: view:res.partner:l10n_cl_invoice.view_res_partner_form
+#, fuzzy
+msgid "Giros del Partner"
+msgstr "Incluir el Giro de Los Clientes/Proveedores"
 
 #. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_account_invoice_filter
@@ -336,6 +369,12 @@ msgstr "Línea de Documento"
 #, fuzzy
 msgid "Invoice VAT discrimination default"
 msgstr "IVA Discriminado por defecto"
+
+#. module: l10n_cl_invoice
+#: selection:sii.document_class,document_type:0
+#, fuzzy
+msgid "Invoices"
+msgstr "Documentos Tributarios"
 
 #. module: l10n_cl_invoice
 #: field:sii.responsability,issued_letter_ids:0
@@ -386,6 +425,18 @@ msgstr "Elementos del Diario"
 #, fuzzy
 msgid "Journal SII Documents"
 msgstr "Documentos Tributarios SII del Diario"
+
+#. module: l10n_cl_invoice
+#: field:account.journal,journal_activities_ids:0
+#, fuzzy
+msgid "Journal Turns"
+msgstr "%s: recuperando el fichero de transacciones\n"
+
+#. module: l10n_cl_invoice
+#: field:partner.activities,journal_ids:0
+#, fuzzy
+msgid "Journals"
+msgstr "Libros"
 
 #. module: l10n_cl_invoice
 #: field:account.journal.document_config,write_uid:0
@@ -468,12 +519,6 @@ msgid "Number Must be Unique per Company!"
 msgstr "¡El nombre debe ser único por Compañía!"
 
 #. module: l10n_cl_invoice
-#: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_optional_type
-#, fuzzy
-msgid "Optional Types"
-msgstr "Tipos Opcionales"
-
-#. module: l10n_cl_invoice
 #: selection:sii.document_class,document_type:0
 #, fuzzy
 msgid "Other Documents"
@@ -493,9 +538,13 @@ msgid "Others"
 msgstr "Otros"
 
 #. module: l10n_cl_invoice
+#: field:account.journal.document_config,other_available:0
+#, fuzzy
+msgid "Others available?"
+msgstr "Mejor disponible"
+
+#. module: l10n_cl_invoice
 #: selection:account.journal,document_sequence_type:0
-#: selection:account.journal.document_config,credit_notes:0
-#: selection:account.journal.document_config,debit_notes:0
 #, fuzzy
 msgid "Own Sequence"
 msgstr "Secuencia Propia"
@@ -513,7 +562,6 @@ msgid "Point Of Sales"
 msgstr "Punto de Ventas"
 
 #. module: l10n_cl_invoice
-#: field:account.journal,point_of_sale:0
 #: field:account.journal,point_of_sale_id:0
 #, fuzzy
 msgid "Point of sale"
@@ -591,31 +639,40 @@ msgid "Refund Invoice"
 msgstr "Nota de Cŕedito"
 
 #. module: l10n_cl_invoice
-#: field:account.journal,dte_register:0
+#: field:account.journal.document_config,dte_register:0
 #, fuzzy
 msgid "Register Electronic Documents?"
 msgstr "¿Registra Documentos Tributarios Electrónicos?"
 
 #. module: l10n_cl_invoice
-#: field:account.journal,free_tax_zone:0
+#: field:account.journal.document_config,free_tax_zone:0
+msgid "Register Free-Tax Zone or # 1057 Resolution Documents?"
+msgstr "Registra Documentos de Zona Franca o Resolución #1057?"
+
+#. module: l10n_cl_invoice
+#: field:account.journal.document_config,non_dte_register:0
 #, fuzzy
-msgid "Register Free-Tax Zone Documents?"
-msgstr "¿Registra Documentos de Zona Franca?"
+msgid "Register Manual Documents?"
+msgstr "¿Registra Documentos Tributarios Electrónicos?"
+
+#. module: l10n_cl_invoice
+#: field:account.journal.document_config,settlement_invoice:0
+#, fuzzy
+msgid "Register Settlement Invoices?"
+msgstr "¿Registra Documentos Tributarios Electrónicos?"
 
 #. module: l10n_cl_invoice
 #: model:ir.ui.menu,name:l10n_cl_invoice.menu_action_sii_responsability
+#, fuzzy
 msgid "Responsabilities"
-msgstr "Tipos de Contribuyente"
+msgstr "Responsabilidades"
 
 #. module: l10n_cl_invoice
 #: field:account.invoice,responsability_id:0
-msgid "Responsability"
-msgstr "Tipo de Contribuyente"
-
-#. module: l10n_cl_invoice
 #: field:res.partner,responsability_id:0
-msgid "Resposability"
-msgstr "Tipo de Contribuyente"
+#, fuzzy
+msgid "Responsability"
+msgstr "Responsabilidad"
 
 #. module: l10n_cl_invoice
 #: view:res.currency:l10n_cl_invoice.view_currency_form
@@ -638,12 +695,6 @@ msgstr "Código SII"
 #, fuzzy
 msgid "SII Concept type"
 msgstr "Tipo de Concepto"
-
-#. module: l10n_cl_invoice
-#: model:ir.ui.menu,name:l10n_cl_invoice.menu_sii_config
-#, fuzzy
-msgid "SII Configuration"
-msgstr "Configuración SII"
 
 #. module: l10n_cl_invoice
 #: field:res.currency,sii_desc:0
@@ -688,6 +739,12 @@ msgid "SII Document type"
 msgstr "Tipo de Documento SII"
 
 #. module: l10n_cl_invoice
+#: model:ir.model,name:l10n_cl_invoice.model_partner_activities
+#, fuzzy
+msgid "SII Economical Activities"
+msgstr "Documentos Tributarios SII del Diario"
+
+#. module: l10n_cl_invoice
 #: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_optional_type
 #: view:sii.optional_type:l10n_cl_invoice.view_sii_optional_type_form
 #: view:sii.optional_type:l10n_cl_invoice.view_sii_optional_type_tree
@@ -708,13 +765,15 @@ msgstr "Punto de Venta"
 #: model:ir.actions.act_window,name:l10n_cl_invoice.act_sii_responsability
 #: view:sii.responsability:l10n_cl_invoice.view_sii_responsability_form
 #: view:sii.responsability:l10n_cl_invoice.view_sii_responsability_tree
+#, fuzzy
 msgid "SII Responsability"
-msgstr "Tipo de Contribuyente"
+msgstr "Responsabilidad IVA"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_sii_responsability
+#, fuzzy
 msgid "SII VAT Responsability"
-msgstr "Tipo de Contribuyente"
+msgstr "Responsabilidad ante el IVA"
 
 #. module: l10n_cl_invoice
 #: field:res.currency,sii_dt_from:0
@@ -747,17 +806,15 @@ msgid "Sale"
 msgstr "Venta"
 
 #. module: l10n_cl_invoice
-#: selection:sii.document_class,document_type:0
-msgid "Sale Invoices"
-msgstr "Documentos Tributarios de Venta"
-
-#. module: l10n_cl_invoice
 #: selection:account.journal,document_sequence_type:0
-#: selection:account.journal.document_config,credit_notes:0
-#: selection:account.journal.document_config,debit_notes:0
 #, fuzzy
 msgid "Same Invoice Sequence"
 msgstr "Misma Secuencia que la Factura"
+
+#. module: l10n_cl_invoice
+#: help:account.journal,journal_activities_ids:0
+msgid "Select the turns you want to             invoice in this Journal"
+msgstr "Seleccione los giros que Ud desea utilizar con este diario."
 
 #. module: l10n_cl_invoice
 #: field:account.journal.sii_document_class,sequence:0
@@ -806,10 +863,15 @@ msgid "Tax Code"
 msgstr "Código  de Impuesto"
 
 #. module: l10n_cl_invoice
+#: field:sii.responsability,tp_sii_code:0
+msgid "Tax Payer SII Code"
+msgstr "Código de Contribuyente del SII"
+
+#. module: l10n_cl_invoice
 #: help:account.journal.sii_document_class,sequence_id:0
 #, fuzzy
 msgid ""
-"This field contains the information related to the numbering of the "
+"This field contains the information related to the numbering         of the "
 "documents entries of this document type."
 msgstr ""
 "Este campo contiene la información relacionada con la numeración de los "
@@ -834,6 +896,19 @@ msgid "Unit Price"
 msgstr "Precio Unitario"
 
 #. module: l10n_cl_invoice
+#: field:account.journal.document_config,weird_documents:0
+#, fuzzy
+msgid "Unusual Documents"
+msgstr "Mis Documentos"
+
+#. module: l10n_cl_invoice
+#: selection:account.journal.document_config,credit_notes:0
+#: selection:account.journal.document_config,debit_notes:0
+#, fuzzy
+msgid "Use"
+msgstr "Usar fotogramas clave"
+
+#. module: l10n_cl_invoice
 #: field:account.journal,use_documents:0
 #, fuzzy
 msgid "Use Documents?"
@@ -842,7 +917,9 @@ msgstr "¿Usa Documentos Tributarios?"
 #. module: l10n_cl_invoice
 #: help:account.journal,document_sequence_type:0
 #, fuzzy
-msgid "Use own sequence or invoice sequence on Debit and Credit Notes?"
+msgid ""
+"Use own sequence or invoice sequence on Debit and Credit                  "
+"Notes?"
 msgstr ""
 "¿Utilizar secuencia propia para las notas de débito y crédito, o utilizar la "
 "misma secuencia de las facturas?"
@@ -920,6 +997,11 @@ msgstr "compra"
 #, fuzzy
 msgid "sale"
 msgstr "venta"
+
+#. module: l10n_cl_invoice
+#: view:res.partner:l10n_cl_invoice.view_res_partner_form
+msgid "{'invisible':1}"
+msgstr ""
 
 #. module: l10n_cl_invoice
 #: view:account.invoice:l10n_cl_invoice.view_invoice_form
