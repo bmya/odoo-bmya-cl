@@ -292,8 +292,8 @@ class invoice(models.Model):
     def do_dte_send_invoice(self):
         # hardcodeamos la accion provisoriamente
         dte_service = 'FACTURACION'
-        dte_usuario = 'miusuario'
-        dte_passwrd = 'micontrasenia'
+        dte_usuario = 'nueva.gestion' # eFacturaDelSur
+        dte_passwrd = 'e7c1c19cbe' # eFacturaDelSur
         frameinfo = getframeinfo(currentframe())
         print(frameinfo.filename, frameinfo.lineno)
         for inv in self.with_context(lang='es_CL'):
@@ -344,14 +344,16 @@ class invoice(models.Model):
                 for line in inv.invoice_line:
                     lines = collections.OrderedDict()
                     lines['NroLinDet'] = line_number
-                    lines['CdgItem'] = collections.OrderedDict()
-                    lines['CdgItem']['TpoCodigo'] = 'INT1'
-                    lines['CdgItem']['VlrCodigo'] = line.product_id.default_code or ''
+                    if line.product_id.default_code:
+                        lines['CdgItem'] = collections.OrderedDict()
+                        lines['CdgItem']['TpoCodigo'] = 'INT1'
+                        lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
                     lines['NmbItem'] = line.name
                     lines['QtyItem'] = int(round(line.quantity, 0))
                     lines['PrcItem'] = int(round(line.price_unit, 0))
-                    lines['UnmdItem'] = line.uos_id.name
-                    lines['DscItem'] = int(round(line.discount, 0))
+                    lines['UnmdItem'] = line.uos_id.name[:4]
+                    if line.discount != 0:
+                        lines['DscItem'] = int(round(line.discount, 0))
                     lines['MontoItem'] = int(round(line.price_subtotal, 0))
                     line_number = line_number + 1
                     invoice_lines.extend([{'Detalle': lines}])
@@ -368,12 +370,12 @@ class invoice(models.Model):
                 dte['Encabezado']['IdDoc']['TipoDTE'] = inv.sii_document_class_id.sii_code
                 dte['Encabezado']['IdDoc']['Folio'] = folio
                 dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
-                dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.name
+                dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code
                 dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
                 dte['Encabezado']['Emisor'] = collections.OrderedDict()
                 dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(inv.company_id.vat)
                 dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
-                dte['Encabezado']['Emisor']['GiroEmis'] = inv.turn_issuer.name
+                dte['Encabezado']['Emisor']['GiroEmis'] = inv.turn_issuer.name[:80]
                 dte['Encabezado']['Emisor']['Telefono'] = inv.company_id.phone or ''
                 dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
                 dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
@@ -383,7 +385,7 @@ class invoice(models.Model):
                 dte['Encabezado']['Receptor'] = collections.OrderedDict()
                 dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(inv.partner_id.vat)
                 dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
-                dte['Encabezado']['Receptor']['GiroRecep'] = inv.invoice_turn.name
+                dte['Encabezado']['Receptor']['GiroRecep'] = inv.invoice_turn.name[:40]
                 dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
                 dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
                 dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
@@ -404,7 +406,9 @@ class invoice(models.Model):
                     '</DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">', '</DTE>').replace(
                     '<item>','').replace('</item>','')
                 root = etree.XML( xml )
-                xml_pret = (etree.tostring(root, pretty_print=True))
+                xml_pret = (etree.tostring(root, pretty_print=True)).replace(
+                        '<Documento_ID>', doc_id).replace(
+                        '</Documento_ID>', '</Documento>')
                 # print(xml_pret)
                 # en xml_pret está el xml que me interesa
                 if dte_service == 'WSSII':
@@ -419,15 +423,15 @@ class invoice(models.Model):
 <PonerDTE xmlns="https://www.efacturadelsur.cl">
 <usuario>{}</usuario>
 <contrasena>{}</contrasena>
+<![CDATA[
 <xml>
 {}</xml>
-<enviar>boolean</enviar>
+]]>
+<enviar>false</enviar>
 </PonerDTE>
 </soap12:Body>
 </soap12:Envelope>'''.format(dte_usuario, dte_passwrd, xml_pret)
-                    inv.sii_xml_request = envelope_efact.replace(
-                        '<Documento_ID>', doc_id).replace(
-                        '</Documento_ID>', '</Documento>')
+                    inv.sii_xml_request = envelope_efact
                     # print(type(inv.sii_xml_request))
 
                 elif dte_service == 'FACTURACION':
