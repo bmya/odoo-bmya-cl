@@ -64,6 +64,15 @@ result = xmltodict.parse(timbre)
 class invoice(models.Model):
     _inherit = "account.invoice"
 
+    @api.multi
+    def get_xml_file(self):
+        return {
+            'type' : 'ir.actions.act_url',
+            'url': '/web/binary/download_document?model=account.invoice\
+&field=sii_xml_request&id=%s&filename=demoxml.xml' % (self.id),
+            'target': 'self',
+        }
+
     def get_folio(self, inv):
         frameinfo = getframeinfo(currentframe())
         print(frameinfo.filename, frameinfo.lineno)
@@ -274,13 +283,15 @@ class invoice(models.Model):
         frameinfo = getframeinfo(currentframe())
         print(frameinfo.filename, frameinfo.lineno)
         self.do_dte_send_invoice()
+        frameinfo = getframeinfo(currentframe())
+        print(frameinfo.filename, frameinfo.lineno)
         res = super(invoice, self).action_number()
         return res
 
     @api.multi
     def do_dte_send_invoice(self):
         # hardcodeamos la accion provisoriamente
-        dte_service = 'EFACTURADELSUR'
+        dte_service = 'FACTURACION'
         dte_usuario = 'miusuario'
         dte_passwrd = 'micontrasenia'
         frameinfo = getframeinfo(currentframe())
@@ -386,23 +397,22 @@ class invoice(models.Model):
                 # print(doc_id)
                 dte1['Documento ID'] = dte
                 ##############################################################
+                # print(dte)
+                xml = dicttoxml.dicttoxml(
+                    dte1, attr_type=False,
+                    custom_root='DTE xmlns="http://www.sii.cl/SiiDte" version="1.0"').replace(
+                    '</DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">', '</DTE>').replace(
+                    '<item>','').replace('</item>','')
+                root = etree.XML( xml )
+                xml_pret = (etree.tostring(root, pretty_print=True))
+                # print(xml_pret)
+                # en xml_pret está el xml que me interesa
                 if dte_service == 'WSSII':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
                     pass
                 elif dte_service == 'EFACTURADELSUR':
-                    # print(dte)
-
-                    xml = dicttoxml.dicttoxml(
-                        dte1, attr_type=False,
-                        custom_root='DTE xmlns="http://www.sii.cl/SiiDte" version="1.0"').replace(
-                            '</DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">', '</DTE>').replace(
-                            '<item>','').replace('</item>','')
-                    root = etree.XML( xml )
-                    xml_pret = (
-                        etree.tostring(root, pretty_print=True))
-                    # print(xml_pret)   
-
+                    # armado del envolvente correspondiente a EACTURADELSUR
                     envelope_efact = '''<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
@@ -415,23 +425,27 @@ class invoice(models.Model):
 </PonerDTE>
 </soap12:Body>
 </soap12:Envelope>'''.format(dte_usuario, dte_passwrd, xml_pret)
-
                     inv.sii_xml_request = envelope_efact.replace(
                         '<Documento_ID>', doc_id).replace(
                         '</Documento_ID>', '</Documento>')
                     # print(type(inv.sii_xml_request))
+
                 elif dte_service == 'FACTURACION':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
-                    pass
+                    inv.sii_xml_request = xml_pret
+                    self.get_xml_file()
+
                 elif dte_service == 'ENTERNET':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
                     pass
+
                 elif dte_service == 'FACTURAENLINEA':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
                     pass
+
             # en caso que no sea DTE, el proceso es finalizado sin
             # consecuencias (llamando a super
             else:
