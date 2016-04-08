@@ -13,6 +13,20 @@ import datetime
 import lxml.etree as etree
 import collections
 
+# ejemplo de suds
+import traceback as tb
+import suds.metrics as metrics
+#from tests import *
+#from suds import WebFault
+#from suds.client import Client
+from suds.sax.text import Raw
+import suds.client as sudscl
+# ejemplo de suds
+
+# intento con urllib3
+import urllib3
+pool = urllib3.PoolManager()
+
 from inspect import currentframe, getframeinfo
 # estas 2 lineas son para imprimir el numero de linea del script
 # (solo para debug)
@@ -63,6 +77,31 @@ result = xmltodict.parse(timbre)
 
 class invoice(models.Model):
     _inherit = "account.invoice"
+
+    @api.multi
+    def send_xml_file(self):
+        # haciendolo para efacturadelsur solamente por ahora
+        host = 'https://www.efacturadelsur.cl'
+        post = '/ws/DTE.asmx?wsdl' # HTTP/1.1
+        url = host + post
+        print(url)
+        # client = Client(url)
+        # print(client)
+        print('len (como viene): %s' % len(self.sii_xml_request))
+
+        response = pool.urlopen('POST', url, headers={
+            'Content-Type': 'application/soap+xml',
+            'charset': 'utf-8',
+            'Content-Length': len(self.sii_xml_request)}, body=self.sii_xml_request)
+
+        # response = client.service.PonerDTE(__inject={'msg': self.sii_xml_request})
+        # response = client.service.PonerDTE(self.sii_xml_request)
+        # response = client.service.PonerDTE(Raw(self.sii_xml_request))
+        # response = client.service.PonerDTE(usuario='nueva.gestion', contrasena='e7c1c19cbe', xml=Raw(self.sii_xml_request), enviar='false')
+        # response = client.service.Pmhttp://www.cs.tut.fi/~jkorpela/http.htmlonerDTE(usuario='nueva.gestion', contrasena='e7c1c19cbe', xml=self.sii_xml_request, enviar='false')
+        print(response.status)
+        print(response.data)
+        self.sii_xml_response = response.data
 
     @api.multi
     def get_xml_file(self):
@@ -291,12 +330,17 @@ class invoice(models.Model):
     @api.multi
     def do_dte_send_invoice(self):
         # hardcodeamos la accion provisoriamente
-        dte_service = 'FACTURACION'
+        # dte_service = 'EFACTURADELSUR'
+
         dte_usuario = 'nueva.gestion' # eFacturaDelSur
         dte_passwrd = 'e7c1c19cbe' # eFacturaDelSur
         frameinfo = getframeinfo(currentframe())
         print(frameinfo.filename, frameinfo.lineno)
         for inv in self.with_context(lang='es_CL'):
+            dte_service = inv.company_id.dte_service_provider
+            # con dte_service buscar usuario, contraseña y url del servicio, en
+            # webservices server
+            # (despues, por ahora lo hacemos así manual).
             # Ignore invoices with caf
             # apenas valido:
             # si es wssii: (esto lo se, diciendo "si la secuencia del comprobante del diario es DTE (is_dte)")
@@ -319,7 +363,7 @@ class invoice(models.Model):
                     # dejo esta parte para después ya que no es prioritaria por
                     # ahora
                     # Si entró por acá significa que voy a usar SII como servicio
-                    dte_service = 'WSSII'
+                    dte_service = 'SII'
                     pass
                 # en caso que no haya CAF asociado, solo confecciona el XML
                 # el formato del XML que tiene que armar, depende del servicio
@@ -351,7 +395,8 @@ class invoice(models.Model):
                     lines['NmbItem'] = line.name
                     lines['QtyItem'] = int(round(line.quantity, 0))
                     lines['PrcItem'] = int(round(line.price_unit, 0))
-                    lines['UnmdItem'] = line.uos_id.name[:4]
+                    # lines['UnmdItem'] = line.uos_id.name[:4]
+                    # lines['UnmdItem'] = 'unid'
                     if line.discount != 0:
                         lines['DscItem'] = int(round(line.discount, 0))
                     lines['MontoItem'] = int(round(line.price_subtotal, 0))
@@ -416,17 +461,15 @@ class invoice(models.Model):
                     print(frameinfo.filename, frameinfo.lineno)
                     pass
                 elif dte_service == 'EFACTURADELSUR':
-                    # armado del envolvente correspondiente a EACTURADELSUR
+                    # armado del envolvente rrespondiente a EACTURADELSUR
+
                     envelope_efact = '''<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <PonerDTE xmlns="https://www.efacturadelsur.cl">
 <usuario>{}</usuario>
 <contrasena>{}</contrasena>
-<![CDATA[
-<xml>
-{}</xml>
-]]>
+<xml><![CDATA[{}]]></xml>
 <enviar>false</enviar>
 </PonerDTE>
 </soap12:Body>
@@ -437,7 +480,9 @@ class invoice(models.Model):
                 elif dte_service == 'FACTURACION':
                     frameinfo = getframeinfo(currentframe())
                     print(frameinfo.filename, frameinfo.lineno)
-                    inv.sii_xml_request = xml_pret
+                    envelope_efact = '''<?xml version="1.0" encoding="ISO-8859-1"?>
+{}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
+                    inv.sii_xml_request = envelope_efact
                     self.get_xml_file()
 
                 elif dte_service == 'ENTERNET':
