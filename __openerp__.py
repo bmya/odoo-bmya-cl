@@ -53,6 +53,7 @@ Facilidades para usar a las Web Services de Factura Electrónica
         'views/invoice_view.xml',
         'views/partner_view.xml',
         'views/company_view.xml',
+        'views/payment_t_view.xml',
     ],
     'installable': True,
     'auto_install': False,

@@ -3,7 +3,5 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-from . import invoice
-from . import partner
-from . import company
+from . import invoice, partner, company, payment_term
 

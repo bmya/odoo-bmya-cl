@@ -13,11 +13,18 @@
  
                 <notebook>
                     <page string="Electronic Invoice" name="electronic_invoice">
+                        <!--<group>-->
+                            <button string="Download XML" type="object" name="get_xml_file"
+                                class="oe_highlight" attrs="{'invisible':[('state', 'in', ['draft'])]}"/>
+                            <button string="Send XML" type="object" name="send_xml_file"
+                                class="oe_highlight" attrs="{'invisible':[('state', 'in', ['draft'])]}"/>
+                        <!--</group>-->
+
                         <group>
                             <field name='sii_batch_number'/>
                             <field name='sii_caf'/>
                             <field name='sii_barcode'/>
-                            <field name='sii_barcode_img'/>
+                            <field name='sii_barcode_img' widget="image"/>
                             <field name='sii_message'/>
                             <field name='sii_xml_request'/>
                             <field name='sii_xml_response'/>
