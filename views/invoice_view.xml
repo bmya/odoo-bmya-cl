@@ -13,25 +13,25 @@
  
                 <notebook>
                     <page string="Electronic Invoice" name="electronic_invoice">
-                        <!--<group>-->
+                        <header>
                             <button string="Download XML" type="object" name="get_xml_file"
                                 class="oe_highlight" attrs="{'invisible':[('state', 'in', ['draft'])]}"/>
                             <button string="Send XML" type="object" name="send_xml_file"
                                 class="oe_highlight" attrs="{'invisible':[('state', 'in', ['draft'])]}"/>
-                        <!--</group>-->
-
+                            <field name='sii_result' widget="statusbar"/>
+                        </header>
                         <group>
                             <field name='sii_batch_number'/>
-                            <field name='sii_caf'/>
-                            <field name='sii_barcode'/>
-                            <field name='sii_barcode_img' widget="image"/>
-                            <field name='sii_message'/>
-                            <field name='sii_xml_request'/>
-                            <field name='sii_xml_response'/>
-                            <field name='sii_result'/>
-                            <!--<field name='sii_message'/>
-                            <field name='sii_xml_request' invisible="1"/>
-                            <field name='sii_xml_response' invisible="1"/>-->
+                            <!--<field name='sii_barcode'/>-->
+                            <field name='sii_barcode_img' widget="image"
+                                attrs="{'invisible':[('sii_result', '=', '')]}"/>
+                            <field name='sii_message'
+                                attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
+                            <field name='sii_xml_request'
+                                attrs="{'invisible':[('sii_result', '=', '')]}"/>
+                            <field name='sii_xml_response'
+                                attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
+
                         </group>
                     </page>
                 </notebook>

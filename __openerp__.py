@@ -29,7 +29,7 @@
     'license': 'AGPL-3',
     'summary': '',
     'description': """
-Facilidades para usar a las Web Services de Factura Electrónica
+Chile: API and GUI to access Electronic Invoicing webservices.
 ===============================================================
 """,
     'depends': [
