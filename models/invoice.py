@@ -3,15 +3,16 @@
 # For copyright and license notices, see __openerp__.py file in module root
 # directory
 ##############################################################################
-# from pyi25 import PyI25
 from openerp import fields, models, api, _
 from openerp.exceptions import Warning
 import logging
-import sys
-import traceback
-import datetime
 import lxml.etree as etree
+
 import collections
+try:
+    from cStringIO import StringIO
+except:
+    from StringIO import StringIO
 
 # ejemplo de suds
 import traceback as tb
@@ -68,8 +69,19 @@ try:
 except ImportError:
     _logger.info('Cannot import hashlib library')
 
-# timbre patrón. Permite parsear y formar la tupla patrón corespondiente al documento
-timbre  = """<TED version="1.0"><DD><RE>99999999-9</RE><TD>11</TD><F>1</F><FE>2000-01-01</FE><RR>99999999-9</RR><RSR>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</RSR><MNT>10000</MNT><IT1>IIIIIII</IT1><CAF version="1.0"><DA><RE>99999999-9</RE><RS>YYYYYYYYYYYYYYY</RS><TD>10</TD><RNG><D>1</D><H>1000</H></RNG><FA>2000-01-01</FA><RSAPK><M>DJKFFDJKJKDJFKDJFKDJFKDJKDnbUNTAi2IaDdtAndm2p5udoqFiw==</M><E>Aw==</E></RSAPK><IDK>300</IDK></DA><FRMA algoritmo="SHA1withRSA">J1u5/1VbPF6ASXkKoMOF0Bb9EYGVzQ1AMawDNOy0xSuAMpkyQe3yoGFthdKVK4JaypQ/F8afeqWjiRVMvV4+s4Q==</FRMA></CAF><TSTED>2014-04-24T12:02:20</TSTED></DD><FRMT algoritmo="SHA1withRSA">jiuOQHXXcuwdpj8c510EZrCCw+pfTVGTT7obWm/fHlAa7j08Xff95Yb2zg31sJt6lMjSKdOK+PQp25clZuECig==</FRMT></TED>"""
+# timbre patrón. Permite parsear y formar el
+# ordered-dict patrón corespondiente al documento
+timbre  = """<TED version="1.0"><DD><RE>99999999-9</RE><TD>11</TD><F>1</F>\
+<FE>2000-01-01</FE><RR>99999999-9</RR><RSR>\
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</RSR><MNT>10000</MNT><IT1>IIIIIII\
+</IT1><CAF version="1.0"><DA><RE>99999999-9</RE><RS>YYYYYYYYYYYYYYY</RS>\
+<TD>10</TD><RNG><D>1</D><H>1000</H></RNG><FA>2000-01-01</FA><RSAPK><M>\
+DJKFFDJKJKDJFKDJFKDJFKDJKDnbUNTAi2IaDdtAndm2p5udoqFiw==</M><E>Aw==</E></RSAPK>\
+<IDK>300</IDK></DA><FRMA algoritmo="SHA1withRSA">\
+J1u5/1VbPF6ASXkKoMOF0Bb9EYGVzQ1AMawDNOy0xSuAMpkyQe3yoGFthdKVK4JaypQ/F8\
+afeqWjiRVMvV4+s4Q==</FRMA></CAF><TSTED>2014-04-24T12:02:20</TSTED></DD>\
+<FRMT algoritmo="SHA1withRSA">jiuOQHXXcuwdpj8c510EZrCCw+pfTVGTT7obWm/\
+fHlAa7j08Xff95Yb2zg31sJt6lMjSKdOK+PQp25clZuECig==</FRMT></TED>"""
 result = xmltodict.parse(timbre)
 # result es un OrderedDict patrón
 # hardcodeamos este valor por ahora
@@ -82,7 +94,7 @@ class invoice(models.Model):
     def send_xml_file(self):
         # haciendolo para efacturadelsur solamente por ahora
         host = 'https://www.efacturadelsur.cl'
-        post = '/ws/DTE.asmx?wsdl' # HTTP/1.1
+        post = '/ws/DTE.asmx' # HTTP/1.1
         url = host + post
         print(url)
         # client = Client(url)
@@ -92,13 +104,9 @@ class invoice(models.Model):
         response = pool.urlopen('POST', url, headers={
             'Content-Type': 'application/soap+xml',
             'charset': 'utf-8',
-            'Content-Length': len(self.sii_xml_request)}, body=self.sii_xml_request)
+            'Content-Length': len(
+                self.sii_xml_request)}, body=self.sii_xml_request)
 
-        # response = client.service.PonerDTE(__inject={'msg': self.sii_xml_request})
-        # response = client.service.PonerDTE(self.sii_xml_request)
-        # response = client.service.PonerDTE(Raw(self.sii_xml_request))
-        # response = client.service.PonerDTE(usuario='nueva.gestion', contrasena='e7c1c19cbe', xml=Raw(self.sii_xml_request), enviar='false')
-        # response = client.service.Pmhttp://www.cs.tut.fi/~jkorpela/http.htmlonerDTE(usuario='nueva.gestion', contrasena='e7c1c19cbe', xml=self.sii_xml_request, enviar='false')
         print(response.status)
         print(response.data)
         self.sii_xml_response = response.data
@@ -118,16 +126,50 @@ class invoice(models.Model):
         # saca el folio directamente de la secuencia
         return inv.journal_document_class_id.sequence_id.number_next_actual
 
-    def get_caf_file(self):
+    def get_caf_file(self, inv):
         frameinfo = getframeinfo(currentframe())
         print(frameinfo.filename, frameinfo.lineno)
         # hay que buscar el caf correspondiente al comprobante,
         # trayendolo de la secuencia
-        caffile = self.journal_document_class_id.sequence_id.caf_file
-        resultcaf = xmltodict.parse(
-            base64.b64decode(caffile).replace(
-                '<?xml version="1.0"?>','',1))['AUTORIZACION']['CAF']['DA']
-        return resultcaf
+        returnvalue = False
+        #try:
+        if 1==1:
+            caffiles = inv.journal_document_class_id.sequence_id.dte_caf_ids
+            frameinfo = getframeinfo(currentframe())
+            print(frameinfo.filename, frameinfo.lineno)
+            for caffile in caffiles:
+                if caffile.status == 'in_use':
+                    resultc = base64.b64decode(caffile.caf_file)
+                    break
+
+            frameinfo = getframeinfo(currentframe())
+            print(frameinfo.filename, frameinfo.lineno)
+            resultcaf = xmltodict.parse(resultc.replace(
+                '<?xml version="1.0"?>','',1))
+
+            folio_inicial = resultcaf['AUTORIZACION']['CAF']['DA']['RNG']['D']
+            folio_final = resultcaf['AUTORIZACION']['CAF']['DA']['RNG']['H']
+            folio = self.get_folio(inv)
+            if folio not in range(int(folio_inicial), int(folio_final)):
+                msg = '''El folio de este documento: {} está fuera de rango \
+del CAF vigente (desde {} hasta {}). Solicite un nuevo CAF en el sitio \
+www.sii.cl'''.format(folio, folio_inicial, folio_final)
+                _logger.info(msg)
+                # defino el status como "spent"
+                caffile.status = 'spent'
+                raise Warning(_(msg))
+            elif folio > int(folio_final) - 2:
+                msg = '''El CAF esta pronto a terminarse. Solicite un nuevo \
+                CAF para poder continuar emitiendo documentos tributarios'''
+            else:
+                msg = '''Folio {} OK'''.format(folio)
+            _logger.info(msg)
+            returnvalue = resultcaf
+
+            #except:
+        else:
+            pass
+        return returnvalue
 
     def format_vat(self, value):
         frameinfo = getframeinfo(currentframe())
@@ -158,7 +200,7 @@ class invoice(models.Model):
             margin=20,
             scale=1
         )
-        bc.show()
+        # bc.show()
         # bc.save('test.png')
         return bc
 
@@ -203,12 +245,13 @@ class invoice(models.Model):
         )
 
     sii_barcode = fields.Char(
-        compute='_get_barcode',
+        copy=False,
         string=_('SII Barcode'),
+        readonly=True,
         help='SII Barcode Name'
         )
     sii_barcode_img = fields.Binary(
-        compute='_get_barcode',
+        copy=False,
         string=_('SII Barcode Image'),
         help='SII Barcode Image in PDF417 format'
         )
@@ -241,67 +284,6 @@ class invoice(models.Model):
         help="SII request result"
         )
 
-    @api.one
-    @api.depends('sii_caf')
-    def _get_barcode(self):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
-        ted = False
-        if self.sii_caf:
-            # si no hay CAF saltea toda esta parte
-            # hardcodeo de datos a usar en el ensamblado del timbre.
-            # luego serán entregados por objetos de Odoo
-
-            # aca trae las lineas de la factura, pero para el timbre
-            # con la primer linea le alcanza.
-            account_invoice_line_fields = [
-                {'name':'Servicio de Instalación de Cables','nn':99999},
-                {'name':'Llevarle el paquete','nn':99999},
-            ]
-            result['TED']['DD']['RE'] = self.format_vat(self.company_id.vat)
-            result['TED']['DD']['TD'] = self.sii_document_class_id.sii_code
-            result['TED']['DD']['F']  = self.get_document_number()
-            result['TED']['DD']['FE'] = self.date_invoice
-            result['TED']['DD']['RR'] = self.format_vat(self.partner_id.vat)
-            result['TED']['DD']['RSR'] = (self.partner_id.name[:40]).decode('utf-8')
-            result['TED']['DD']['MNT'] = self.amount_total
-            # solo toma la primer linea en el timbre
-            for line in account_invoice_line_fields:
-                result['TED']['DD']['IT1'] = (line['name']).decode('utf-8')
-                break
-
-            resultcaf = self.get_caf_file()
-
-            result['TED']['DD']['CAF'] = resultcaf['AUTORIZACION']['CAF']
-            #print result
-            dte = result['TED']['DD']
-            ddxml = '<DD>'+dicttoxml.dicttoxml(dte, root=False, attr_type=False).replace('<key name="@version">1.0</key>','',1).replace('><key name="@version">1.0</key>',' version="1.0">',1).replace('><key name="@algoritmo">SHA1withRSA</key>',' algoritmo="SHA1withRSA">').replace('<key name="#text">','').replace('</key>','')+'</DD>'
-            ###### con esta funcion fuerzo la conversion a iso-8859-1
-            ddxml = self.convert_encoding(ddxml, 'ISO-8859-1')
-            #ahora agarro la clave privada y ya tengo los dos elementos que necesito para firmar
-            keypriv = (resultcaf['AUTORIZACION']['RSASK']).encode('latin-1').replace('\t','')
-            keypub = (resultcaf['AUTORIZACION']['RSAPUBK']).encode('latin-1').replace('\t','')
-            #####
-            frmt = self.signmessage(ddxml, keypriv, keypub)
-            ted = ('<TED version="1.0">{}<FRMT algoritmo="SHA1withRSA">{}</FRMT></TED>').format(ddxml,frmt)
-
-            print(ted)
-            frameinfo = getframeinfo(currentframe())
-            print(frameinfo.filename, frameinfo.lineno)
-            self.sii_barcode = ted
-
-            image = False
-            if ted:
-                frameinfo = getframeinfo(currentframe())
-                print(frameinfo.filename, frameinfo.lineno)
-                image = self.pdf417bc(ted)
-                image.save('/l10n_cl_dte_wsii/bcode.png')
-                # aca open() el archivo y meterlo en la variable
-                # igual que se hizo en el control de horarios jacc
-                # o usar stringIO como sale acá
-                # http://stackoverflow.com/questions/21992520/python-elaphe-barcode-generation-issues
-                self.sii_barcode_img = image
-
     @api.multi
     def get_related_invoices_data(self):
         frameinfo = getframeinfo(currentframe())
@@ -322,148 +304,213 @@ class invoice(models.Model):
         frameinfo = getframeinfo(currentframe())
         print(frameinfo.filename, frameinfo.lineno)
         self.do_dte_send_invoice()
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
         res = super(invoice, self).action_number()
         return res
 
     @api.multi
-    def do_dte_send_invoice(self):
-        # hardcodeamos la accion provisoriamente
-        # dte_service = 'EFACTURADELSUR'
+    def get_barcode(self, dte_service):
+        for inv in self:
+            ted = False
+            if not inv.sii_caf:
+                _logger.info('''The service is "%s" and there is no \
+associated CAF file to create the stamp''' % dte_service)
+                #raise Warning(_('''The service is "%s" and there is no \
+                #associated CAF file to create the stamp''' % dte_service))
+            folio = self.get_folio(inv)
 
-        dte_usuario = 'nueva.gestion' # eFacturaDelSur
-        dte_passwrd = 'e7c1c19cbe' # eFacturaDelSur
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
-        for inv in self.with_context(lang='es_CL'):
-            dte_service = inv.company_id.dte_service_provider
-            # con dte_service buscar usuario, contraseña y url del servicio, en
-            # webservices server
-            # (despues, por ahora lo hacemos así manual).
-            # Ignore invoices with caf
-            # apenas valido:
-            # si es wssii: (esto lo se, diciendo "si la secuencia del comprobante del diario es DTE (is_dte)")
+            result['TED']['DD']['RE'] = inv.format_vat(inv.company_id.vat)
+            result['TED']['DD']['TD'] = inv.sii_document_class_id.sii_code
+            result['TED']['DD']['F']  = folio
+            result['TED']['DD']['FE'] = inv.date_invoice
+            result['TED']['DD']['RR'] = inv.format_vat(inv.partner_id.vat)
+            result['TED']['DD']['RSR'] = (inv.partner_id.name[:40]).decode(
+                'utf-8')
+            result['TED']['DD']['MNT'] = int(inv.amount_total)
+
+            for line in inv.invoice_line:
+                result['TED']['DD']['IT1'] = line.name.decode('utf-8')
+                break
+
+            resultcaf = self.get_caf_file(inv)
+            print(resultcaf)
+            # inv.sii_barcode = resultcaf
+
+            result['TED']['DD']['CAF'] = resultcaf['AUTORIZACION']['CAF']
+            #print result
+            dte = result['TED']['DD']
+            ddxml = '<DD>'+dicttoxml.dicttoxml(
+                dte, root=False, attr_type=False).replace(
+                '<key name="@version">1.0</key>','',1).replace(
+                '><key name="@version">1.0</key>',' version="1.0">',1).replace(
+                '><key name="@algoritmo">SHA1withRSA</key>',
+                ' algoritmo="SHA1withRSA">').replace(
+                '<key name="#text">','').replace(
+                '</key>','').replace('<CAF>','<CAF version="1.0">')+'</DD>'
+            ###### con esta funcion fuerzo la conversion a iso-8859-1
+            ddxml = inv.convert_encoding(ddxml, 'ISO-8859-1')
+            # ahora agarro la clave privada y ya tengo los dos elementos
+            # que necesito para firmar
+            keypriv = (resultcaf['AUTORIZACION']['RSASK']).encode(
+                'latin-1').replace('\t','')
+            keypub = (resultcaf['AUTORIZACION']['RSAPUBK']).encode(
+                'latin-1').replace('\t','')
+            #####
+            frmt = inv.signmessage(ddxml, keypriv, keypub)
+            ted = (
+                '''<TED version="1.0">{}<FRMT algoritmo="SHA1withRSA">{}</FRMT>\
+</TED>''').format(ddxml,frmt)
+            ted1 = ('{}<FRMT algoritmo="SHA1withRSA">{}</FRMT>').format(
+                ddxml,frmt)
+            # print(ted)
             frameinfo = getframeinfo(currentframe())
             print(frameinfo.filename, frameinfo.lineno)
-            if inv.journal_document_class_id.sequence_id.is_dte:
+            root = etree.XML(ted)
+            # inv.sii_barcode = (etree.tostring(root, pretty_print=True))
+            inv.sii_barcode = ted
+            image = False
+            if ted:
                 frameinfo = getframeinfo(currentframe())
                 print(frameinfo.filename, frameinfo.lineno)
-                # si tiene caf: (esto lo se, diciendo:
-                #  "si la secuencia del comprobante del diario tiene un CAF
-                # asociado (caf no es null o vacio o none)")
-                # agregar también "si el caf que tiene no está vencido"
-                if inv.journal_document_class_id.sequence_id.dte_caf_ids:
-                    frameinfo = getframeinfo(currentframe())
-                    print(frameinfo.filename, frameinfo.lineno)
-                    # es buscar el caf a la secuencia
-                    # traerlo
-                    # crear el timbre
-                    # crear el grafico
-                    # dejo esta parte para después ya que no es prioritaria por
-                    # ahora
-                    # Si entró por acá significa que voy a usar SII como servicio
-                    dte_service = 'SII'
-                    pass
-                # en caso que no haya CAF asociado, solo confecciona el XML
-                # el formato del XML que tiene que armar, depende del servicio
-                # de factura electrónica que se esté usando.. puede ser
-                # varias opciones... por ahora tenemos varios.....
-                # por ahora, van hardcodeados acá pero la idea es hacer un modulo
-                # para contener la plantilla txt o xml que pide cada provider.
-                ##############################################################
-                # XML file is equal for seral services
+                image = inv.pdf417bc(ted)
+                image.save('barcode.png')
+                with open('barcode.png', 'r') as myfile:
+                    data=myfile.read()
+
+                inv.sii_barcode_img = base64.b64encode(data)
+        return ted1
+
+    @api.multi
+    def do_dte_send_invoice(self):
+        for inv in self.with_context(lang='es_CL'):
+            dte_service = inv.company_id.dte_service_provider
+            frameinfo = getframeinfo(currentframe())
+            print(frameinfo.filename, frameinfo.lineno)
+
+            if dte_service in ['SII', 'SIIHOMO']:
+                # debe confeccionar el timbre
                 frameinfo = getframeinfo(currentframe())
                 print(frameinfo.filename, frameinfo.lineno)
+                ted1 = self.get_barcode(dte_service)
+            elif dte_service in ['EFACTURADELSUR']:
+                # debe utilizar usuario y contraseña
+                frameinfo = getframeinfo(currentframe())
+                print(frameinfo.filename, frameinfo.lineno)
+                dte_usuario = 'nueva.gestion' # eFacturaDelSur
+                dte_passwrd = 'e7c1c19cbe' # eFacturaDelSur
 
-                # definicion de los giros del emisor
-                giros_emisor = []
-                for turn in inv.company_id.company_activities_ids:
-                    giros_emisor.extend([{'Acteco': turn.code}])
-                # ....
+                frameinfo = getframeinfo(currentframe())
+                print(frameinfo.filename, frameinfo.lineno)
+            elif dte_service in ['', 'NONE']:
+                return
 
-                # definicion de las lineas
-                line_number = 1
-                invoice_lines = []
-                for line in inv.invoice_line:
-                    lines = collections.OrderedDict()
-                    lines['NroLinDet'] = line_number
-                    if line.product_id.default_code:
-                        lines['CdgItem'] = collections.OrderedDict()
-                        lines['CdgItem']['TpoCodigo'] = 'INT1'
-                        lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
-                    lines['NmbItem'] = line.name
-                    lines['QtyItem'] = int(round(line.quantity, 0))
-                    lines['PrcItem'] = int(round(line.price_unit, 0))
-                    # lines['UnmdItem'] = line.uos_id.name[:4]
-                    # lines['UnmdItem'] = 'unid'
-                    if line.discount != 0:
-                        lines['DscItem'] = int(round(line.discount, 0))
-                    lines['MontoItem'] = int(round(line.price_subtotal, 0))
-                    line_number = line_number + 1
-                    invoice_lines.extend([{'Detalle': lines}])
+            # definicion de los giros del emisor
+            giros_emisor = []
+            for turn in inv.company_id.company_activities_ids:
+                giros_emisor.extend([{'Acteco': turn.code}])
 
-                print(invoice_lines)
-                #########################
-                folio = self.get_folio(inv)
-                dte = collections.OrderedDict()
-                dte1 = collections.OrderedDict()
+            # definicion de lineas
+            line_number = 1
+            invoice_lines = []
+            for line in inv.invoice_line:
+                lines = collections.OrderedDict()
+                lines['NroLinDet'] = line_number
+                if line.product_id.default_code:
+                    lines['CdgItem'] = collections.OrderedDict()
+                    lines['CdgItem']['TpoCodigo'] = 'INT1'
+                    lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
+                lines['NmbItem'] = line.name
+                lines['QtyItem'] = int(round(line.quantity, 0))
+                lines['PrcItem'] = int(round(line.price_unit, 0))
+                # lines['UnmdItem'] = line.uos_id.name[:4]
+                # lines['UnmdItem'] = 'unid'
+                if line.discount != 0:
+                    lines['DscItem'] = int(round(line.discount, 0))
+                lines['MontoItem'] = int(round(line.price_subtotal, 0))
+                line_number = line_number + 1
+                invoice_lines.extend([{'Detalle': lines}])
 
-                # dte['Documento ID'] = 'F{}T{}'.format(folio, inv.sii_document_class_id.sii_code)
-                dte['Encabezado'] = collections.OrderedDict()
-                dte['Encabezado']['IdDoc'] = collections.OrderedDict()
-                dte['Encabezado']['IdDoc']['TipoDTE'] = inv.sii_document_class_id.sii_code
-                dte['Encabezado']['IdDoc']['Folio'] = folio
-                dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
-                dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code
-                dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
-                dte['Encabezado']['Emisor'] = collections.OrderedDict()
-                dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(inv.company_id.vat)
-                dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
-                dte['Encabezado']['Emisor']['GiroEmis'] = inv.turn_issuer.name[:80]
-                dte['Encabezado']['Emisor']['Telefono'] = inv.company_id.phone or ''
-                dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
-                dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
-                dte['Encabezado']['Emisor']['DirOrigen'] = inv.company_id.street
-                dte['Encabezado']['Emisor']['CmnaOrigen'] = inv.company_id.state_id.name
-                dte['Encabezado']['Emisor']['CiudadOrigen'] = inv.company_id.city
-                dte['Encabezado']['Receptor'] = collections.OrderedDict()
-                dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(inv.partner_id.vat)
-                dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
-                dte['Encabezado']['Receptor']['GiroRecep'] = inv.invoice_turn.name[:40]
-                dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
-                dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
-                dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
-                dte['Encabezado']['Totales'] = collections.OrderedDict()
-                dte['Encabezado']['Totales']['MntNeto'] = int(round(inv.amount_untaxed, 0))
-                dte['Encabezado']['Totales']['TasaIVA'] = int(round((inv.amount_total / inv.amount_untaxed -1) * 100, 0))
-                dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
-                dte['Encabezado']['Totales']['MntTotal'] = int(round(inv.amount_total, 0))
-                dte['item'] = invoice_lines
-                doc_id = '<Documento ID="F{}T{}">'.format(folio, inv.sii_document_class_id.sii_code)
-                # print(doc_id)
-                dte1['Documento ID'] = dte
-                ##############################################################
-                # print(dte)
-                xml = dicttoxml.dicttoxml(
-                    dte1, attr_type=False,
-                    custom_root='DTE xmlns="http://www.sii.cl/SiiDte" version="1.0"').replace(
-                    '</DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">', '</DTE>').replace(
-                    '<item>','').replace('</item>','')
-                root = etree.XML( xml )
-                xml_pret = (etree.tostring(root, pretty_print=True)).replace(
-                        '<Documento_ID>', doc_id).replace(
-                        '</Documento_ID>', '</Documento>')
-                # print(xml_pret)
-                # en xml_pret está el xml que me interesa
-                if dte_service == 'WSSII':
-                    frameinfo = getframeinfo(currentframe())
-                    print(frameinfo.filename, frameinfo.lineno)
-                    pass
-                elif dte_service == 'EFACTURADELSUR':
-                    # armado del envolvente rrespondiente a EACTURADELSUR
+            # print(invoice_lines)
+            #########################
+            folio = self.get_folio(inv)
+            dte = collections.OrderedDict()
+            dte1 = collections.OrderedDict()
 
-                    envelope_efact = '''<?xml version="1.0" encoding="utf-8"?>
+            # dte['Documento ID'] = 'F{}T{}'.format(folio, inv.sii_document_class_id.sii_code)
+            dte['Encabezado'] = collections.OrderedDict()
+            dte['Encabezado']['IdDoc'] = collections.OrderedDict()
+            dte['Encabezado']['IdDoc']['TipoDTE'] = inv.sii_document_class_id.sii_code
+            dte['Encabezado']['IdDoc']['Folio'] = folio
+            dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
+            dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code
+            dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
+            dte['Encabezado']['Emisor'] = collections.OrderedDict()
+            dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
+                inv.company_id.vat)
+            dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
+            dte['Encabezado']['Emisor']['GiroEmis'] = inv.turn_issuer.name[:80]
+            dte['Encabezado']['Emisor']['Telefono'] = inv.company_id.phone or ''
+            dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
+            dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
+            dte['Encabezado']['Emisor']['DirOrigen'] = inv.company_id.street
+            dte['Encabezado']['Emisor']['CmnaOrigen'] = inv.company_id.state_id.name
+            dte['Encabezado']['Emisor']['CiudadOrigen'] = inv.company_id.city
+            dte['Encabezado']['Receptor'] = collections.OrderedDict()
+            dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(
+                inv.partner_id.vat)
+            dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
+            dte['Encabezado']['Receptor']['GiroRecep'] = inv.invoice_turn.name[:40]
+            dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
+            dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
+            dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
+            dte['Encabezado']['Totales'] = collections.OrderedDict()
+            dte['Encabezado']['Totales']['MntNeto'] = int(round(
+                inv.amount_untaxed, 0))
+            dte['Encabezado']['Totales']['TasaIVA'] = int(round(
+                (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
+            dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
+            dte['Encabezado']['Totales']['MntTotal'] = int(round(
+                inv.amount_total, 0))
+            dte['item'] = invoice_lines
+            doc_id = '<Documento ID="F{}T{}">'.format(
+                folio, inv.sii_document_class_id.sii_code)
+            # print(doc_id)
+            # si es sii, inserto el timbre
+            if dte_service in ['SII', 'SIIHOMO']:
+                # inserto el timbre
+                dte['TED'] = 'TEDTEDTED'
+
+            dte1['Documento ID'] = dte
+            ##############################################################
+            # print(dte)
+            xml = dicttoxml.dicttoxml(
+                dte1, attr_type=False,
+                custom_root='DTE xmlns="http://www.sii.cl/SiiDte" version="1.0"').replace(
+                '</DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">', '</DTE>').replace(
+                '<item>','').replace('</item>','')
+            # agrego el timbre en caso que sea para el SII
+            if dte_service in ['SII', 'SIIHOMO']:
+                xml = xml.replace('TEDTEDTED', ted1)
+
+            root = etree.XML( xml )
+            xml_pret = (etree.tostring(root, pretty_print=True)).replace(
+                    '<Documento_ID>', doc_id).replace(
+                    '</Documento_ID>', '</Documento>')
+            # print(xml_pret)
+            # en xml_pret está el xml que me interesa
+            if dte_service in ['SII', 'SIIHOMO']:
+                frameinfo = getframeinfo(currentframe())
+                print(frameinfo.filename, frameinfo.lineno)
+                envelope_efact = '''<?xml version="1.0" encoding="ISO-8859-1"?>
+{}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
+                inv.sii_xml_request = envelope_efact
+                # get_xml_file transmite el archivo directamente
+                # en beta, se hace mediante el boton
+                # self.get_xml_file()
+
+            elif dte_service == 'EFACTURADELSUR':
+                # armado del envolvente rrespondiente a EACTURADELSUR
+
+                envelope_efact = '''<?xml version="1.0" encoding="utf-8"?>
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <PonerDTE xmlns="https://www.efacturadelsur.cl">
@@ -474,32 +521,33 @@ class invoice(models.Model):
 </PonerDTE>
 </soap12:Body>
 </soap12:Envelope>'''.format(dte_usuario, dte_passwrd, xml_pret)
-                    inv.sii_xml_request = envelope_efact
-                    # print(type(inv.sii_xml_request))
+                inv.sii_xml_request = envelope_efact
+                # print(type(inv.sii_xml_request))
 
-                elif dte_service == 'FACTURACION':
-                    frameinfo = getframeinfo(currentframe())
-                    print(frameinfo.filename, frameinfo.lineno)
-                    envelope_efact = '''<?xml version="1.0" encoding="ISO-8859-1"?>
+            elif dte_service == 'FACTURACION':
+                frameinfo = getframeinfo(currentframe())
+                print(frameinfo.filename, frameinfo.lineno)
+                envelope_efact = '''<?xml version="1.0" encoding="ISO-8859-1"?>
 {}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
-                    inv.sii_xml_request = envelope_efact
-                    self.get_xml_file()
+                inv.sii_xml_request = envelope_efact
+                self.get_xml_file()
 
-                elif dte_service == 'ENTERNET':
-                    frameinfo = getframeinfo(currentframe())
-                    print(frameinfo.filename, frameinfo.lineno)
-                    pass
+            elif dte_service == 'ENTERNET':
+                frameinfo = getframeinfo(currentframe())
+                print(frameinfo.filename, frameinfo.lineno)
+                pass
 
-                elif dte_service == 'FACTURAENLINEA':
-                    frameinfo = getframeinfo(currentframe())
-                    print(frameinfo.filename, frameinfo.lineno)
-                    pass
+            elif dte_service == 'FACTURAENLINEA':
+                frameinfo = getframeinfo(currentframe())
+                print(frameinfo.filename, frameinfo.lineno)
+                pass
 
             # en caso que no sea DTE, el proceso es finalizado sin
             # consecuencias (llamando a super
             else:
                 frameinfo = getframeinfo(currentframe())
                 print(frameinfo.filename, frameinfo.lineno)
+                print('NO HUBO NINGUNA OPCION DTE VALIDA')
 '''
 
             if inv.sii_caf:
