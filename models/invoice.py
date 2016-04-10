@@ -110,6 +110,7 @@ class invoice(models.Model):
         _logger.info(response.status)
         _logger.info(response.data)
         self.sii_xml_response = response.data
+        self.sii_result = 'Enviado'
 
     @api.multi
     def get_xml_file(self):

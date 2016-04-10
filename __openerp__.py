@@ -54,6 +54,8 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'views/partner_view.xml',
         'views/company_view.xml',
         'views/payment_t_view.xml',
+        'views/sii_regional_offices_view.xml',
+        'data/sii.regional.offices.csv'
     ],
     'installable': True,
     'auto_install': False,
