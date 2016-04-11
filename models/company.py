@@ -29,3 +29,9 @@ add the option.
                                         help='''This value must be provided \
 and must appear in your pdf or printed tribute document, under the electronic \
 stamp to be legally valid.''')
+    dte_resolution_year = fields.Integer('SII Exempt Resolution Year')
+    sii_regional_office_id = fields.Many2one(
+        'sii.regional.offices', string='SII Regional Office')
+
+    #@api.onchange('state_id')
+    #def _selector_sii(self):
