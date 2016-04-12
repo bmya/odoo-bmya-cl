@@ -113,7 +113,7 @@ class account_invoice(models.Model):
     _inherit = "account.invoice"
 
     def get_document_class_default(self, document_classes):
-        if self.turn_issuer.vat_affected != 'SI':
+        if self.turn_issuer.vat_affected not in ['SI', 'ND']:
             exempt_ids = [
                 self.env.ref('l10n_cl_invoice.dc_y_f_dtn').id,
                 self.env.ref('l10n_cl_invoice.dc_y_f_dte').id]
