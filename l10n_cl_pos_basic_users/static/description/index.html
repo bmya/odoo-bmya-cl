@@ -1,0 +1,52 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan">Chile POS Basic Users</h2>
+            <h3 class="oe_slogan">Facilitador de terminolog&iacute;a</h3>
+        </div>
+        <div class="oe_span6">
+            <div class="oe_demo oe_picture oe_screenshot">
+               <img src="js0.png"/>
+            </div>
+            <div class="oe_demo oe_picture oe_screenshot">
+               <img src="js1.png"/>
+            </div>
+            <div class="oe_demo oe_picture oe_screenshot">
+               <img src="js2.png"/>
+            </div>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+               * Este m&oacute;dulo simplifica la terminolog&iacute;a para un comercio que usa TPV (Terminal punto de venta o POS). Intenta ayudar, ante un usuario de mente cerrada, que por ejemplo no entiende que una "BOLETA" y una "FACTURA" son intr&iacute;nsecamente - (o al menos para Odoo) - la misma cosa. O para usuarios que mezclan tipos de pago con tipos de documentos tributarios, y no entienden qu&eacute; significa una categor&iacute;a de contribuyente (1ra, segunda, etc).<br />
+            </p>
+            <p>
+               Modifica el nombre del partner "Consumidor Final" a CLIENTE BOLETA. seleccionando autom&aacute;ticamente para este tipo de cliente la emisi&oacute;n de un documento "BOLETA".<br />
+            </p>
+            <p class="oe_mt32">
+               Crea adem&aacute;s el documento tributario (inexistente como tal) denominado "nota de venta", el cual se destina a reflejar las ventas que fueron emitidas mediante un voucher de tarjeta de cr&eacute;dito, para evitar declarar dos veces el comprobante como boleta.
+            </p>
+            <p class="oe_mt32">
+               * Selecci&oacute;n transparente del diario de factura/boleta, etc en funci&oacute;n de la responsabilidad ante IVA del cliente.
+               <br/>
+            </p>
+            <p>
+               Crea la entidad (partner) CLIENTE TARJETA (contribuyente final destinado a ventas con tarjeta). Cuando se selecciona este cliente, el sistema emitir&aacute; una nota de venta en lugar de una boleta. Con esta finalidad, el m&oacute;dulo trabaja en conjunto con el l10n_cl_pos_credit_card_voucher. Esta caracter&iacute;stica se usa al imprimir boletas/facturas en impresoras de matriz de puntos y no en impresoras fiscales, o electr&oacute;nicas.<br /><br /><br /><br />
+                <a href="http://blancomartin.cl/" class="oe_button oe_tacky">Powered by <span class="oe_emph">BMYA</span></a>
+            </p>
+            <p>
+              Modifica o crea relaciones necesarias en m&oacute;dulos de cl_invoice, para hacer correctamente las cosas con este tipo de documento nota de venta) el cual en definitiva, s&oacute;lo se usa para poder registrar en Odoo los movimientos, sin reflejar el mismo en el lirode ventas, ya que habr&iacute;a duplicidad de tributo y se inclumplir&iacute;a la resoluci&oacute;n 05 / 2015 del SII. Ver los siguientes links:
+              <a href="http://www.sii.cl/portales/ticketporboleta/index.html">http://www.sii.cl/portales/ticketporboleta/index.html</a
+              <a href="http://www.sii.cl/documentos/resoluciones/2015/reso05.pdf">http://www.sii.cl/documentos/resoluciones/2015/reso05.pdf<a>
+              <br />
+              <a href="http://blancomartin.cl/" class="oe_button oe_tacky">Powered by <span class="oe_emph">BMYA</span></a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <!--<h2 class="oe_slogan">New Loc. Chilena Invoice Module</h2><br />-->
+        <!--<center><object width="560" height="315"><param name="movie" value=""></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object></center>-->
+    </div>
+</section>

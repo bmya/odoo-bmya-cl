@@ -1,0 +1,16 @@
+id,active,name,receptor_ids/id,issuer_ids/id,vat_discriminated
+l10n_cl_invoice.dl_a,True,A,"l10n_cl_invoice.res_IVAE,l10n_cl_invoice.res_IVARI,l10n_cl_invoice.res_BH",l10n_cl_invoice.res_IVARI,True
+l10n_cl_invoice.dl_b,True,B,"l10n_cl_invoice.res_CF,l10n_cl_invoice.res_IVAE,l10n_cl_invoice.res_BH",l10n_cl_invoice.res_IVARI,False
+l10n_cl_invoice.dl_c,True,C,"l10n_cl_invoice.res_IVAE,l10n_cl_invoice.res_IVARI,l10n_cl_invoice.res_BH","l10n_cl_invoice.res_IVAE,l10n_cl_invoice.res_IVARI",False
+l10n_cl_invoice.dl_m,True,M,"l10n_cl_invoice.res_IVAE,l10n_cl_invoice.res_IVARI,l10n_cl_invoice.res_BH",l10n_cl_invoice.res_BH,False
+l10n_cl_invoice.dl_e,True,E,l10n_cl_invoice.res_EXT,l10n_cl_invoice.res_IVARI,False
+l10n_cl_invoice.dl_x,True,X,"l10n_cl_invoice.res_IVAE,l10n_cl_invoice.res_IVARI",l10n_cl_invoice.res_IVARI,True
+l10n_cl_invoice.dl_i,True,I,l10n_cl_invoice.res_IVARI,l10n_cl_invoice.res_IVARI,True
+l10n_cl_invoice.dl_s,True,S,l10n_cl_invoice.res_IVARI,l10n_cl_invoice.res_IVARI,True
+l10n_cl_invoice.dl_d,True,D,l10n_cl_invoice.res_IVARI,l10n_cl_invoice.res_IVARI,True
+l10n_cl_invoice.dl_t,True,T,l10n_cl_invoice.res_IVARI,l10n_cl_invoice.res_IVARI,True
+l10n_cl_invoice.dl_l,True,L,l10n_cl_invoice.res_IVARI,l10n_cl_invoice.res_IVARI,True
+l10n_cl_invoice.dl_g,True,G,l10n_cl_invoice.res_NVT,l10n_cl_invoice.res_IVARI,False
+
+
+

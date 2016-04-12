@@ -1,0 +1,28 @@
+id,active,document_letter_id/id,sii_code,dte,doc_code_prefix,document_type,report_name,name,code_template
+l10n_cl_invoice.dc_I_f_dtn,True,l10n_cl_invoice.dl_i,29,False,FAI ,invoice,FAI ,Factura de Inicio,FAI
+l10n_cl_invoice.dc_a_f_dtn,True,l10n_cl_invoice.dl_a,30,False,FAC ,invoice,FACTURA ,Factura,FVA
+l10n_cl_invoice.dc_y_f_dtn,True,l10n_cl_invoice.dl_c,32,False,FNA ,invoice,F-EXENTA ,Factura de Ventas y Servicios no Afectos o Exentos de IVA,FVE
+l10n_cl_invoice.dc_a_f_dte,True,l10n_cl_invoice.dl_a,33,True,FAC ,invoice,FACTURA ,Factura Electrónica,FVA
+l10n_cl_invoice.dc_y_f_dte,True,l10n_cl_invoice.dl_c,34,True,FNA ,invoice,F-EXENTA ,Factura no Afecta o Exenta Electrónica,FVE
+l10n_cl_invoice.dc_l_f_dtn,True,l10n_cl_invoice.dl_l,40,False,FAL ,invoice,L-FACTURAM ,Liquidación Factura,LFM
+l10n_cl_invoice.dc_l_f_dte,True,l10n_cl_invoice.dl_l,43,True,FAL ,invoice,L-FACTURAE ,Liquidación Factura Electrónica,LFE
+l10n_cl_invoice.dc_fc_f_dtn,True,l10n_cl_invoice.dl_a,45,False,FAC ,invoice_in,FACTURA ,Factura de Compra,FCA
+l10n_cl_invoice.dc_fc_f_dte,True,l10n_cl_invoice.dl_a,46,True,FAC ,invoice_in,FACTURA ,Factura de Compra Electrónica,FCA
+l10n_cl_invoice.dc_nd_f_dtn,True,l10n_cl_invoice.dl_a,55,False,N/D ,debit_note,NOTA DE DEBITO ,Nota de Débito,NDA
+l10n_cl_invoice.dc_nd_f_dte,True,l10n_cl_invoice.dl_a,56,True,N/D ,debit_note,NOTA DE DEBITO ,Nota de Débito Electrónica,NDA
+l10n_cl_invoice.dc_nc_f_dtn,True,l10n_cl_invoice.dl_a,60,False,N/C ,credit_note,NOTA DE CREDITO ,Nota de Crédito,NCA
+l10n_cl_invoice.dc_nc_f_dte,True,l10n_cl_invoice.dl_a,61,True,N/C ,credit_note,NOTA DE CREDITO ,Nota de Crédito Electrónica,NCA
+l10n_cl_invoice.dc_s_f_dtn,True,l10n_cl_invoice.dl_s,108,False,REG ,,SOL REGISTRO ,SRF Solicitud de Registro de Factura,SRF
+l10n_cl_invoice.dc_ftf_f_dtn,True,l10n_cl_invoice.dl_a,901,False,FAC ,invoice,FACTURA ,Factura de ventas a empresas del territorio preferencial ( Res. Ex. N° 1057,FVA
+l10n_cl_invoice.dc_din_f_dtn,True,l10n_cl_invoice.dl_d,914,False,DIN ,,DEC ING ,Declaración de Ingreso (DIN),DIN
+l10n_cl_invoice.dc_dizf_f_dtn,True,l10n_cl_invoice.dl_d,911,False,DIN ,,DEC ING ,Declaración de Ingreso a Zona Franca Primaria,DIN
+l10n_cl_invoice.dc_ftt_f_dtn,True,l10n_cl_invoice.dl_a,904,False,FTR ,invoice,FACT TR ,Factura de Traspaso,FTT
+l10n_cl_invoice.dc_frr_f_dtn,True,l10n_cl_invoice.dl_a,905,False,FRX ,invoice,FACT RX ,Factura de Reexpedición,FRR
+l10n_cl_invoice.dc_bzf_f_dtn,True,l10n_cl_invoice.dl_b,906,False,BZF ,invoice,BOLETA ZF ,Boletas Venta Módulos ZF (todas),BZF
+l10n_cl_invoice.dc_fzf_f_dtn,True,l10n_cl_invoice.dl_a,907,False,FZF ,invoice,FACTURA ZF ,Facturas Venta Módulo ZF (todas),FZF
+l10n_cl_invoice.dc_tca_f_dtn,True,l10n_cl_invoice.dl_t,500,False,TCA ,,TC-A ,Ajuste aumento Tipo de Cambio (código 500),TCA
+l10n_cl_invoice.dc_tcd_f_dtn,True,l10n_cl_invoice.dl_t,501,False,TCD ,,TC-D ,Ajuste disminución Tipo de Cambio (código 501),TCD
+l10n_cl_invoice.dc_b_f_dtn,True,l10n_cl_invoice.dl_b,35,False,BOL ,invoice,BOL ,Boleta de Venta,BOL
+l10n_cl_invoice.dc_m_f_dtn,True,l10n_cl_invoice.dl_m,70,False,BHO ,invoice,BHO ,Boleta de Honorarios,BHO
+l10n_cl_invoice.dc_m_d_dtn,True,l10n_cl_invoice.dl_m,71,True,BHE ,invoice,BHE ,Boleta de Honorarios Electrónica,BHE
+l10n_cl_invoice.dc_g_nvt,True,l10n_cl_invoice.dl_g,999,False,NVT ,invoice,NVT ,Nota de Venta TARJ,NVT

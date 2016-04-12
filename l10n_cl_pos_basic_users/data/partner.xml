@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="False">
+        <record model='res.partner' id='l10n_cl_invoice.par_cfa'>
+                <field name='name'>CLIENTE BOLETA</field>
+                <field name='is_company'>False</field>
+                <field name='responsability_id' ref='l10n_cl_invoice.res_CF'/>
+                <field name='document_type_id' ref='l10n_cl_invoice.dt_Sigd'/>
+                <field name='document_number'>0</field>
+        </record>
+        <record model='res.partner' id='l10n_cl_invoice.par_cta'>
+                <field name='name'>CLIENTE TARJETA</field>
+                <field name='is_company'>False</field>
+                <field name='responsability_id' ref='l10n_cl_invoice.res_NVT'/>
+                <field name='document_type_id' ref='l10n_cl_invoice.dt_Sigd'/>
+                <field name='document_number'>0</field>
+        </record>
+    </data>
+</openerp>
