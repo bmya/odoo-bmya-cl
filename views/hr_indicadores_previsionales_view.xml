@@ -200,8 +200,6 @@
 
     <!-- Employee View -->
 
-
-
         
         <record id="hr_employee_form_inherit5" model="ir.ui.view">
             <field name="name">hr.employee.form.inherit</field>
@@ -240,28 +238,6 @@
         </record>
 
 
-        <record id="view_salary_employee_month" model="ir.ui.view">
-            <field name="name">Libro de Remuneraciones</field>
-            <field name="model">hr.salary.employee.month</field>
-            <field name="arch" type="xml">
-            <form string="Libro de Remuneraciones">
-                <label string="Este wizard permite imprimir el total haberes."/>
-                <footer>
-                    <button name="print_report" string="Print" type="object" class="oe_highlight"/>
-                        or
-                    <button string="Cancel" class="oe_link" special="cancel" />
-                </footer>
-                <group>
-                    
-                    <field name="end_date"/>
-                                        
-                </group>
-            </form>
-            </field>
-        </record>
-
-
-  
 
 
 
@@ -313,16 +289,7 @@
         />
 
 
-        <menuitem id="menu_salary_books"
-            name="Libro de Remuneraciones"
-            parent="hr.menu_hr_main"
-            action="action_salary_books"
-            sequence="8" 
-            groups="base.group_hr_manager"
-
-        />
-
-      <record id="action_salary_books" model="ir.actions.act_window">
+        <record id="action_salary_books" model="ir.actions.act_window">
             <field name="name">Libro de Remuneraciones Haberes</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr.salary.employee.month</field>
@@ -331,7 +298,34 @@
             <field name="target">new</field>
         </record>
 
+        <menuitem
+            name="Libro de Remuneraciones"
+            parent="hr.menu_hr_main"
+            sequence="10" icon="STOCK_PRINT"
+            action="action_salary_books"
+            id="menu_salary_books"
+            groups="base.group_hr_manager"
+           />
 
+        <record id="view_salary_employee_month" model="ir.ui.view">
+            <field name="name">Libro de Remuneraciones</field>
+            <field name="model">hr.salary.employee.month</field>
+            <field name="arch" type="xml">
+            <form string="Libro de Remuneraciones">
+                <label string="Este wizard permite imprimir el total haberes."/>
+                <footer>
+                    <button name="print_report" string="Print" type="object" class="oe_highlight"/>
+                        or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+                <group>
+                    
+                    <field name="end_date"/>
+                                        
+                </group>
+            </form>
+            </field>
+        </record>
 
 
        <!-- Formato Papel -->
