@@ -135,14 +135,18 @@ class invoice(models.Model):
         returnvalue = False
         #try:
         if 1==1:
+            no_caf = True
             caffiles = inv.journal_document_class_id.sequence_id.dte_caf_ids
             frameinfo = getframeinfo(currentframe())
             print(frameinfo.filename, frameinfo.lineno)
             for caffile in caffiles:
                 if caffile.status == 'in_use':
                     resultc = base64.b64decode(caffile.caf_file)
+                    no_caf = False
                     break
-
+            if no_caf:
+                raise Warning(_('''There is no CAF file available or in use \
+for this Document. Please enable one.'''))
             frameinfo = getframeinfo(currentframe())
             print(frameinfo.filename, frameinfo.lineno)
             resultcaf = xmltodict.parse(resultc.replace(
