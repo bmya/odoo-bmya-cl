@@ -23,8 +23,6 @@ class res_partner(models.Model):
     tp_sii_code = fields.Char('Tax Payer SII Code', compute='_get_tp_sii_code',
         readonly=True)
 
-    is_company = fields.Boolean('Is Company', default=True)
-
     @api.multi
     @api.onchange('responsability_id')
     def _get_tp_sii_code(self):
