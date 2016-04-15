@@ -143,23 +143,23 @@ class account_invoice(models.Model):
 
         for invoice in self.browse(cr, uid, ids, context=context):
             printed_amount_untaxed = invoice.amount_untaxed
-            printed_tax_ids = [x.id for x in invoice.tax_line]
+            printed_tax_ids = [x.id for x in invoice.tax_line_ids]
 
             vat_amount = sum([
-                x.tax_amount for x in invoice.tax_line if x.tax_code_id.parent_id.name == 'IVA'])
+                x.tax_amount for x in invoice.tax_line_ids if x.tax_code_id.parent_id.name == 'IVA'])
 
             other_taxes_amount = sum(
                 line.other_taxes_amount for line in invoice.invoice_line)
             exempt_amount = sum(
                 line.exempt_amount for line in invoice.invoice_line)
             vat_tax_ids = [
-                x.id for x in invoice.tax_line if x.tax_code_id.parent_id.name == 'IVA']
+                x.id for x in invoice.tax_line_ids if x.tax_code_id.parent_id.name == 'IVA']
 
             if not invoice.vat_discriminated:
                 printed_amount_untaxed = sum(
                     line.printed_price_subtotal for line in invoice.invoice_line)
                 printed_tax_ids = [
-                    x.id for x in invoice.tax_line if x.tax_code_id.parent_id.name != 'IVA']
+                    x.id for x in invoice.tax_line_ids if x.tax_code_id.parent_id.name != 'IVA']
             res[invoice.id] = {
                 'printed_amount_untaxed': printed_amount_untaxed,
                 'printed_tax_ids': printed_tax_ids,
