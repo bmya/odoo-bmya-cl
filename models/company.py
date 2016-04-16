@@ -18,7 +18,14 @@ class res_company(models.Model):
         'Invoice VAT discrimination default',
         default='no_discriminate_default',
         required=True,
-        help="Definie behaviour on invoices reports. Discrimination or not will depend in partner and company responsability and SII letters setup:\
-            * If No Discriminate Default, if no match found it won't discriminate by default\
-            * If Discriminate Default, if no match found it would discriminate by default\
-            ")
+        help="""Define behaviour on invoices reports. Discrimination or not \
+        will depend in partner and company responsability and SII letters\
+        setup:
+            * If No Discriminate Default, if no match found it won't \
+            discriminate by default.
+            * If Discriminate Default, if no match found it would \
+            discriminate by default.
+            """)
+    tp_sii_code = fields.Char(
+        'Tax Payer SII Code', related='partner_id.tp_sii_code', readonly=True)
+
