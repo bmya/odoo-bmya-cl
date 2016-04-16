@@ -4,31 +4,33 @@
         
 
 
+
+
         <!-- Indicadores Inputs -->
 
-        <record id="hr_indicadores_mayo" model="hr.indicadores">
-            <field name="name">Noviembre de 2015</field>
-            <field name="uf">25598.41</field>
-            <field name="utm">44776</field>
-            <field name="asignacion_familiar_primer">252882</field>
-            <field name="asignacion_familiar_segundo">369362</field>
-            <field name="asignacion_familiar_tercer">576080</field>
+        <record id="hr_indicadores_marzo" model="hr.indicadores">
+            <field name="name">Marzo 2016</field>
+            <field name="uf">25812.05</field>
+            <field name="utm">45180</field>
+            <field name="asignacion_familiar_primer">262326</field>
+            <field name="asignacion_familiar_segundo">383156</field>
+            <field name="asignacion_familiar_tercer">597593</field>
             <field name="caja_compensacion">0.60</field>
-            <field name="asignacion_familiar_monto_a">9899</field>
-            <field name="asignacion_familiar_monto_b">6075</field>
-            <field name="asignacion_familiar_monto_c">1920</field>
+            <field name="asignacion_familiar_monto_a">10269</field>
+            <field name="asignacion_familiar_monto_b">6302</field>
+            <field name="asignacion_familiar_monto_c">1992</field>
             <field name="fonasa">6.40</field>
-            <field name="mutual_seguridad">1.29</field>
+            <field name="mutual_seguridad">1.63</field>
             <field name="pensiones_ips">18.84</field>
-            <field name="sueldo_minimo">241000</field>
+            <field name="sueldo_minimo">250000</field>
             <field name="tasa_mutual">1.29</field>
-            <field name="tope_imponible_afp">73.20</field>
+            <field name="tope_imponible_afp">74.30</field>
             <field name="tope_imponible_ips">60</field>
             <field name="tope_imponible_salud">5.12</field>
-            <field name="tope_imponible_seguro_cesantia">109.80</field>
-            <field name="uta">537312</field>
+            <field name="tope_imponible_seguro_cesantia">111.4</field>
+            <field name="uta">542160</field>
             <field name="deposito_convenido">900</field>
-            <field name="sueldo_minimo_otro">179912</field>
+            <field name="sueldo_minimo_otro">186631</field>
             <field name="contrato_plazo_fijo_empleador">2.40</field>
             <field name="contrato_plazo_indefinido_empleador">3.0</field>
             <field name="contrato_plazo_indefinido_empleador_otro">0.8</field>
@@ -58,8 +60,8 @@
         <!-- Empleado Inputs -->
 
         <record id="hr_employee_data_demo" model="hr.employee">
-            <field name="name">Luis Gomez</field>
-            <field name="identification_id">24625470-K</field>
+            <field name="name">Nelson Ramirez</field>
+            <field name="identification_id">24625430-K</field>
         </record>
 
  
