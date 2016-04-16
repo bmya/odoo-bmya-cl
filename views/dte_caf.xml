@@ -23,8 +23,8 @@
                                 <field name="use_level" widget="progressbar"/>
                                 <field name="status" readonly="1"/>
                                 <button string="Enable" type="object" name="action_enable"
-                                status="draft" class="oe_highlight"
-                                attrs="{'invisible':[('status','!=','draft')]}" />
+                                    status="draft" class="oe_highlight"
+                                    attrs="{'invisible':[('status','!=','draft')]}" />
                             </tree>
                         </field>
                     </page>
