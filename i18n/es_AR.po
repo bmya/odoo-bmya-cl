@@ -501,12 +501,6 @@ msgstr ""
 "Nombre que será impreso en los reportes, por ejemplo \"Nota de Crédito\""
 
 #. module: l10n_cl_invoice
-#: field:account.invoice.line,printed_price_net:0
-#, fuzzy
-msgid "Net Price"
-msgstr "Precio Neto"
-
-#. module: l10n_cl_invoice
 #: field:sii.point_of_sale,number:0
 #, fuzzy
 msgid "Number"
@@ -835,26 +829,12 @@ msgid "Start-up Date"
 msgstr "Inicio de Actividades"
 
 #. module: l10n_cl_invoice
-#: field:account.invoice,printed_amount_untaxed:0
-#: field:account.invoice.line,printed_price_subtotal:0
-#, fuzzy
-msgid "Subtotal"
-msgstr "Subtotal"
-
-#. module: l10n_cl_invoice
 #: sql_constraint:account.invoice:0
 #, fuzzy
 msgid "Supplier Invoice Number must be unique per Supplier and Company!"
 msgstr ""
 "¡El número de factura de proveedor debe ser único por proveedor y por "
 "compañía!"
-
-#. module: l10n_cl_invoice
-#: field:account.invoice,printed_amount_tax:0
-#: field:account.invoice,printed_tax_ids:0
-#, fuzzy
-msgid "Tax"
-msgstr "Impuesto"
 
 #. module: l10n_cl_invoice
 #: model:ir.model,name:l10n_cl_invoice.model_account_tax_code
@@ -888,12 +868,6 @@ msgstr ""
 "Traduce este tipo de producto a este concepto SII.\n"
 "El tipo debe ser un subgrupo de ajuste, consumible y servicio separado por "
 "comas."
-
-#. module: l10n_cl_invoice
-#: field:account.invoice.line,printed_price_unit:0
-#, fuzzy
-msgid "Unit Price"
-msgstr "Precio Unitario"
 
 #. module: l10n_cl_invoice
 #: field:account.journal.document_config,weird_documents:0
