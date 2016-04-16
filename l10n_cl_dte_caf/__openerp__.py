@@ -9,13 +9,15 @@
             'base64'
         ]
     },
-    'description': u'''\n\nIncorporate a field with the RUT (VAT) formatted 
-according chilean customs.\n\n''',
+    'description': u'''\n\nDTE CAF File Data Model\n\n''',
     'installable': True,
     'license': 'AGPL-3',
     'name': 'CAF Container for DTE Compliance',
     'test': [],
-    'data': ['views/dte_caf.xml'],
+    'data': [
+        'views/dte_caf.xml',
+        'security/ir.model.access.csv',
+    ],
     'update_xml': [],
     'version': '0.0',
     'website': 'http://blancomartin.cl',
