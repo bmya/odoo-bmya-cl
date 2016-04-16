@@ -438,11 +438,6 @@ msgid "Name that will be printed in reports, for example \"CREDIT NOTE\""
 msgstr ""
 
 #. module: l10n_cl_invoice
-#: field:account.invoice.line,printed_price_net:0
-msgid "Net Price"
-msgstr ""
-
-#. module: l10n_cl_invoice
 #: field:sii.point_of_sale,number:0
 msgid "Number"
 msgstr ""
@@ -715,20 +710,8 @@ msgid "Start-up Date"
 msgstr ""
 
 #. module: l10n_cl_invoice
-#: field:account.invoice,printed_amount_untaxed:0
-#: field:account.invoice.line,printed_price_subtotal:0
-msgid "Subtotal"
-msgstr ""
-
-#. module: l10n_cl_invoice
 #: sql_constraint:account.invoice:0
 msgid "Supplier Invoice Number must be unique per Supplier and Company!"
-msgstr ""
-
-#. module: l10n_cl_invoice
-#: field:account.invoice,printed_amount_tax:0
-#: field:account.invoice,printed_tax_ids:0
-msgid "Tax"
 msgstr ""
 
 #. module: l10n_cl_invoice
@@ -749,11 +732,6 @@ msgstr ""
 #. module: l10n_cl_invoice
 #: help:sii.concept_type,product_types:0
 msgid "Translate this product types to this SII concept.        Types must be a subset of adjust,        consu and service separated by commas."
-msgstr ""
-
-#. module: l10n_cl_invoice
-#: field:account.invoice.line,printed_price_unit:0
-msgid "Unit Price"
 msgstr ""
 
 #. module: l10n_cl_invoice
