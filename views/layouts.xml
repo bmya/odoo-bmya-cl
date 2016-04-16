@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <template id="dte_external_layout">
+                <!-- Multicompany -->
+                <t t-if="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id"/>
+                </t>
+                <t t-if="not o or not 'company_id' in o">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+
+                <t t-call="l10n_cl_dte.dte_external_layout_header"/>
+                <t t-raw="0"/>
+                <t t-call="l10n_cl_dte.dte_external_layout_footer"/>
+
+        </template>
+
         <template id="dte_external_layout_header">
             <div class="header">
                 <!--<div class="row">
@@ -23,7 +38,8 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-6">
-                        <span align="center" t-field="o.company_id.partner_id.image" t-field-options='{"widget": "image", "class": "img-responsive"}'/>
+                        <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+                        <!--<span align="center" t-field="o.company_id.partner_id.image" t-field-options='{"widget": "image", "class": "img-responsive"}'/>-->
                         <h5 style="text-align:lef;text-transform:uppercase;font-weight:900;font-size:90%">
                             <span t-field="o.company_id.partner_id.name"/>
                         </h5>
@@ -32,7 +48,7 @@
                             <span t-field="o.company_id.partner_id.street"/>, <span t-field="o.company_id.partner_id.state_id.name"/>, <span t-field="o.company_id.partner_id.city"/><br />
                         </p>
                     </div>
-                    <div class="col-xs-4 col-xs-offset-1" style="outline: 3px solid red;text-align: center">
+                    <div class="col-xs-4 col-xs-offset-2" style="outline: 2px solid red;text-align: center">
                         <br />
                         <h6 style="color:red;font-weight:900">
                             RUT: <span t-field="o.company_id.partner_id.document_number"/>
@@ -52,29 +68,77 @@
                             Teléfono: <span t-field="o.company_id.partner_id.phone"/> E-Mail: <span t-field="o.company_id.partner_id.email"/>
                         </p>
                     </div>
-                    <div class="col-xs-4 col-xs-offset-1" style="text-align: center">
+                    <div class="col-xs-4 col-xs-offset-2" style="text-align: center">
                         <h6 style="color:red;text-align:center;font-weight:900;text-transform:uppercase;">
                             SII - <span t-field="o.company_id.sii_regional_office_id.name"/>
                         </h6>
                     </div>
                 </div>
+                <div class="row" style="outline: 2px solid black;">
+                    <div class="col-xs-8">
+                        <p><strong>Fecha:     </strong><span t-field="o.date_invoice"/></p>
+                        <p><strong>Cliente:   </strong><span t-field="o.partner_id.name"/></p>
+                        <p><strong>Domicilio: </strong><span t-field="o.partner_id.street + ' ' + o.partner_id.street2"/></p>
+                        <p><strong>Giro:      </strong><span t-field="o.invoice_turn.name"/></p>
+                        <!--<address t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                        <span t-if="o.partner_id.vat">TIN: <span t-field="o.partner_id.vat"/></span>
+                        <p t-if="o.payment_term.note">-->
+                        <p><strong>Payment Term:</strong></p>
+                        <p><span t-field="o.payment_term.note"/></p>
+
+                    </div>
+                    <div class="col-xs-4">
+                        <p><strong>Vencimiento: </strong><span t-field="o.date_due"/></p>
+                        <p><strong>RUT:         </strong><span t-field="o.partner_id.document_number"/></p>
+                        <p><strong>Ciudad:         </strong><span t-field="o.partner_id.city"/></p>
+                        <p><strong>Comuna:         </strong><span t-field="o.partner_id.state_id.name"/></p>
+                    </div>
+                </div>
             </div>
         </template>
 
-        <!--<template id="dte_external_layout_footer">
+        <template id="dte_external_layout_footer">
             <div class="footer">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <span t-field="o.sii_barcode_img" t-field-options='{"widget": "image"}'/>
+                        <p style="text-align:center;color:red;">Timbre Electrónico SII</p>
+                        <p style="text-align:center;color:red;">Resolucion 393/2016</p>
+                        <p style="text-align:center;color:red;">Verifique documento: www.sii.cl</p>
+                    </div>
+                    <!-- aca va la de totales -->
+                    <div class="col-xs-6 col-xs-offset-2 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>Total Without Taxes</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Taxes</td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                     <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
                 <div class="text-center" style="border-top: 1px solid black;">
                     <ul t-if="not company.custom_footer" class="list-inline">
-                        <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
-
-                        <li t-if="company.fax and company.phone">&amp;bull;</li>
-                        <li t-if="company.fax">Fax: <span t-field="company.fax"/></li>
+                        <li t-if="company.phone">Tel: <span t-field="company.phone"/></li>
 
                         <li t-if="company.email">&amp;bull;</li>
                         <li t-if="company.email">Email: <span t-field="company.email"/></li>
 
                         <li t-if="company.website">&amp;bull;</li>
-                        <li t-if="company.website">Website: <span t-field="company.website"/></li>
+                        <li t-if="company.website">Web: <span t-field="company.website"/></li>
                     </ul>
 
                     <t t-if="company.custom_footer">
@@ -89,6 +153,6 @@
                     </ul>
                 </div>
             </div>
-        </template>-->
+        </template>
     </data>
 </openerp>
