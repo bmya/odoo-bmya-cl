@@ -96,6 +96,7 @@ class sii_responsability(models.Model):
         'Name', size=64, required=True)
     code = fields.Char(
         'Code', size=8, required=True)
+    tp_sii_code = fields.Integer('Tax Payer SII Code', required=True)
     active = fields.Boolean(
         'Active', default=True)
     issued_letter_ids = fields.Many2many(

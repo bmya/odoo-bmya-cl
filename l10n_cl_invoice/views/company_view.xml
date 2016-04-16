@@ -10,6 +10,14 @@
                     <field name="responsability_id" widget="selection"/>
                     <field name="start_date"/>
                 </field>
+                <field name="company_activities_ids" position="replace">
+                    <field name="tp_sii_code" invisible="True"/>
+                    <field name="company_activities_ids"
+                        placeholder="Giros de La Compañia" widget="many2many_tags"
+                        options="{'no_create': True}"
+                        domain="[('parent_id', '>=', 1),
+                        ('tax_category', '=', tp_sii_code)]"/>
+                </field>
                  <group name="account_grp">
                     <field name="invoice_vat_discrimination_default"/>
                 </group>

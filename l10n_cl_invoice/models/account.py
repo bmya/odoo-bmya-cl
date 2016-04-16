@@ -6,7 +6,7 @@ from openerp.exceptions import Warning
 
 
 class sii_tax_code(models.Model):
-    _inherit = 'account.tax.code'
+    _name = 'account.tax.code'
 
     def _get_parent_sii_code(self, cr, uid, ids, field_name, args, context=None):
         r = {}
@@ -133,30 +133,69 @@ class account_journal_sii_document_class(models.Model):
 class account_journal(models.Model):
     _inherit = "account.journal"
 
-    _columns = {
-        'journal_document_class_ids': fields.one2many(
+    #_columns = {
+    #    'point_of_sale': fields.related(
+    #        'point_of_sale_id', 'number', type='integer',
+    #        string='Point of sale', readonly=True),  # for compatibility
+    #}
+
+
+    journal_document_class_ids = new_fields.One2many(
             'account.journal.sii_document_class', 'journal_id',
-            'Documents Class',),
+            'Documents Class',)
 
-        'point_of_sale_id': fields.many2one('sii.point_of_sale',
-                                            'Point of sale'),
-        'point_of_sale': fields.related(
-            'point_of_sale_id', 'number', type='integer',
-            string='Point of sale', readonly=True),  # for compatibility
+    point_of_sale_id = new_fields.Many2one('sii.point_of_sale','Point of sale')
 
-        'use_documents': fields.boolean('Use Documents?'),
+    point_of_sale = new_fields.Integer(
+        related='point_of_sale_id.number', string='Point of sale',
+        readonly=True)
 
-        'document_sequence_type': fields.selection(
+    use_documents = new_fields.Boolean(
+        'Use Documents?', default='_get_default_doc')
+
+    document_sequence_type = new_fields.Selection(
             [('own_sequence', 'Own Sequence'),
              ('same_sequence', 'Same Invoice Sequence')],
             string='Document Sequence Type',
             help="Use own sequence or invoice sequence on Debit and Credit \
-                 Notes?"),
-    }
+                 Notes?")
+
     journal_activities_ids = new_fields.Many2many(
             'partner.activities',id1='journal_id', id2='activities_id',
             string='Journal Turns', help="""Select the turns you want to \
             invoice in this Journal""")
+
+    excempt_documents = new_fields.Boolean(
+        'Excempt Documents Available', compute='_check_activities')
+
+
+    @api.multi
+    def _get_default_doc(self):
+        self.ensure_one()
+        if 'sale' in self.type or 'purchase' in self.type:
+            self.use_documents = True
+
+    @api.one
+    @api.depends('journal_activities_ids', 'type')
+    def _check_activities(self):
+        # self.ensure_one()
+        # si entre los giros del diario hay alguno que está excento
+        # el boolean es True
+        try:
+            if 'purchase' in self.type:
+                self.excempt_documents = True
+            elif 'sale' in self.type:
+                no_vat = False
+                for turn in self.journal_activities_ids:
+                    print('turn %s' % turn.vat_affected)
+                    if turn.vat_affected == 'SI':
+                        continue
+                    else:
+                        no_vat = True
+                        break
+                self.excempt_documents = no_vat
+        except:
+            pass
 
     @api.one
     @api.constrains('point_of_sale_id', 'company_id')
@@ -164,7 +203,6 @@ class account_journal(models.Model):
         if self.point_of_sale_id and self.point_of_sale_id.company_id != self.company_id:
             raise Warning(_('The company of the point of sale and of the \
                 journal must be the same!'))
-
 
 class res_currency(models.Model):
     _inherit = "res.currency"

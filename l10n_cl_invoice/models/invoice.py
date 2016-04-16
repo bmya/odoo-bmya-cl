@@ -3,173 +3,45 @@ from openerp import osv, models, fields, api, _
 from openerp.osv import fields as old_fields
 from openerp.exceptions import except_orm, Warning
 import openerp.addons.decimal_precision as dp
-
-
-class account_invoice_line(models.Model):
-
-    """
-    En Chile como no se discriminan los impuestos en las facturas, excepto el IVA,
-    agrego campos que ignoran el iva solamente a la hora de imprimir los valores.
-    """
-
-    _inherit = "account.invoice.line"
-
-    def _printed_prices(self, cr, uid, ids, name, args, context=None):
-        res = {}
-        tax_obj = self.pool['account.tax']
-        cur_obj = self.pool.get('res.currency')
-
-        for line in self.browse(cr, uid, ids, context=context):
-            _round = (lambda x: cur_obj.round(
-                cr, uid, line.invoice_id.currency_id, x)) if line.invoice_id else (lambda x: x)
-            quantity = line.quantity
-            discount = line.discount
-            printed_price_unit = line.price_unit
-            printed_price_net = line.price_unit * \
-                (1 - (discount or 0.0) / 100.0)
-            printed_price_subtotal = printed_price_net * quantity
-
-            not_vat_taxes = [
-                x for x in line.invoice_line_tax_id if x.tax_code_id.parent_id.name != 'IVA']
-            taxes = tax_obj.compute_all(cr, uid,
-                                        not_vat_taxes, printed_price_net, 1,
-                                        product=line.product_id,
-                                        partner=line.invoice_id.partner_id)
-            other_taxes_amount = _round(
-                taxes['total_included']) - _round(taxes['total'])
-
-            # TODO: tal vez mejorar esto de que se buscan los iva por el que tiene padre llamado "IVA"
-            # Antes habiamos agregado un vampo vat_tax en los code pero el tema
-            # es que tambien hay que agregarlo en el template de los tax code y
-            # en los planes de cuenta, resulta medio engorroso
-            vat_taxes = [
-                x for x in line.invoice_line_tax_id if x.tax_code_id.parent_id.name == 'IVA']
-            taxes = tax_obj.compute_all(cr, uid,
-                                        vat_taxes, printed_price_net, 1,
-                                        product=line.product_id,
-                                        partner=line.invoice_id.partner_id)
-            vat_amount = _round(
-                taxes['total_included']) - _round(taxes['total'])
-
-            exempt_amount = 0.0
-            if not vat_taxes:
-                exempt_amount = _round(taxes['total_included'])
-
-            # For document that not discriminate we include the prices
-            if not line.invoice_id.vat_discriminated:
-                printed_price_unit = _round(
-                    taxes['total_included'] * (1 + (discount or 0.0) / 100.0))
-                printed_price_net = _round(taxes['total_included'])
-                printed_price_subtotal = _round(
-                    taxes['total_included'] * quantity)
-
-            res[line.id] = {
-                'printed_price_unit': printed_price_unit,
-                'printed_price_net': printed_price_net,
-                'printed_price_subtotal': printed_price_subtotal,
-                'vat_amount': vat_amount * quantity,
-                'other_taxes_amount': other_taxes_amount * quantity,
-                'exempt_amount': exempt_amount * quantity,
-            }
-        return res
-
-    _columns = {
-        'printed_price_unit': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Unit Price', multi='printed',),
-        'printed_price_net': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Net Price', multi='printed'),
-        'printed_price_subtotal': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Subtotal', multi='printed'),
-        'vat_amount': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Vat Amount', multi='printed'),
-        'other_taxes_amount': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Other Taxes Amount', multi='printed'),
-        'exempt_amount': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Exempt Amount', multi='printed'),
-    }
-
+# from inspect import currentframe, getframeinfo
+# estas 2 lineas son para imprimir el numero de linea del script
+# (solo para debug)
+# frameinfo = getframeinfo(currentframe())
+# print(frameinfo.filename, frameinfo.lineno)
 
 class account_invoice(models.Model):
     _inherit = "account.invoice"
 
-    def _printed_prices(self, cr, uid, ids, name, args, context=None):
-        res = {}
+    def get_document_class_default(self, document_classes):
+        if self.turn_issuer.vat_affected not in ['SI', 'ND']:
+            exempt_ids = [
+                self.env.ref('l10n_cl_invoice.dc_y_f_dtn').id,
+                self.env.ref('l10n_cl_invoice.dc_y_f_dte').id]
+            for document_class in document_classes:
+                if document_class.sii_document_class_id.id in exempt_ids:
+                    document_class_id = document_class.id
+                    break
+                else:
+                    document_class_id = document_classes.ids[0]
+        else:
+            document_class_id = document_classes.ids[0]
+        return document_class_id
 
-        for invoice in self.browse(cr, uid, ids, context=context):
-            printed_amount_untaxed = invoice.amount_untaxed
-            printed_tax_ids = [x.id for x in invoice.tax_line]
+    # determina el giro issuer por default
+    @api.multi
+    @api.depends('partner_id')
+    def _get_available_issuer_turns(self):
+        for rec in self:
+            available_turn_ids = rec.company_id.company_activities_ids
+            for turn in available_turn_ids:
+                rec.turn_issuer = turn.id
 
-            # vat_amount = sum(
-            #     line.vat_amount for line in invoice.invoice_line)
-            # Por errores de redonde cambiamos la forma anterior por esta nueva
-            vat_amount = sum([
-                x.tax_amount for x in invoice.tax_line if x.tax_code_id.parent_id.name == 'IVA'])
+    turn_issuer = fields.Many2one(
+        'partner.activities',
+        'Giro Emisor', readonly=True, store=True, required=False,
+        states={'draft': [('readonly', False)]},
+        compute=_get_available_issuer_turns)
 
-            other_taxes_amount = sum(
-                line.other_taxes_amount for line in invoice.invoice_line)
-            exempt_amount = sum(
-                line.exempt_amount for line in invoice.invoice_line)
-            vat_tax_ids = [
-                x.id for x in invoice.tax_line if x.tax_code_id.parent_id.name == 'IVA']
-
-            if not invoice.vat_discriminated:
-                printed_amount_untaxed = sum(
-                    line.printed_price_subtotal for line in invoice.invoice_line)
-                printed_tax_ids = [
-                    x.id for x in invoice.tax_line if x.tax_code_id.parent_id.name != 'IVA']
-            res[invoice.id] = {
-                'printed_amount_untaxed': printed_amount_untaxed,
-                'printed_tax_ids': printed_tax_ids,
-                'printed_amount_tax': invoice.amount_total - printed_amount_untaxed,
-                'vat_tax_ids': vat_tax_ids,
-                'vat_amount': vat_amount,
-                'other_taxes_amount': other_taxes_amount,
-                'exempt_amount': exempt_amount,
-            }
-        return res
-
-    _columns = {
-        'printed_amount_tax': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Tax', multi='printed',),
-        'printed_amount_untaxed': old_fields.function(
-            _printed_prices,
-            type='float', digits_compute=dp.get_precision('Account'),
-            string='Subtotal', multi='printed',),
-        'printed_tax_ids': old_fields.function(
-            _printed_prices,
-            type='one2many', relation='account.invoice.tax', string='Tax',
-            multi='printed'),
-        'exempt_amount': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Exempt Amount', multi='printed'),
-        'vat_tax_ids': old_fields.function(
-            _printed_prices,
-            type='one2many', relation='account.invoice.tax',
-            string='VAT Taxes', multi='printed'),
-        'vat_amount': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Vat Amount', multi='printed'),
-        'other_taxes_amount': old_fields.function(
-            _printed_prices, type='float',
-            digits_compute=dp.get_precision('Account'),
-            string='Other Taxes Amount', multi='printed')
-    }
 
     @api.multi
     def name_get(self):
@@ -197,7 +69,7 @@ class account_invoice(models.Model):
         return recs.name_get()
 
     @api.one
-    @api.depends('journal_id', 'partner_id')
+    @api.depends('journal_id', 'partner_id', 'turn_issuer')
     def _get_available_journal_document_class(self):
         invoice_type = self.type
         document_class_ids = []
@@ -214,11 +86,12 @@ class account_invoice(models.Model):
             if self.use_documents:
                 letter_ids = self.get_valid_document_letters(
                     self.partner_id.id, operation_type, self.company_id.id)
+
                 domain = [
                     ('journal_id', '=', self.journal_id.id),
                     '|', ('sii_document_class_id.document_letter_id',
                           'in', letter_ids),
-                    ('sii_document_class_id.document_letter_id', '=', False)]
+                         ('sii_document_class_id.document_letter_id', '=', False)]
 
                 # If document_type in context we try to serch specific document
                 document_type = self._context.get('document_type', False)
@@ -227,7 +100,8 @@ class account_invoice(models.Model):
                         'account.journal.sii_document_class'].search(
                         domain + [('sii_document_class_id.document_type', '=', document_type)])
                     if document_classes.ids:
-                        document_class_id = document_classes.ids[0]
+                        # revisar si hay condicion de exento, para poner como primera alternativa estos
+                        document_class_id = self.get_document_class_default(document_classes)
 
                 # For domain, we search all documents
                 document_classes = self.env[
@@ -236,7 +110,9 @@ class account_invoice(models.Model):
 
                 # If not specific document type found, we choose another one
                 if not document_class_id and document_class_ids:
-                    document_class_id = document_class_ids[0]
+                    # revisar si hay condicion de exento, para poner como primera alternativa estos
+                    # to-do: manejar más fino el documento por defecto.
+                    document_class_id = self.get_document_class_default(document_classes)
         self.available_journal_document_class_ids = document_class_ids
         self.journal_document_class_id = document_class_id
 
@@ -263,14 +139,6 @@ class account_invoice(models.Model):
 
     available_journal_document_class_ids = fields.Many2many(
         'account.journal.sii_document_class',
-        # TODO hay un warning cada vez que se crea una factura que dice:
-        # No such field(s) in model account.invoice:available_journal_document_class_ids
-        # la unica forma que encontre de sacarlo es agregando el store, lo dejo
-        # por las dudas pero la idea es ver si la api se arregla, no hace falta
-        # y podemos borrar esto
-        # 'available_journal_class_invoice_rel',
-        # 'invoice_id', 'journal_class_id',
-        # store=True,
         compute='_get_available_journal_document_class',
         string='Available Journal Document Classes')
     supplier_invoice_number = fields.Char(
@@ -317,7 +185,6 @@ class account_invoice(models.Model):
         compute='_get_document_number',
         string='Document Number',
         readonly=True,
-        # store=True
     )
     next_invoice_number = fields.Integer(
         related='journal_document_class_id.sequence_id.number_next_actual',
@@ -421,8 +288,10 @@ class account_invoice(models.Model):
                              _('Operation Type Must be "Sale" or "Purchase"'))
 
         if not company.partner_id.responsability_id.id:
-            raise except_orm(_('Your company has not setted any responsability'),
-                             _('Please, set your company responsability in the company partner before continue.'))
+            raise except_orm(_('You have not settled a tax payer type for your\
+             company.'),
+             _('Please, set your company tax payer type (in company or \
+             partner before to continue.'))
 
         document_letter_ids = document_letter_obj.search(cr, uid, [(
             'issuer_ids', 'in', issuer_responsability_id),
