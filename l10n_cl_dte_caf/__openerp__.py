@@ -9,8 +9,7 @@
             'base64'
         ]
     },
-    'description': u'''\n\nIncorporate a field with the RUT (VAT) formatted 
-according chilean customs.\n\n''',
+    'description': u'''\n\nDTE CAF File Data Model\n\n''',
     'installable': True,
     'license': 'AGPL-3',
     'name': 'CAF Container for DTE Compliance',
