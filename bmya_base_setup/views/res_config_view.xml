@@ -59,6 +59,11 @@
                                 class="oe_inline"/>
                             <label for="module_partner_social_fields"/>
                         </div>
+                        <div name='module_res_partner_defaults'>
+                            <field name="module_res_partner_defaults"
+                                class="oe_inline"/>
+                            <label for="module_res_partner_defaults"/>
+                        </div>
                         <!-- <div name='module_tko_partner_multiple_phones_emails_tab'>
                             <field name="module_tko_partner_multiple_phones_emails_tab"
                                 class="oe_inline"/>

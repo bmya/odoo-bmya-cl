@@ -88,6 +88,10 @@ partner with parent/child relationship.""",
         'Add person information to partners.',
         help="""Installs the partner_person module. Add firstname, lastname,
 birthdate, etc.""")
+    module_res_partner_defaults = fields.Boolean(
+        """Define that a partner "is a company" by default.""",
+        help="""Installs the res_partner_defaults module. To-do: add option to \
+define that a partner is a person, if the record is a child from a company.""")
     module_partner_social_fields = fields.Boolean(
         'Add social fields to partners',
         help="""Installs the partner_social_fields module.""")
