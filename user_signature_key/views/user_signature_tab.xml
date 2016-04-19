@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_user_signature_tab_form" model="ir.ui.view">
+            <field name="name">user.signature.tab.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <xpath expr='//notebook' position="inside">
+                    <page string="Signature File">
+                        <header>
+                            <button string="Clear Certificate" type="object" name="action_set_draft"
+                                    status="valid"
+                                    class="oe_highlight"
+                                    attrs="{'invisible':[('status','=','draft')]}"/>
+                            <button string="Check Certificate" type="object" name="action_process"
+                                    status="draft"
+                                    class="oe_highlight"
+                                    attrs="{'invisible':[('status','!=','draft')]}"/>
+                            <field name="status" widget="statusbar"/>
+                        </header>
+                        <group attrs="{'invisible': [('status', '!=', 'draft')]}">
+                            <field name="key_file" filename="filename"/>
+                            <field name="filename" invisible="1"/>
+                            <field name="dec_pass" password="True"
+                            attrs="{'readonly':[('status', '!=', 'draft')]}"/>
+                        </group>
+                        <group col="4" attrs="{'invisible':[('status','=','draft')]}" >
+                            <field name="not_before"/>
+                            <field name="not_after"/>
+                            <field name="final_date"/>
+                            <field name="subject_title"/>
+                            <field name="subject_c"/>
+                            <field name="subject_serial_number"/>
+                            <field name="subject_common_name"/>
+                            <field name="subject_email_address"/>
+                            <field name="issuer_country"/>
+                            <field name="issuer_serial_number"/>
+                            <field name="issuer_common_name"/>
+                            <field name="issuer_email_address"/>
+                            <field name="issuer_organization"/>
+                            <field name="cert_serial_number"/>
+                            <field name="cert_signature_algor"/>
+                            <field name="cert_version"/>
+                            <field name="cert_hash"/>
+                            <field name="private_key_bits"/>
+                            <field name="private_key_check"/>
+                            <field name="private_key_type"/>
+                            <field name="cacert"/>
+                            <field name="cert"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
