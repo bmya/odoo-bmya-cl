@@ -18,12 +18,43 @@ try:
 except ImportError:
     pass
 
+type_ = FILETYPE_PEM
+
+zero_values = {
+    "filename": "",
+    "key_file": False,
+    "dec_pass":"",
+    "not_before": False,
+    "not_after": False,
+    "status": "unverified",
+    "final_date": False,
+    "subject_title": "",
+    "subject_c": "",
+    "subject_serial_number": "",
+    "subject_common_name": "",
+    "subject_email_address": "",
+    "issuer_country": "",
+    "issuer_serial_number": "",
+    "issuer_common_name": "",
+    "issuer_email_address": "",
+    "issuer_organization": "",
+    "cert_serial_number": "",
+    "cert_signature_algor": "",
+    "cert_version": "",
+    "cert_hash": "",
+    "private_key_bits": "",
+    "private_key_check": "",
+    "private_key_type": "",
+    "cacert": "",
+    "cert": "",
+}
+
 class userSignature(models.Model):
     # _name = 'user.signature.key'
     _inherit = 'res.users'
 
     def default_status(self):
-        return 'draft'
+        return 'unverified'
 
     def load_cert_m2pem(self, *args, **kwargs):
         print(self.filename)
@@ -47,7 +78,6 @@ class userSignature(models.Model):
         print('subject.emailAddress', repr(subject.emailAddress))
         print('subject.serialNumber', repr(subject.serialNumber))
         print(cert.as_text(), '\n')
-
 
     def load_cert_pk12(self, filename):
         print(filename)
@@ -118,9 +148,13 @@ class userSignature(models.Model):
         self.private_key_bits = privky.bits()
         self.private_key_check = privky.check()
         self.private_key_type = privky.type()
-        self.cacert = cacert
-        self.cert = cert
+        # self.cacert = cacert
 
+        certificate = p12.get_certificate()
+        private_key = p12.get_privatekey()
+
+        self.priv_key = dump_privatekey(type_, private_key)
+        self.cert = dump_certificate(type_, certificate)
 
         pubkey = cert.get_pubkey()
 
@@ -144,7 +178,7 @@ class userSignature(models.Model):
     not_after = fields.Date(
         string='Not After', help='Not After this Date', readonly=True)
     status = fields.Selection(
-        [('draft', 'Draft'), ('valid', 'Valid'), ('expired', 'Expired')],
+        [('unverified', 'Unverified'), ('valid', 'Valid'), ('expired', 'Expired')],
         string='Status', default=default_status,
         help='''Draft: means it has not been checked yet.\nYou must press the\
 "check" button.''')
@@ -178,13 +212,21 @@ class userSignature(models.Model):
     private_key_bits = fields.Char('Private Key Bits', readonly=True)
     private_key_check = fields.Char('Private Key Check', readonly=True)
     private_key_type = fields.Char('Private Key Type', readonly=True)
-    cacert = fields.Char('CA Cert', readonly=True)
-    cert = fields.Char('Certificate', readonly=True)
+    # cacert = fields.Char('CA Cert', readonly=True)
+    cert = fields.Text('Certificate', readonly=True)
+    priv_key = fields.Text('Private Key', readonly=True)
+    authorized_users_ids = fields.One2many('res.users','cert_owner_id',
+                                           string='Authorized Users')
+    cert_owner_id = fields.Many2one('res.users', 'Certificate Owner',
+                                    select=True, ondelete='cascade')
 
     @api.multi
-    def action_set_draft(self):
+    def action_clean1(self):
         self.ensure_one()
-        self.status = 'draft'
+        # todo: debe lanzar un wizard que confirme si se limpia o no
+        # self.status = 'unverified'
+        self.write(zero_values)
+
 
     @api.multi
     def action_process(self):
@@ -201,7 +243,7 @@ class userSignature(models.Model):
     def _get_date(self):
         self.ensure_one()
         old_date = self.issued_date
-        if self.key_file != None and self.status == 'draft':
+        if self.key_file != None and self.status == 'unverified':
             print(self.key_file)
             self.issued_date = fields.datetime.now()
         else:
@@ -220,7 +262,7 @@ class userSignature(models.Model):
     #    # self.ensure_one()
     #    for x in self:
     #        old_name = x.name
-    #        if x.key_file != None and x.status == 'draft':
+    #        if x.key_file != None and x.status == 'unverified':
     #            if x.filename:
     #                x.name = '%s - %s' % (
     #                    x.filename.replace('.p12', ''),
