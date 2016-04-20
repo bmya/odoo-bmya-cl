@@ -79,10 +79,11 @@ class userSignature(models.Model):
         print('subject.serialNumber', repr(subject.serialNumber))
         print(cert.as_text(), '\n')
 
-    def load_cert_pk12(self, filename):
-        print(filename)
+    def load_cert_pk12(self, filecontent):
+        # print(filename)
 
-        p12 = load_pkcs12(file(filename, 'rb').read(), self.dec_pass)
+        # p12 = load_pkcs12(file(filename, 'rb').read(), self.dec_pass)
+        p12 = load_pkcs12(filecontent, self.dec_pass)
 
         #try:
         # p12 = load_pkcs12(output.read(), self.dec_pass)
@@ -232,11 +233,11 @@ class userSignature(models.Model):
     def action_process(self):
         self.ensure_one()
         filecontent = base64.b64decode(self.key_file)
-        fname = 'cert_file.p12'
-        f = open(fname,'w')
-        f.write(filecontent)
-        f.close()
-        self.load_cert_pk12(fname)
+        # fname = 'cert_file.p12'
+        # f = open(fname,'w')
+        # f.write(filecontent)
+        # f.close()
+        self.load_cert_pk12(filecontent)
 
     @api.multi
     @api.depends('key_file')
