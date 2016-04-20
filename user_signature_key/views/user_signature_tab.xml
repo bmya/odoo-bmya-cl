@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_user_signature_tab_form" model="ir.ui.view">
+            <field name="name">user.signature.tab.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <xpath expr='//notebook' position="inside">
+                    <page string="Signature File">
+                        <header>
+                            <button string="Check Signature" type="object" name="action_process"
+                                    class="oe_highlight"
+                                    attrs="{'invisible':[('status','!=','unverified'),('key_file', '=', False)]}"/>
+
+                            <button string="Clean Signature" type="object" name="action_clean1"
+                                    attrs="{'invisible': [('status', '=', 'unverified')]}"/>
+
+
+                            <field name="status" widget="statusbar"/>
+                        </header>
+                        <group attrs="{'invisible': [('status', '!=', 'unverified')]}">
+                            <field name="key_file" filename="filename"/>
+                            <field name="filename" invisible="1"/>
+                            <field name="dec_pass" password="True"
+                            attrs="{'readonly':[('status', '!=', 'unverified')]}"/>
+                        </group>
+
+                        <div attrs="{'invisible': [
+                                ('status', '=', 'unverified')]}">
+                            <group col="4">
+                                <field name="not_before"/>
+                                <field name="not_after"/>
+                            </group>
+                            <group col="4" attrs="{'invisible':[('status','=','unverified')]}" >
+                                <field name="final_date"/>
+                                <field name="subject_title"/>
+                                <field name="subject_c"/>
+                                <field name="subject_serial_number"/>
+                                <field name="subject_common_name"/>
+                                <field name="subject_email_address"/>
+                                <field name="issuer_country"/>
+                                <field name="issuer_serial_number"/>
+                                <field name="issuer_common_name"/>
+                                <field name="issuer_email_address"/>
+                                <field name="issuer_organization"/>
+                                <field name="cert_serial_number"/>
+                                <field name="cert_signature_algor"/>
+                                <field name="cert_version"/>
+                                <field name="cert_hash"/>
+                                <field name="private_key_bits"/>
+                                <field name="private_key_check"/>
+                                <field name="private_key_type"/>
+                            </group>
+                            <notebook>
+                                <page string="Authorized Users">
+                                    <!-- usuarios autorizados para usar esta firma digital -->
+                                    <field name="authorized_users_ids"
+                                        placeholder="Authorized Users for this Certificate" widget="many2many_tags"
+                                            options="{'no_create': True}"/>
+                                </page>
+                                <page string="Private Key">
+                                    <group>
+                                        <field name="priv_key"/>
+                                    </group>
+                                </page>
+                                <page string="Certificate Key">
+                                    <group>
+                                        <field name="cert"/>
+                                    </group>
+                                </page>
+                            </notebook>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!-- wizard confirmacion  -->
+         <record id="view_clean_signature_confirmation" model="ir.ui.view">
+            <field name="name">view.clean.signature.confirmation</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+				<form string="Clean Signature Information">
+					<group>
+						<label string="This operation will clear all your
+							signature information. After this, you will need to
+							attach a signature file again. Are you sure of this?
+							"/>
+					</group>
+					<footer>
+						<button name="action_clean" string="Yes" type="object"
+							class="oe_highlight"/>
+						or
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+				</form>
+            </field>
+        </record>
+
+        <record id="popup_certificate_form" model="ir.ui.view">
+            <field name="name">res.user_cert_popup.form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+				<form string="Certificate Stuff">
+					<field name="filename"/>
+				</form>
+			</field>
+		</record>
+
+
+    </data>
+</openerp>
+
+
+
