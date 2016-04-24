@@ -147,7 +147,7 @@
                          <td>
                              <table class="table-condensed" width="100%">           
                                <tr t-foreach="get_payslip_lines(o.line_ids)" t-as="p">
-                                   <t t-if=" ('No Imponible' ==p.category_id.name) or ('No Imponible - Otros' ==p.category_id.name) or ('Basico' ==p.category_id.name) or ('TOTIM' == p.code) or ('TOTNOI' == p.code)">
+                                   <t t-if=" ('No Imponible' ==p.category_id.name) or ('No Imponible - Otros' ==p.category_id.name) or ('Imponible' ==p.category_id.name) or ('TOTIM' == p.code) or ('TOTNOI' == p.code)">
                                        <td><span t-field="p.name"/></td>
                                        <td style="text-align:right"><span t-esc="formatLang(p.total, digits=get_digits(dp='Payroll'))"/></td>
                                    </t>
