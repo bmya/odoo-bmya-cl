@@ -7,12 +7,31 @@
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
              	<xpath expr="//form/sheet/notebook//page[@string='Procurements']" position="attributes">
-                    <attribute name="attrs">{'invisible':True}</attribute>
+                    <!--<attribute name="attrs">{'invisible':True}</attribute>-->
+                    <attribute name="groups">stock.group_stock_manager</attribute>
                 </xpath>
                 <xpath expr="//form/sheet/notebook//page[@string='Inventory']" position="attributes">
-                	<attribute name="attrs">{'invisible':True}</attribute>
+                	<!--<attribute name="attrs">{'invisible':True}</attribute>-->
+                    <attribute name="groups">stock.group_stock_manager</attribute>
                 </xpath>
             </field>
         </record>
+
+        <record id="product_product_hide_tabs" model="ir.ui.view">
+            <field name="name">product.template_hide_tabs</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+             	<xpath expr="//form/sheet/notebook//page[@string='Procurements']" position="attributes">
+                    <!--<attribute name="attrs">{'invisible':True}</attribute>-->
+                    <attribute name="groups">stock.group_stock_manager</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/notebook//page[@string='Inventory']" position="attributes">
+                	<!--<attribute name="attrs">{'invisible':True}</attribute>-->
+                    <attribute name="groups">stock.group_stock_manager</attribute>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </openerp>

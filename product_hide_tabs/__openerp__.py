@@ -29,7 +29,7 @@
 Product Hide Tabs
 =================
 This is a security feature, in order to hide sale/inventory tabs in product
-form view.
+form view, for all user groups except for stock manager.
     """,
     'author':  'Blanco Martin & Asociados',
     'website': 'http://blancomartin.cl',
