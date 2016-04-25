@@ -15,7 +15,7 @@
                            </tr>
                            <tr>
                                  <th colspan="2"><span t-field="res_company.name"/></th>
-                                 <th colspan="2">76.201.224−3</th>
+                                 <th colspan="2"><span  t-raw="res_company.vat.replace('CL', ' ')"/></th>
                             </tr>
                        </thead>
                    </table>
