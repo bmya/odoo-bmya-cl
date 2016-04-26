@@ -109,7 +109,7 @@ msgid "ID"
 msgstr ""
 
 #. module: l10n_cl_base
-#: field:chilean.base.config.settings,module_l10n_cl_toponyms:0
+#: field:chilean.base.config.settings,module_l10n_cl_counties:0
 msgid "Include Chilean Counties"
 msgstr ""
 
@@ -180,8 +180,8 @@ msgid "Installs l10n_cl_send_to_previred module, which allows you to\n"
 msgstr ""
 
 #. module: l10n_cl_base
-#: help:chilean.base.config.settings,module_l10n_cl_toponyms:0
-msgid "Installs l10n_cl_toponyms, which\n"
+#: help:chilean.base.config.settings,module_l10n_cl_counties:0
+msgid "Installs l10n_cl_counties, which\n"
 "includes all chilean counties to partners."
 msgstr ""
 

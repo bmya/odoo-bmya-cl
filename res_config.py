@@ -100,8 +100,8 @@ in order to issue your payroll""")
         help="""Installs l10n_cl_send_to_previred module, which allows you to \
 send a monthly report with 105 fields per employee, to Previred.""")
 
-    module_l10n_cl_toponyms = fields.Boolean(
-        'Include Chilean Counties', help="""Installs l10n_cl_toponyms, which \
+    module_l10n_cl_counties = fields.Boolean(
+        'Include Chilean Counties', help="""Installs l10n_cl_counties, which \
 includes all chilean counties to partners.""")
 
     module_l10n_cl_base_rut = fields.Boolean(
