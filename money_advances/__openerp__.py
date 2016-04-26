@@ -29,6 +29,8 @@ Account Money Advances
 =======================
 
 This module lets you change the account the moment you are paying.
+It solves the payment of advances to supplier, and register them
+in another type of account.
 
     """, 
     "website": "http://blancomartin.cl", 
