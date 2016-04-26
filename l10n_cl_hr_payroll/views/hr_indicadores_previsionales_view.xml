@@ -304,6 +304,7 @@
             sequence="10" icon="STOCK_PRINT"
             action="action_salary_books"
             id="menu_salary_books"
+            groups="base.group_hr_manager"
            />
 
         <record id="view_salary_employee_month" model="ir.ui.view">

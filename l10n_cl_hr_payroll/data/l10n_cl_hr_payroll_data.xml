@@ -117,31 +117,25 @@
 	
        <!-- Rule Category -->
 					
-        <record id="BASIC" model="hr.salary.rule.category">						
-            <field name="name">Basico</field>						
-            <field name="code">BASIC</field>						
+        <record id="IMPONIBLE" model="hr.salary.rule.category">						
+            <field name="name">Imponible</field>						
+            <field name="code">IMPONIBLE</field>						
         </record>						
 						
-        <record id="ALW" model="hr.salary.rule.category">						
+        <record id="NOIMPO" model="hr.salary.rule.category">						
             <field name="name">No Imponible</field>						
-            <field name="code">ALW</field>	
+            <field name="code">NOIMPO</field>	
 					
         </record>						
 						
-        <record id="GROSS" model="hr.salary.rule.category">						
-            <field name="name">Haberes</field>						
-            <field name="code">GROSS</field>						
-        </record>						
+						
 						
         <record id="DED" model="hr.salary.rule.category">						
             <field name="name">Descuentos</field>						
             <field name="code">DED</field>						
         </record>						
 						
-        <record id="NET" model="hr.salary.rule.category">						
-            <field name="name">Liquido</field>						
-            <field name="code">NET</field>						
-        </record>						
+						
 						
         <record id="COMP" model="hr.salary.rule.category">						
             <field name="name">Aporte Empresa</field>						
@@ -161,11 +155,6 @@
             <field name="code">SALUD</field>						
         </record>
 						
-        <record id="NOIMPO" model="hr.salary.rule.category">						
-            <field name="name">No Imponible - Otros</field>						
-            <field name="code">NOIMPO</field>
-            <field name="parent_id" ref="ALW"/>						
-        </record>
 						
         <record id="SUBT" model="hr.salary.rule.category">						
             <field name="name">Subtotal</field>						
@@ -223,8 +212,8 @@
         <record id="hr_rule_1" model="hr.salary.rule">						
             <field name="name">SUELDO BASE</field>						
             <field name="sequence" eval="1"/>						
-            <field name="code">BASIC</field>						
-            <field name="category_id" ref="BASIC"/>						
+            <field name="code">SUELDO</field>						
+            <field name="category_id" ref="IMPONIBLE"/>						
             <field name="condition_select">none</field>						
             <field name="amount_select">code</field>						
             <field name="amount_python_compute">dias = 0 
@@ -254,7 +243,7 @@ else:
             <field name="name">AJUSTE LEY SUELDO BASE</field>						
             <field name="sequence" eval="2"/>						
             <field name="code">ALSB</field>						
-            <field name="category_id" ref="BASIC"/>						
+            <field name="category_id" ref="IMPONIBLE"/>						
             <field name="condition_select">python</field>						
             <field name="condition_python">result = payslip.indicadores_id.sueldo_minimo > contract.wage</field>						
             <field name="amount_select">code</field>						
@@ -281,7 +270,7 @@ else:
             <field name="name">OTROS IMPONIBLES</field>						
             <field name="sequence" eval="3"/>						
             <field name="code">BONO</field>						
-            <field name="category_id" ref="BASIC"/>						
+            <field name="category_id" ref="IMPONIBLE"/>						
             <field name="condition_select">python</field>						
             <field name="condition_python">result = contract.otros_imp > 0</field>						
             <field name="amount_select">code</field>						
@@ -305,7 +294,7 @@ else:
             <field name="name">HORAS EXTRA ART 32</field>
             <field name="sequence" eval="4"/>
             <field name="code">HEX</field>
-            <field name="category_id" ref="BASIC"/>
+            <field name="category_id" ref="IMPONIBLE"/>
             <field name="condition_select">python</field>
             <field name="condition_python">result = inputs.HEX.amount > 0</field>
             <field name="amount_select">code</field>
@@ -316,7 +305,7 @@ else:
             <field name="name">HORAS DESCUENTO</field>
             <field name="sequence" eval="5"/>
             <field name="code">HEX100</field>
-            <field name="category_id" ref="BASIC"/>
+            <field name="category_id" ref="IMPONIBLE"/>
             <field name="condition_select">python</field>
             <field name="condition_python">result = inputs.HEX100.amount > 0</field>
             <field name="amount_select">code</field>
@@ -327,10 +316,10 @@ else:
             <field name="name">GRATIFICACION LEGAL</field>						
             <field name="sequence" eval="6"/>						
             <field name="code">GRAT</field>						
-            <field name="category_id" ref="BASIC"/>						
+            <field name="category_id" ref="IMPONIBLE"/>						
             <field name="condition_select">none</field>						
             <field name="amount_select">code</field>						
-            <field name="amount_python_compute">GRATI=round(categories.BASIC * 25 / 100 )
+            <field name="amount_python_compute">GRATI=round(categories.IMPONIBLE * 25 / 100 )
 if (contract.type_id.name == 'Sueldo Empresarial'):
     result = 0
 elif GRATI > (4.75 * payslip.indicadores_id.sueldo_minimo /12):
@@ -347,7 +336,7 @@ else:
             <field name="category_id" ref="SUBT"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = round(categories.BASIC)</field>
+            <field name="amount_python_compute">result = round(categories.IMPONIBLE)</field>
         </record>
 						
         <record id="hr_rule_8" model="hr.salary.rule">
@@ -366,11 +355,11 @@ else:
 
 if worked_days.WORK100.number_of_days == 0:
     result = 0
-elif payslip.indicadores_id.asignacion_familiar_primer >= BASIC:
+elif payslip.indicadores_id.asignacion_familiar_primer >= categories.IMPONIBLE:
     result = round(((payslip.indicadores_id.asignacion_familiar_monto_a*contract.carga_familiar) / 30) * (dias))
-elif payslip.indicadores_id.asignacion_familiar_segundo  >= BASIC:
+elif payslip.indicadores_id.asignacion_familiar_segundo  >= categories.IMPONIBLE:
     result = round(((payslip.indicadores_id.asignacion_familiar_monto_b*contract.carga_familiar) / 30) * (dias))
-elif payslip.indicadores_id.asignacion_familiar_tercer  >= BASIC:
+elif payslip.indicadores_id.asignacion_familiar_tercer  >= categories.IMPONIBLE:
     result = round(((payslip.indicadores_id.asignacion_familiar_monto_c*contract.carga_familiar) / 30) * (dias))</field>
         </record>
 			
@@ -378,7 +367,7 @@ elif payslip.indicadores_id.asignacion_familiar_tercer  >= BASIC:
             <field name="name">COLACION</field>
             <field name="sequence" eval="9"/>
             <field name="code">COL</field>
-            <field name="category_id" ref="ALW"/>
+            <field name="category_id" ref="NOIMPO"/>
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.colacion > 0</field>
             <field name="amount_select">code</field>
@@ -404,7 +393,7 @@ else:
             <field name="name">MOVILIZACION</field>
             <field name="sequence" eval="10"/>
             <field name="code">MOV</field>
-            <field name="category_id" ref="ALW"/>
+            <field name="category_id" ref="NOIMPO"/>
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.movilizacion > 0</field>
             <field name="amount_select">code</field>
@@ -429,7 +418,7 @@ else:
             <field name="name">OTROS NO IMPONIBLE</field>
             <field name="sequence" eval="11"/>
             <field name="code">OTRONOIMP</field>
-            <field name="category_id" ref="ALW"/>
+            <field name="category_id" ref="NOIMPO"/>
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.otro_no_imp > 0</field>
             <field name="amount_select">code</field>
@@ -452,7 +441,7 @@ else:
             <field name="name">OTROS NO IMPONIBLE 2</field>
             <field name="sequence" eval="11"/>
             <field name="code">OTRONOIMP2</field>
-            <field name="category_id" ref="ALW"/>
+            <field name="category_id" ref="NOIMPO"/>
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.otro_no_imp_2 > 0</field>
             <field name="amount_select">code</field>
@@ -476,7 +465,7 @@ else:
             <field name="name">VIATICO</field>
             <field name="sequence" eval="12"/>
             <field name="code">VIASAN</field>
-            <field name="category_id" ref="ALW"/>
+            <field name="category_id" ref="NOIMPO"/>
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.viatico_santiago > 0</field>
             <field name="amount_select">code</field>
@@ -502,7 +491,7 @@ else:
             <field name="category_id" ref="SUBT"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = round(categories.ALW)</field>
+            <field name="amount_python_compute">result = round(categories.NOIMPO)</field>
         </record>
 						
         <record id="hr_rule_14" model="hr.salary.rule">						
@@ -846,7 +835,13 @@ else:
             <field name="appears_on_payslip" eval="False"/>						
             <field name="condition_select">none</field>						
             <field name="amount_select">code</field>						
-            <field name="amount_python_compute">result = categories.BASIC + categories.ALW - categories.NOIMPO</field>						
+            <field name="amount_python_compute">asig = 0 
+try: 
+ asig = ASIGFAM
+except: 
+ asig = 0
+
+result = categories.IMPONIBLE + categories.NOIMPO - asig</field>						
         </record>
 
 
@@ -864,10 +859,10 @@ else:
             <field name="name">TOTAL HABERES</field>						
             <field name="sequence" eval="42"/>						
             <field name="code">HAB</field>						
-            <field name="category_id" ref="GROSS"/>						
+            <field name="category_id" ref="SUBT"/>						
             <field name="condition_select">none</field>						
             <field name="amount_select">code</field>						
-            <field name="amount_python_compute">result = categories.BASIC + categories.ALW</field>						
+            <field name="amount_python_compute">result = categories.IMPONIBLE + categories.NOIMPO</field>						
         </record>
 
        <record id="hr_rule_43" model="hr.salary.rule">						
@@ -887,11 +882,11 @@ else:
             <field name="name">ALCANCE LIQUIDO</field>						
             <field name="sequence" eval="44"/>						
             <field name="code">LIQ</field>						
-            <field name="category_id" ref="NET"/>
+            <field name="category_id" ref="SUBT"/>
             <field name="condition_select">none</field>						
             <field name="amount_select">code</field>
             <field name="active">True</field>							
-            <field name="amount_python_compute">result = categories.GROSS - TDE</field>						
+            <field name="amount_python_compute">result = HAB - TDE</field>						
         </record>
 
 
