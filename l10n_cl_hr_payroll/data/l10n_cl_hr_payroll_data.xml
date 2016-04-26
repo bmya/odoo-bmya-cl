@@ -437,30 +437,6 @@ else:
     result = round(contract.otro_no_imp - ((contract.otro_no_imp / 30) * dias))</field>
         </record>
 
-        <record id="hr_rule_45" model="hr.salary.rule">
-            <field name="name">OTROS NO IMPONIBLE 2</field>
-            <field name="sequence" eval="11"/>
-            <field name="code">OTRONOIMP2</field>
-            <field name="category_id" ref="NOIMPO"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = contract.otro_no_imp_2 > 0</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">dias = 0 
-try: 
- dias = worked_days.Licencia.number_of_days 
-except: 
- dias = 0.0
-try: 
- dias = dias + worked_days.Falta.number_of_days 
-except: 
- dias = dias
-if worked_days.WORK100.number_of_days == 0:
-    result = 0
-else:
-    result = round(contract.otro_no_imp_2 - ((contract.otro_no_imp_2 / 30) * dias))</field>
-        </record>
-
-
         <record id="hr_rule_12" model="hr.salary.rule">
             <field name="name">VIATICO</field>
             <field name="sequence" eval="12"/>
@@ -555,7 +531,10 @@ else:
             <field name="condition_select">python</field>
             <field name="condition_python">result = contract.aporte_voluntario > 0</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = contract.aporte_voluntario</field>
+            <field name="amount_python_compute">if contract.aporte_voluntario > round(payslip.indicadores_id.tope_mensual_apv * payslip.indicadores_id.uf ):
+    result = round(payslip.indicadores_id.tope_mensual_apv * payslip.indicadores_id.uf )
+else:
+    result = contract.aporte_voluntario</field>
         </record>
 
         <record id="hr_rule_17" model="hr.salary.rule">						
@@ -918,7 +897,7 @@ result = categories.IMPONIBLE + categories.NOIMPO - asig</field>
             <field name="name">Codigo del Trabajo</field>
             <field name="code">Codigo del Trabajo de Chile</field>
             <field name="parent_id"></field>
-            <field eval="[(6, 0, [ref('hr_rule_1'), ref('hr_rule_2'),ref('hr_rule_3'),ref('hr_rule_4'),ref('hr_rule_5'),ref('hr_rule_6'),ref('hr_rule_7'),ref('hr_rule_8'),ref('hr_rule_9'),ref('hr_rule_10'),ref('hr_rule_11'),ref('hr_rule_12'),ref('hr_rule_13'),ref('hr_rule_14'),ref('hr_rule_15'),ref('hr_rule_16'),ref('hr_rule_17'),ref('hr_rule_18'),ref('hr_rule_19'),ref('hr_rule_20'),ref('hr_rule_26'),ref('hr_rule_27'),ref('hr_rule_28'),ref('hr_rule_33'),ref('hr_rule_34'),ref('hr_rule_35'),ref('hr_rule_36'),ref('hr_rule_37'),ref('hr_rule_38'),ref('hr_rule_39'),ref('hr_rule_40'),ref('hr_rule_41'),ref('hr_rule_42'),ref('hr_rule_43'),ref('hr_rule_44'),ref('hr_rule_45')])]" name="rule_ids"/>
+            <field eval="[(6, 0, [ref('hr_rule_1'), ref('hr_rule_2'),ref('hr_rule_3'),ref('hr_rule_4'),ref('hr_rule_5'),ref('hr_rule_6'),ref('hr_rule_7'),ref('hr_rule_8'),ref('hr_rule_9'),ref('hr_rule_10'),ref('hr_rule_11'),ref('hr_rule_12'),ref('hr_rule_13'),ref('hr_rule_14'),ref('hr_rule_15'),ref('hr_rule_16'),ref('hr_rule_17'),ref('hr_rule_18'),ref('hr_rule_19'),ref('hr_rule_20'),ref('hr_rule_26'),ref('hr_rule_27'),ref('hr_rule_28'),ref('hr_rule_33'),ref('hr_rule_34'),ref('hr_rule_35'),ref('hr_rule_36'),ref('hr_rule_37'),ref('hr_rule_38'),ref('hr_rule_39'),ref('hr_rule_40'),ref('hr_rule_41'),ref('hr_rule_42'),ref('hr_rule_43'),ref('hr_rule_44')])]" name="rule_ids"/>
         </record>
 
 

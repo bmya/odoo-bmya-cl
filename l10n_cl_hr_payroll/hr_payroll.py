@@ -44,13 +44,13 @@ class hr_indicadores_previsionales(models.Model):
 
     name = fields.Char('Nombre', required=True)
     asignacion_familiar_primer = fields.Float(
-        'Asignacion Familiar Tramo 1', 
+        'Asignación Familiar Tramo 1', 
         help="Asig Familiar Primer Tramo")
     asignacion_familiar_segundo = fields.Float(
-        'Asignacion Familiar Tramo 2', 
+        'Asignación Familiar Tramo 2', 
         help="Asig Familiar Segundo Tramo")
     asignacion_familiar_tercer = fields.Float(
-        'Asignacion Familiar Tramo 3', 
+        'Asignación Familiar Tramo 3', 
         help="Asig Familiar Tercer Tramo")
     asignacion_familiar_monto_a = fields.Float(
         'Monto Tramo Uno', help="Monto A")
@@ -68,20 +68,20 @@ class hr_indicadores_previsionales(models.Model):
         'Contrato Plazo Indefinido 11 anos o mas', 
         help="Contrato Plazo Indefinido 11 anos")
     caja_compensacion = fields.Float(
-        'Caja Compensacion Los Andes', 
+        'Caja Compensación', 
         help="Caja de Compensacion")
     deposito_convenido = fields.Float(
         'Deposito Convenido', help="Deposito Convenido")
     fonasa = fields.Float('Fonasa',  help="Fonasa")
     mutual_seguridad = fields.Float(
-        'Mutual Seguridad',  help="Mutual de Seguridad")
+        'Mutualidad',  help="Mutual de Seguridad")
     pensiones_ips = fields.Float(
         'Pensiones IPS',  help="Pensiones IPS")
     sueldo_minimo = fields.Float(
-        'Sueldo Minimo',  help="Sueldo Minimo")
+        'Sueldo Mínimo',  help="Sueldo Minimo")
     sueldo_minimo_otro = fields.Float(
-        'Sueldo Minimo Menores de 18 y Mayores de 65', 
-        help="Sueldo Minimo para Menores de 18 y Mayores a 65")
+        'Sueldo Mínimo Menores de 18 y Mayores de 65', 
+        help="Sueldo Mínimo para Menores de 18 y Mayores a 65")
     tasa_mutual = fields.Float(
         'Tasa Mutual', help="Tasa AFP Mutual")
     tasa_afp_cuprum = fields.Float(
@@ -131,8 +131,8 @@ class hr_indicadores_previsionales(models.Model):
     tope_imponible_salud = fields.Float(
         'Tope Imponible Salud')
     tope_imponible_seguro_cesantia = fields.Float(
-        'Tope Imponible Seguro Cesantia', 
-        help="Tope Imponible Seguro de Cesantia")
+        'Tope Imponible Seguro Cesantía', 
+        help="Tope Imponible Seguro de Cesantía")
     uf = fields.Float(
         'UF',  required=True, help="UF fin de Mes")
     utm = fields.Float(
@@ -200,41 +200,38 @@ class hr_contract(models.Model):
 
     afp_id = fields.Many2one('hr.afp', 'AFP')
     aporte_voluntario = fields.Float(
-        'Aporte Voluntario', help="Aporte Voluntario al ahorro individual")
+        'Ahorro Previsional Voluntario (APV)', help="Ahorro Previsional Voluntario (APV)")
     anticipo_sueldo = fields.Float(
         'Anticipo de Sueldo',
         help="Anticipo De Sueldo Realizado Contablemente")
     carga_familiar = fields.Integer(
         'Carga Familiar',
-        help="Carga Familiar para el calculo de asignacion familiar")
-    colacion = fields.Float('Colacion', help="Colacion")
-    colacion_opcional = fields.Boolean('Colacion Opcional')
+        help="Carga familiar para el cálculo de asignación familiar")
+    colacion = fields.Float('Colación', help="Colación")
     isapre_id = fields.Many2one('hr.isapre', 'ISAPRE')
     isapre_cotizacion_uf = fields.Float(
-        'Cotizacion UF',  help="Cotizacion Pactada en UF")
+        'Cotización UF',  help="Cotización Pactada en UF")
     movilizacion = fields.Float(
-        'Movilizacion', help="Movilizacion")
+        'Movilización', help="Movilización")
     mutual_seguridad = fields.Boolean('Mutual Seguridad')
     otro_no_imp = fields.Float(
         'Otros No Imponible', help="Otros Haberes No Imponibles")
-    otro_no_imp_2 = fields.Float(
-        'Otros No Imponible 2', help="Otros Haberes No Imponibles")
     otros_imp = fields.Float(
         'Otros Imponible', help="Otros Haberes Imponibles")
     pension = fields.Boolean('Pensionado')
     # seguro_complementario_id = fields.Many2one('hr.seguro.complementario',
     #    'Seguro Complementario')
     seguro_complementario_cotizacion_uf = fields.Float(
-        'Cotizacion UF',  help="Cotizacion Pactada en UF")
+        'Cotización UF',  help="Cotización Pactada en UF")
     viatico_santiago = fields.Float(
-        'Viatico Santiago',  help="Viatico Santiago")
+        'Viático Santiago',  help="Viático Santiago")
 
 
 class hr_type_employee(models.Model):
     _name = 'hr.type.employee'
     _description = 'Tipo de Empleado'
 
-    id_type = fields.Char('Codigo', required=True)
+    id_type = fields.Char('Código', required=True)
     name = fields.Char('Nombre', required=True)
 
 
