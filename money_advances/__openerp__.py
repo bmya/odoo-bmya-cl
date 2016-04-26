@@ -39,7 +39,7 @@ This module lets you change the account the moment you are paying.
     ], 
     "demo": [], 
     "data": [        
-        "view/account_money_advances_view.xml"
+        "views/account_money_advances_view.xml"
     ], 
     "installable": True, 
     "auto_install": False, 
