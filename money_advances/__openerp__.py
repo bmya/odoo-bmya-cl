@@ -38,14 +38,9 @@ This module lets you change the account the moment you are paying.
         "account_voucher"
     ], 
     "demo": [], 
-    "data": [
-        
+    "data": [        
         "view/account_money_advances_view.xml"
     ], 
-    "test": [], 
-    "js": [], 
-    "css": [], 
-    "qweb": [], 
     "installable": True, 
     "auto_install": False, 
     "active": False
