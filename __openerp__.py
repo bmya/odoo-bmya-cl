@@ -2,7 +2,9 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
+#
 #    Copyright (C) 2013 Cubic ERP - Teradata SAC.
+#    Copyright (C) 2016 Blanco Martín & Asociados - Odoo Chile Community
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,28 +21,23 @@
 #
 ##############################################################################
 {
-    "name": "Chile Localization Toponyms",
-    "version": "2.0",
+    "name": "Chile Localization Regions, Cities and Counties",
+    "version": "1.1",
     "description": """
-Chilean toponyms.
-
-Lista de regiones, provincias y comunas chilenas
+Chilean Regions, Cities and Counties .
+Lista de regiones, ciudades y comunas de Chile
     """,
-    "author": "Cubic ERP",
-    "website": "http://cubicERP.com",
+    "author": "Cubic ERP, Blanco Martín & Asociados, Odoo Chile Community",
+    "website": "http://odoochile.org",
     "category": "Localization/Toponyms",
     "depends": [
-                "base_state_ubication",
-            ],
+        "base_state_ubication",
+    ],
     "data":[
-        "data/l10n_cl_toponyms_data.xml",
+        "data/l10n_cl_counties_data.xml",
         "views/res_partner_view.xml",
         "views/res_state_view.xml"
         ],
-    "demo_xml": [],
-    "update_xml": [],
     "active": False,
     "installable": True,
-    "certificate" : "",
-    "images": [],
 }

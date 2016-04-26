@@ -2,7 +2,8 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-# Copyright (c) 2012 Cubic ERP - Teradata SAC. (http://cubicerp.com).
+#    Copyright (c) 2012 Cubic ERP - Teradata SAC. (http://cubicerp.com).
+#    Copyright (C) 2016 Blanco Martín & Asociados - Odoo Chile Community
 #
 # WARNING: This program as such is intended to be used by professional
 # programmers who take the whole responsability of assessing all potential
