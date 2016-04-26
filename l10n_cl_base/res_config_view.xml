@@ -25,10 +25,10 @@
 					<group>
 						<label for="id" string="Partners" />
 						<div name="fantasyname">
-							<div name='module_l10n_cl_toponyms'>
-								<field name="module_l10n_cl_toponyms"
+							<div name='module_l10n_cl_counties'>
+								<field name="module_l10n_cl_counties"
 									class="oe_inline" />
-								<label for="module_l10n_cl_toponyms" />
+								<label for="module_l10n_cl_counties" />
 							</div>		
 						</div>
 						<label for="id" string="RUT (VAT) Validation"/>

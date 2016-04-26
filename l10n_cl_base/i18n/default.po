@@ -137,7 +137,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: l10n_cl_base
-#: field:chilean.base.config.settings,module_l10n_cl_toponyms:0
+#: field:chilean.base.config.settings,module_l10n_cl_counties:0
 #, fuzzy
 msgid "Include Chilean Counties"
 msgstr "Incluir Comunas Chilenas"
@@ -258,13 +258,13 @@ msgstr ""
 "solicitados por Previred."
 
 #. module: l10n_cl_base
-#: help:chilean.base.config.settings,module_l10n_cl_toponyms:0
+#: help:chilean.base.config.settings,module_l10n_cl_counties:0
 #, fuzzy
 msgid ""
-"Installs l10n_cl_toponyms, which\n"
+"Installs l10n_cl_counties, which\n"
 "includes all chilean counties to partners."
 msgstr ""
-"Instala l10n_cl_toponyms, el cual\n"
+"Instala l10n_cl_counties, el cual\n"
 "incluye todas las comunas y regiones, para ser asignadas a\n"
 "clientes y proveedores."
 
