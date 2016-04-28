@@ -3,7 +3,7 @@
 #
 #    Odoo, Open Source Management Solution	
 #
-#    Copyright (c) 2015 Blanco Martin y Asociados - Nelson Ramírez Sánchez http://blancomartin.cl
+#    Copyright (c) 2015 Blanco Martin y Asociados - Nelson RamÃ­rez SÃ¡nchez http://blancomartin.cl
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 {
     "name": "Account Money Advances", 
     "version": "1.0", 
-    "author": "Blanco Martin y Asociados - Nelson Ramírez Sánchez", 
+    "author": "Blanco Martin y Asociados - Nelson RamÃ­rez SÃ¡nchez", 
     "category": "Generic Modules", 
     "description": """
 Account Money Advances
@@ -38,7 +38,7 @@ in another type of account.
     "depends": [
         "account", 
         "account_voucher"
-    ], 
+    ],  
     "demo": [], 
     "data": [        
         "views/account_money_advances_view.xml"
