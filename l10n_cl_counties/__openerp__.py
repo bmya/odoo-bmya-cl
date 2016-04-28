@@ -25,25 +25,20 @@
     "description": """
 Chilean Regions, Cities and Counties .
 
-Lista de regiones, ciudades y comunas de Chile
+Lista de regiones, ciudades y comunas de Chile.
     """,
     "author": "Cubic ERP, Blanco Martín & Asociados, Odoo Chile Community",
     "website": "http://odoochile.org",
     "category": "Localization/Toponyms",
     "depends": [
-			"base_state_ubication",
-			],
-	"data":[
+            "base_state_ubication",
+        ],
+    "data": [
         "l10n_cl_counties_data.xml",
-			],
-    "demo_xml": [
-			],
-    "update_xml": [
-			],
+        ],
+    'init_xml': [
+        'query.sql'
+        ],
     "active": False,
     "installable": True,
-    "certificate" : "",
-    "images": [
-                        ],
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
