@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #from . #import test
-from . import partner
 from . import sii
+from . import partner
 from . import account
 from . import country
 from . import currency
