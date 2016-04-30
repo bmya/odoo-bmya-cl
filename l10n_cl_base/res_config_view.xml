@@ -21,6 +21,41 @@
 								string="Easily configure your options for chilean localization." />
 						</p>
 					</div>
+            		<separator string="Finance" />
+					<group>
+						<label for="id" string="Finance" />
+						<!-- module_l10n_cl_banks_sbif -->
+						<!-- module_l10n_cl_financial_indicators -->
+						<!-- module_decimal_precision_currency -->
+
+						<div name="finance">
+							<div name='module_l10n_cl_chart'>
+								<field name="module_l10n_cl_chart"
+									class="oe_inline" />
+								<label for="module_l10n_cl_chart" />
+							</div>
+							<div name='module_l10n_cl_banks_sbif'>
+								<field name="module_l10n_cl_banks_sbif"
+									class="oe_inline" />
+								<label for="module_l10n_cl_banks_sbif" />
+							</div>
+                            <div name='module_l10n_cl_account_vat_ledger'>
+								<field name="module_l10n_cl_account_vat_ledger"
+									class="oe_inline" />
+								<label for="module_l10n_cl_account_vat_ledger" />
+							</div>
+							<div name='module_l10n_cl_financial_indicators'>
+								<field name="module_l10n_cl_financial_indicators"
+									class="oe_inline" />
+								<label for="module_l10n_cl_financial_indicators" />
+							</div>
+							<div name='module_account_bank_voucher'>
+								<field name="module_account_bank_voucher"
+									class="oe_inline" />
+								<label for="module_account_bank_voucher" />
+							</div>
+						</div>
+					</group>
 					<separator string="Partners" />
 					<group>
 						<label for="id" string="Partners" />
@@ -42,57 +77,8 @@
 						</div>
 					</group>
 					
-					<separator string="Finance" />
-					<group>
-						<label for="id" string="Finance" />	
-						<!-- module_l10n_cl_banks_sbif -->
-						<!-- module_l10n_cl_financial_indicators -->
-						<!-- module_decimal_precision_currency -->
 
-						<div name="finance">
-
-							<div name='module_l10n_cl_chart'>
-								<field name="module_l10n_cl_chart"
-									class="oe_inline" />
-								<label for="module_l10n_cl_chart" />
-							</div>
-							
-							
-							<div name='module_l10n_cl_banks_sbif'>
-								<field name="module_l10n_cl_banks_sbif"
-									class="oe_inline" />
-								<label for="module_l10n_cl_banks_sbif" />
-							</div>
-							<div name='module_l10n_cl_financial_indicators'>
-								<field name="module_l10n_cl_financial_indicators"
-									class="oe_inline" />
-								<label for="module_l10n_cl_financial_indicators" />
-							</div>
-							<div name='module_account_bank_voucher'>
-								<field name="module_account_bank_voucher"
-									class="oe_inline" />
-								<label for="module_account_bank_voucher" />
-							</div>
-							<div name='module_l10n_cl_account_vat_ledger'>
-								<field name="module_l10n_cl_account_vat_ledger"
-									class="oe_inline" />
-								<label for="module_l10n_cl_account_vat_ledger" />
-							</div>
-						</div>
-					</group>
-					<separator string="Purchases" />
-					<group>
-						<label for="id" string="Reporting" />
-						<div name="reports">
-							<!-- module_invoice_printed -->
-							<div name='module_l10n_cl_aeroo_purchase'>
-								<field name="module_l10n_cl_aeroo_purchase"
-									class="oe_inline" readonly="1" />
-								<label for="module_l10n_cl_aeroo_purchase" />
-							</div>		
-						</div>
-					</group>
-					<separator string="Sales" />
+					<separator string="Sales and Purchases" />
 					<group>
 						<label for="id" string="Partner Activities" />
 						<div name="partneractivities">
@@ -109,30 +95,50 @@
 								<field name="module_l10n_cl_invoice" class="oe_inline" />
 								<label for="module_l10n_cl_invoice" />
 							</div>
-							<div name='module_l10n_cl_credit_card_voucher'>
-								<field name="module_l10n_cl_credit_card_voucher" class="oe_inline" />
-								<label for="module_l10n_cl_credit_card_voucher" />
-							</div>
 							<div name='module_l10n_cl_dte'>
 								<field name="module_l10n_cl_dte"
 									class="oe_inline"/>
 								<label for="module_l10n_cl_dte" />
-							</div>		
-						</div>
-					</group>
-					<group>
-						<label for="id" string="Reporting" />
-						<div name="reports">
-							<!-- module_invoice_printed -->
+							</div>
+                            <div name='module_l10n_cl_dte_caf' attrs="{'invisible':[('module_l10n_cl_dte','=',False)]}">
+								<field name="module_l10n_cl_dte_caf"
+									class="oe_inline"/>
+								<label for="module_l10n_cl_dte_caf" />
+							</div>
+                            <div name='module_l10n_cl_aeroo_einvoice' attrs="{'invisible':[('module_l10n_cl_dte_caf','=',False)]}">
+								<field name="module_l10n_cl_aeroo_einvoice"
+									class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_aeroo_einvoice" />
+							</div>
+                        </div>
+                    </group>
+                    <group>
+                        <label for="id" string="Manual POS Usage" />
+                        <div name="manualpos">
+                            <div name='module_l10n_cl_pos_basic_users'>
+								<field name="module_l10n_cl_pos_basic_users" class="oe_inline" />
+								<label for="module_l10n_cl_pos_basic_users" />
+							</div>
+                            <div name='module_l10n_cl_credit_card_voucher'>
+								<field name="module_l10n_cl_credit_card_voucher" class="oe_inline" />
+								<label for="module_l10n_cl_credit_card_voucher" />
+							</div>
 							<div name='module_invoice_printed'>
 								<field name="module_invoice_printed"
 									class="oe_inline" />
 								<label for="module_invoice_printed" />
-							</div>							
-							<div name='module_l10n_cl_aeroo_einvoice'>
-								<field name="module_l10n_cl_aeroo_einvoice"
+							</div>
+						</div>
+					</group>
+					<group>
+						<label for="id" string="Reporting" />
+
+						<div name="reports">
+
+							<div name='module_l10n_cl_aeroo_purchase'>
+								<field name="module_l10n_cl_aeroo_purchase"
 									class="oe_inline" readonly="1" />
-								<label for="module_l10n_cl_aeroo_einvoice" />
+								<label for="module_l10n_cl_aeroo_purchase" />
 							</div>
 							<div name='module_l10n_cl_aeroo_receipt'>
 								<field name="module_l10n_cl_aeroo_receipt"
@@ -143,8 +149,7 @@
 								<field name="module_l10n_cl_aeroo_stock"
 									class="oe_inline" readonly="1" />
 								<label for="module_l10n_cl_aeroo_stock" />
-							</div>		
-
+							</div>
 						</div>
 					</group>
 
