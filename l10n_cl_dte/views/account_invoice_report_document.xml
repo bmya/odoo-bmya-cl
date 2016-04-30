@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <template id="account.report_invoice_document">
+            <!-- este reemplaza el account.report_invoice_document original -->
+            <t t-call="l10n_cl_dte.dte_external_layout">
+                <div class="page">
+                    <br /><br /><br /><br /><br />
+
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th class="text-right">Unit Price</th>
+                                <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
+                                <th class="text-right">Taxes</th>
+                                <th class="text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoice_tbody">
+                            <tr t-foreach="o.invoice_line" t-as="l">
+                                <td><span t-field="l.name"/></td>
+                                <td>
+                                    <span t-field="l.quantity"/>
+                                    <span t-field="l.uos_id" groups="product.group_uom"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_unit"/>
+                                </td>
+                                <td class="text-right" groups="sale.group_discount_per_so_line"><span t-field="l.discount"/></td>
+                                <td class="text-right">
+                                    <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_id))"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p t-if="o.comment">
+                        <strong>Comment:</strong>
+                        <span t-field="o.comment"/>
+                    </p>
+
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>
