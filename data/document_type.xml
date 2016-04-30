@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data noupdate="False">
-        <record model='sii.document_type' id='dt_RUT'>
+        <record  id='dt_RUT' model='sii.document_type'>
             <field name='code'>RUT</field>
             <field name='name'>RUT</field>
             <field name='sii_code'>81</field>
             <field name='active' eval="True"/>
         </record> 
-        <record model='sii.document_type' id='dt_RUN'>
+        <record id='dt_RUN' model='sii.document_type'>
             <field name='code'>RUN</field>
             <field name='name'>Cédula</field>
             <field name='sii_code'>82</field>
             <field name='active' eval="True"/>
         </record> 
-        <record model='sii.document_type' id='dt_CIe'>
+        <record id='dt_CIe' model='sii.document_type'>
             <field name='code'>CIe</field>
             <field name='name'>CI extranjera</field>
             <field name='sii_code'>91</field>
             <field name='active' eval="True"/>
         </record> 
-        <record model='sii.document_type' id='dt_PAS'>
+        <record id='dt_PAS' model='sii.document_type'>
             <field name='code'>PAS</field>
             <field name='name'>Pasaporte</field>
             <field name='sii_code'>94</field>
             <field name='active' eval="True"/>
         </record> 
-        <record model='sii.document_type' id='dt_DNI'>
+        <record id='dt_DNI' model='sii.document_type'>
             <field name='code'>DNI</field>
             <field name='name'>DNI Extranjero</field>
             <field name='sii_code'>96</field>
             <field name='active' eval="True"/>
         </record> 
-        <record model='sii.document_type' id='dt_Sigd'>
+        <record id='dt_Sigd' model='sii.document_type'>
             <field name='code'>Sigd</field>
             <field name='name'>Sin identificar/venta global diaria</field>
             <field name='sii_code'>99</field>
