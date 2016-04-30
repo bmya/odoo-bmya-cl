@@ -36,7 +36,7 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'webservices_generic',
         'l10n_cl_counties',
         'l10n_cl_invoice',
-        'l10n_cl_dte_caf',
+        # 'l10n_cl_dte_caf',
         ],
     'external_dependencies': {
         'python': [
@@ -58,6 +58,7 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'data/sii.regional.offices.csv',
         'security/ir.model.access.csv',
         'views/layouts.xml',
+        'views/account_invoice_report_document.xml',
     ],
     'installable': True,
     'auto_install': False,
