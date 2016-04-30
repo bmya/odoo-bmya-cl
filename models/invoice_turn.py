@@ -36,7 +36,7 @@ class invoice_turn(models.Model):
     _inherit = "account.invoice"
 
 
-    @api.multi
+    @api.one
     @api.depends('partner_id')
     def _get_available_turns(self):
         self.ensure_one()
