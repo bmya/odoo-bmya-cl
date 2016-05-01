@@ -21,7 +21,7 @@
 {
     "name": """Chile - Web Services de Documentos Tributarios Electrónicos\
     """,
-    'version': '8.0.0.0.4',
+    'version': '8.0.0.0.5',
     'category': 'Localization/Chile',
     'sequence': 12,
     'author':  'BMyA SA - Blanco Martín & Asociados',
@@ -57,8 +57,6 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'views/sii_regional_offices_view.xml',
         'data/sii.regional.offices.csv',
         'security/ir.model.access.csv',
-        'views/layouts.xml',
-        'views/account_invoice_report_document.xml',
     ],
     'installable': True,
     'auto_install': False,
