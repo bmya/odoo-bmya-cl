@@ -105,10 +105,10 @@
 									class="oe_inline"/>
 								<label for="module_l10n_cl_dte_caf" />
 							</div>
-                            <div name='module_l10n_cl_aeroo_einvoice' attrs="{'invisible':[('module_l10n_cl_dte_caf','=',False)]}">
-								<field name="module_l10n_cl_aeroo_einvoice"
+                            <div name='module_l10n_cl_dte_pdf' attrs="{'invisible':[('module_l10n_cl_dte_caf','=',False)]}">
+								<field name="module_l10n_cl_dte_pdf"
 									class="oe_inline" readonly="1" />
-								<label for="module_l10n_cl_aeroo_einvoice" />
+								<label for="module_l10n_cl_dte_pdf" />
 							</div>
                         </div>
                     </group>

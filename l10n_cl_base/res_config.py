@@ -92,6 +92,10 @@ printers, or connect to external electronic invoices services""")
         'Electronic Invoice Format', help="""Installs output form report \
 including PDF417 electronic stamp""")
 
+    module_l10n_cl_dte_pdf = fields.Boolean(
+        'Electronic Invoice Format', help="""Installs output form report \
+    including PDF417 electronic stamp""")
+
     module_l10n_cl_aeroo_stock = fields.Boolean(
         'Electronic Stock picking', help="""Installs output form report \
 including PDF417 electronic stamp""")
