@@ -661,8 +661,10 @@ try:
  dias = worked_days.Licencia.number_of_days 
 except: 
  dias = 0.0
-
-result = round((payslip.indicadores_id.uf / 30 * (30 - dias)) * contract.isapre_cotizacion_uf) > round(SALUD)</field>
+if contract.isapre_id.name == 'FONASA':
+    result = False
+else:
+    result = round((payslip.indicadores_id.uf / 30 * (30 - dias)) * contract.isapre_cotizacion_uf) > round(SALUD)</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">dias = 0 
 try: 
