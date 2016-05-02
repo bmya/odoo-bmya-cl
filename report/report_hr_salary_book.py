@@ -3,7 +3,7 @@
 #
 #    Odoo, Open Source Management Solution Chilean Payroll
 #
-#    Copyright (c) 2015 Blanco Martin y Asociados - Nelson Ramírez Sánchez
+#    Copyright (c) 2015 Blanco Martin y Asociados - Nelson RamÃ­rez SÃ¡nchez
 #    Daniel Blanco
 #    http://blancomartin.cl
 #
@@ -167,7 +167,7 @@ order by name_related''', (last_month, last_year,))
                 emp_salary = self.get_worked_days(
                     form, id_data[cont][0], emp_salary, last_month, last_year)
                 emp_salary = self.get_salary(
-                    id_data[cont][0], emp_salary, 'BASIC', last_month,
+                    id_data[cont][0], emp_salary, 'SUELDO', last_month,
                     last_year)
                 emp_salary = self.get_salary(
                     id_data[cont][0], emp_salary, 'HEX%', last_month,
