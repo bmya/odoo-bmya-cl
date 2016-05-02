@@ -366,13 +366,11 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                 print(frameinfo.filename, frameinfo.lineno)
                 barcodefile = StringIO()
                 image = inv.pdf417bc(ted)
-                # image.save('barcode.png')
-                image.save(barcodefile,'PNG')
-                data = barcodefile.getvalue()
-                # with open('barcode.png', 'r') as myfile:
-                #    data=myfile.read()
-
-                inv.sii_barcode_img = base64.b64encode(data)
+                # 3 lineas comentadas hasta resolver el error que da debian
+                # subprocess.py", line 1335, in _execute_child
+                # image.save(barcodefile,'PNG')
+                # data = barcodefile.getvalue()
+                # inv.sii_barcode_img = base64.b64encode(data)
         return ted1
 
     @api.multi
