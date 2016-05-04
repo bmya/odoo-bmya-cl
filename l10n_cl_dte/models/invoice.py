@@ -366,11 +366,9 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                 print(frameinfo.filename, frameinfo.lineno)
                 barcodefile = StringIO()
                 image = inv.pdf417bc(ted)
-                # 3 lineas comentadas hasta resolver el error que da debian
-                # subprocess.py", line 1335, in _execute_child
-                # image.save(barcodefile,'PNG')
-                # data = barcodefile.getvalue()
-                # inv.sii_barcode_img = base64.b64encode(data)
+                image.save(barcodefile,'PNG')
+                data = barcodefile.getvalue()
+                inv.sii_barcode_img = base64.b64encode(data)
         return ted1
 
     @api.multi
@@ -531,3 +529,4 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
             # consecuencias (llamando a super
             else:
                 _logger.info('NO HUBO NINGUNA OPCION DTE VALIDA')
+
