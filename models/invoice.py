@@ -228,7 +228,8 @@ class account_invoice(models.Model):
         result = []
         for inv in self:
             result.append(
-                (inv.id, "%s %s" % (inv.document_number or TYPES[inv.type], inv.name or '')))
+                (inv.id, "%s %s" % (
+                    inv.document_number or TYPES[inv.type], inv.name or '')))
         return result
 
     @api.model
@@ -246,7 +247,7 @@ class account_invoice(models.Model):
     @api.onchange('journal_id', 'partner_id', 'turn_issuer','invoice_turn')
     # api onchange en lugar de depends.. veamos!
     def _get_available_journal_document_class(self):
-        print('ZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz')
+        print('ZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz')
         print(self.turn_issuer.vat_affected)
         invoice_type = self.type
         document_class_ids = []
@@ -260,14 +261,15 @@ class account_invoice(models.Model):
 
             if self.use_documents:
                 letter_ids = self.get_valid_document_letters(
-                    self.partner_id.id, operation_type, self.company_id.id, self.turn_issuer.vat_affected)
+                    self.partner_id.id, operation_type, self.company_id.id,
+                    self.turn_issuer.vat_affected, invoice_type)
 
                 domain = [
                     ('journal_id', '=', self.journal_id.id),
                     '|', ('sii_document_class_id.document_letter_id',
                           'in', letter_ids),
-                         ('sii_document_class_id.document_letter_id', '=', False)]
-
+                         ('sii_document_class_id.document_letter_id',
+                          '=', False)]
 
                 # If document_type in context we try to serch specific document
                 # document_type = self._context.get('document_type', False)
@@ -281,6 +283,7 @@ class account_invoice(models.Model):
                 #        # revisar si hay condicion de exento, para poner como primera alternativa estos
                 #        document_class_id = self.get_document_class_default(document_classes)
                 # For domain, we search all documents
+
                 document_classes = self.env[
                     'account.journal.sii_document_class'].search(domain)
                 document_class_ids = document_classes.ids
@@ -290,7 +293,8 @@ class account_invoice(models.Model):
                     # revisar si hay condicion de exento, para poner como primera alternativa estos
                     # to-do: manejar más fino el documento por defecto.
                     print('llamada a document class default')
-                    document_class_id = self.get_document_class_default(document_classes)
+                    document_class_id = self.get_document_class_default(
+                        document_classes)
 
             # incorporado nuevo, para la compra
             if operation_type == 'purchase':
@@ -448,7 +452,7 @@ class account_invoice(models.Model):
 
     def get_valid_document_letters(
             self, cr, uid, partner_id, operation_type='sale',
-            company_id=False, vat_affected='SI', context=None):
+            company_id=False, vat_affected='SI', invoice_type='out_invoice', context=None):
         print('get_valid_document_letters')
         if context is None:
             context = {}
@@ -471,34 +475,43 @@ class account_invoice(models.Model):
         if operation_type == 'sale':
             issuer_responsability_id = company.partner_id.responsability_id.id
             receptor_responsability_id = partner.responsability_id.id
-            if vat_affected == 'SI':
-                domain = [
-                    ('issuer_ids', '=', issuer_responsability_id),
-                    ('receptor_ids', '=', receptor_responsability_id),
-                    ('name', '!=', 'C')]
-            else:
-                domain = [
-                    ('issuer_ids', '=', issuer_responsability_id),
-                    ('receptor_ids', '=', receptor_responsability_id),
-                    ('name', '=', 'C')]
+            if invoice_type == 'out_invoice':
+                if vat_affected == 'SI':
+                    domain = [
+                        ('issuer_ids', '=', issuer_responsability_id),
+                        ('receptor_ids', '=', receptor_responsability_id),
+                        ('name', '!=', 'C')]
+                else:
+                    domain = [
+                        ('issuer_ids', '=', issuer_responsability_id),
+                        ('receptor_ids', '=', receptor_responsability_id),
+                        ('name', '=', 'C')]
 
+            else:
+                # nota de credito de ventas
+                domain = [
+                    ('issuer_ids', '=', issuer_responsability_id),
+                    ('receptor_ids', '=', receptor_responsability_id)]
 
         elif operation_type == 'purchase':
             issuer_responsability_id = partner.responsability_id.id
             receptor_responsability_id = company.partner_id.responsability_id.id
-            print('iiiiiiiiiiiiiiissssssuerrrrr')
-            # buso si el giro del proveedor es segunda o primera categoria
-            print('responsabilidad del partner')
-            if issuer_responsability_id == self.pool.get(
-                    'ir.model.data').get_object_reference(
-                    cr, uid, 'l10n_cl_invoice', 'res_BH')[1]:
-                print('el proveedor es de segunda categoria y emite boleta de honorarios')
-            else:
-                print('el proveedor es de primera categoria y emite facturas o facturas no extentas')
+            if invoice_type == 'in_invoice':
+                print('responsabilidad del partner')
+                if issuer_responsability_id == self.pool.get(
+                        'ir.model.data').get_object_reference(
+                        cr, uid, 'l10n_cl_invoice', 'res_BH')[1]:
+                    print('el proveedor es de segunda categoria y emite boleta de honorarios')
+                else:
+                    print('el proveedor es de primera categoria y emite facturas o facturas no afectas')
 
-            domain = [
-                ('issuer_ids', '=', issuer_responsability_id),
-                ('receptor_ids', '=', receptor_responsability_id)]
+                domain = [
+                    ('issuer_ids', '=', issuer_responsability_id),
+                    ('receptor_ids', '=', receptor_responsability_id)]
+            else:
+                # nota de credito de compras
+                domain = ['|',('issuer_ids', '=', issuer_responsability_id),
+                              ('receptor_ids', '=', receptor_responsability_id)]
         else:
             raise except_orm(_('Operation Type Error'),
                              _('Operation Type Must be "Sale" or "Purchase"'))
