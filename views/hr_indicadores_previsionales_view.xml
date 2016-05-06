@@ -18,7 +18,7 @@
             	<group name="salary_and_advantages" position="after">	
 			<group string="Descuentos"> 
 			<field name="pension"/>
-			<field name="isapre_id" string="Isapre" required="1"/>
+			<field name="isapre_id" string="Salud" required="1"/>
 			<field name="isapre_cotizacion_uf" digits="(14, 5)" string="Cotización Pactada UF" required="1"/>
 			<field name="afp_id" string="AFP"/>
 			<field name="aporte_voluntario" string="Aporte Voluntario"/>

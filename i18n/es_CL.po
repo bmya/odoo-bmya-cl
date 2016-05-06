@@ -227,7 +227,87 @@ msgstr "Seguro Médico"
 #. module: hr_payroll
 #: report:paylip.details.in:0
 msgid "Identification No"
-msgstr "RUT"
+msgstr "R.U.T"
+
+
+
+
+#. module: hr_payroll
+#: view:website:hr_payroll.report_payslipdetails
+msgid "Identification No"
+msgstr "R.U.T"
+
+
+#. module: hr_payroll
+#: model:hr.employee,name:identification_id
+msgid "Identification No"
+msgstr "R.U.T"
+
+#. module: hr_holidays
+#: model:hr.holidays.status,name:hr_holidays.holiday_status_cl
+msgid "Legal Leaves 2016"
+msgstr "Vacaciones 2016"
+
+
+
+#. module: hr_holidays
+#: model:hr.holidays.status,name:hr_holidays.holiday_status_unpaid
+msgid "Unpaid"
+msgstr "Falta"
+
+
+#. module: hr_holidays
+#: model:hr.holidays.status,name:hr_holidays.holiday_status_sl
+msgid "Sick Leaves"
+msgstr "Licencia"
+
+
+#. module: hr
+#: field:hr.employee,identification_id:0
+msgid "Identification No"
+msgstr "R.U.T"
+
+
+#. module: hr_holidays
+#: help:hr.holidays.status,remaining_leaves:0
+msgid "Maximum Leaves Allowed - Leaves Already Taken"
+msgstr "Días de Vacaciones - Días Tomados"
+
+#. module: hr_holidays
+#: help:hr.holidays.status,virtual_remaining_leaves:0
+msgid "Maximum Leaves Allowed - Leaves Already Taken - Leaves Waiting Approval"
+msgstr "Días de Vacaciones - Días Tomados - Días Esperando por Aprobación"
+
+
+#. module: hr_holidays
+#: view:hr.holidays:hr_holidays.view_holiday
+#: view:hr.holidays:hr_holidays.view_holiday_allocation_tree
+#: view:hr.holidays:hr_holidays.view_holiday_simple
+msgid "Remaining Days"
+msgstr "Días Restantes"
+
+
+#. module: hr_holidays
+#: field:hr.holidays.status,remaining_leaves:0
+msgid "Remaining Leaves"
+msgstr "Días de Vacaciones Restantes"
+
+#. module: hr_holidays
+#: view:hr.employee:hr_holidays.hr_holidays_leaves_assign_tree_view
+#: field:hr.employee,remaining_leaves:0
+msgid "Remaining Legal Leaves"
+msgstr "Días Restantes de Vacaciones"
+
+#. module: hr_holidays
+#: field:hr.holidays.remaining.leaves.user,no_of_leaves:0
+msgid "Remaining leaves"
+msgstr "Vacaciones Restantes"
+
+
+
+
+
+
 
 #. module: l10n_cl_hr_payroll
 #: view:payslip.report:0 field:payslip.report,struct_id:0
@@ -277,6 +357,15 @@ msgstr "¡Error! No se pueden crear compañías recursivas."
 #: model:ir.ui.menu,name:l10n_cl_hr_payroll.menu_salary_employee_month
 msgid "Yearly Salary by Head"
 msgstr ""
+
+
+
+
+
+
+
+
+
 
 #. module: l10n_cl_hr_payroll
 #: code:addons/l10n_cl_hr_payroll/l10n_cl_hr_payroll.py:134

@@ -180,20 +180,6 @@
 
 
      <!-- Tipos de Faltas -->
-        <record id="hr_holidays_status_licencia" model="hr.holidays.status">
-            <field name="name">Licencia</field>
-            <field name="limit">True</field>
-        </record>
-
-        <record id="hr_holidays_sin_pago" model="hr.holidays.status">
-            <field name="name">Falta</field>
-            <field name="limit">True</field>
-        </record>
-
-        <record id="hr_holidays_sobretiempo" model="hr.holidays.status">
-            <field name="name">Sobretiempo</field>
-            <field name="limit">True</field>
-        </record>
 
 
         <record id="contrib_register_previred" model="hr.contribution.register">
