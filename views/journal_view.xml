@@ -31,7 +31,7 @@
                             <field name="point_of_sale_id" attrs="{'invisible': ['|',('type','not in',['sale','sale_refund'])],'required': [('use_documents','=',True),('type','in',['sale','sale_refund'])]}" context="{'default_company_id':company_id}"/>
                             <field name="point_of_sale" attrs="{'invisible': ['|',('type','not in',['sale','sale_refund'])]}"/>
                             <field name="journal_activities_ids"
-                                   attrs="{'invisible': ['|',('type','not in',['sale','sale_refund'])],'required': [('use_documents','=',True),('type','in',['sale','sale_refund'])]}" context="{'default_company_id':company_id}"
+                                   attrs="{'invisible': ['|',('type','not in',['purchase','sale','purchase_refund','sale_refund'])],'required': [('use_documents','=',True),('type','in',['sale','sale_refund'])]}" context="{'default_company_id':company_id}"
                                    placeholder="Giros del Diario" widget="many2many_tags"
                                    options="{'no_create': True}"
                                    domain="[('partner_ids', '=', company_id)]"/>

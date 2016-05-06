@@ -66,5 +66,5 @@
         'data/res.currency.csv',
         #'views/sii_menuitem.xml',
     ],
-    'version': '2.1',
+    'version': '2.2',
 }
