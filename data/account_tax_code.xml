@@ -89,6 +89,10 @@
             <field name="name">Impuesto a la Renta Primera Categoría a Pagar</field>
             <field name="parent_id" ref="vat_code_renta"/>
         </record>
+        <record model="account.tax.code.template" id="tax_uniq_2da">
+            <field name="name">Impuesto Unico 2da Categoría</field>
+            <field name="parent_id" ref="vat_code_tax"/>
+        </record>
         <record model="account.tax.code.template" id="tax_code_2da_pay">
             <field name="name">Impuesto Unico 2da Categoría a Pagar</field>
             <field name="parent_id" ref="tax_uniq_2da"/>
