@@ -5,9 +5,12 @@
 ##############################################################################
 from openerp import fields, models, api, _
 from openerp.exceptions import Warning
+from datetime import datetime
 import logging
 import lxml.etree as etree
-
+from lxml import objectify
+from lxml.etree import XMLSyntaxError
+import socket
 import collections
 try:
     from cStringIO import StringIO
@@ -26,6 +29,7 @@ import suds.client as sudscl
 
 # intento con urllib3
 import urllib3
+from urllib3 import HTTPConnectionPool
 pool = urllib3.PoolManager()
 
 from inspect import currentframe, getframeinfo
@@ -85,7 +89,8 @@ fHlAa7j08Xff95Yb2zg31sJt6lMjSKdOK+PQp25clZuECig==</FRMT></TED>"""
 result = xmltodict.parse(timbre)
 # result es un OrderedDict patrón
 # hardcodeamos este valor por ahora
-
+import os
+xsdpath = os.path.dirname(os.path.realpath(__file__)).replace('/models','/static/xsd/')
 
 class invoice(models.Model):
     _inherit = "account.invoice"
@@ -100,6 +105,19 @@ class invoice(models.Model):
         else:
             print
             "not a string"
+
+    def xml_validator(self, some_xml_string):
+        if 1==1:
+            xsd_file = xsdpath+'DTE_v10.xsd'
+            try:
+                schema = etree.XMLSchema(file=xsd_file)
+                parser = objectify.makeparser(schema=schema)
+                objectify.fromstring(some_xml_string, parser)
+                print("YEAH!, my xml file has validated")
+                return True
+            except XMLSyntaxError as e:
+                print(e.args)
+                raise Warning(_('XML Malformed Error %s') % e.args)
 
     def get_digital_signature(self):
         print('entro en digital signature function!!!!!')
@@ -167,20 +185,6 @@ class invoice(models.Model):
             # documentos sin enviar desde la vista de lista y pulsar el envío
             # todo: ver si es necesario chequear el estado de envio antes de
             # hacerlo, para no enviar dos veces.
-            if 1==1:
-                signature_d = self.get_digital_signature()
-            else:
-                raise Warning(_('''There is no Signer Person with an \
-authorized signature for you in the system. Please make sure that \
-'user_signature_key' module has been installed and enable a digital \
-signature, for you or make the signer to authorize you to use his \
-signature.'''))
-            if 1==1:
-                resol_data = self.get_resolution_data(self.company_id)
-            else:
-                raise Warning(_('''There is no SII Resolution Data \
-available for this company. Please go to the company configuration screen and \
-set SII resolution data.'''))
 
             contador_invoice = {}
             for inv in self:
@@ -214,48 +218,8 @@ set SII resolution data.'''))
                     for invoice in contador_invoice[receptor][clasedoc]:
                         print('id de factura:', invoice)
                         # aca traigo la factura
-                        invoice_obj = self.env['account.invoice'].browse(invoice)
-                        documento = invoice_obj.sii_xml_request
-                        porcion_firma_documento = """\
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-<SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI="#MiPE76201224-30158"><Transforms><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>Zi6zVjBT/xgMNdAMmZuOlxdWo7s=</DigestValue></Reference></SignedInfo>
-<SignatureValue>{0}</SignatureValue>
-<KeyInfo>
-<KeyValue>
-<RSAKeyValue>
-<Modulus>{1}</Modulus>
-<Exponent>{2}</Exponent>
-</RSAKeyValue>
-</KeyValue>
-<X509Data>
-<X509Certificate>
-{3}
-</X509Certificate>
-</X509Data>
-</KeyInfo>
-</Signature>"""
-                        # ahora firmo
-                        print('Documento:')
-                        print(documento)
-                        print ('Firma:')
-                        print(signature_d['priv_key'])
-                        frmt = self.signmessage(documento.encode('ascii'), signature_d['priv_key'].encode('ascii'))
-                        print('Firmado:')
-                        print(frmt)
-
-                        signature = porcion_firma_documento.format(
-                            frmt['firma'], frmt['modulus'], frmt['exponent'],
-                             signature_d['cert'])
-
-
-
-                        print('codificacion documento:', self.whatisthis(documento))
-                        print('codificacion firma:', self.whatisthis(signature))
-
-                        invoice_obj.sii_xml_request = """\
-<DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">
-{}{}
-</DTE>""".format(documento, signature)
+                        # invoice_obj = self.env['account.invoice'].browse(invoice)
+                        # documento = invoice_obj.sii_xml_request
 
             #raise Warning('ver....')
 
@@ -572,12 +536,14 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                 'latin-1').replace('\t','')
             #####
             frmt = inv.signmessage(ddxml, keypriv, keypub)['firma']
+
             ted = (
-                '''<TED version="1.0">{}<FRMT algoritmo="SHA1withRSA">{}</FRMT>\
-</TED>''').format(ddxml,frmt)
-            ted1 = ('{}<FRMT algoritmo="SHA1withRSA">{}</FRMT>').format(
-                ddxml,frmt)
-            # _logger.info(ted)
+                '''<TED version="1.0">{}<FRMT algoritmo="SHA1withRSA">{}\
+</FRMT></TED>''').format(ddxml, frmt)
+            ted1 = (
+                 '''<TED version="1.0">{0}<FRMT algoritmo="SHA1withRSA">{1}\
+ </FRMT></TED>''').format(ddxml, frmt)
+            _logger.info(ted)
             frameinfo = getframeinfo(currentframe())
             print(frameinfo.filename, frameinfo.lineno)
             root = etree.XML(ted)
@@ -596,6 +562,21 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
 
     @api.multi
     def do_dte_send_invoice(self):
+        if 1 == 1:
+            signature_d = self.get_digital_signature()
+        else:
+            raise Warning(_('''There is no Signer Person with an \
+        authorized signature for you in the system. Please make sure that \
+        'user_signature_key' module has been installed and enable a digital \
+        signature, for you or make the signer to authorize you to use his \
+        signature.'''))
+        if 1 == 1:
+            resol_data = self.get_resolution_data(self.company_id)
+        else:
+            raise Warning(_('''There is no SII Resolution Data \
+        available for this company. Please go to the company configuration screen and \
+        set SII resolution data.'''))
+
         cant_doc_batch = 0
         for inv in self.with_context(lang='es_CL'):
             cant_doc_batch = cant_doc_batch + 1
@@ -608,6 +589,8 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                 frameinfo = getframeinfo(currentframe())
                 print(frameinfo.filename, frameinfo.lineno)
                 ted1 = self.get_barcode(dte_service)
+                print('timbreeeeeeeee y hora')
+                print(ted1)
             elif dte_service in ['EFACTURADELSUR']:
                 # debe utilizar usuario y contraseña
                 frameinfo = getframeinfo(currentframe())
@@ -658,7 +641,7 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
             dte['Encabezado']['IdDoc']['TipoDTE'] = inv.sii_document_class_id.sii_code
             dte['Encabezado']['IdDoc']['Folio'] = folio
             dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
-            dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code
+            dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code or 1
             dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
             dte['Encabezado']['Emisor'] = collections.OrderedDict()
             dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
@@ -680,20 +663,25 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
             dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
             dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
             dte['Encabezado']['Totales'] = collections.OrderedDict()
-            dte['Encabezado']['Totales']['MntNeto'] = int(round(
-                inv.amount_untaxed, 0))
-            dte['Encabezado']['Totales']['TasaIVA'] = int(round(
-                (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
-            dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
+            if inv.sii_document_class_id.sii_code == 34:
+                dte['Encabezado']['Totales']['MntExe'] = int(round(
+                    inv.amount_total, 0))
+            else:
+                dte['Encabezado']['Totales']['MntNeto'] = int(round(
+                    inv.amount_untaxed, 0))
+                dte['Encabezado']['Totales']['TasaIVA'] = int(round(
+                    (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
+                dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
             dte['Encabezado']['Totales']['MntTotal'] = int(round(
                 inv.amount_total, 0))
             dte['item'] = invoice_lines
-            doc_id = '<Documento ID="F{}T{}">'.format(
+            doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
+            doc_id = '<Documento ID="{}">'.format(doc_id_number)
             # si es sii, inserto el timbre
             if dte_service in ['SII', 'SIIHOMO']:
                 # inserto el timbre
-                dte['TED'] = 'TEDTEDTED'
+                dte['TEDd'] = 'TEDTEDTED'
                 # aca completar el XML
 
             dte1['Documento ID'] = dte
@@ -707,7 +695,10 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                     '<item>','').replace('</item>','')
             # agrego el timbre en caso que sea para el SII
             if dte_service in ['SII', 'SIIHOMO']:
-                xml = xml.replace('TEDTEDTED', ted1)
+                # pass
+                time = '<TmstFirma>{}</TmstFirma>'.format(
+                    datetime.strftime(datetime.now(), '%Y-%m-%dT%H:%M:%S'))
+                xml = xml.replace('<TEDd>TEDTEDTED</TEDd>', ted1 + time)
 
             root = etree.XML( xml )
             xml_pret = (etree.tostring(root, pretty_print=True)).replace(
@@ -721,8 +712,61 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                 # lo dejo con format, para ver si es necesario agregar algo más
                 # al renderizado.
                 envelope_efact = '''{}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
-                inv.sii_xml_request = envelope_efact
+                # inv.sii_xml_request = envelope_efact
+
                 inv.sii_result = 'NoEnviado'
+
+                # ACA INCORPORO EL RESTO DE LA FIRMA
+                porcion_firma_documento = """\
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo><CanonicalizationMethod \
+Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
+<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />\
+<Reference URI="#{0}"><Transforms>\
+<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
+</Transforms>\
+<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />\
+<DigestValue>Zi6zVjBT/xgMNdAMmZuOlxdWo7s=</DigestValue></Reference>\
+</SignedInfo>
+<SignatureValue>{1}</SignatureValue>
+<KeyInfo>
+<KeyValue>
+<RSAKeyValue>
+<Modulus>{2}</Modulus>
+<Exponent>{3}</Exponent>
+</RSAKeyValue>
+</KeyValue>
+<X509Data>
+<X509Certificate>
+{4}
+</X509Certificate>
+</X509Data>
+</KeyInfo>
+</Signature>"""
+                # ahora firmo
+                print('Documento:')
+                print(envelope_efact)
+                print('Firma:')
+                print(signature_d['priv_key'])
+                frmt = self.signmessage(envelope_efact.encode('ascii'),
+                                        signature_d['priv_key'].encode('ascii'))
+                print('Firmado:')
+                print(frmt)
+
+                signature = porcion_firma_documento.format(
+                    doc_id_number, frmt['firma'], frmt['modulus'],
+                    frmt['exponent'], signature_d['cert'])
+
+                einvoice = """\
+<DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">
+{0}{1}
+</DTE>""".format(envelope_efact, signature)
+
+                # HASTA ACA LA FIRMA
+                # aca valido el documento para ver si está mal formado
+                # pero igual ya lo tengo grabado
+                inv.sii_xml_request = einvoice if self.xml_validator(einvoice) else ''
+
 
             elif dte_service == 'EFACTURADELSUR':
                 # armado del envolvente rrespondiente a EACTURADELSUR
@@ -731,9 +775,9 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <PonerDTE xmlns="https://www.efacturadelsur.cl">
-<usuario>{}</usuario>
-<contrasena>{}</contrasena>
-<xml><![CDATA[{}]]></xml>
+<usuario>{0}</usuario>
+<contrasena>{1}</contrasena>
+<xml><![CDATA[{2}]]></xml>
 <enviar>false</enviar>
 </PonerDTE>
 </soap12:Body>
