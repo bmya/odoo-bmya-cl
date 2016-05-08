@@ -346,7 +346,7 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
         CafPK = M2Crypto.RSA.load_key_string(privkey)
         firma = CafPK.sign(ddd)
         FRMT = base64.b64encode(firma)
-        _logger.info('Document signature in base64: %s' % DFRMT)
+        _logger.info('Document signature in base64: %s' % FRMT)
         # agregado nuevo para que no sea necesario mandar la clave publica
         if pubk=='':
             bio = M2Crypto.BIO.MemoryBuffer(privkey)
@@ -362,42 +362,38 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
         pubkey.reset_context(md='sha1')
         pubkey.verify_init()
         pubkey.verify_update(dd)
-        _logger.info('Veriying signature thru compaprison....')
+        _logger.info('Validating public key using EVP PK verification....')
         if pubkey.verify_final(firma) == 1:
-            _logger.info('Signature verified! Returning signature, modulus and\'
- exponent.')
+            _logger.info("""Signature verified! Returning signature, modulus \
+and exponent.""")
             return {'firma': FRMT, 'modulus': base64.b64encode(rsa.n), 'exponent': base64.b64encode(rsa.e)}
 
     sii_batch_number = fields.Integer(
         copy=False,
         string='Batch Number',
         readonly=True,
-        help='Batch number for processing multiple invoices together'
-        )
+        help='Batch number for processing multiple invoices together')
 
     sii_barcode = fields.Char(
         copy=False,
         string=_('SII Barcode'),
         readonly=True,
-        help='SII Barcode Name'
-        )
+        help='SII Barcode Name')
+
     sii_barcode_img = fields.Binary(
         copy=False,
         string=_('SII Barcode Image'),
-        help='SII Barcode Image in PDF417 format'
-        )
+        help='SII Barcode Image in PDF417 format')
+
     sii_message = fields.Text(
         string='SII Message',
-        copy=False,
-        )
+        copy=False)
     sii_xml_request = fields.Text(
         string='SII XML Request',
-        copy=False,
-        )
+        copy=False)
     sii_xml_response = fields.Text(
         string='SII XML Response',
-        copy=False,
-        )
+        copy=False)
     sii_result = fields.Selection([
         ('', 'n/a'),
         ('NoEnviado', 'No Enviado'),
@@ -413,8 +409,7 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
         states={'draft': [('readonly', False)]},
         copy=False,
         help="SII request result",
-        default = ''
-        )
+        default = '')
 
     @api.multi
     def get_related_invoices_data(self):
@@ -725,7 +720,6 @@ Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
             elif dte_service == 'LIBREDTE':
                 # servicio a realizar mediante sponsor
                 pass
-
             # en caso que no sea DTE, el proceso es finalizado sin
             # consecuencias (llamando a super
             else:
