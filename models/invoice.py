@@ -88,6 +88,34 @@ afeqWjiRVMvV4+s4Q==</FRMA></CAF><TSTED>2014-04-24T12:02:20</TSTED></DD>\
 fHlAa7j08Xff95Yb2zg31sJt6lMjSKdOK+PQp25clZuECig==</FRMT></TED>"""
 result = xmltodict.parse(timbre)
 # result es un OrderedDict patrón
+
+porcion_firma_documento = """\
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo><CanonicalizationMethod \
+Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
+<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />\
+<Reference URI="#{0}"><Transforms>\
+<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
+</Transforms>\
+<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />\
+<DigestValue>Zi6zVjBT/xgMNdAMmZuOlxdWo7s=</DigestValue></Reference>\
+</SignedInfo>
+<SignatureValue>{1}</SignatureValue>
+<KeyInfo>
+<KeyValue>
+<RSAKeyValue>
+<Modulus>{2}</Modulus>
+<Exponent>{3}</Exponent>
+</RSAKeyValue>
+</KeyValue>
+<X509Data>
+<X509Certificate>
+{4}
+</X509Certificate>
+</X509Data>
+</KeyInfo>
+</Signature>"""
+
 # hardcodeamos este valor por ahora
 import os
 xsdpath = os.path.dirname(os.path.realpath(__file__)).replace('/models','/static/xsd/')
@@ -103,9 +131,13 @@ class invoice(models.Model):
         else:
             _logger.info("not a string")
 
-    def xml_validator(self, some_xml_string):
+    def xml_validator(self, some_xml_string, validacion='doc'):
         if 1==1:
-            xsd_file = xsdpath+'DTE_v10.xsd'
+            validacion_type = {
+                'doc': 'DTE_v10.xsd',
+                'env': 'EnvioDTE_v10.xsd'
+            }
+            xsd_file = xsdpath+validacion_type[validacion]
             try:
                 schema = etree.XMLSchema(file=xsd_file)
                 parser = objectify.makeparser(schema=schema)
@@ -116,19 +148,23 @@ class invoice(models.Model):
                 _logger.info(_("The Document XML file has error: %s") % e.args)
                 raise Warning(_('XML Malformed Error %s') % e.args)
 
-    def get_digital_signature(self):
+    def get_digital_signature(self, comp_id):
         _logger.info(_('Executing digital signature function'))
-        user_obj = self.env['res.users'].browse([self.env.user.id])
-        signature_data = {
-            'subject_name': user_obj.name,
-            'subject_serial_number': user_obj.subject_serial_number,
-            'priv_key': user_obj.priv_key,
-            'cert': user_obj.cert.replace(
-                '''-----BEGIN CERTIFICATE-----\n''','').replace(
-                '''\n-----END CERTIFICATE-----\n''','')}
-        _logger.info('The signature data is the following %s' % signature_data)
-        # todo: chequear si el usuario no tiene firma, si esta autorizado por otro usuario
-        return signature_data
+        _logger.info('Service provider for this company is %s' % comp_id)
+        if comp_id.dte_service_provider in ['SIIHOMO', 'SII']:
+            user_obj = self.env['res.users'].browse([self.env.user.id])
+            signature_data = {
+                'subject_name': user_obj.name,
+                'subject_serial_number': user_obj.subject_serial_number,
+                'priv_key': user_obj.priv_key,
+                'cert': user_obj.cert.replace(
+                    '''-----BEGIN CERTIFICATE-----\n''','').replace(
+                    '''\n-----END CERTIFICATE-----\n''','')}
+            _logger.info('The signature data is the following %s' % signature_data)
+            # todo: chequear si el usuario no tiene firma, si esta autorizado por otro usuario
+            return signature_data
+        else:
+            return ''
 
     def get_resolution_data(self, comp_id):
         _logger.info('Entering function get_resolution_data')
@@ -136,8 +172,8 @@ class invoice(models.Model):
         if comp_id.dte_service_provider == 'SIIHOMO':
             resolution_date = '2016-03-01'
             resolution_numb = '82'
-            _logger.info('Using hardcoded resolution date %s and resolution \
-number for Certification process' % (resolution_date, resolution_numb))
+            _logger.info('Using hardcoded resolution date and resolution \
+number for Certification process')
         else:
             resolution_date = comp_id.dte_resolution_date
             resolution_numb = comp_id.dte_resolution_number
@@ -173,6 +209,8 @@ number for Certification process' % (resolution_date, resolution_numb))
 
         elif self.company_id.dte_service_provider in ['SII', 'SIIHOMO']:
             _logger.info('Entering SII Alternative...')
+            signature_d = self.get_digital_signature(self.company_id)
+            resol_data = self.get_resolution_data(self.company_id)
             # todo: ver si es necesario chequear el estado de envio antes de
             # hacerlo, para no enviar dos veces.
 
@@ -192,6 +230,9 @@ number for Certification process' % (resolution_date, resolution_numb))
                 if inv.sii_result != 'NoEnviado':
                     continue
                 contador_invoice[receptor][clasedoc].append(inv.id)
+                _logger.info('The following is a dictionary containing the \
+ordered scheme for sending packages to SII:')
+                print(contador_invoice)
 
             for receptor in contador_invoice:
                 _logger.info('Receptor partner: %s' % receptor)
@@ -201,35 +242,78 @@ number for Certification process' % (resolution_date, resolution_numb))
                 caratula['RutReceptor'] = receptor
                 caratula['FchResol'] = resol_data['dte_resolution_date']
                 caratula['NroResol'] = resol_data['dte_resolution_number']
+                caratula['TmstFirmaEnv'] = datetime.strftime(
+                    datetime.now(), '%Y-%m-%dT%H:%M:%S')
                 for clasedoc in contador_invoice[receptor]:
-                    _logger.info('Doc Class %s, qty: %s' % (clasedoc, len(contador_invoice[receptor][clasedoc])))
+                    _logger.info('Doc Class %s, qty: %s' % (
+                        clasedoc, len(contador_invoice[receptor][clasedoc])))
                     caratula['SubTotDTE'] = collections.OrderedDict()
                     caratula['SubTotDTE']['TpoDTE'] = clasedoc
-                    caratula['SubTotDTE']['NroDTE'] = len(contador_invoice[receptor][clasedoc])
+                    caratula['SubTotDTE']['NroDTE'] = len(
+                        contador_invoice[receptor][clasedoc])
+                    _logger.info('Caratula for this sender and its invoices...')
+                    print(caratula)
+                    caratd = collections.OrderedDict()
+                    caratd['Caratula'] = caratula
+                    # transformacińo de la caratula en xml
+                    caratxml_pret = etree.tostring(
+                        etree.XML(dicttoxml.dicttoxml(
+                            caratd, root=False, attr_type=False)),
+                            pretty_print=True).replace(
+                            '<Caratula>', '<Caratula version="1.0">')
+                    # raise Warning(caratxml_pret)
+                    _logger.info("Envelope for sending documents:")
+                    print(caratxml_pret)
+
+                    invoices_to_send = ''
                     for invoice in contador_invoice[receptor][clasedoc]:
-                        _logger.info('Invoice/doc id: ' %s, invoice)
+                        _logger.info('Invoices to send....')
+                        print(invoice)
+                        invoice_obj = self.env['account.invoice'].browse(
+                            invoice)
+                        invoices_to_send += invoice_obj.sii_xml_request
+
+                    # ya tengo la caratula y el set de documentos a enviar.
+                    # lo que hago es meterlos en el set_dte
+                    set_dte = '<SetDTE ID="OdooBMyA20160510T1952">\n\
+{}{}\n</SetDTE>'.format(caratxml_pret, invoices_to_send)
+                    print(set_dte)
+                    # este set de envio lo tengo que firmar
+                    # ahora firmo
+                    _logger.info('Set DTEs: \n%s' % set_dte)
+                    _logger.info('Signature: \n%s' % signature_d['priv_key'])
+
+                    frmt = self.signmessage(
+                        set_dte.encode('ascii'),
+                        signature_d['priv_key'].encode('ascii'))
+
+                    _logger.info('Set DTE signed!')
+                    signature = porcion_firma_documento.format(
+                        "OdooBMyA20160510T1952", frmt['firma'], frmt['modulus'],
+                        frmt['exponent'], signature_d['cert'])
+
+                    envio_dte = """<?xml version="1.0" encoding="ISO-8859-1"?>
+<EnvioDTE xmlns="http://www.sii.cl/SiiDte" \
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
+xsi:schemaLocation="http://www.sii.cl/SiiDte EnvioDTE_v10.xsd" \
+version="1.0">{}{}</EnvioDTE>""".format(set_dte, signature)
+
+                    # validacion de schema
+                    envio_dte = envio_dte if self.xml_validator(
+                        envio_dte, 'env') else ''
+                    print(envio_dte)
 
 
-#                # ACA se arma la caratula por tipo de comprobante
-#                cantidad = contador_invoice[tipodoc]['ctd']
-#                # ACA se terminó de arma la caratula por tipo de comprobante
-#                # ahora se pasa a iterar las facturas del tipo que está en la caratula
-#                for invoices in contador_invoice[tipodoc]['ids']:
-#                    invoices
 
-#                    # firmante del documento. Aca me tengo que involucrar con el
-#                    # objeto del usuario (firma)
-#                    # por ahora, firmo con mi propia firma.
-#                    # todo: chequear que si no tengo firma, algun usuario del
-#                    # sistema me está autorizando.
-#
-#                    caratd = collections.OrderedDict()
-#                    caratd['Caratula'] = caratula
-#                    caratxml_pret = etree.tostring(
-#                        etree.XML(
-#                            dicttoxml.dicttoxml(
-#                                caratd, root=False, attr_type=False)),
-#                        pretty_print=True) + inv.sii_xml_request
+
+                    # firmante del documento. Aca me tengo que involucrar con el
+                    # objeto del usuario (firma)
+                    # por ahora, firmo con mi propia firma.
+                    # todo: chequear que si no tengo firma, algun usuario del
+                    # sistema me está autorizando.
+
+
+                     # + inv.sii_xml_request
 #
 #                    # aca seguramente la firma
 #                    # primero que nada le quito el tag que está sobre documento
@@ -366,7 +450,9 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
         if pubkey.verify_final(firma) == 1:
             _logger.info("""Signature verified! Returning signature, modulus \
 and exponent.""")
-            return {'firma': FRMT, 'modulus': base64.b64encode(rsa.n), 'exponent': base64.b64encode(rsa.e)}
+            return {
+                'firma': FRMT, 'modulus': base64.b64encode(rsa.n),
+                'exponent': base64.b64encode(rsa.e)}
 
     sii_batch_number = fields.Integer(
         copy=False,
@@ -496,7 +582,7 @@ and exponent.""")
     @api.multi
     def do_dte_send_invoice(self):
         try:
-            signature_d = self.get_digital_signature()
+            signature_d = self.get_digital_signature(self.company_id)
         except:
             raise Warning(_('''There is no Signer Person with an \
         authorized signature for you in the system. Please make sure that \
@@ -630,7 +716,8 @@ and exponent.""")
             if dte_service in ['SII', 'SIIHOMO']:
                 # lo dejo con format, para ver si es necesario agregar algo más
                 # al renderizado.
-                envelope_efact = '''{}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
+                envelope_efact = '''{}'''.format(
+                    self.convert_encoding(xml_pret, 'ISO-8859-1'))
                 # inv.sii_xml_request = envelope_efact
 
                 inv.sii_result = 'NoEnviado'
