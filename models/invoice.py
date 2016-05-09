@@ -5,9 +5,12 @@
 ##############################################################################
 from openerp import fields, models, api, _
 from openerp.exceptions import Warning
+from datetime import datetime
 import logging
 import lxml.etree as etree
-
+from lxml import objectify
+from lxml.etree import XMLSyntaxError
+import socket
 import collections
 try:
     from cStringIO import StringIO
@@ -26,6 +29,7 @@ import suds.client as sudscl
 
 # intento con urllib3
 import urllib3
+from urllib3 import HTTPConnectionPool
 pool = urllib3.PoolManager()
 
 from inspect import currentframe, getframeinfo
@@ -84,34 +88,259 @@ afeqWjiRVMvV4+s4Q==</FRMA></CAF><TSTED>2014-04-24T12:02:20</TSTED></DD>\
 fHlAa7j08Xff95Yb2zg31sJt6lMjSKdOK+PQp25clZuECig==</FRMT></TED>"""
 result = xmltodict.parse(timbre)
 # result es un OrderedDict patrón
-# hardcodeamos este valor por ahora
 
+porcion_firma_documento = """\
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo><CanonicalizationMethod \
+Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
+<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />\
+<Reference URI="#{0}"><Transforms>\
+<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
+</Transforms>\
+<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />\
+<DigestValue>Zi6zVjBT/xgMNdAMmZuOlxdWo7s=</DigestValue></Reference>\
+</SignedInfo>
+<SignatureValue>{1}</SignatureValue>
+<KeyInfo>
+<KeyValue>
+<RSAKeyValue>
+<Modulus>{2}</Modulus>
+<Exponent>{3}</Exponent>
+</RSAKeyValue>
+</KeyValue>
+<X509Data>
+<X509Certificate>
+{4}
+</X509Certificate>
+</X509Data>
+</KeyInfo>
+</Signature>"""
+
+# hardcodeamos este valor por ahora
+import os
+xsdpath = os.path.dirname(os.path.realpath(__file__)).replace('/models','/static/xsd/')
 
 class invoice(models.Model):
     _inherit = "account.invoice"
 
+    def whatisthis(self, s):
+        if isinstance(s, str):
+            _logger.info("ordinary string")
+        elif isinstance(s, unicode):
+            _logger.info("unicode string")
+        else:
+            _logger.info("not a string")
+
+    def xml_validator(self, some_xml_string, validacion='doc'):
+        if 1==1:
+            validacion_type = {
+                'doc': 'DTE_v10.xsd',
+                'env': 'EnvioDTE_v10.xsd',
+                'sig': 'xmldsignature_v10.xsd'
+            }
+            xsd_file = xsdpath+validacion_type[validacion]
+            try:
+                schema = etree.XMLSchema(file=xsd_file)
+                parser = objectify.makeparser(schema=schema)
+                objectify.fromstring(some_xml_string, parser)
+                _logger.info("The Document XML file validated correctly")
+                return True
+            except XMLSyntaxError as e:
+                _logger.info(_("The Document XML file has error: %s") % e.args)
+                raise Warning(_('XML Malformed Error %s') % e.args)
+
+    def get_digital_signature(self, comp_id):
+        _logger.info(_('Executing digital signature function'))
+        _logger.info('Service provider for this company is %s' % comp_id)
+        if comp_id.dte_service_provider in ['SIIHOMO', 'SII']:
+            user_obj = self.env['res.users'].browse([self.env.user.id])
+            signature_data = {
+                'subject_name': user_obj.name,
+                'subject_serial_number': user_obj.subject_serial_number,
+                'priv_key': user_obj.priv_key,
+                'cert': user_obj.cert.replace(
+                    '''-----BEGIN CERTIFICATE-----\n''','').replace(
+                    '''\n-----END CERTIFICATE-----\n''','')}
+            _logger.info('The signature data is the following %s' % signature_data)
+            # todo: chequear si el usuario no tiene firma, si esta autorizado por otro usuario
+            return signature_data
+        else:
+            return ''
+
+    def get_resolution_data(self, comp_id):
+        _logger.info('Entering function get_resolution_data')
+        _logger.info('Service provider for this company is %s' % comp_id)
+        if comp_id.dte_service_provider == 'SIIHOMO':
+            resolution_date = '2016-03-01'
+            resolution_numb = '82'
+            _logger.info('Using hardcoded resolution date and resolution \
+number for Certification process')
+        else:
+            resolution_date = comp_id.dte_resolution_date
+            resolution_numb = comp_id.dte_resolution_number
+        resolution_data = {
+            'dte_resolution_date': resolution_date,
+            'dte_resolution_number': resolution_numb}
+        return resolution_data
+
     @api.multi
     def send_xml_file(self):
-        # haciendolo para efacturadelsur solamente por ahora
-        host = 'https://www.efacturadelsur.cl'
-        post = '/ws/DTE.asmx' # HTTP/1.1
-        url = host + post
-        _logger.info('URL to be used %s' % url)
-        # client = Client(url)
-        # _logger.info(client)
-        _logger.info('len (como viene): %s' % len(self.sii_xml_request))
+        _logger.info('Entering Send XML Function')
+        _logger.info(
+            'Service provider is: %s' % self.company_id.dte_service_provider)
 
-        response = pool.urlopen('POST', url, headers={
-            'Content-Type': 'application/soap+xml',
-            'charset': 'utf-8',
-            'Content-Length': len(
-                self.sii_xml_request)}, body=self.sii_xml_request)
+        if self.company_id.dte_service_provider == 'EFACTURADELSUR':
+            host = 'https://www.efacturadelsur.cl'
+            post = '/ws/DTE.asmx' # HTTP/1.1
+            url = host + post
+            _logger.info('URL to be used %s' % url)
+            _logger.info('Lenght used for forming envelope: %s' % len(self.sii_xml_request))
 
-        _logger.info(response.status)
-        _logger.info(response.data)
-        self.sii_xml_response = response.data
-        self.sii_result = 'Enviado'
+            response = pool.urlopen('POST', url, headers={
+                'Content-Type': 'application/soap+xml',
+                'charset': 'utf-8',
+                'Content-Length': len(
+                    self.sii_xml_request)}, body=self.sii_xml_request)
 
+            _logger.info(response.status)
+            _logger.info(response.data)
+            self.sii_xml_response = response.data
+            self.sii_result = 'Enviado'
+
+        elif self.company_id.dte_service_provider in ['SII', 'SIIHOMO']:
+            _logger.info('Entering SII Alternative...')
+            signature_d = self.get_digital_signature(self.company_id)
+            resol_data = self.get_resolution_data(self.company_id)
+            # todo: ver si es necesario chequear el estado de envio antes de
+            # hacerlo, para no enviar dos veces.
+
+            # Este lio es porque no puede recorrer los invoices directamente
+            # sino que tiene que armar "remesas" de envío, clasificadas por
+            # receptor y por tipo de documento, y llevar la cuenta de lo que
+            # envía en cada una.
+            _logger.info('Classifying sendings ordered by recipient/doc class')
+            contador_invoice = {}
+            for inv in self:
+                receptor = self.format_vat(inv.partner_id.vat)
+                clasedoc = str(inv.sii_document_class_id.sii_code)
+                if receptor not in contador_invoice:
+                    contador_invoice[receptor] = {}
+                    if clasedoc not in contador_invoice[receptor]:
+                        contador_invoice[receptor][clasedoc] = []
+                if inv.sii_result != 'NoEnviado':
+                    continue
+                contador_invoice[receptor][clasedoc].append(inv.id)
+                _logger.info('The following is a dictionary containing the \
+ordered scheme for sending packages to SII:')
+                print(contador_invoice)
+
+            for receptor in contador_invoice:
+                _logger.info('Receptor partner: %s' % receptor)
+                caratula = collections.OrderedDict()
+                caratula['RutEmisor'] = self.format_vat(inv.company_id.vat)
+                caratula['RutEnvia'] = signature_d['subject_serial_number']
+                caratula['RutReceptor'] = receptor
+                caratula['FchResol'] = resol_data['dte_resolution_date']
+                caratula['NroResol'] = resol_data['dte_resolution_number']
+                caratula['TmstFirmaEnv'] = datetime.strftime(
+                    datetime.now(), '%Y-%m-%dT%H:%M:%S')
+                for clasedoc in contador_invoice[receptor]:
+                    _logger.info('Doc Class %s, qty: %s' % (
+                        clasedoc, len(contador_invoice[receptor][clasedoc])))
+                    caratula['SubTotDTE'] = collections.OrderedDict()
+                    caratula['SubTotDTE']['TpoDTE'] = clasedoc
+                    caratula['SubTotDTE']['NroDTE'] = len(
+                        contador_invoice[receptor][clasedoc])
+                    _logger.info('Caratula for this sender and its invoices...')
+                    print(caratula)
+                    caratd = collections.OrderedDict()
+                    caratd['Caratula'] = caratula
+                    # transformacińo de la caratula en xml
+                    caratxml_pret = etree.tostring(
+                        etree.XML(dicttoxml.dicttoxml(
+                            caratd, root=False, attr_type=False)),
+                            pretty_print=True).replace(
+                            '<Caratula>', '<Caratula version="1.0">')
+                    # raise Warning(caratxml_pret)
+                    _logger.info("Envelope for sending documents:")
+                    print(caratxml_pret)
+
+                    invoices_to_send = ''
+                    for invoice in contador_invoice[receptor][clasedoc]:
+                        _logger.info('Invoices to send....')
+                        print(invoice)
+                        invoice_obj = self.env['account.invoice'].browse(
+                            invoice)
+                        invoices_to_send += invoice_obj.sii_xml_request
+
+                    # ya tengo la caratula y el set de documentos a enviar.
+                    # lo que hago es meterlos en el set_dte
+                    set_dte = '<SetDTE ID="OdooBMyA20160510T1952">\n\
+{}{}\n</SetDTE>'.format(caratxml_pret, invoices_to_send)
+                    print(set_dte)
+                    # este set de envio lo tengo que firmar
+                    # ahora firmo
+                    _logger.info('Set DTEs: \n%s' % set_dte)
+                    _logger.info('Signature: \n%s' % signature_d['priv_key'])
+
+                    frmt = self.signmessage(
+                        set_dte.encode('ascii'),
+                        signature_d['priv_key'].encode('ascii'))
+
+                    _logger.info('Set DTE signed!')
+
+                    signature = porcion_firma_documento.format(
+                        "OdooBMyA20160510T1952", frmt['firma'], frmt['modulus'],
+                        frmt['exponent'], signature_d['cert'])
+
+                    # agrego validacion de firma
+                    signature = signature if self.xml_validator(
+                        signature, 'sig') else ''
+
+                    envio_dte = """<?xml version="1.0" encoding="ISO-8859-1"?>
+<EnvioDTE xmlns="http://www.sii.cl/SiiDte" \
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
+xsi:schemaLocation="http://www.sii.cl/SiiDte EnvioDTE_v10.xsd" \
+version="1.0">{}{}</EnvioDTE>""".format(set_dte, signature)
+
+                    # validacion de schema
+                    envio_dte = envio_dte if self.xml_validator(
+                        envio_dte, 'env') else ''
+                    print(envio_dte)
+
+
+
+
+                    # firmante del documento. Aca me tengo que involucrar con el
+                    # objeto del usuario (firma)
+                    # por ahora, firmo con mi propia firma.
+                    # todo: chequear que si no tengo firma, algun usuario del
+                    # sistema me está autorizando.
+
+
+                     # + inv.sii_xml_request
+#
+#                    # aca seguramente la firma
+#                    # primero que nada le quito el tag que está sobre documento
+#                    documento = inv.sii_xml_request.replace(
+#                        """'<DTE xmlns = "http://www.sii.cl/SiiDte" version = "1.0" >""",
+#                        '').replace("""</DTE>""", '')
+#                    # ahora firmo
+#                    frmt = inv.signmessage(
+#                        documento, inv.get_digital_signature()['priv_key'])
+#                    print(frmt)
+#                    raise Warning(frmt)
+#
+#                try:
+#                    # realiza la transmisión
+#                    # exitosa...
+#                    inv.sii_xml_response = response.data
+#                    inv.sii_result = 'Enviado'
+#                except:
+#                    # no pudo hacer el envío
+#                    inv.sii_result = 'NoEnviado'
+
+    # funcion para descargar el XML
     @api.multi
     def get_xml_file(self):
         return {
@@ -122,14 +351,10 @@ class invoice(models.Model):
         }
 
     def get_folio(self, inv):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
         # saca el folio directamente de la secuencia
         return inv.journal_document_class_id.sequence_id.number_next_actual
 
     def get_caf_file(self, inv):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
         # hay que buscar el caf correspondiente al comprobante,
         # trayendolo de la secuencia
         returnvalue = False
@@ -137,8 +362,6 @@ class invoice(models.Model):
         if 1==1:
             no_caf = True
             caffiles = inv.journal_document_class_id.sequence_id.dte_caf_ids
-            frameinfo = getframeinfo(currentframe())
-            print(frameinfo.filename, frameinfo.lineno)
             for caffile in caffiles:
                 if caffile.status == 'in_use':
                     resultc = base64.b64decode(caffile.caf_file)
@@ -147,8 +370,6 @@ class invoice(models.Model):
             if no_caf:
                 raise Warning(_('''There is no CAF file available or in use \
 for this Document. Please enable one.'''))
-            frameinfo = getframeinfo(currentframe())
-            print(frameinfo.filename, frameinfo.lineno)
             resultcaf = xmltodict.parse(resultc.replace(
                 '<?xml version="1.0"?>','',1))
 
@@ -164,6 +385,7 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                 caffile.status = 'spent'
                 raise Warning(_(msg))
             elif folio > int(folio_final) - 2:
+                # todo: agregar un wizard al aviso de caf terminándose
                 msg = '''El CAF esta pronto a terminarse. Solicite un nuevo \
                 CAF para poder continuar emitiendo documentos tributarios'''
             else:
@@ -177,21 +399,16 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
         return returnvalue
 
     def format_vat(self, value):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
         return value[2:10] + '-' + value[10:]
 
     def convert_encoding(self, data, new_coding = 'UTF-8'):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
         encoding = cchardet.detect(data)['encoding']
         if new_coding.upper() != encoding.upper():
             data = data.decode(encoding, data).encode(new_coding)
         return data
 
     def pdf417bc(self, ted):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
+        _logger.info('Drawing the TED stamp in PDF417')
         bc = barcode(
             'pdf417',
             ted,
@@ -205,66 +422,68 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
             margin=20,
             scale=1
         )
-        # bc.show()
-        # bc.save('test.png')
         return bc
 
     def digest(self, data):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
         sha1 = hashlib.sha1()
         sha1.update(data)
         return sha1.digest()
 
-    def signmessage(self, dd, privkey, pubk):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
+    def signmessage(self, dd, privkey, pubk=''):
         ddd = self.digest(dd)
         CafPK = M2Crypto.RSA.load_key_string(privkey)
         firma = CafPK.sign(ddd)
         FRMT = base64.b64encode(firma)
-        _logger.info(FRMT)
-        bio = M2Crypto.BIO.MemoryBuffer(pubk)
-        rsa = M2Crypto.RSA.load_pub_key_bio(bio)
+        _logger.info('Document signature in base64: %s' % FRMT)
+        # agregado nuevo para que no sea necesario mandar la clave publica
+        if pubk=='':
+            bio = M2Crypto.BIO.MemoryBuffer(privkey)
+            rsa = M2Crypto.RSA.load_key_bio(bio)
+        else:
+            # estas son las dos lineas originales
+            bio = M2Crypto.BIO.MemoryBuffer(pubk)
+            rsa = M2Crypto.RSA.load_pub_key_bio(bio)
+        # fin del cambio
         pubkey = M2Crypto.EVP.PKey()
         pubkey.assign_rsa(rsa)
         # if you need a different digest than the default 'sha1':
         pubkey.reset_context(md='sha1')
         pubkey.verify_init()
         pubkey.verify_update(dd)
+        _logger.info('Validating public key using EVP PK verification....')
         if pubkey.verify_final(firma) == 1:
-            return FRMT
+            _logger.info("""Signature verified! Returning signature, modulus \
+and exponent.""")
+            return {
+                'firma': FRMT, 'modulus': base64.b64encode(rsa.n),
+                'exponent': base64.b64encode(rsa.e)}
 
     sii_batch_number = fields.Integer(
         copy=False,
         string='Batch Number',
         readonly=True,
-        help='Batch number for processing multiple invoices together'
-        )
+        help='Batch number for processing multiple invoices together')
 
     sii_barcode = fields.Char(
         copy=False,
         string=_('SII Barcode'),
         readonly=True,
-        help='SII Barcode Name'
-        )
+        help='SII Barcode Name')
+
     sii_barcode_img = fields.Binary(
         copy=False,
         string=_('SII Barcode Image'),
-        help='SII Barcode Image in PDF417 format'
-        )
+        help='SII Barcode Image in PDF417 format')
+
     sii_message = fields.Text(
         string='SII Message',
-        copy=False,
-        )
+        copy=False)
     sii_xml_request = fields.Text(
         string='SII XML Request',
-        copy=False,
-        )
+        copy=False)
     sii_xml_response = fields.Text(
         string='SII XML Response',
-        copy=False,
-        )
+        copy=False)
     sii_result = fields.Selection([
         ('', 'n/a'),
         ('NoEnviado', 'No Enviado'),
@@ -280,13 +499,10 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
         states={'draft': [('readonly', False)]},
         copy=False,
         help="SII request result",
-        default = ''
-        )
+        default = '')
 
     @api.multi
     def get_related_invoices_data(self):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
         """
         List related invoice information to fill CbtesAsoc.
         """
@@ -297,11 +513,9 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                 ['draft', 'proforma', 'proforma2', 'cancel'])])
         return rel_invoices
 
-    @api.multi
     # def invoice_validate(self):
+    @api.multi
     def action_number(self):
-        frameinfo = getframeinfo(currentframe())
-        print(frameinfo.filename, frameinfo.lineno)
         self.do_dte_send_invoice()
         res = super(invoice, self).action_number()
         return res
@@ -348,54 +562,59 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
             keypub = (resultcaf['AUTORIZACION']['RSAPUBK']).encode(
                 'latin-1').replace('\t','')
             #####
-            frmt = inv.signmessage(ddxml, keypriv, keypub)
+            frmt = inv.signmessage(ddxml, keypriv, keypub)['firma']
+
             ted = (
-                '''<TED version="1.0">{}<FRMT algoritmo="SHA1withRSA">{}</FRMT>\
-</TED>''').format(ddxml,frmt)
-            ted1 = ('{}<FRMT algoritmo="SHA1withRSA">{}</FRMT>').format(
-                ddxml,frmt)
-            # _logger.info(ted)
-            frameinfo = getframeinfo(currentframe())
-            print(frameinfo.filename, frameinfo.lineno)
+                '''<TED version="1.0">{}<FRMT algoritmo="SHA1withRSA">{}\
+</FRMT></TED>''').format(ddxml, frmt)
+            ted1 = (
+                 '''<TED version="1.0">{0}<FRMT algoritmo="SHA1withRSA">{1}\
+ </FRMT></TED>''').format(ddxml, frmt)
+            _logger.info(ted)
             root = etree.XML(ted)
             # inv.sii_barcode = (etree.tostring(root, pretty__logger.info=True))
             inv.sii_barcode = ted
             image = False
             if ted:
-                frameinfo = getframeinfo(currentframe())
-                print(frameinfo.filename, frameinfo.lineno)
                 barcodefile = StringIO()
                 image = inv.pdf417bc(ted)
-                # image.save('barcode.png')
                 image.save(barcodefile,'PNG')
                 data = barcodefile.getvalue()
-                # with open('barcode.png', 'r') as myfile:
-                #    data=myfile.read()
-
                 inv.sii_barcode_img = base64.b64encode(data)
         return ted1
 
     @api.multi
     def do_dte_send_invoice(self):
+        try:
+            signature_d = self.get_digital_signature(self.company_id)
+        except:
+            raise Warning(_('''There is no Signer Person with an \
+        authorized signature for you in the system. Please make sure that \
+        'user_signature_key' module has been installed and enable a digital \
+        signature, for you or make the signer to authorize you to use his \
+        signature.'''))
+        # try:
+        #     resol_data = self.get_resolution_data(self.company_id)
+        # except:
+        #     raise Warning(_('''There is no SII Resolution Data \
+        # available for this company. Please go to the company configuration screen and \
+        # set SII resolution data.'''))
+
+        cant_doc_batch = 0
         for inv in self.with_context(lang='es_CL'):
+            cant_doc_batch = cant_doc_batch + 1
             dte_service = inv.company_id.dte_service_provider
-            frameinfo = getframeinfo(currentframe())
-            print(frameinfo.filename, frameinfo.lineno)
 
             if dte_service in ['SII', 'SIIHOMO']:
                 # debe confeccionar el timbre
-                frameinfo = getframeinfo(currentframe())
-                print(frameinfo.filename, frameinfo.lineno)
                 ted1 = self.get_barcode(dte_service)
+
             elif dte_service in ['EFACTURADELSUR']:
                 # debe utilizar usuario y contraseña
-                frameinfo = getframeinfo(currentframe())
-                print(frameinfo.filename, frameinfo.lineno)
+                # todo: hardcodeado, pero pasar a webservices server
                 dte_usuario = 'nueva.gestion' # eFacturaDelSur
                 dte_passwrd = 'e7c1c19cbe' # eFacturaDelSur
 
-                frameinfo = getframeinfo(currentframe())
-                print(frameinfo.filename, frameinfo.lineno)
             elif dte_service in ['', 'NONE']:
                 return
 
@@ -437,7 +656,7 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
             dte['Encabezado']['IdDoc']['TipoDTE'] = inv.sii_document_class_id.sii_code
             dte['Encabezado']['IdDoc']['Folio'] = folio
             dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
-            dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code
+            dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code or 1
             dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
             dte['Encabezado']['Emisor'] = collections.OrderedDict()
             dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
@@ -459,44 +678,104 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
             dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
             dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
             dte['Encabezado']['Totales'] = collections.OrderedDict()
-            dte['Encabezado']['Totales']['MntNeto'] = int(round(
-                inv.amount_untaxed, 0))
-            dte['Encabezado']['Totales']['TasaIVA'] = int(round(
-                (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
-            dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
+            if inv.sii_document_class_id.sii_code == 34:
+                dte['Encabezado']['Totales']['MntExe'] = int(round(
+                    inv.amount_total, 0))
+            else:
+                dte['Encabezado']['Totales']['MntNeto'] = int(round(
+                    inv.amount_untaxed, 0))
+                dte['Encabezado']['Totales']['TasaIVA'] = int(round(
+                    (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
+                dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
             dte['Encabezado']['Totales']['MntTotal'] = int(round(
                 inv.amount_total, 0))
             dte['item'] = invoice_lines
-            doc_id = '<Documento ID="F{}T{}">'.format(
+            doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
+            doc_id = '<Documento ID="{}">'.format(doc_id_number)
             # si es sii, inserto el timbre
             if dte_service in ['SII', 'SIIHOMO']:
                 # inserto el timbre
-                dte['TED'] = 'TEDTEDTED'
+                dte['TEDd'] = 'TEDTEDTED'
+                # aca completar el XML
 
             dte1['Documento ID'] = dte
             xml = dicttoxml.dicttoxml(
-                dte1, attr_type=False,
-                custom_root='DTE xmlns="http://www.sii.cl/SiiDte" version="1.0"').replace(
-                '</DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">', '</DTE>').replace(
-                '<item>','').replace('</item>','')
+                dte1, root=False, attr_type=False).replace(
+                    '<item>','').replace('</item>','')
+
             # agrego el timbre en caso que sea para el SII
             if dte_service in ['SII', 'SIIHOMO']:
-                xml = xml.replace('TEDTEDTED', ted1)
+                time = '<TmstFirma>{}</TmstFirma>'.format(
+                    datetime.strftime(datetime.now(), '%Y-%m-%dT%H:%M:%S'))
+                xml = xml.replace('<TEDd>TEDTEDTED</TEDd>', ted1 + time)
 
             root = etree.XML( xml )
             xml_pret = (etree.tostring(root, pretty_print=True)).replace(
                     '<Documento_ID>', doc_id).replace(
                     '</Documento_ID>', '</Documento>')
+
             # _logger.info(xml_pret)
             # en xml_pret está el xml que me interesa
             if dte_service in ['SII', 'SIIHOMO']:
-                frameinfo = getframeinfo(currentframe())
-                print(frameinfo.filename, frameinfo.lineno)
-                envelope_efact = '''<?xml version="1.0" encoding="ISO-8859-1"?>
-{}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
-                inv.sii_xml_request = envelope_efact
+                # lo dejo con format, para ver si es necesario agregar algo más
+                # al renderizado.
+                envelope_efact = '''{}'''.format(
+                    self.convert_encoding(xml_pret, 'ISO-8859-1'))
+                # inv.sii_xml_request = envelope_efact
+
                 inv.sii_result = 'NoEnviado'
+
+                # ACA INCORPORO EL RESTO DE LA FIRMA
+                porcion_firma_documento = """\
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo><CanonicalizationMethod \
+Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
+<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />\
+<Reference URI="#{0}"><Transforms>\
+<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />\
+</Transforms>\
+<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />\
+<DigestValue>Zi6zVjBT/xgMNdAMmZuOlxdWo7s=</DigestValue></Reference>\
+</SignedInfo>
+<SignatureValue>{1}</SignatureValue>
+<KeyInfo>
+<KeyValue>
+<RSAKeyValue>
+<Modulus>{2}</Modulus>
+<Exponent>{3}</Exponent>
+</RSAKeyValue>
+</KeyValue>
+<X509Data>
+<X509Certificate>
+{4}
+</X509Certificate>
+</X509Data>
+</KeyInfo>
+</Signature>"""
+                # ahora firmo
+                _logger.info('Document: \n%s' % envelope_efact)
+                _logger.info('Signature: \n%s' % signature_d['priv_key'])
+
+                frmt = self.signmessage(envelope_efact.encode('ascii'),
+                                        signature_d['priv_key'].encode('ascii'))
+
+                _logger.info('Document signed!')
+                signature = porcion_firma_documento.format(
+                    doc_id_number, frmt['firma'], frmt['modulus'],
+                    frmt['exponent'], signature_d['cert'])
+
+                einvoice = """\
+<DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">
+{0}{1}
+</DTE>""".format(envelope_efact, signature)
+
+                # HASTA ACA LA FIRMA
+                # aca valido el documento para ver si está mal formado
+                # pero igual ya lo tengo grabado
+                _logger.info('Validating document against schema...')
+                inv.sii_xml_request = einvoice if self.xml_validator(
+                    einvoice) else ''
 
             elif dte_service == 'EFACTURADELSUR':
                 # armado del envolvente rrespondiente a EACTURADELSUR
@@ -505,9 +784,9 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <PonerDTE xmlns="https://www.efacturadelsur.cl">
-<usuario>{}</usuario>
-<contrasena>{}</contrasena>
-<xml><![CDATA[{}]]></xml>
+<usuario>{0}</usuario>
+<contrasena>{1}</contrasena>
+<xml><![CDATA[{2}]]></xml>
 <enviar>false</enviar>
 </PonerDTE>
 </soap12:Body>
@@ -516,19 +795,22 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
                 inv.sii_result = 'NoEnviado'
 
             elif dte_service == 'FACTURACION':
-                frameinfo = getframeinfo(currentframe())
-                print(frameinfo.filename, frameinfo.lineno)
                 envelope_efact = '''<?xml version="1.0" encoding="ISO-8859-1"?>
 {}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
                 inv.sii_xml_request = envelope_efact
                 self.get_xml_file()
 
             elif dte_service == 'ENTERNET':
+                # servicio a realizar mediante sponsor
                 pass
 
             elif dte_service == 'FACTURAENLINEA':
+                # servicio a realizar mediante sponsor
                 pass
 
+            elif dte_service == 'LIBREDTE':
+                # servicio a realizar mediante sponsor
+                pass
             # en caso que no sea DTE, el proceso es finalizado sin
             # consecuencias (llamando a super
             else:
