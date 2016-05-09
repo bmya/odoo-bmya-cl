@@ -135,7 +135,8 @@ class invoice(models.Model):
         if 1==1:
             validacion_type = {
                 'doc': 'DTE_v10.xsd',
-                'env': 'EnvioDTE_v10.xsd'
+                'env': 'EnvioDTE_v10.xsd',
+                'sig': 'xmldsignature_v10.xsd'
             }
             xsd_file = xsdpath+validacion_type[validacion]
             try:
@@ -189,7 +190,6 @@ number for Certification process')
             'Service provider is: %s' % self.company_id.dte_service_provider)
 
         if self.company_id.dte_service_provider == 'EFACTURADELSUR':
-            # TODO: en lugar de valores hardcodeados, tomarlo del webservices_server
             host = 'https://www.efacturadelsur.cl'
             post = '/ws/DTE.asmx' # HTTP/1.1
             url = host + post
@@ -288,9 +288,14 @@ ordered scheme for sending packages to SII:')
                         signature_d['priv_key'].encode('ascii'))
 
                     _logger.info('Set DTE signed!')
+
                     signature = porcion_firma_documento.format(
                         "OdooBMyA20160510T1952", frmt['firma'], frmt['modulus'],
                         frmt['exponent'], signature_d['cert'])
+
+                    # agrego validacion de firma
+                    signature = signature if self.xml_validator(
+                        signature, 'sig') else ''
 
                     envio_dte = """<?xml version="1.0" encoding="ISO-8859-1"?>
 <EnvioDTE xmlns="http://www.sii.cl/SiiDte" \
@@ -325,7 +330,6 @@ version="1.0">{}{}</EnvioDTE>""".format(set_dte, signature)
 #                        documento, inv.get_digital_signature()['priv_key'])
 #                    print(frmt)
 #                    raise Warning(frmt)
-# TODO: una vez armada la caratula, volver a validar
 #
 #                try:
 #                    # realiza la transmisión
