@@ -7,8 +7,8 @@
       <field name="amount">0.190000</field>
       <field name="type">percent</field>
       <field name="type_tax_use">sale</field>
-      <field name="account_collected_id" ref="80"/>
-      <field name="account_paid_id" ref="80"/>
+      <field name="account_collected_id" ref="28"/>
+      <field name="account_paid_id" ref="28"/>
       <field name="base_code_id" ref="vat_code_base_sale"/>
       <field name="tax_code_id" ref="vat_code_IVA_receive"/>
       <field name="ref_base_code_id" ref="vat_code_base_sale"/>
@@ -27,98 +27,26 @@
       <field name="ref_base_code_id" ref="vat_code_base_purchase"/>
       <field name="ref_tax_code_id" ref="vat_code_IVA_pay"/>
     </record>
-    <record id="I_IU2C" model="account.tax">
-        <field name="applicable_type">true</field>
-        <field name="type_tax_use">sale</field>
-        <field name="account_collected_id" ref="84"/>
-        <field name="account_paid_id" ref="84"/>
-        <field name="python_compute">result = round(price_unit * - 0.1)</field>
-        <field name="python_compute_inv">result = round(price_unit * - 0.1) </field>
-        <!--<field name="base_code_id" ref="code_base_purchase"/>-->
-        <field name="ref_base_code_id" ref=""/>
-        <field name="description">IU2C_C</field>
-        <!--<field name="tax_code_id" ref="tax_uniq_2da"/>-->
-        <!--<field name="ref_tax_code_id" ref="tax_code_2da_pay"/>-->
-        <field name="amount" eval="0.0"/>
-        <field name="child_depend" eval="True"/>
-        <field name="price_include" eval="False"/>
-        <field name="include_base_amount" eval="True"/>
-        <field name="name">Impuesto único 2da categoria - Clientes</field>
-        <field name="sequence" eval="1"/>
-        <field name="base_sign" eval="-1.0"/>
-        <field name="tax_sign" eval="-1.0"/>
-        <field name="type">code</field>
-    </record>
 
-    <record id="O_IU2C" model="account.tax">
+    <record id="I_IU2C" model="account.tax">
+        <field name="name">Impuesto Unico de Segunda Categoría</field>
         <field name="applicable_type">true</field>
-        <field name="type_tax_use">purchase</field>
-        <field name="account_collected_id" ref="84"/>
-        <field name="account_paid_id" ref="84"/>
+        <field name="type_tax_use">all</field>
         <field name="python_compute">result = round(price_unit * - 0.1)</field>
-        <field name="python_compute_inv">result = round(price_unit * - 0.1) </field>
-        <!--<field name="base_code_id" ref="code_base_purchase"/>-->
+        <field name="python_compute_inv">result = round(price_unit * - 0.1)</field>
         <field name="ref_base_code_id" ref=""/>
-        <field name="description">IU2C_S</field>
-        <!--<field name="tax_code_id" ref="tax_uniq_2da"/>-->
-        <!--<field name="ref_tax_code_id" ref="tax_code_2da_rec"/>-->
-        <field name="amount" eval="0.0"/>
+        <field name="description">IU2C</field>
+        <field name="amount">0.000000</field>
         <field name="child_depend" eval="True"/>
         <field name="price_include" eval="False"/>
         <field name="include_base_amount" eval="True"/>
-        <field name="name">Impuesto único 2da categoria - Proveedores</field>
         <field name="sequence" eval="1"/>
         <field name="base_sign" eval="1.0"/>
+        <field name="ref_base_sign" eval="1.0"/>      
         <field name="tax_sign" eval="1.0"/>
-        <field name="type">code</field>
+        <field name="type">code</field>       
     </record>
 
-    <!--
-    <record id="I_IU2C" model="account.tax.template">
-      <field name="chart_template_id" ref="cl_chart_template_bmya"/>
-      <field name="name">Impuesto Unico 2da Categoría (Vta)</field>
-      <field name="type">code</field>
-      <field name="type_tax_use">sale</field>
-      <field name="account_collected_id" ref="79"/>
-      <field name="account_paid_id" ref="79"/>
-      <field name="python_compute"># price_unit # product: product.product object or False  result = round(price_unit * - 0.1)</field>
-      <field name="python_compute_inv">  result = round(price_unit * - 0.1)</field>
-      <field name="description">IU2C VT</field>
-      <field name="amount">0.0</field>
-      <field name="child_depend">True</field>
-      <field name="price_include">False</field>
-      <field name="include_base_amount">True</field>
-      <field name="base_sign">-1.0</field>
-      <field name="tax_sign">-1.0</field>
-      <field name="base_code_id" ref="vat_code_base_purchase"/>
-      <field name="tax_code_id" ref="vat_code_IVA_pay"/>
-      <field name="base_code_id" ref="vat_code_base_purchase"/>
-      <field name="tax_code_id" ref="vat_code_IVA_receive"/>
-      <field name="ref_base_code_id" ref="vat_code_base_purchase"/>
-      <field name="ref_tax_code_id" ref="tax_code_2da_rec"/>
-    </record>
 
-    <record id="O_IU2C" model="account.tax.template">
-      <field name="chart_template_id" ref="cl_chart_template_bmya"/>
-      <field name="name">Impuesto Unico 2da Categoría (Compra)</field>
-      <field name="type">code</field>
-      <field name="type_tax_use">purchase</field>
-      <field name="account_collected_id" ref="79"/>
-      <field name="account_paid_id" ref="79"/>
-      <field name="python_compute"># price_unit # product: product.product object or False  result = round(price_unit * - 0.1)</field>
-      <field name="python_compute_inv">  result = round(price_unit * - 0.1)</field>
-      <field name="description">IU2C CP</field>
-      <field name="amount">0.0</field>
-      <field name="child_depend">True</field>
-      <field name="price_include">False</field>
-      <field name="include_base_amount">True</field>
-      <field name="base_sign">1.0</field>
-      <field name="tax_sign">1.0</field>
-      <field name="base_code_id" ref="vat_code_base_purchase"/>
-      <field name="tax_code_id" ref="vat_code_IVA_pay"/>
-      <field name="ref_base_code_id" ref="vat_code_base_purchase"/>
-      <field name="ref_tax_code_id" ref="tax_code_2da_pay"/>
-      <field name="tax_sii_code"></field>
-    </record>-->
   </data>
 </openerp>
