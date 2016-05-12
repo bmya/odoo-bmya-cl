@@ -781,7 +781,7 @@ else:
             <field name="condition_select">python</field>						
             <field name="condition_python">result = contract.anticipo_sueldo > 0</field>						
             <field name="amount_select">code</field>						
-            <field name="amount_python_compute">result = contract.anticipo_sueldo > 0</field>						
+            <field name="amount_python_compute">result = contract.anticipo_sueldo</field>						
         </record>
 
        <record id="hr_rule_39" model="hr.salary.rule">						
