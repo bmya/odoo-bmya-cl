@@ -207,12 +207,12 @@ class hr_contract(models.Model):
     carga_familiar = fields.Integer(
         'Carga Familiar',
         help="Carga familiar para el cálculo de asignación familiar")
-    colacion = fields.Float('Colación', help="Colación")
+    colacion = fields.Float('Asig. Colación', help="Colación")
     isapre_id = fields.Many2one('hr.isapre', 'ISAPRE')
     isapre_cotizacion_uf = fields.Float(
         'Cotización UF',  help="Cotización Pactada en UF")
     movilizacion = fields.Float(
-        'Movilización', help="Movilización")
+        'Asig. Movilización', help="Movilización")
     mutual_seguridad = fields.Boolean('Mutual Seguridad')
     otro_no_imp = fields.Float(
         'Otros No Imponible', help="Otros Haberes No Imponibles")

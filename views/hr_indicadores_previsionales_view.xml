@@ -9,8 +9,8 @@
             	<field name="wage" position="after">	
             		<field name="otros_imp" string="Otros Imponible"/>
             		<field name="otro_no_imp" string="Otros No Imponible"/>
-            		<field name="colacion" string="Colación"/>
-            		<field name="movilizacion" string="Movilización"/>
+            		<field name="colacion" string="Asig. de Colación"/>
+            		<field name="movilizacion" string="Asig. de Movilización"/>
             		<field name="viatico_santiago" string="Viático Santiago"/>
             		<field name="carga_familiar"/>
 		</field>	
@@ -19,8 +19,8 @@
 			<group string="Descuentos"> 
 			<field name="pension"/>
 			<field name="isapre_id" string="Salud" required="1"/>
-			<field name="isapre_cotizacion_uf" digits="(14, 5)" string="Cotización Pactada UF" required="1"/>
-			<field name="afp_id" string="AFP"/>
+			<field name="isapre_cotizacion_uf" digits="(14, 5)" string="Cotización Pactada UF"  attrs="{'invisible': [('isapre_id', '=', 1)]}"/>
+			<field name="afp_id" required="1" string="AFP"/>
 			<field name="aporte_voluntario" string="Aporte Voluntario"/>
 			<field name="mutual_seguridad"/>
 			<field name="anticipo_sueldo"/>
