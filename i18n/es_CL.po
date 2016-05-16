@@ -296,7 +296,7 @@ msgstr "Días de Vacaciones Restantes"
 #: view:hr.employee:hr_holidays.hr_holidays_leaves_assign_tree_view
 #: field:hr.employee,remaining_leaves:0
 msgid "Remaining Legal Leaves"
-msgstr "Días Restantes de Vacaciones"
+msgstr "Saldo de de Vacaciones"
 
 #. module: hr_holidays
 #: field:hr.holidays.remaining.leaves.user,no_of_leaves:0

@@ -11,7 +11,7 @@
             		<field name="otro_no_imp" string="Otros No Imponible"/>
             		<field name="colacion" string="Asig. de Colación"/>
             		<field name="movilizacion" string="Asig. de Movilización"/>
-            		<field name="viatico_santiago" string="Viático Santiago"/>
+            		<field name="viatico_santiago" string="Asig. de Viático"/>
             		<field name="carga_familiar"/>
 		</field>	
  

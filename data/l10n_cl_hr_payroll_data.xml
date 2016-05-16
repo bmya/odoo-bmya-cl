@@ -8,6 +8,56 @@
 
 
 
+
+        <!-- Indicadores Inputs -->
+
+        <record id="hr_indicadores_marzo" model="hr.indicadores">
+            <field name="name">Mayo 2016</field>
+            <field name="uf">25993.05</field>
+            <field name="utm">45497</field>
+            <field name="asignacion_familiar_primer">262326</field>
+            <field name="asignacion_familiar_segundo">383156</field>
+            <field name="asignacion_familiar_tercer">597593</field>
+            <field name="caja_compensacion">0.60</field>
+            <field name="asignacion_familiar_monto_a">10269</field>
+            <field name="asignacion_familiar_monto_b">6302</field>
+            <field name="asignacion_familiar_monto_c">1992</field>
+            <field name="fonasa">6.40</field>
+            <field name="mutual_seguridad">0.95</field>
+            <field name="pensiones_ips">18.84</field>
+            <field name="sueldo_minimo">250000</field>
+            <field name="tope_imponible_afp">74.30</field>
+            <field name="tope_imponible_ips">60</field>
+            <field name="tope_imponible_salud">5.12</field>
+            <field name="tope_imponible_seguro_cesantia">111.4</field>
+            <field name="uta">542160</field>
+            <field name="deposito_convenido">900</field>
+            <field name="sueldo_minimo_otro">186631</field>
+            <field name="contrato_plazo_fijo_empleador">2.40</field>
+            <field name="contrato_plazo_indefinido_empleador">3.0</field>
+            <field name="contrato_plazo_indefinido_empleador_otro">0.8</field>
+            <field name="tasa_afp_cuprum">11.48</field>
+            <field name="tasa_afp_capital">11.44</field>
+            <field name="tasa_afp_provida">11.54</field>
+            <field name="tasa_afp_modelo">10.77</field>
+            <field name="tasa_afp_planvital">10.47</field>
+            <field name="tasa_afp_habitat">11.27</field>
+            <field name="tasa_sis_cuprum">1.15</field>
+            <field name="tasa_sis_capital">1.15</field>
+            <field name="tasa_sis_provida">1.15</field>
+            <field name="tasa_sis_planvital">1.15</field>
+            <field name="tasa_sis_habitat">1.15</field>
+            <field name="tasa_sis_modelo">1.15</field>
+            <field name="tasa_independiente_cuprum">12.63</field>
+            <field name="tasa_independiente_capital">12.59</field>
+            <field name="tasa_independiente_provida">12.69</field>
+            <field name="tasa_independiente_planvital">11.62</field>
+            <field name="tasa_independiente_habitat">12.42</field>
+            <field name="tasa_independiente_modelo">11.92</field>
+            <field name="tope_anual_apv">600</field>
+            <field name="tope_mensual_apv">50</field>
+        </record>
+
         <!-- ISAPRES -->
         <record id="hr_isapre_fonasa" model="hr.isapre">
             <field name="rut">61603000-0</field>
@@ -985,17 +1035,6 @@ result = categories.IMPONIBLE + categories.NOIMPO - asig</field>
             <field name="name">Activo Mayor a 65</field>
             <field name="id_type">3</field>
         </record>
-
-
-
-
-
-
-
-
-
-
-
 
 						
     </data>						

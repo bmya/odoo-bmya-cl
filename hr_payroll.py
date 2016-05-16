@@ -82,8 +82,6 @@ class hr_indicadores_previsionales(models.Model):
     sueldo_minimo_otro = fields.Float(
         'Sueldo Mínimo Menores de 18 y Mayores de 65', 
         help="Sueldo Mínimo para Menores de 18 y Mayores a 65")
-    tasa_mutual = fields.Float(
-        'Tasa Mutual', help="Tasa AFP Mutual")
     tasa_afp_cuprum = fields.Float(
         'Cuprum',  help="Tasa AFP Cuprum")
     tasa_afp_capital = fields.Float(
