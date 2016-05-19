@@ -26,7 +26,7 @@ Daniel Blanco''',
     'website': 'http://blancomartin.cl',
     'depends': ['hr_payroll'],
     'license': 'AGPL-3',
-    'version': '1.1.0',
+    'version': '1.2.2',
     'description': """
 Chilean Payroll Salary Rules.
 ============================
@@ -47,8 +47,8 @@ Chilean Payroll Salary Rules.
         'views/report_hrsalarybymonth.xml',
         'views/report_payslip.xml',
         'views/hr_indicadores_previsionales_view.xml',
+        'views/hr_salary_rule_view.xml',
         'data/l10n_cl_hr_payroll_data.xml',
-        'demo/l10n_cl_hr_payroll_demo.xml',
     ],
     'demo': ['demo/l10n_cl_hr_payroll_demo.xml'],
     'installable': True

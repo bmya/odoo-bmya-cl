@@ -15,7 +15,9 @@
                            </tr>
                            <tr>
                                  <th colspan="2"><span t-field="res_company.name"/></th>
-                                 <th colspan="2"><span  t-raw="res_company.vat.replace('CL', ' ')"/></th>
+                                 <t t-if="res_company.vat"><th colspan="2"><span  t-raw="res_company.vat.replace('CL', ' ')"/></th></t>
+                                 <t t-if="not res_company.vat"><th colspan="2">55.555.555-5</th></t>
+                                 
                             </tr>
                        </thead>
                    </table>
@@ -196,10 +198,10 @@
                 </table>
                 <table class="table-condensed" width="100%">
                   <tr>
-                    <td colspan="3">Recibí conforme el alcance el alcance líquido de la presente liquidación, no teniendo cargo o cobro alguna que</td><td/>
+                    <td colspan="3">Recibí conforme el alcance el alcance líquido de la presente liquidación, no teniendo cargo o cobro alguna que hacer por otro concepto</td><td/>
                   </tr>
                   <tr>
-                    <td colspan="3">hacer por otro concepto</td><td/>
+                    <td colspan="3"></td><td/>
                   </tr>
                 </table>
                 <table class="table-condensed" width="100%">

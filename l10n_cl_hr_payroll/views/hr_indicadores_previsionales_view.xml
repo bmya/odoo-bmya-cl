@@ -9,18 +9,18 @@
             	<field name="wage" position="after">	
             		<field name="otros_imp" string="Otros Imponible"/>
             		<field name="otro_no_imp" string="Otros No Imponible"/>
-            		<field name="colacion" string="Colación"/>
-            		<field name="movilizacion" string="Movilización"/>
-            		<field name="viatico_santiago" string="Viático Santiago"/>
+            		<field name="colacion" string="Asig. de Colación"/>
+            		<field name="movilizacion" string="Asig. de Movilización"/>
+            		<field name="viatico_santiago" string="Asig. de Viático"/>
             		<field name="carga_familiar"/>
 		</field>	
  
             	<group name="salary_and_advantages" position="after">	
 			<group string="Descuentos"> 
 			<field name="pension"/>
-			<field name="isapre_id" string="Isapre" required="1"/>
-			<field name="isapre_cotizacion_uf" digits="(14, 5)" string="Cotización Pactada UF" required="1"/>
-			<field name="afp_id" string="AFP"/>
+			<field name="isapre_id" string="Salud" required="1"/>
+			<field name="isapre_cotizacion_uf" digits="(14, 5)" string="Cotización Pactada UF"  attrs="{'invisible': [('isapre_id', '=', 1)]}"/>
+			<field name="afp_id" required="1" string="AFP"/>
 			<field name="aporte_voluntario" string="Aporte Voluntario"/>
 			<field name="mutual_seguridad"/>
 			<field name="anticipo_sueldo"/>
@@ -209,6 +209,31 @@
                 </field>
             </field>
         </record>
+
+
+
+        <record id="hr_employee_form_inherit_6" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.6</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="category_ids" position="replace">
+                    <group col="4">
+                        <field name="last_name"/>
+                        <field name="mothers_name"/>
+                    </group>
+                   
+                </field>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
 
         <record id="hr_afp_form" model="ir.ui.view">
             <field name="name">hr.afp.form</field>
