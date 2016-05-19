@@ -602,6 +602,10 @@ and exponent.""")
 
         cant_doc_batch = 0
         for inv in self.with_context(lang='es_CL'):
+            # control de DTE
+            if inv.sii_document_class_id.dte == False:
+                continue
+            # control de DTE
             cant_doc_batch = cant_doc_batch + 1
             dte_service = inv.company_id.dte_service_provider
 
