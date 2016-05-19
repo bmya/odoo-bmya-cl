@@ -225,6 +225,8 @@ class hr_contract(models.Model):
         'Viático Santiago',  help="Viático Santiago")
 
 
+
+
 class hr_type_employee(models.Model):
     _name = 'hr.type.employee'
     _description = 'Tipo de Empleado'
@@ -239,6 +241,17 @@ class hr_employee(models.Model):
     _description = 'Employee Contract'
 
     type_id = fields.Many2one('hr.type.employee', 'Tipo de Empleado')
+    last_name = fields.Char('Apellido Paterno', required=True)
+    mothers_name = fields.Char('Apellido Materno')
+
+
+class hr_salary_rule(models.Model):
+
+    _inherit = 'hr.salary.rule'
+    _description = 'Salary Rule'
+
+    date_start = fields.Date('Fecha Inicio',  help="Fecha de inicio de la regla salarial")
+    date_end = fields.Date('Fecha Fin',  help="Fecha del fin de la regla salarial")
 
 
 class hr_payslip_employees(models.TransientModel):
