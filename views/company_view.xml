@@ -13,7 +13,7 @@
                         <field name="dte_resolution_number"
                                attrs="{'invisible': [('dte_service_provider', '!=', 'SII')],
                                        'required':  [('dte_service_provider', '=', 'SII')]}"/>
-                        <field name="dte_resolution_year"
+                        <field name="dte_resolution_date"
                                attrs="{'invisible': [('dte_service_provider', '!=', 'SII')],
                                        'required':  [('dte_service_provider', '=', 'SII')]}"/>
                         <field name="sii_regional_office_id"
