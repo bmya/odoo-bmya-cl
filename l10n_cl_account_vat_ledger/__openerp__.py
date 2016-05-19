@@ -8,7 +8,7 @@ Chilean VAT Ledger Management
 Creates Sale and Purchase VAT report menus in
 "accounting/period processing/VAT Ledger"
     ''',
-    'version': '0.2',
+    'version': '0.3',
     'author': u'Blanco Martín & Asociados',
     'website': 'http://blancomartin.cl',
     'depends': [
