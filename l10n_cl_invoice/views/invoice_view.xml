@@ -63,6 +63,9 @@
                 <field name="fiscal_position" position="after">
                     <field name="reference"/>
                 </field>
+                <field name="fiscal_position" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
                 <xpath expr="//page[@string='Other Info']//field[@name='name']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
@@ -78,6 +81,7 @@
                 <field name="journal_id" position="attributes">
                     <attribute name="attrs">{'readonly':['|','|',('state','!=','draft'),('sii_document_number','!=',False),('internal_number','!=',False)]}</attribute>
                     <attribute name="options">{'no_create': True}</attribute>
+                    <attribute name="domains">[('journal_id', 'in', available_journals)]</attribute>
                 </field>
 
                 <field name="journal_id" position="after">
@@ -125,15 +129,37 @@
                 <field name="number" position="after">
                     <field name="document_number" class="oe_inline"/>
                 </field>
-
+                <field name="fiscal_position" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
                 <!-- Esto es por un mini bug de odoo ya que no se deberia poder cabmiar de diario y que se mantenga secuencia o numeraion de otro diario, hay que exigir borrar los numeros  -->
                 <field name="journal_id" position="attributes">
-                    <attribute name="attrs">{'readonly':['|','|',('state','!=','draft'),('sii_document_number','!=',False),('internal_number','!=',False)]}</attribute>
+                    <attribute name="attrs">
+                        {'readonly':
+                            ['|','|',('state','!=','draft'),
+                                     ('sii_document_number','!=',False),
+                                     ('internal_number','!=',False)]}
+                    </attribute>
                 </field>
 
                 <field name="journal_id" position="after">
-                    <field name="journal_document_class_id" attrs="{'invisible':[('use_documents','=',False)],'required':[('use_documents','=',True)],'readonly':['|',('state','!=','draft'),('sii_document_number','!=',False)]}" domain="[('id','in',available_journal_document_class_ids[0][2])]"/>
-                </field>    
+                    <field name="turn_issuer"
+                           domain="[('journal_ids', '=', journal_id)]"
+                           attrs="{'required':[('use_documents','=',True)]}"
+                           options="{'no_create': True}"/>
+                    <field name="journal_document_class_id"
+                            attrs="{'invisible':[('use_documents','=',False)],
+                                'required':[('use_documents','=',True)],
+                                'readonly':[
+                                    '|',('state','!=','draft'),
+                                        ('sii_document_number','!=',False)]}"
+                            domain="[('id','in',available_journal_document_class_ids[0][2])]"
+                            options="{'no_create': True}"/>
+                </field>
+                <field name="turn_issuer" position="attributes">
+                    <attribute name="string">Giro de compra</attribute>
+                    <attribute name="help">Indique a cuál giro de la compañía se asigna esta compra</attribute>
+                </field>
 
             </field>
         </record>
