@@ -292,5 +292,5 @@ msgstr "Historia de comunicación y mensajes"
 
 #. module: l10n_cl_account_vat_ledger
 #: field:account.vat.ledger,first_page:0
-msgid "sasdasdas"
+msgid "Report"
 msgstr "-- Informe --"

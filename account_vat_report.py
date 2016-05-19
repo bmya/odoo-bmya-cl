@@ -20,7 +20,7 @@ class account_vat_ledger(models.Model):
     _order = 'period_id desc'
 
     _columns = {
-    'first_page': old_fields.float('sasdasdas')
+    'first_page': old_fields.float('Report')
     }
 
     company_id = fields.Many2one(
