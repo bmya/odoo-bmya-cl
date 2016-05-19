@@ -158,6 +158,8 @@ class userSignature(models.Model):
         self.cert = dump_certificate(type_, certificate)
 
         pubkey = cert.get_pubkey()
+        print('pubkeyyyyyyyyyyyyyyyyyyyyyyyyy!!!!!!!!')
+        print(pubkey)
 
         print(cert.digest('md5'))
         print(cert.digest('sha1'))
@@ -170,7 +172,7 @@ class userSignature(models.Model):
 
     filename = fields.Char('File Name')
     key_file = fields.Binary(
-        string='Signature File', required=True, store=True,
+        string='Signature File', required=False, store=True,
         help='Upload the Signature File')
     dec_pass = fields.Char('Pasword')
     # vigencia y estado
