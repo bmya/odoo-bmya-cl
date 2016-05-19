@@ -21,7 +21,7 @@
 {
     "name": """Chile - Web Services de Documentos Tributarios Electrónicos\
     """,
-    'version': '8.0.0.0.5',
+    'version': '8.0.1.0.0',
     'category': 'Localization/Chile',
     'sequence': 12,
     'author':  'BMyA SA - Blanco Martín & Asociados',
