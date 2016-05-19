@@ -239,17 +239,13 @@ class hr_employee(models.Model):
 
     _inherit = 'hr.employee'
     _description = 'Employee Contract'
-
     type_id = fields.Many2one('hr.type.employee', 'Tipo de Empleado')
-    last_name = fields.Char('Apellido Paterno', required=True)
-    mothers_name = fields.Char('Apellido Materno')
 
 
 class hr_salary_rule(models.Model):
 
     _inherit = 'hr.salary.rule'
     _description = 'Salary Rule'
-
     date_start = fields.Date('Fecha Inicio',  help="Fecha de inicio de la regla salarial")
     date_end = fields.Date('Fecha Fin',  help="Fecha del fin de la regla salarial")
 

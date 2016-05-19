@@ -212,20 +212,7 @@
 
 
 
-        <record id="hr_employee_form_inherit_6" model="ir.ui.view">
-            <field name="name">hr.employee.form.inherit.6</field>
-            <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_form"/>
-            <field name="arch" type="xml">
-                <field name="category_ids" position="replace">
-                    <group col="4">
-                        <field name="last_name"/>
-                        <field name="mothers_name"/>
-                    </group>
-                   
-                </field>
-            </field>
-        </record>
+
 
 
 
