@@ -374,6 +374,10 @@ www.sii.cl'''.format(folio, folio_inicial, folio_final)
     @api.multi
     def do_dte_send_invoice(self):
         for inv in self.with_context(lang='es_CL'):
+            # control de DTE
+            if inv.sii_document_class_id.dte == False:
+                continue
+            # control de DTE
             dte_service = inv.company_id.dte_service_provider
             frameinfo = getframeinfo(currentframe())
             print(frameinfo.filename, frameinfo.lineno)
