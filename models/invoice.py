@@ -133,15 +133,15 @@ class account_invoice(models.Model):
 
 
     # determina el giro issuer por default
-    @api.multi
-    @api.onchange('partner_id', 'journal_id')
+    #@api.multi
+    #@api.onchange('partner_id', 'journal_id')
     # se agrega como dependencia el diario también... veamos!!!
     # probamos con un onchange también
-    def _get_available_issuer_turns(self):
-        for rec in self:
-            available_turn_ids = rec.company_id.company_activities_ids
-            for turn in available_turn_ids:
-                rec.turn_issuer = turn.id
+    def get_available_issuer_turns(self):
+        # for rec in self:
+        available_turn_ids = self.company_id.company_activities_ids
+        for turn in available_turn_ids:
+            self.turn_issuer = turn.id
 
 
 
@@ -214,7 +214,7 @@ class account_invoice(models.Model):
         'partner.activities',
         'Giro Emisor', readonly=True, store=True, required=False,
         states={'draft': [('readonly', False)]},
-        compute=_get_available_issuer_turns)
+        default=get_available_issuer_turns)
 
 
     @api.multi
@@ -243,10 +243,10 @@ class account_invoice(models.Model):
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
 
-    @api.one
-    @api.onchange('journal_id', 'partner_id', 'turn_issuer','invoice_turn')
     # api onchange en lugar de depends.. veamos!
+    @api.onchange('journal_id', 'partner_id', 'turn_issuer','invoice_turn')
     def _get_available_journal_document_class(self):
+        self.get_available_issuer_turns()
         print('ZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz')
         print(self.turn_issuer.vat_affected)
         invoice_type = self.type
@@ -302,6 +302,16 @@ class account_invoice(models.Model):
 
         self.available_journal_document_class_ids = document_class_ids
         self.journal_document_class_id = document_class_id
+
+    @api.onchange('sii_document_class_id')
+    def _check_vat(self):
+        boleta_ids = [
+            self.env.ref('l10n_cl_invoice.dc_bzf_f_dtn').id,
+            self.env.ref('l10n_cl_invoice.dc_b_f_dtm').id]
+        if self.sii_document_class_id not in boleta_ids and self.partner_id.document_number == '' or self.partner_id.document_number == '0':
+            raise Warning(_("""The customer/supplier does not have a VAT \
+defined. The type of invoicing document you selected requires you tu settle \
+a VAT."""))
 
 
     @api.one
