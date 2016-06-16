@@ -204,32 +204,37 @@ class invoice(models.Model):
      @version: 2016-06-01
     '''
     @api.multi
-    def send_xml_file(self, envio_dte, inv):
-        # seteo esta variable para saltear el proceso de envío masivo
-        # (esto es un envio con varios documentos)
-        envio_masivo = False
+    def send_xml_file(self):
+        self.ensure_one()
 
         _logger.info('Entering Send XML Function')
         _logger.info(
-            'Service provider is: %s' % self.company_id.dte_service_provider)
+            'Service provider is: %s' % self.dte_service_provider)
 
-        if self.dte_service_provider == 'EFACTURADELSUR':
+        if self.dte_service_provider in [
+            'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
             host = 'https://www.efacturadelsur.cl'
             post = '/ws/DTE.asmx' # HTTP/1.1
             url = host + post
             _logger.info('URL to be used %s' % url)
-            _logger.info('Lenght used for forming envelope: %s' % len(self.sii_xml_request))
-
+            _logger.info('Lenght used for forming envelope: %s' % len(
+                self.sii_xml_request))
             response = pool.urlopen('POST', url, headers={
                 'Content-Type': 'application/soap+xml',
                 'charset': 'utf-8',
                 'Content-Length': len(
                     self.sii_xml_request)}, body=self.sii_xml_request)
-
             _logger.info(response.status)
             _logger.info(response.data)
-            self.sii_xml_response = response.data
-            self.sii_result = 'Enviado'
+            if response.status != 200:
+                raise Warning(
+                    'The Transmission Has Failed. Error: %s' % response.status)
+
+            setenvio = {
+                'sii_result': 'Enviado' if self.dte_service_provider == 'EFACTURADELSUR' else self.sii_result,
+                'sii_xml_response': response.data}
+            raise Warning('setenvio: %s' % setenvio)
+            self.write(setenvio)
 
         else:
             pass
@@ -376,16 +381,15 @@ stamp to be legally valid.''')
                 continue
             # control de DTE
             cant_doc_batch = cant_doc_batch + 1
-            dte_service = inv.dte_service_provider
 
-            if dte_service in ['EFACTURADELSUR', 'EFACTURADELSUR_TEST',
+            if inv.dte_service_provider in ['EFACTURADELSUR', 'EFACTURADELSUR_TEST',
                                'LIBREDTE']:
                 # debe utilizar usuario y contraseña
                 # todo: hardcodeado, pero pasar a webservices server
                 dte_username = self.company_id.dte_username
                 dte_password = self.company_id.dte_password
 
-            elif dte_service in ['', 'NONE']:
+            elif inv.dte_service_provider in ['', 'NONE']:
                 return
 
             # definicion de los giros del emisor
@@ -487,10 +491,15 @@ stamp to be legally valid.''')
             xml_pret = etree.tostring(root, pretty_print=True).replace(
 '<Documento_ID>', doc_id).replace('</Documento_ID>', '</Documento>')
 
-            if dte_service in ['EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
+            if inv.dte_service_provider in [
+                'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
+                enviar = 'true' if self.dte_service_provider == \
+                                   'EFACTURADELSUR' else 'false'
                 # armado del envolvente rrespondiente a EACTURADELSUR
                 envelope_efact = '''<?xml version="1.0" encoding="utf-8"?>
-<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" \
+xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 <soap12:Body>
 <PonerDTE xmlns="https://www.efacturadelsur.cl">
 <usuario>{0}</usuario>
@@ -499,12 +508,13 @@ stamp to be legally valid.''')
 <enviar>{3}</enviar>
 </PonerDTE>
 </soap12:Body>
-</soap12:Envelope>'''.format(dte_username, dte_password, xml_pret, (inv.dte_service_provider == 'EFACTURADELSUR'))
+</soap12:Envelope>'''.format(dte_username, dte_password, xml_pret, enviar)
+                print(inv.sii_xml_request)
                 inv.sii_xml_request = envelope_efact
                 inv.sii_result = 'NoEnviado'
-                _logger.info('OPCION DTE: ({})'.format(
-                    inv.dte_service_provider))
+                _logger.info('OPCION DTE: ({})'.format(str(
+                    inv.dte_service_provider)).lower())
             else:
                 _logger.info('NO HUBO NINGUNA OPCION DTE VALIDA ({})'.format(
                     inv.dte_service_provider))
-                raise Warning('Fuck ninguna opcion')
+                raise Warning('None DTE Provider Option')

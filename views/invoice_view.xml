@@ -33,7 +33,7 @@
                             <field name='sii_xml_request'
                                 attrs="{'invisible':[('sii_result', '=', '')]}"/>
                             <field name='sii_xml_response'
-                                attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
+                                attrs="{'invisible':[('sii_result', 'in', [''])]}"/>
                             <field name='sii_send_ident'
                                 attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
                         </group>
