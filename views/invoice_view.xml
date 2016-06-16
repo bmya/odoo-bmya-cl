@@ -21,6 +21,10 @@
                                 class="oe_highlight" attrs="{'invisible':[
                                     ('state', 'in', ['draft']),
                                     ('sii_result', 'not in', ['NoEnviado'])]}"/>
+                            <button string="Check DTE Status" type="object" name="check_xml_status"
+                                attrs="{'invisible':[
+                                    ('state', 'in', ['draft']),
+                                    ('sii_result', 'not in', ['NoEnviado'])]}"/>
                             <field name='sii_result' widget="statusbar"/>
                         </header>
                         <group>
