@@ -316,10 +316,10 @@ class invoice(models.Model):
         string='SII Message',
         copy=False)
     sii_xml_request = fields.Text(
-        string='SII XML Request',
+        string='XML Request',
         copy=False)
     sii_xml_response = fields.Text(
-        string='SII XML Response',
+        string='XML Response',
         copy=False)
     sii_send_ident = fields.Text(
         string='SII Send Identification',
