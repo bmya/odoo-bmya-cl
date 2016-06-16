@@ -94,6 +94,8 @@ except ImportError:
 import os
 xsdpath = os.path.dirname(os.path.realpath(__file__)).replace('/models','/static/xsd/')
 
+
+
 '''
 Extensión del modelo de datos para contener parámetros globales necesarios
  para todas las integraciones de factura electrónica.
@@ -102,6 +104,19 @@ Extensión del modelo de datos para contener parámetros globales necesarios
 '''
 class invoice(models.Model):
     _inherit = "account.invoice"
+
+    '''
+    Funcion usada en autenticacion en SII
+    Creacion de plantilla xml para envolver el DTE
+    Previo a realizar su firma (1)
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-06-01
+    '''
+    def create_template_doc(self, doc):
+        xml = '''<DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">
+<!-- Odoo Implementation Blanco Martin -->
+{}</DTE>'''.format(doc)
+        return xml
 
     '''
     Funcion que permite crear una plantilla para el EnvioDTE
@@ -233,7 +248,6 @@ class invoice(models.Model):
             setenvio = {
                 'sii_result': 'Enviado' if self.dte_service_provider == 'EFACTURADELSUR' else self.sii_result,
                 'sii_xml_response': response.data}
-            raise Warning('setenvio: %s' % setenvio)
             self.write(setenvio)
 
         else:
@@ -490,6 +504,8 @@ stamp to be legally valid.''')
             # sin remober indents
             xml_pret = etree.tostring(root, pretty_print=True).replace(
 '<Documento_ID>', doc_id).replace('</Documento_ID>', '</Documento>')
+
+            xml_pret = self.create_template_doc(xml_pret)
 
             if inv.dte_service_provider in [
                 'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
