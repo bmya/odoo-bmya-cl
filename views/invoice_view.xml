@@ -25,7 +25,7 @@
                                 attrs="{'invisible':[
                                     ('state', 'in', ['draft']),
                                     ('sii_result', 'not in', ['NoEnviado'])]}"/>
-                            <field name='sii_result' widget="statusbar"/>
+                            <field name='sii_result' widget="statusbar" clickable="True"/>
                         </header>
                         <group>
                             <field name='sii_batch_number'/>
