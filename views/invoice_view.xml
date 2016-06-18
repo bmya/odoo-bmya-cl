@@ -15,16 +15,21 @@
                 <notebook>
                     <page string="Electronic Invoice" name="electronic_invoice">
                         <header>
-                            <button string="Download XML" type="object" name="get_xml_file"
-                                class="oe_highlight" attrs="{'invisible':[('state', 'in', ['draft'])]}"/>
-                            <button string="Send XML" type="object" name="send_xml_file"
-                                class="oe_highlight" attrs="{'invisible':[
+                            <div attrs="{'invisible':[
                                     ('state', 'in', ['draft']),
-                                    ('sii_result', 'not in', ['NoEnviado'])]}"/>
-                            <button string="Check DTE Status" type="object" name="check_xml_status"
-                                attrs="{'invisible':[
-                                    ('state', 'in', ['draft']),
-                                    ('sii_result', 'not in', ['NoEnviado'])]}"/>
+                                    ('sii_result', 'not in', ['NoEnviado'])]}">
+
+                                <button string="Download XML" type="object" name="get_xml_file"
+                                    class="oe_highlight" attrs="{'invisible':[('state', 'in', ['draft'])]}"/>
+                                <button string="Send DTE" type="object" name="send_dte"
+                                    class="oe_highlight"/>
+                                <button string="Check DTE Status" type="object" name="check_dte_status"/>
+                                <button name="%(action_dte_status_update_form)d"
+                                    string="Update DTE Status" type="action"
+                                    context="{
+                                        'sii_status': sii_result,
+                                        'dte_provider': dte_service_provider}"/>
+                            </div>
                             <field name='sii_result' widget="statusbar" clickable="True"/>
                         </header>
                         <group>

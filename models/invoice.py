@@ -217,7 +217,7 @@ class invoice(models.Model):
      @version: 2016-06-16
     '''
     @api.multi
-    def check_xml_status(self):
+    def check_dte_status(self):
         self.ensure_one()
         if self.dte_service_provider in [
             'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
@@ -274,94 +274,22 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             root = etree.fromstring(response.data)
             raise Warning(root.ObtenerEstadoDTEResult)
 
-        '''
-        Actualizar estado de DTE.
-         @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-         @version: 2016-06-16
-        '''
-        '''
-            posibles estados:
-            Anulado
-            NoEnviado
-            Enviado
-            Proceso
-            Aceptado
-            Reparo
-            Rechazado
-            Reenviar
-        '''
-        @api.multi
-        def update_xml_status(self):
-            self.ensure_one()
-            if self.dte_service_provider in [
-                'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
-                # reobtener el folio
-                folio = self.get_folio_current()
-                dte_username = self.company_id.dte_username
-                dte_password = self.company_id.dte_password
-                envio_check = '''<?xml version="1.0" encoding="utf-8"?>
-<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
-  <soap12:Body>
-    <ActualizarEstadoDTE xmlns="https://www.efacturadelsur.cl">
-      <usuario>{0}</usuario>
-      <contrasena>{1}</contrasena>
-      <rutEmisor>{2}</rutEmisor>
-      <tipoDte>{3}</tipoDte>
-      <folio>{4}</folio>
-      <estado>{5}</estado>
-      <glosa>{6}</glosa>
-      <idSii>{7}</idSii>
-      <fechaEstado>{8}</fechaEstado>
-    </ActualizarEstadoDTE>
-  </soap12:Body>
-</soap12:Envelope>'''.format(
-                    dte_username,
-                    dte_password,
-                    self.format_vat(self.company_id.vat),
-                    self.sii_document_class_id.sii_code,
-                    folio,
-                    estado_nuevo,
-                    glosa,
-                    idsii)
-
-                _logger.info("envio: %s" % envio_check)
-                host = 'https://www.efacturadelsur.cl'
-                post = '/ws/DTE.asmx'  # HTTP/1.1
-                url = host + post
-                _logger.info('URL to be used %s' % url)
-                response = pool.urlopen('POST', url, headers={
-                    'Content-Type': 'application/soap+xml',
-                    'charset': 'utf-8',
-                    'Content-Length': len(
-                        envio_check)}, body=envio_check)
-                _logger.info(response.status)
-                _logger.info(response.data)
-                if response.status != 200:
-                    pass
-                    raise Warning(
-                        'The Transmission Has Failed. Error: %s' % response.status)
-
-                setenvio = {
-                    # 'sii_result': 'Enviado' if self.dte_service_provider == 'EFACTURADELSUR' else self.sii_result,
-                    'sii_xml_response': response.data}
-                self.write(setenvio)
-                x = xmltodict.parse(response.data)
-                raise Warning(x['soap:Envelope']['soap:Body'][
-                                  'ObtenerEstadoDTEResponse'][
-                                  'ObtenerEstadoDTEResult'])
-
-                root = etree.fromstring(response.data)
-                raise Warning(root.ObtenerEstadoDTEResult)
-
     '''
     Realización del envío de DTE.
+    nota: se cambia el nombre de la función de "send xml file"
+    a "send_dte" para ser mas abarcativa en cuanto a que algunos
+    service provider no trabajan con xml sino con un diccionario
+    (caso de libre dte por ejemplo). Como la funcion se invoca desde un
+    boton, pero trambién se podría cambiar aejecutar automaticamente,
+    pienso que es más conveniente tratar todas las opciones de provider
+    en la misma funcion.
     La funcion selecciona el proveedor de servicio de DTE y efectua el envio
     de acuerdo a la integracion del proveedor.
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
      @version: 2016-06-01
     '''
     @api.multi
-    def send_xml_file(self):
+    def send_dte(self):
         self.ensure_one()
 
         _logger.info('Entering Send XML Function')
@@ -392,6 +320,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             self.write(setenvio)
 
         else:
+            # opciones para otros enviadores de xml
             pass
 
     '''
