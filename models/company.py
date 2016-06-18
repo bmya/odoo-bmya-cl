@@ -17,6 +17,7 @@ class dteEmail(models.Model):
             ('FACTURACION', 'facturacion.cl'),
             ('FACTURAENLINEA', 'facturaenlinea.cl'),
             ('LIBREDTE', 'LibreDTE'),
+            ('LIBREDTE_TEST', 'LibreDTE'),
             ('SIIHOMO', 'SII - Certification process'),
             ('SII', 'www.sii.cl'),
             ('SII MiPyme', 'SII - Portal MiPyme'),
@@ -43,15 +44,3 @@ issued by the DTE Service provider''')
         'DTE Password/Token', help='''In LibreDTE case, this value is the \
 token. In other cases, the pair username/password is needed.''')
 
-    '''
-    Funcion para fijar el password en "X" cuando el provider es
-    LibreDTE
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-15
-    '''
-    @api.onchange('dte_service_provider')
-    def _set_username(self):
-        if self.dte_service_provider == 'LIBREDTE':
-            self.dte_password = 'X'
-        else:
-            pass

@@ -319,8 +319,16 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 'sii_xml_response': response.data}
             self.write(setenvio)
 
+        elif self.dte_service_provider in ['LIBREDTE', 'LIBREDTE_TEST']:
+            '''
+            import base64
+            user = 'Aladdin'
+            passw = 'open sesame'
+            base64.b64encode('{}:{}'.format(user, passw))
+            QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+            '''
+            pass
         else:
-            # opciones para otros enviadores de xml
             pass
 
     '''
@@ -423,6 +431,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             ('FACTURACION', 'facturacion.cl'),
             ('FACTURAENLINEA', 'facturaenlinea.cl'),
             ('LIBREDTE', 'LibreDTE'),
+            ('LIBREDTE_TEST', 'LibreDTE'),
             ('SIIHOMO', 'SII - Certification process'),
             ('SII', 'www.sii.cl'),
             ('SII MiPyme', 'SII - Portal MiPyme'),
