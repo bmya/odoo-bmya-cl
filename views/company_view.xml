@@ -14,6 +14,7 @@
                                attrs="{'invisible': [('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE'])],
                                        'required':  [('dte_service_provider', 'in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE'])]}"/>
                         <field name="dte_password"
+                               password="True"
                                attrs="{'invisible': [('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE'])],
                                        'required':  [('dte_service_provider', 'in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE'])],
                                        'readonly': [('dte_service_provider', 'in', ['LIBREDTE'])]

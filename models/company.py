@@ -17,7 +17,7 @@ class dteEmail(models.Model):
             ('FACTURACION', 'facturacion.cl'),
             ('FACTURAENLINEA', 'facturaenlinea.cl'),
             ('LIBREDTE', 'LibreDTE'),
-            ('LIBREDTE_TEST', 'LibreDTE'),
+            ('LIBREDTE_TEST', 'LibreDTE (test mode)'),
             ('SIIHOMO', 'SII - Certification process'),
             ('SII', 'www.sii.cl'),
             ('SII MiPyme', 'SII - Portal MiPyme'),

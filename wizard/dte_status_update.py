@@ -61,8 +61,11 @@ class account_invoice_dte_status(models.TransientModel):
         help="SII request result",
         default=_get_default_sii_result)
 
-    idsii = fields.Char('IDSii')
-    glosa = fields.Text('Glosa')
+    sii_send_ident = fields.Char(
+        string='SII Send Identification')
+
+    glosa = fields.Text(
+        string='Glosa')
 
 
 

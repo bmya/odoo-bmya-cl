@@ -356,6 +356,15 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         return inv.journal_document_class_id.sequence_id.number_next_actual
 
     '''
+    Funcion que devuelve el service provider desde la compañia
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-05-01
+    '''
+    def get_company_dte_service_provider(self):
+        # raise Warning(self.company_id.dte_service_provider)
+        return self.company_id.dte_service_provider
+
+    '''
     Funcion para obtener el folio ya registrado en el dato
     correspondiente al tipo de documento.
     (remoción del prefijo almacenado)
@@ -431,17 +440,14 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             ('FACTURACION', 'facturacion.cl'),
             ('FACTURAENLINEA', 'facturaenlinea.cl'),
             ('LIBREDTE', 'LibreDTE'),
-            ('LIBREDTE_TEST', 'LibreDTE'),
+            ('LIBREDTE_TEST', 'LibreDTE (test mode)'),
             ('SIIHOMO', 'SII - Certification process'),
             ('SII', 'www.sii.cl'),
             ('SII MiPyme', 'SII - Portal MiPyme'),
-        ), 'DTE Service Provider', help='''Please select your company service \
-    provider for DTE service. Select \'None\' if you use manual invoices, fiscal \
-    controllers or MiPYME Sii Service. Also take in account that if you select \
-    \'www.sii.cl\' you will need to provide SII exempt resolution number in order \
-    to be legally enabled to use the service. If your service provider is not \
-    listed here, please send us an email to soporte@blancomartin.cl in order to \
-    add the option.''', related='company_id.dte_service_provider', readonly=True)
+        ), 'DTE Service Provider',
+        related='company_id.dte_service_provider',
+        #default=get_company_dte_service_provider,
+        readonly=True)
 
 
     dte_resolution_number = fields.Char('SII Exempt Resolution Number',
@@ -478,8 +484,10 @@ stamp to be legally valid.''')
             # control de DTE
             cant_doc_batch = cant_doc_batch + 1
 
-            if inv.dte_service_provider in ['EFACTURADELSUR', 'EFACTURADELSUR_TEST',
-                               'LIBREDTE']:
+            if inv.dte_service_provider in ['EFACTURADELSUR',
+                                            'EFACTURADELSUR_TEST',
+                                            'LIBREDTE',
+                                            'LIBREDTE_TEST']:
                 # debe utilizar usuario y contraseña
                 # todo: hardcodeado, pero pasar a webservices server
                 dte_username = self.company_id.dte_username
