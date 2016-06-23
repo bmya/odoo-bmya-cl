@@ -6,7 +6,7 @@
 from openerp import fields, models, api, _
 from openerp.exceptions import Warning
 from datetime import datetime, timedelta
-import logging
+import logging, json
 import lxml.etree as etree
 from lxml import objectify
 from lxml.etree import XMLSyntaxError
@@ -38,7 +38,14 @@ pip install --upgrade requests
 y
 pip install --upgrade urllib3
 '''
-pool = urllib3.PoolManager()
+#import urllib3
+import certifi
+
+pool = urllib3.PoolManager(
+    cert_reqs='CERT_REQUIRED', # Force certificate check.
+    ca_certs=certifi.where(),  # Path to the Certifi bundle.
+)
+#pool = urllib3.PoolManager()
 
 _logger = logging.getLogger(__name__)
 
@@ -105,8 +112,8 @@ Extensión del modelo de datos para contener parámetros globales necesarios
 class invoice(models.Model):
     _inherit = "account.invoice"
 
+
     '''
-    Funcion usada en autenticacion en SII
     Creacion de plantilla xml para envolver el DTE
     Previo a realizar su firma (1)
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
@@ -455,6 +462,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 and must appear in your pdf or printed tribute document, under the electronic \
 stamp to be legally valid.''')
 
+    third_party_pdf = fields.Binary('PDF File')
+
     @api.multi
     def get_related_invoices_data(self):
         """
@@ -496,10 +505,14 @@ stamp to be legally valid.''')
             elif inv.dte_service_provider in ['', 'NONE']:
                 return
 
-            # definicion de los giros del emisor
-            giros_emisor = []
-            for turn in inv.company_id.company_activities_ids:
-                giros_emisor.extend([{'Acteco': turn.code}])
+
+            # giros_emisor = []
+            # # definicion de los giros del emisor
+            # for turn in inv.company_id.company_activities_ids:
+            #     if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+            #         giros_emisor.extend([{'Acteco': turn.code}])
+            #     else:
+            #         giros_emisor.extend([turn.code])
 
             # definicion de lineas
             line_number = 1
@@ -521,7 +534,10 @@ stamp to be legally valid.''')
                     lines['DscItem'] = int(round(line.discount, 0))
                 lines['MontoItem'] = int(round(line.price_subtotal, 0))
                 line_number = line_number + 1
-                invoice_lines.extend([{'Detalle': lines}])
+                if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+                    invoice_lines.extend([{'Detalle': lines}])
+                else:
+                    invoice_lines.extend([lines])
 
             # _logger.info(invoice_lines)
             #########################
@@ -534,7 +550,8 @@ stamp to be legally valid.''')
             dte['Encabezado']['IdDoc'] = collections.OrderedDict()
             dte['Encabezado']['IdDoc']['TipoDTE'] = inv.sii_document_class_id.sii_code
             dte['Encabezado']['IdDoc']['Folio'] = folio
-            dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
+            if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+                dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
             # todo: forma de pago y fecha de vencimiento - opcional
             dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code or 1
             dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
@@ -543,10 +560,16 @@ stamp to be legally valid.''')
                 inv.company_id.vat)
             dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
             dte['Encabezado']['Emisor']['GiroEmis'] = inv.turn_issuer.name[:80]
+            dte['Encabezado']['Emisor']['Acteco'] = inv.turn_issuer.code
+            # if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+            #     dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
+            # else:
+            #     dte['Encabezado']['Emisor']['Acteco'] = giros_emisor  # giros de la compañia - codigos
             # todo: Telefono y Correo opcional
             dte['Encabezado']['Emisor']['Telefono'] = inv.company_id.phone or ''
-            dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
-            dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
+            if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+                dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
+
             # todo: <CdgSIISucur>077063816</CdgSIISucur> codigo de sucursal
             # no obligatorio si no hay sucursal, pero es un numero entregado
             # por el SII para cada sucursal.
@@ -563,24 +586,28 @@ stamp to be legally valid.''')
             # todo: revisar comuna: "false"
             dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
             dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
-            dte['Encabezado']['Totales'] = collections.OrderedDict()
-            if inv.sii_document_class_id.sii_code == 34:
-                dte['Encabezado']['Totales']['MntExe'] = int(round(
-                    inv.amount_total, 0))
-            else:
-                dte['Encabezado']['Totales']['MntNeto'] = int(round(
-                    inv.amount_untaxed, 0))
-                dte['Encabezado']['Totales']['TasaIVA'] = int(round(
-                    (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
-                dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
-            dte['Encabezado']['Totales']['MntTotal'] = int(round(
+            if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+                # no se envían los totales a LibreDTE
+                dte['Encabezado']['Totales'] = collections.OrderedDict()
+                if inv.sii_document_class_id.sii_code == 34:
+                    dte['Encabezado']['Totales']['MntExe'] = int(round(
+                        inv.amount_total, 0))
+                else:
+                    dte['Encabezado']['Totales']['MntNeto'] = int(round(
+                        inv.amount_untaxed, 0))
+                    dte['Encabezado']['Totales']['TasaIVA'] = int(round(
+                        (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
+                    dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
+                dte['Encabezado']['Totales']['MntTotal'] = int(round(
                 inv.amount_total, 0))
-            dte['item'] = invoice_lines
+            if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+                dte['item'] = invoice_lines
+            else:
+                dte['Detalle'] = invoice_lines
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
             doc_id = '<Documento ID="{}">'.format(doc_id_number)
             # si es sii, inserto el timbre
-
             dte1['Documento ID'] = dte
             xml = dicttoxml.dicttoxml(
                 dte1, root=False, attr_type=False).replace(
@@ -620,6 +647,99 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 inv.sii_result = 'NoEnviado'
                 _logger.info('OPCION DTE: ({})'.format(str(
                     inv.dte_service_provider)).lower())
+            elif inv.dte_service_provider in [
+                'LIBREDeTE', 'LIBREDTE_TEST']:
+                print('password: %s' % self.company_id.dte_password)
+                print('username: %s' % self.company_id.dte_username)
+
+                headers = {}
+                headers['Authorization'] = 'Basic {}'.format(base64.b64encode('{}:{}'.format(
+                    self.company_id.dte_password,
+                    self.company_id.dte_username)))
+                headers['Accept-Encoding'] = 'gzip, deflate, identity'
+                headers['Accept'] = '*/*'
+                headers['User-Agent'] = 'python-requests/2.6.0 CPython/2.7.6 Linux/3.13.0-88-generic'
+                headers['Connection'] = 'keep-alive'
+                headers['Content-Type'] = 'application/json'
+
+                # raise Warning(headers)
+                host = 'https://libredte.cl/api'
+                #host = 'http://localhost:8000'
+                api_emitir = host+'/dte/documentos/emitir'
+                api_generar = host+'/dte/documentos/generar'
+                api_gen_pdf = host+'/dte/documentos/generar_pdf'
+
+                response_emitir = pool.urlopen(
+                    'POST', api_emitir, headers=headers, body=json.dumps(dte))
+                if response_emitir.status != 200:
+                    raise Warning('Error en conexión al emitir: %s, %s' % (
+                        response_emitir.status, response_emitir.data))
+                _logger.info('response_emitir: %s' % response_emitir.data)
+
+                response_generar = pool.urlopen(
+                    'POST', api_generar, headers=headers,
+                    body=response_emitir.data)
+                if response_generar.status != 200:
+                    raise Warning('Error en conexión al generar: %s, %s' % (
+                        response_generar.status, response_generar.data))
+                _logger.info('response_generar: %s' % response_generar.data)
+                # Estos son los valores que puedo validar de lo emitido antes
+                # de efectivamente validar el documento
+                response_j = json.loads(response_generar.data)
+                '''
+                response_j['emisor']
+                response_j['dte']
+                response_j['folio']
+                response_j['certificacion']
+                response_j['tasa']
+                response_j['fecha']
+                response_j['sucursal_sii']
+                response_j['receptor']
+                response_j['exento']
+                response_j['neto']
+                response_j['iva']
+                response_j['total']
+                response_j['usuario']
+                '''
+
+                _logger.info('Este es el XML decodificado:')
+                _logger.info(base64.b64decode(response_j['xml']))
+                # obtener el PDF desde LibreDTEDTE
+                generar_pdf_request = {'xml': response_j['xml'],
+                                       'compress': False}
+                response_pdf = pool.urlopen(
+                    'POST', api_gen_pdf, headers=headers,
+                    body=generar_pdf_request)
+
+                if response_pdf.status != 200:
+                    raise Warning('Error en conexión al generar: %s, %s' % (
+                    response_pdf.status, response_pdf.data))
+                # _logger.info(json.dumps(response_pdf.data))
+                invoice_pdf = base64.b64encode(response_pdf.data.content)
+                # prueba de incluir el pdf como adjunto en lugar de guardarlo
+                # en account_invoice
+                inv.save(
+                    {
+                        'sii_xml_request': base64.b64decode(response_j['xml']),
+                        'third_party_pdf': base65.b64encode(invoice_pdf)
+                    }
+                )
+
+                attachment_obj = self.env['ir.attachment']
+                attachment_id = attachment_obj.create(
+                    {
+                        'name': 'INVOICE {}-{}'.format(response_j['dte'], response_j['folio']),
+                        'datas': invoice_pdf,
+                        'datas_fname': 'INVOICE {}-{}'.format(response_j['dte'], response_j['folio']),
+                        'res_model': self._name,
+                        'res_id': inv.id,
+                        'type': 'binary'
+                    })
+                _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
+                '''
+                return requests.post(self.url+'/api'+api, json.dumps(data), auth=self.auth, verify=self.ssl_check)
+                '''
+                # raise Warning('response: %s.' % response_pdf.data)
             else:
                 _logger.info('NO HUBO NINGUNA OPCION DTE VALIDA ({})'.format(
                     inv.dte_service_provider))

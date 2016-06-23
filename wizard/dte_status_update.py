@@ -19,6 +19,7 @@ class account_invoice_dte_status(models.TransientModel):
     @version: 2016-06-18
     '''
     def _get_default_sii_result(self):
+        pass
         '''
         contexto de ejemplo::
         {

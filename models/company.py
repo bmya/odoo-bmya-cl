@@ -44,3 +44,14 @@ issued by the DTE Service provider''')
         'DTE Password/Token', help='''In LibreDTE case, this value is the \
 token. In other cases, the pair username/password is needed.''')
 
+
+    '''
+    cambiar dte username para libredte
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-06-16
+    '''
+    @api.onchange('dte_service_provider')
+    def set_libredte_username(self):
+        if self.dte_service_provider in ['LIBREDTE', 'LIBREDTE_TEST']:
+            self.username = 'X'
+

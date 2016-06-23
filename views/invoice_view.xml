@@ -51,6 +51,7 @@
                                 attrs="{'invisible':[('sii_result', 'in', [''])]}"/>
                             <field name='sii_send_ident'
                                 attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
+                            <field name="third_party_pdf"/>
                         </group>
                     </page>
                 </notebook>
