@@ -10,12 +10,21 @@
                     <group colspan="2">
                         <field name="dte_email" widget="email"/>
                         <field name="dte_service_provider"/>
+                        <field name="dte_username"
+                               attrs="{'invisible': [('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE'])],
+                                       'required':  [('dte_service_provider', 'in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE'])]}"/>
+                        <field name="dte_password"
+                               password="True"
+                               attrs="{'invisible': [('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE'])],
+                                       'required':  [('dte_service_provider', 'in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE'])],
+                                       'readonly': [('dte_service_provider', 'in', ['LIBREDTE'])]
+                                       }"/>
                         <field name="dte_resolution_number"
-                               attrs="{'invisible': [('dte_service_provider', '!=', 'SII')],
-                                       'required':  [('dte_service_provider', '=', 'SII')]}"/>
+                               attrs="{'invisible': [('dte_service_provider', 'not in', ['SII', 'SIIHOMO'])],
+                                       'required':  [('dte_service_provider', 'in', ['SII', 'SIIHOMO'])]}"/>
                         <field name="dte_resolution_date"
-                               attrs="{'invisible': [('dte_service_provider', '!=', 'SII')],
-                                       'required':  [('dte_service_provider', '=', 'SII')]}"/>
+                               attrs="{'invisible': [('dte_service_provider', 'not in', ['SII', 'SIIHOMO'])],
+                                       'required':  [('dte_service_provider', 'in', ['SII', 'SIIHOMO'])]}"/>
                         <field name="sii_regional_office_id"
                                 domain="['|',
                                 ('state_ids', '=', state_id),
