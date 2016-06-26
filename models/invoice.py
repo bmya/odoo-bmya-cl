@@ -15,15 +15,15 @@ from lxml.etree import XMLSyntaxError
 
 import collections, re
 
-try:
-    from cStringIO import StringIO
-except:
-    from StringIO import StringIO
+# try:
+#     from cStringIO import StringIO
+# except:
+#     from StringIO import StringIO
 
-try:
-    from suds.client import Client
-except:
-    pass
+# try:
+#     from suds.client import Client
+# except:
+#     pass
 
 try:
     import urllib3
@@ -52,40 +52,40 @@ try:
 except ImportError:
     _logger.info('Cannot import dicttoxml library')
 
-try:
-    from elaphe import barcode
-except ImportError:
-    _logger.info('Cannot import elaphe library')
+# try:
+#     from elaphe import barcode
+# except ImportError:
+#     _logger.info('Cannot import elaphe library')
 
-try:
-    import M2Crypto
-except ImportError:
-    _logger.info('Cannot import M2Crypto library')
+# try:
+#     import M2Crypto
+# except ImportError:
+#     _logger.info('Cannot import M2Crypto library')
 
 try:
     import base64
 except ImportError:
     _logger.info('Cannot import base64 library')
 
-try:
-    import hashlib
-except ImportError:
-    _logger.info('Cannot import hashlib library')
+# try:
+#     import hashlib
+# except ImportError:
+#     _logger.info('Cannot import hashlib library')
 
 try:
     import cchardet
 except ImportError:
     _logger.info('Cannot import cchardet library')
 
-try:
-    from SOAPpy import SOAPProxy
-except ImportError:
-    _logger.info('Cannot import SOOAPpy')
+# try:
+#     from SOAPpy import SOAPProxy
+# except ImportError:
+#     _logger.info('Cannot import SOOAPpy')
 
-try:
-    from signxml import xmldsig, methods
-except ImportError:
-    _logger.info('Cannot import signxml')
+# try:
+#     from signxml import xmldsig, methods
+# except ImportError:
+#     _logger.info('Cannot import signxml')
 
 # timbre patrón. Permite parsear y formar el
 # ordered-dict patrón corespondiente al documento
