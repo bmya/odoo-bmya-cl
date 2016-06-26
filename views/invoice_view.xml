@@ -29,6 +29,11 @@
                                     context="{
                                         'sii_status': sii_result,
                                         'dte_provider': dte_service_provider}"/>
+                                <button name="bring_pdf_ldte"
+                                    string="Bring PDF DTE" type="action"
+                                    context="{
+                                        'response_j_xml': third_party_xml,
+                                        'inv': inv}"/>
                             </div>
                             <field name='sii_result' widget="statusbar"
                                    clickable="False"

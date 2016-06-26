@@ -205,7 +205,8 @@ class invoice(models.Model):
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
      @version: 2016-06-23
     '''
-    def bring_pdf_ldte(self, inv, response_j_xml):
+    def bring_pdf_ldte(self, response_j_xml):
+        self.ensure_one()
         headers = self.create_headers_ldte()
         generar_pdf_request = json.dumps({'xml': response_j_xml,
                                           'compress': False})
@@ -219,11 +220,11 @@ class invoice(models.Model):
         attachment_obj = self.env['ir.attachment']
         attachment_id = attachment_obj.create(
             {
-                'name': 'INVOICE {}-{}'.format(inv.sii_document_class_id.name, inv.sii_document_number),
+                'name': 'INVOICE {}-{}'.format(self.sii_document_class_id.name, self.sii_document_number),
                 'datas': invoice_pdf,
-                'datas_fname': 'INVOICE {}-{}'.format(inv.sii_document_class_id.name, inv.sii_document_number),
+                'datas_fname': 'INVOICE {}-{}'.format(self.sii_document_class_id.name, self.sii_document_number),
                 'res_model': self._name,
-                'res_id': inv.id,
+                'res_id': self.id,
                 'type': 'binary'
             })
         _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
