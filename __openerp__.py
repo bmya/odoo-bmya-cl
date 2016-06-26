@@ -41,15 +41,15 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'python': [
             'xmltodict',
             'dicttoxml',
-            'elaphe',
-            'M2Crypto',
+            #'elaphe',
+            #'M2Crypto',
             'base64',
             'hashlib',
             'cchardet',
-            'suds',
+            #'suds',
             'urllib3',
-            'SOAPpy',
-            'signxml'
+            #'SOAPpy',
+            #'signxml'
         ]
     },
     'data': [
