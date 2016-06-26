@@ -194,6 +194,60 @@ class invoice(models.Model):
             _logger.info("not a string")
 
     '''
+     a partir de aca se realiza la toma del pdf con la factura impresa
+     directamente desde libreDTE
+     podria existir la posibilidad técnica de imprimir la factura
+     desde odoo con otro módulo l10n_cl_dte_pdf
+     o desde esta "función"
+     obtener el PDF desde LibreDTE
+    Función para tomar el PDF generado en libreDTE y adjuntarlo ya sea
+    a account_invoice o como adjunto
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-06-23
+    '''
+    def bring_pdf_ldte(self, inv, response_j_xml):
+        headers = self.create_headers_ldte()
+        generar_pdf_request = json.dumps({'xml': response_j_xml,
+                                          'compress': False})
+        response_pdf = pool.urlopen(
+            'POST', api_gen_pdf, headers=headers,
+            body=generar_pdf_request)
+        if response_pdf.status != 200:
+            raise Warning('Error en conexión al generar: %s, %s' % (
+                response_pdf.status, response_pdf.data))
+        invoice_pdf = base64.b64encode(response_pdf.data)
+        attachment_obj = self.env['ir.attachment']
+        attachment_id = attachment_obj.create(
+            {
+                'name': 'INVOICE {}-{}'.format(inv.sii_document_class_id.name, inv.sii_document_number),
+                'datas': invoice_pdf,
+                'datas_fname': 'INVOICE {}-{}'.format(inv.sii_document_class_id.name, inv.sii_document_number),
+                'res_model': self._name,
+                'res_id': inv.id,
+                'type': 'binary'
+            })
+        _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
+
+    '''
+    Función para crear los headers necesarios por LibreDTE
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-06-23
+    '''
+    def create_headers_ldte(self):
+        headers = {}
+        headers['Authorization'] = 'Basic {}'.format(
+            base64.b64encode('{}:{}'.format(
+                self.company_id.dte_password,
+                self.company_id.dte_username)))
+        headers['Accept-Encoding'] = 'gzip, deflate, identity'
+        headers['Accept'] = '*/*'
+        headers['User-Agent'] = 'python-requests/2.6.0 CPython/2.7.6 \
+Linux/3.13.0-88-generic'
+        headers['Connection'] = 'keep-alive'
+        headers['Content-Type'] = 'application/json'
+        return headers
+
+    '''
     Funcion para validar los xml generados contra el esquema que le corresponda
     segun el tipo de documento.
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
@@ -363,6 +417,16 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         return inv.journal_document_class_id.sequence_id.number_next_actual
 
     '''
+    Funcion para actualizar el folio tomando el valor devuelto por el
+    tercera parte integrador.
+    Esta funcion se usa cuando un tercero comanda los folios
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-06-23
+    '''
+    def set_folio(self, inv, folio):
+        inv.journal_document_class_id.sequence_id.number_next_actual = folio
+
+    '''
     Funcion que devuelve el service provider desde la compañia
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
      @version: 2016-05-01
@@ -463,6 +527,9 @@ and must appear in your pdf or printed tribute document, under the electronic \
 stamp to be legally valid.''')
 
     third_party_pdf = fields.Binary('PDF File')
+    filename_pdf = fields.Char('File Name PDF')
+    third_party_xml = fields.Binary('XML File')
+    filename_xml = fields.Char('File Name XML')
 
     @api.multi
     def get_related_invoices_data(self):
@@ -652,19 +719,10 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 print('password: %s' % self.company_id.dte_password)
                 print('username: %s' % self.company_id.dte_username)
 
-                headers = {}
-                headers['Authorization'] = 'Basic {}'.format(base64.b64encode('{}:{}'.format(
-                    self.company_id.dte_password,
-                    self.company_id.dte_username)))
-                headers['Accept-Encoding'] = 'gzip, deflate, identity'
-                headers['Accept'] = '*/*'
-                headers['User-Agent'] = 'python-requests/2.6.0 CPython/2.7.6 Linux/3.13.0-88-generic'
-                headers['Connection'] = 'keep-alive'
-                headers['Content-Type'] = 'application/json'
+                headers = self.create_headers_ldte()
 
                 # raise Warning(headers)
                 host = 'https://libredte.cl/api'
-                #host = 'http://localhost:8000'
                 api_emitir = host+'/dte/documentos/emitir'
                 api_generar = host+'/dte/documentos/generar'
                 api_gen_pdf = host+'/dte/documentos/generar_pdf'
@@ -675,6 +733,16 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                     raise Warning('Error en conexión al emitir: %s, %s' % (
                         response_emitir.status, response_emitir.data))
                 _logger.info('response_emitir: %s' % response_emitir.data)
+
+                try:
+                    inv.sii_xml_response = response_emitir.data
+                except:
+                    _logger.warning(
+                        'no pudo guardar la respuesta al ws de emision')
+                '''
+                {"emisor": 76085472, "receptor": 1, "dte": 33,
+                 "codigo": "7a1f42de0e8a3dcdd0500f7ad6c8266a"}
+                '''
 
                 response_generar = pool.urlopen(
                     'POST', api_generar, headers=headers,
@@ -701,45 +769,38 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 response_j['total']
                 response_j['usuario']
                 '''
-
+                # llegado a este punto, el documento ya está emitido y ha consumido
+                # un folio por lo tanto se actualiza el folio mediante una funcion para
+                # esa finalidad
+                self.set_folio(inv, response_j['folio'])
                 _logger.info('Este es el XML decodificado:')
+                # da problemas al guardar el documento con codificación 8859-1
                 _logger.info(base64.b64decode(response_j['xml']))
-                # obtener el PDF desde LibreDTEDTE
-                generar_pdf_request = {'xml': response_j['xml'],
-                                       'compress': False}
-                response_pdf = pool.urlopen(
-                    'POST', api_gen_pdf, headers=headers,
-                    body=generar_pdf_request)
 
-                if response_pdf.status != 200:
-                    raise Warning('Error en conexión al generar: %s, %s' % (
-                    response_pdf.status, response_pdf.data))
-                # _logger.info(json.dumps(response_pdf.data))
-                invoice_pdf = base64.b64encode(response_pdf.data.content)
+                # agregar funcion para traer el pdf
                 # prueba de incluir el pdf como adjunto en lugar de guardarlo
                 # en account_invoice
-                inv.save(
+                try:
+                    inv.sii_xml_request = self.convert_encoding(
+                        base64.b64decode(response_j['xml']))
+                except:
+                    pass
+                    _logger.warning(
+                        'no pudo codificar y guardar el documento... ')
+
+                try:
+                    self.bring_pdf_ldte(inv, response_j['xml'])
+                except:
+                    pass
+                    _logger.warning('no pudo traer el pdf')
+
+                inv.write(
                     {
-                        'sii_xml_request': base64.b64decode(response_j['xml']),
-                        'third_party_pdf': base65.b64encode(invoice_pdf)
+                        'third_party_xml': response_j['xml'],
+                        # 'third_party_pdf': base64.b64encode(invoice_pdf)
                     }
                 )
-
-                attachment_obj = self.env['ir.attachment']
-                attachment_id = attachment_obj.create(
-                    {
-                        'name': 'INVOICE {}-{}'.format(response_j['dte'], response_j['folio']),
-                        'datas': invoice_pdf,
-                        'datas_fname': 'INVOICE {}-{}'.format(response_j['dte'], response_j['folio']),
-                        'res_model': self._name,
-                        'res_id': inv.id,
-                        'type': 'binary'
-                    })
-                _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
-                '''
-                return requests.post(self.url+'/api'+api, json.dumps(data), auth=self.auth, verify=self.ssl_check)
-                '''
-                # raise Warning('response: %s.' % response_pdf.data)
+                _logger.info('se guardó xml con la factura')
             else:
                 _logger.info('NO HUBO NINGUNA OPCION DTE VALIDA ({})'.format(
                     inv.dte_service_provider))
