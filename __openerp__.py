@@ -24,7 +24,7 @@
     'version': '8.0.1.2.0',
     'category': 'Localization/Chile',
     'sequence': 12,
-    'author':  'BMyA SA - Blanco Martín & Asociados',
+    'author':  'Blanco Martín & Asociados',
     'website': 'http://blancomartin.cl',
     'license': 'AGPL-3',
     'summary': '',
@@ -36,6 +36,7 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'l10n_cl_counties',
         'l10n_cl_invoice',
         # 'l10n_cl_dte_caf',
+        # 'user_signature_key',
         ],
     'external_dependencies': {
         'python': [
@@ -59,6 +60,7 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'views/company_view.xml',
         'views/payment_t_view.xml',
         'views/sii_regional_offices_view.xml',
+        'views/invoice_template.xml',
         'data/sii.regional.offices.csv',
         'security/ir.model.access.csv',
     ],

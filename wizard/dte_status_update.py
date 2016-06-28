@@ -46,7 +46,6 @@ class account_invoice_dte_status(models.TransientModel):
         '''
         return self.env.context['sii_status']
 
-
     sii_result = fields.Selection([
         ('', 'n/a'),
         ('NoEnviado', 'No Enviado'),
@@ -68,8 +67,6 @@ class account_invoice_dte_status(models.TransientModel):
     glosa = fields.Text(
         string='Glosa')
 
-
-
     '''
     Función para ejecutar el cambio de estado del DTE
     @author: Daniel Blanco Martín daniel[at]blancomartin.cl
@@ -87,17 +84,17 @@ class account_invoice_dte_status(models.TransientModel):
         Reenviar
     '''
     @api.multi
-    @api.depends('sii_result', 'idsii', 'glosa')
+    @api.depends('sii_result', 'sii_send_ident', 'glosa')
     def update_dte_status(self):
         self.ensure_one()
         print('entrando en funcion update_dte_status')
         # self.env.context.get('value_key', value_if_undefined)
         pass
-        """
         if self.env.context.get('dte_service_provider') in [
             'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
+            print('update dte status con facturadelsur')
             # reobtener el folio
-            folio = self.get_folio_current()
+            folio = l10n_cl_dte.invoice.get_folio_current()
             dte_username = self.company_id.dte_username
             dte_password = self.company_id.dte_password
             envio_check = '''<?xml version="1.0" encoding="utf-8"?>
@@ -116,14 +113,14 @@ class account_invoice_dte_status(models.TransientModel):
     </ActualizarEstadoDTE>
   </soap12:Body>
 </soap12:Envelope>'''.format(
-                dte_username,
-                dte_password,
-                self.format_vat(self.company_id.vat),
-                self.sii_document_class_id.sii_code,
-                folio,
-                estado_nuevo,
-                glosa,
-                idsii)
+            dte_username,
+            dte_password,
+            self.format_vat(self.company_id.vat),
+            self.sii_document_class_id.sii_code,
+            folio,
+            estado_nuevo,
+            glosa,
+            sii_send_ident)
 
             _logger.info("envio: %s" % envio_check)
             host = 'https://www.efacturadelsur.cl'
@@ -153,4 +150,8 @@ class account_invoice_dte_status(models.TransientModel):
 
             root = etree.fromstring(response.data)
             raise Warning(root.ObtenerEstadoDTEResult)
-        """
+        elif self.env.context.get('dte_service_provider') in [
+            'LIBREDTE', 'LIBREDTE_TEST']:
+            print('update dte status con facturadelsur')
+            pass
+

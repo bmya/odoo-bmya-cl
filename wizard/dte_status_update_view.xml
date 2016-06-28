@@ -19,7 +19,7 @@
                         <field name="glosa"/>
                     </group>
                     <footer>
-                        <button string="Confirm" name="confirm" type="object"
+                        <button string="Confirm" name="update_dte_status" type="object"
                                 class="oe_highlight"/>or
                         <button string="Cancel" class="oe_link" special="cancel"/>
                     </footer>

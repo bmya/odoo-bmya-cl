@@ -29,18 +29,20 @@
                                     context="{
                                         'sii_status': sii_result,
                                         'dte_provider': dte_service_provider}"/>
-                                <button name="bring_pdf_ldte"
-                                    string="Bring PDF DTE" type="action"
-                                    context="{
-                                        'response_j_xml': third_party_xml,
-                                        'inv': inv}"/>
+                                <button string="Bring PDF DTE" type="object"
+                                        name="bring_pdf_ldte"/>
+
                             </div>
                             <field name='sii_result' widget="statusbar"
+                                   context="{
+                                        'sii_status': sii_result,
+                                        'dte_provider': dte_service_provider}"/>
+                            <!--<field name='sii_result' widget="statusbar"
                                    clickable="False"
                                    onchange="%(action_dte_status_update_form)d"
                                    context="{
                                         'sii_status': sii_result,
-                                        'dte_provider': dte_service_provider}"/>
+                                        'dte_provider': dte_service_provider}"/>-->
                         </header>
                         <group>
                             <field name='sii_batch_number'/>

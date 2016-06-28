@@ -100,9 +100,11 @@ except ImportError:
 # hardcodeamos este valor por ahora
 import os
 xsdpath = os.path.dirname(os.path.realpath(__file__)).replace('/models','/static/xsd/')
-
-
-
+host = 'https://libredte.cl/api'
+api_emitir = host + '/dte/documentos/emitir'
+api_generar = host + '/dte/documentos/generar'
+api_gen_pdf = host + '/dte/documentos/generar_pdf'
+api_upd_satus = host + '/dte/dte_emitidos/actualizar_estado/'
 '''
 Extensión del modelo de datos para contener parámetros globales necesarios
  para todas las integraciones de factura electrónica.
@@ -194,42 +196,6 @@ class invoice(models.Model):
             _logger.info("not a string")
 
     '''
-     a partir de aca se realiza la toma del pdf con la factura impresa
-     directamente desde libreDTE
-     podria existir la posibilidad técnica de imprimir la factura
-     desde odoo con otro módulo l10n_cl_dte_pdf
-     o desde esta "función"
-     obtener el PDF desde LibreDTE
-    Función para tomar el PDF generado en libreDTE y adjuntarlo ya sea
-    a account_invoice o como adjunto
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-23
-    '''
-    def bring_pdf_ldte(self, response_j_xml):
-        self.ensure_one()
-        headers = self.create_headers_ldte()
-        generar_pdf_request = json.dumps({'xml': response_j_xml,
-                                          'compress': False})
-        response_pdf = pool.urlopen(
-            'POST', api_gen_pdf, headers=headers,
-            body=generar_pdf_request)
-        if response_pdf.status != 200:
-            raise Warning('Error en conexión al generar: %s, %s' % (
-                response_pdf.status, response_pdf.data))
-        invoice_pdf = base64.b64encode(response_pdf.data)
-        attachment_obj = self.env['ir.attachment']
-        attachment_id = attachment_obj.create(
-            {
-                'name': 'INVOICE {}-{}'.format(self.sii_document_class_id.name, self.sii_document_number),
-                'datas': invoice_pdf,
-                'datas_fname': 'INVOICE {}-{}'.format(self.sii_document_class_id.name, self.sii_document_number),
-                'res_model': self._name,
-                'res_id': self.id,
-                'type': 'binary'
-            })
-        _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
-
-    '''
     Función para crear los headers necesarios por LibreDTE
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
      @version: 2016-06-23
@@ -281,10 +247,10 @@ Linux/3.13.0-88-generic'
     @api.multi
     def check_dte_status(self):
         self.ensure_one()
+        folio = self.get_folio_current()
         if self.dte_service_provider in [
             'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
             # reobtener el folio
-            folio = self.get_folio_current()
             dte_username = self.company_id.dte_username
             dte_password = self.company_id.dte_password
             envio_check = '''<?xml version="1.0" encoding="utf-8"?>
@@ -301,11 +267,11 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     </ObtenerEstadoDTE>
   </soap12:Body>
 </soap12:Envelope>'''.format(
-                dte_username,
-                dte_password,
-                self.format_vat(self.company_id.vat),
-                self.sii_document_class_id.sii_code,
-                folio)
+            dte_username,
+            dte_password,
+            self.format_vat(self.company_id.vat),
+            self.sii_document_class_id.sii_code,
+            folio)
 
             _logger.info("envio: %s" % envio_check)
             host = 'https://www.efacturadelsur.cl'
@@ -335,6 +301,22 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
             root = etree.fromstring(response.data)
             raise Warning(root.ObtenerEstadoDTEResult)
+
+        elif self.dte_service_provider in [
+            'LIBREDTE', 'LIBREDTE_TEST']:
+            headers = self.create_headers_ldte()
+            metodo = 1  # =1 servicio web, =0 correo
+            # consultar estado de dte emitido
+            response_status = pool.urlopen(
+                'GET',
+                api_upd_satus + str(self.sii_document_class_id.sii_code) + '/' + str(folio) + '/' + str(
+                    self.format_vat(self.company_id.vat)) + '/' + str(metodo),
+                headers=headers)
+
+            if response_status.status != 200:
+                raise Warning(
+                    'Error al obtener el estado del DTE emitido: ' + response_status.data)
+            print(response_status.data)
 
     '''
     Realización del envío de DTE.
@@ -521,7 +503,6 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         #default=get_company_dte_service_provider,
         readonly=True)
 
-
     dte_resolution_number = fields.Char('SII Exempt Resolution Number',
                                         help='''This value must be provided \
 and must appear in your pdf or printed tribute document, under the electronic \
@@ -544,6 +525,94 @@ stamp to be legally valid.''')
                 ['draft', 'proforma', 'proforma2', 'cancel'])])
         return rel_invoices
 
+
+    '''
+     A partir de aca se realiza la toma del pdf con la factura impresa
+     directamente desde libreDTE
+     podria existir la posibilidad técnica de imprimir la factura
+     desde odoo con otro módulo l10n_cl_dte_pdf
+     o desde esta "función"
+     obtener el PDF desde LibreDTE'''
+    '''
+    Función para tomar el PDF generado en libreDTE y adjuntarlo al registro
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-06-23
+    '''
+    @api.multi
+    def bring_pdf_ldte(self):
+        self.ensure_one()
+        print('entrada a bringpdf function')
+        headers = self.create_headers_ldte()
+        generar_pdf_request = json.dumps({'xml': self.third_party_xml,
+                                          'compress': False})
+        print(generar_pdf_request)
+        response_pdf = pool.urlopen(
+            'POST', api_gen_pdf,  headers=headers,
+            body=generar_pdf_request)
+        if response_pdf.status != 200:
+            raise Warning('Error en conexión al generar: %s, %s' % (
+                response_pdf.status, response_pdf.data))
+        invoice_pdf = base64.b64encode(response_pdf.data)
+        attachment_obj = self.env['ir.attachment']
+        attachment_id = attachment_obj.create(
+            {
+                'name': 'INVOICE '+self.sii_document_class_id.name+'-'+self.sii_document_number,
+                'datas': invoice_pdf,
+                'datas_fname': 'INVOICE '+self.sii_document_class_id.name+'-'+self.sii_document_number,
+                'res_model': self._name,
+                'res_id': self.id,
+                'type': 'binary'
+            })
+        _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
+
+    '''
+    Funcion que envía el email por correo electrónico al cliente
+    es la funcion original en la cual se ha modificado la plantilla
+    autor de la modificacion: Daniel Blanco - daniel[at]blancomartin.cl
+    @version: 2016-06-27
+    '''
+    @api.multi
+    def action_invoice_sent(self):
+        """
+        Open a window to compose an email, with the edi invoice template
+        message loaded by default
+        """
+        _logger.info('controlo el proceso de envio con mi propia funcion...')
+        assert len(
+            self) == 1, 'This option should only be used for a single id at a time.'
+
+        ## hace este cambio: reemplaza el template (inicio)
+        template = self.env.ref(
+            'l10n_cl_dte.email_template_edi_invoice', False)
+        ## hace este cambio: reemplaza el template (fin)
+
+        compose_form = self.env.ref(
+            'mail.email_compose_message_wizard_form', False)
+        ctx = dict(
+            default_model='account.invoice',
+            default_res_id=self.id,
+            default_use_template=bool(template),
+            default_template_id=template.id,
+            default_composition_mode='comment',
+            mark_invoice_as_sent=True,
+        )
+        return {
+            'name': _('Compose Email'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'mail.compose.message',
+            'views': [(compose_form.id, 'form')],
+            'view_id': compose_form.id,
+            'target': 'new',
+            'context': ctx,
+        }
+
+
+    @api.multi
+    def action_invoice_print(self):
+        print('entrando a impresion de factura desde boton de arriba')
+        pass
 
     @api.multi
     def action_number(self):
@@ -723,10 +792,6 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 headers = self.create_headers_ldte()
 
                 # raise Warning(headers)
-                host = 'https://libredte.cl/api'
-                api_emitir = host+'/dte/documentos/emitir'
-                api_generar = host+'/dte/documentos/generar'
-                api_gen_pdf = host+'/dte/documentos/generar_pdf'
 
                 response_emitir = pool.urlopen(
                     'POST', api_emitir, headers=headers, body=json.dumps(dte))
@@ -790,7 +855,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                         'no pudo codificar y guardar el documento... ')
 
                 try:
-                    self.bring_pdf_ldte(inv, response_j['xml'])
+                    self.bring_pdf_ldte()
                 except:
                     pass
                     _logger.warning('no pudo traer el pdf')
@@ -798,6 +863,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 inv.write(
                     {
                         'third_party_xml': response_j['xml'],
+                        'sii_result': 'Enviado',
                         # 'third_party_pdf': base64.b64encode(invoice_pdf)
                     }
                 )
