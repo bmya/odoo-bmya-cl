@@ -50,8 +50,10 @@ token. In other cases, the pair username/password is needed.''')
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
      @version: 2016-06-16
     '''
+    @api.multi
     @api.onchange('dte_service_provider')
     def set_libredte_username(self):
+        self.ensure_one()
         if self.dte_service_provider in ['LIBREDTE', 'LIBREDTE_TEST']:
             self.username = 'X'
 

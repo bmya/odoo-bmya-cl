@@ -556,9 +556,9 @@ stamp to be legally valid.''')
         attachment_obj = self.env['ir.attachment']
         attachment_id = attachment_obj.create(
             {
-                'name': 'INVOICE '+self.sii_document_class_id.name+'-'+self.sii_document_number,
+                'name': 'DTE_'+self.sii_document_class_id.name+'-'+self.sii_document_number+'.pdf',
                 'datas': invoice_pdf,
-                'datas_fname': 'INVOICE '+self.sii_document_class_id.name+'-'+self.sii_document_number,
+                'datas_fname': 'DTE_'+self.sii_document_class_id.name+'-'+self.sii_document_number+'.pdf',
                 'res_model': self._name,
                 'res_id': self.id,
                 'type': 'binary'
@@ -568,32 +568,44 @@ stamp to be legally valid.''')
     '''
     Funcion que envía el email por correo electrónico al cliente
     es la funcion original en la cual se ha modificado la plantilla
+    para que en lugar de enviar un reporte envíe los attachment que cumplan
+    la condición deseada. (empiezan con DTE_)
     autor de la modificacion: Daniel Blanco - daniel[at]blancomartin.cl
     @version: 2016-06-27
     '''
     @api.multi
     def action_invoice_sent(self):
         """
-        Open a window to compose an email, with the edi invoice template
+        Open a window sentto compose an email, with the edi invoice template
         message loaded by default
         """
+
         _logger.info('controlo el proceso de envio con mi propia funcion...')
         assert len(
             self) == 1, 'This option should only be used for a single id at a time.'
 
-        ## hace este cambio: reemplaza el template (inicio)
-        template = self.env.ref(
-            'l10n_cl_dte.email_template_edi_invoice', False)
-        ## hace este cambio: reemplaza el template (fin)
+        attachment_id = self.env['ir.attachment'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id,),
+            ('name', 'like', 'DTE_')])
 
-        compose_form = self.env.ref(
-            'mail.email_compose_message_wizard_form', False)
+        atts_ids = []
+        for att_id in attachment_id:
+            print(att_id.id)
+            atts_ids.append(att_id.id)
+        print(atts_ids)
+
+        ## hace este cambio: reemplaza el template (inicio)
+        template = self.env.ref('l10n_cl_dte.email_template_edi_invoice', False)
+        ## hace este cambio: reemplaza el template (fin)
+        compose_form = self.env.ref('mail.email_compose_message_wizard_form', False)
         ctx = dict(
             default_model='account.invoice',
             default_res_id=self.id,
             default_use_template=bool(template),
             default_template_id=template.id,
             default_composition_mode='comment',
+            default_attachment_ids=atts_ids,
             mark_invoice_as_sent=True,
         )
         return {

@@ -13,7 +13,7 @@
                         <field name="dte_username"
                                attrs="{'invisible': [('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE', 'LIBREDTE_TEST'])],
                                        'required':  [('dte_service_provider', 'in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE', 'LIBREDTE_TEST'])],
-                                       'readonly': [('dte_service_provider', 'in', ['LIBREDTE', 'LIBREDTE_TEST'])]}"/>
+                                       }"/>
                         <field name="dte_password"
                                password="True"
                                attrs="{'invisible': [('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST', 'LIBREDTE', 'LIBREDTE_TEST'])],
