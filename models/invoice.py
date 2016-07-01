@@ -876,6 +876,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                     {
                         'third_party_xml': response_j['xml'],
                         'sii_result': 'Enviado',
+                        'sii_send_ident': response_j['track_id'],
                         # 'third_party_pdf': base64.b64encode(invoice_pdf)
                     }
                 )
