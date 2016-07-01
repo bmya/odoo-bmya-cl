@@ -304,6 +304,13 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
         elif self.dte_service_provider in [
             'LIBREDTE', 'LIBREDTE_TEST']:
+            '''
+            {
+                "track_id": 42458698,
+                "revision_estado": "EPR - Envio Procesado",
+                "revision_detalle": "DTE aceptado"
+            }
+            '''
             headers = self.create_headers_ldte()
             metodo = 1  # =1 servicio web, =0 correo
             # consultar estado de dte emitido
@@ -317,6 +324,19 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 raise Warning(
                     'Error al obtener el estado del DTE emitido: ' + response_status.data)
             print(response_status.data)
+            response_status_j = json.loads(response_status.data)
+            print(response_status_j['track_id'])
+            print(response_status_j['revision_estado'])
+            print(response_status_j['revision_detalle'])
+
+            setenvio = {
+                'sii_xml_response': response_status,
+                'sii_result': 'Aceptado' if response_status_j['revision_detalle'] == 'DTE aceptado' else self.sii_result
+            }
+            self.write(setenvio)
+            _logger.info(setenvio)
+
+
 
     '''
     Realización del envío de DTE.
@@ -427,7 +447,10 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     '''
     def get_folio_current(self):
         prefix = self.journal_document_class_id.sequence_id.prefix
-        folio = self.sii_document_number.replace(prefix, '', 1)
+        try:
+            folio = self.sii_document_number.replace(prefix, '', 1)
+        except:
+            folio = self.sii_document_number
         return int(folio)
 
     def format_vat(self, value):
@@ -508,9 +531,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 and must appear in your pdf or printed tribute document, under the electronic \
 stamp to be legally valid.''')
 
-    third_party_pdf = fields.Binary('PDF File')
-    filename_pdf = fields.Char('File Name PDF')
-    third_party_xml = fields.Binary('XML File')
+    third_party_xml = fields.Binary('XML File', copy=False)
     filename_xml = fields.Char('File Name XML')
 
     @api.multi

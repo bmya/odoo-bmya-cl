@@ -1,0 +1,583 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_cl_dte
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-30 14:10+0000\n"
+"PO-Revision-Date: 2016-06-30 14:10+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_cl_dte
+#: model:email.template,body_html:l10n_cl_dte.email_template_edi_invoice
+msgid "\n"
+"<div style=\"font-family: 'Arial', Verdana, Lucica Grande, Ubuntu, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello ${object.partner_id.name},</p>\n"
+"\n"
+"    <p>A new invoice is available for you: </p>\n"
+"    \n"
+"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
+"       &nbsp;&nbsp;Invoice number: <strong>${object.document_number}</strong><br />\n"
+"       &nbsp;&nbsp;Invoice total: <strong>${object.currency_id.name} ${str(object.amount_total)[:-2]}</strong><br />\n"
+"       &nbsp;&nbsp;Invoice date: ${object.date_invoice}<br />\n"
+"       % if object.origin:\n"
+"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
+"       % endif\n"
+"       % if object.user_id:\n"
+"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.user_id.email or ''}?subject=Invoice%20${object.number}\">${object.user_id.name}</a>\n"
+"       % endif\n"
+"    </p>  \n"
+"    \n"
+"    % if object.paypal_url:\n"
+"    <br/>\n"
+"    <p>It is also possible to directly pay with Paypal:</p>\n"
+"        <a style=\"margin-left: 120px;\" href=\"${object.paypal_url}\">\n"
+"            <img class=\"oe_edi_paypal_button\" src=\"/account/static/src/img/btn_paynowcc_lg.gif\"/>\n"
+"        </a>\n"
+"    % endif\n"
+"    \n"
+"    <br/>\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;color: #fff\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px;\">\n"
+"            <strong style=\"text-transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip or ''} ${object.company_id.city or ''}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+msgstr "\n"
+"<div style=\"font-family: 'Arial', Verdana, Lucica Grande, Ubuntu, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; \">\n"
+"\n"
+"    <p>Hello ${object.partner_id.name},</p>\n"
+"\n"
+"    <p>A new invoice is available for you: </p>\n"
+"    \n"
+"    <p style=\"border-left: 1px solid #8e0000; margin-left: 30px;\">\n"
+"       &nbsp;&nbsp;<strong>REFERENCES</strong><br />\n"
+"       &nbsp;&nbsp;Invoice number: <strong>${object.document_number}</strong><br />\n"
+"       &nbsp;&nbsp;Invoice total: <strong>${object.currency_id.name} ${str(object.amount_total)[:-2]}</strong><br />\n"
+"       &nbsp;&nbsp;Invoice date: ${object.date_invoice}<br />\n"
+"       % if object.origin:\n"
+"       &nbsp;&nbsp;Order reference: ${object.origin}<br />\n"
+"       % endif\n"
+"       % if object.user_id:\n"
+"       &nbsp;&nbsp;Your contact: <a href=\"mailto:${object.user_id.email or ''}?subject=Invoice%20${object.number}\">${object.user_id.name}</a>\n"
+"       % endif\n"
+"    </p>  \n"
+"    \n"
+"    % if object.paypal_url:\n"
+"    <br/>\n"
+"    <p>It is also possible to directly pay with Paypal:</p>\n"
+"        <a style=\"margin-left: 120px;\" href=\"${object.paypal_url}\">\n"
+"            <img class=\"oe_edi_paypal_button\" src=\"/account/static/src/img/btn_paynowcc_lg.gif\"/>\n"
+"        </a>\n"
+"    % endif\n"
+"    \n"
+"    <br/>\n"
+"    <p>If you have any question, do not hesitate to contact us.</p>\n"
+"    <p>Thank you for choosing ${object.company_id.name or 'us'}!</p>\n"
+"    <br/>\n"
+"    <br/>\n"
+"    <div style=\"width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;color: #fff\">\n"
+"        <h3 style=\"margin: 0px; padding: 2px 14px; font-size: 12px;\">\n"
+"            <strong style=\"text-transform:uppercase;\">${object.company_id.name}</strong></h3>\n"
+"    </div>\n"
+"    <div style=\"width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;\">\n"
+"        <span style=\"color: #222; margin-bottom: 5px; display: block; \">\n"
+"        % if object.company_id.street:\n"
+"            ${object.company_id.street}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.street2:\n"
+"            ${object.company_id.street2}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.city or object.company_id.zip:\n"
+"            ${object.company_id.zip or ''} ${object.company_id.city or ''}<br/>\n"
+"        % endif\n"
+"        % if object.company_id.country_id:\n"
+"            ${object.company_id.state_id and ('%s, ' % object.company_id.state_id.name) or ''} ${object.company_id.country_id.name or ''}<br/>\n"
+"        % endif\n"
+"        </span>\n"
+"        % if object.company_id.phone:\n"
+"            <div style=\"margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; \">\n"
+"                Phone:&nbsp; ${object.company_id.phone}\n"
+"            </div>\n"
+"        % endif\n"
+"        % if object.company_id.website:\n"
+"            <div>\n"
+"                Web :&nbsp;<a href=\"${object.company_id.website}\">${object.company_id.website}</a>\n"
+"            </div>\n"
+"        %endif\n"
+"        <p></p>\n"
+"    </div>\n"
+"</div>\n"
+"            "
+
+#. module: l10n_cl_dte
+#: model:email.template,subject:l10n_cl_dte.email_template_edi_invoice
+msgid "${object.company_id.partner_id.ref|safe} DTE (Ref ${object.document_number or 'n/a'})"
+msgstr "${object.company_id.partner_id.ref|safe} DTE (Ref ${object.document_number or 'n/a'})"
+
+#. module: l10n_cl_dte
+#: selection:account.payment.term,dte_sii_code:0
+msgid "1: Contado"
+msgstr "1: Contado"
+
+#. module: l10n_cl_dte
+#: selection:account.payment.term,dte_sii_code:0
+msgid "2: Credito"
+msgstr "2: Credito"
+
+#. module: l10n_cl_dte
+#: selection:account.payment.term,dte_sii_code:0
+msgid "3: Otro"
+msgstr "3: Otro"
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "Aceptado"
+msgstr "Aceptado"
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "Anulado"
+msgstr "Anulado"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,sii_batch_number:0
+msgid "Batch Number"
+msgstr "Batch Number"
+
+#. module: l10n_cl_dte
+#: help:account.invoice,sii_batch_number:0
+msgid "Batch number for processing multiple invoices together"
+msgstr "Batch number for processing multiple invoices together"
+
+#. module: l10n_cl_dte
+#: view:account.invoice:l10n_cl_dte.view_invoice_form
+msgid "Bring PDF DTE"
+msgstr "Bring PDF DTE"
+
+#. module: l10n_cl_dte
+#: view:account.invoice.dte_status:l10n_cl_dte.view_account_invoice_dte_status_form
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: l10n_cl_dte
+#: model:ir.actions.act_window,name:l10n_cl_dte.action_dte_status_update_form
+msgid "Change DTE Status"
+msgstr "Change DTE Status"
+
+#. module: l10n_cl_dte
+#: view:account.invoice:l10n_cl_dte.view_invoice_form
+msgid "Check DTE Status"
+msgstr "Check DTE Status"
+
+#. module: l10n_cl_dte
+#: model:ir.model,name:l10n_cl_dte.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: l10n_cl_dte
+#: view:sii.regional.offices:l10n_cl_dte.view_sii_regional_offices_form
+msgid "Comunas"
+msgstr "Comunas"
+
+#. module: l10n_cl_dte
+#: view:account.invoice.dte_status:l10n_cl_dte.view_account_invoice_dte_status_form
+msgid "Confirm"
+msgstr "Confirm"
+
+#. module: l10n_cl_dte
+#: field:sii.regional.offices,state_ids:0
+msgid "Counties"
+msgstr "Counties"
+
+#. module: l10n_cl_dte
+#: model:ir.model,name:l10n_cl_dte.model_res_country_state
+msgid "Country state"
+msgstr "Country state"
+
+#. module: l10n_cl_dte
+#: field:account.invoice.dte_status,create_uid:0
+#: field:sii.regional.offices,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: l10n_cl_dte
+#: field:account.invoice.dte_status,create_date:0
+#: field:sii.regional.offices,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: l10n_cl_dte
+#: field:res.partner,dte_email:0
+msgid "DTE Email"
+msgstr "DTE Email"
+
+#. module: l10n_cl_dte
+#: field:res.company,dte_password:0
+msgid "DTE Password/Token"
+msgstr "DTE Password/Token"
+
+#. module: l10n_cl_dte
+#: field:res.company,dte_service_provider:0
+msgid "DTE Service Provider"
+msgstr "DTE Service Provider"
+
+#. module: l10n_cl_dte
+#: field:account.payment.term,dte_sii_code:0
+msgid "DTE Sii Code"
+msgstr "DTE Sii Code"
+
+#. module: l10n_cl_dte
+#: view:account.invoice.dte_status:l10n_cl_dte.view_account_invoice_dte_status_form
+msgid "DTE Status Change"
+msgstr "DTE Status Change"
+
+#. module: l10n_cl_dte
+#: field:res.company,dte_username:0
+msgid "DTE Username"
+msgstr "DTE Username"
+
+#. module: l10n_cl_dte
+#: view:account.invoice:l10n_cl_dte.view_invoice_form
+msgid "Download XML"
+msgstr "Download XML"
+
+#. module: l10n_cl_dte
+#: view:account.invoice:l10n_cl_dte.view_invoice_form
+msgid "Electronic Invoice"
+msgstr "Electronic Invoice"
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "Enviado"
+msgstr "Enviado"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,filename_pdf:0
+msgid "File Name PDF"
+msgstr "File Name PDF"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,filename_xml:0
+msgid "File Name XML"
+msgstr "File Name XML"
+
+#. module: l10n_cl_dte
+#: field:account.invoice.dte_status,glosa:0
+msgid "Glosa"
+msgstr "Glosa"
+
+#. module: l10n_cl_dte
+#: field:account.invoice.dte_status,id:0
+#: field:sii.regional.offices,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_cl_dte
+#: help:res.company,dte_password:0
+msgid "In LibreDTE case, this value is the token. In other cases, the pair username/password is needed."
+msgstr "In LibreDTE case, this value is the token. In other cases, the pair username/password is needed."
+
+#. module: l10n_cl_dte
+#: model:ir.model,name:l10n_cl_dte.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: l10n_cl_dte
+#: field:account.invoice.dte_status,write_uid:0
+#: field:sii.regional.offices,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: l10n_cl_dte
+#: field:account.invoice.dte_status,write_date:0
+#: field:sii.regional.offices,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "LibreDTE"
+msgstr "LibreDTE"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "LibreDTE (test mode)"
+msgstr "LibreDTE (test mode)"
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "No Enviado"
+msgstr "No Enviado"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "None"
+msgstr "None"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,third_party_pdf:0
+msgid "PDF File"
+msgstr "PDF File"
+
+#. module: l10n_cl_dte
+#: model:ir.model,name:l10n_cl_dte.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: l10n_cl_dte
+#: model:ir.model,name:l10n_cl_dte.model_account_payment_term
+msgid "Payment Term"
+msgstr "Payment Term"
+
+#. module: l10n_cl_dte
+#: help:res.company,dte_username:0
+msgid "Please enter the value issued by the DTE Service provider"
+msgstr "Please enter the value issued by the DTE Service provider"
+
+#. module: l10n_cl_dte
+#: help:res.company,dte_service_provider:0
+msgid "Please select your company service provider for DTE service. Select 'None' if you use manual invoices, fiscal controllers or MiPYME Sii Service. Also take in account that if you select 'www.sii.cl' you will need to provide SII exempt resolution number in order to be legally enabled to use the service. If your service provider is not listed here, please send us an email to soporte@blancomartin.cl in order to add the option."
+msgstr "Please select your company service provider for DTE service. Select 'None' if you use manual invoices, fiscal controllers or MiPYME Sii Service. Also take in account that if you select 'www.sii.cl' you will need to provide SII exempt resolution number in order to be legally enabled to use the service. If your service provider is not listed here, please send us an email to soporte@blancomartin.cl in order to add the option."
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "Proceso"
+msgstr "Proceso"
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "Rechazado"
+msgstr "Rechazado"
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "Reenviar"
+msgstr "Reenviar"
+
+#. module: l10n_cl_dte
+#: field:res.country.state,sii_regional_office_ids:0
+msgid "Regional Office"
+msgstr "Regional Office"
+
+#. module: l10n_cl_dte
+#: field:sii.regional.offices,name:0
+msgid "Regional Office Name"
+msgstr "Regional Office Name"
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "Reparo"
+msgstr "Reparo"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,sii_result:0
+#: field:account.invoice.dte_status,sii_result:0
+msgid "Resultado"
+msgstr "Resultado"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "SII - Certification process"
+msgstr "SII - Certification process"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "SII - Portal MiPyme"
+msgstr "SII - Portal MiPyme"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,sii_barcode:0
+msgid "SII Barcode"
+msgstr "SII Barcode"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,sii_barcode_img:0
+msgid "SII Barcode Image"
+msgstr "SII Barcode Image"
+
+#. module: l10n_cl_dte
+#: help:account.invoice,sii_barcode_img:0
+msgid "SII Barcode Image in PDF417 format"
+msgstr "SII Barcode Image in PDF417 format"
+
+#. module: l10n_cl_dte
+#: help:account.invoice,sii_barcode:0
+msgid "SII Barcode Name"
+msgstr "SII Barcode Name"
+
+#. module: l10n_cl_dte
+#: view:sii.regional.offices:l10n_cl_dte.view_sii_regional_offices_tree
+msgid "SII Document Class"
+msgstr "SII Document Class"
+
+#. module: l10n_cl_dte
+#: field:res.company,dte_resolution_date:0
+msgid "SII Exempt Resolution Date"
+msgstr "SII Exempt Resolution Date"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,dte_resolution_number:0
+#: field:res.company,dte_resolution_number:0
+msgid "SII Exempt Resolution Number"
+msgstr "SII Exempt Resolution Number"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,sii_message:0
+msgid "SII Message"
+msgstr "SII Message"
+
+#. module: l10n_cl_dte
+#: field:res.company,sii_regional_office_id:0
+msgid "SII Regional Office"
+msgstr "SII Regional Office"
+
+#. module: l10n_cl_dte
+#: model:ir.actions.act_window,name:l10n_cl_dte.act_sii_regional_offices
+#: model:ir.ui.menu,name:l10n_cl_dte.menu_action_sii_regional_offices
+#: view:sii.regional.offices:l10n_cl_dte.view_sii_regional_offices_form
+msgid "SII Regional Offices"
+msgstr "SII Regional Offices"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,sii_send_ident:0
+#: field:account.invoice.dte_status,sii_send_ident:0
+msgid "SII Send Identification"
+msgstr "SII Send Identification"
+
+#. module: l10n_cl_dte
+#: help:account.invoice,sii_result:0
+#: help:account.invoice.dte_status,sii_result:0
+msgid "SII request result"
+msgstr "SII request result"
+
+#. module: l10n_cl_dte
+#: view:account.invoice:l10n_cl_dte.view_invoice_form
+msgid "Send DTE"
+msgstr "Send DTE"
+
+#. module: l10n_cl_dte
+#: help:account.invoice,dte_resolution_number:0
+#: help:res.company,dte_resolution_number:0
+msgid "This value must be provided and must appear in your pdf or printed tribute document, under the electronic stamp to be legally valid."
+msgstr "This value must be provided and must appear in your pdf or printed tribute document, under the electronic stamp to be legally valid."
+
+#. module: l10n_cl_dte
+#: view:account.invoice:l10n_cl_dte.view_invoice_form
+msgid "Update DTE Status"
+msgstr "Update DTE Status"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,third_party_xml:0
+msgid "XML File"
+msgstr "XML File"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,sii_xml_request:0
+msgid "XML Request"
+msgstr "XML Request"
+
+#. module: l10n_cl_dte
+#: field:account.invoice,sii_xml_response:0
+msgid "XML Response"
+msgstr "XML Response"
+
+#. module: l10n_cl_dte
+#: view:account.invoice:l10n_cl_dte.view_invoice_form
+msgid "asjdjdk"
+msgstr "asjdjdk"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "efacturadelsur.cl"
+msgstr "efacturadelsur.cl"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "efacturadelsur.cl (test mode)"
+msgstr "efacturadelsur.cl (test mode)"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "enternet.cl"
+msgstr "enternet.cl"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "facturacion.cl"
+msgstr "facturacion.cl"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "facturaenlinea.cl"
+msgstr "facturaenlinea.cl"
+
+#. module: l10n_cl_dte
+#: selection:account.invoice,sii_result:0
+#: selection:account.invoice.dte_status,sii_result:0
+msgid "n/a"
+msgstr "n/a"
+
+#. module: l10n_cl_dte
+#: view:account.invoice.dte_status:l10n_cl_dte.view_account_invoice_dte_status_form
+msgid "or"
+msgstr "or"
+
+#. module: l10n_cl_dte
+#: selection:res.company,dte_service_provider:0
+msgid "www.sii.cl"
+msgstr "www.sii.cl"
+
+#. module: l10n_cl_dte
+#: view:account.invoice:l10n_cl_dte.view_invoice_form
+msgid "{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type}\" name=\"invoice_line\" on_change=\"onchange_invoice_line(invoice_line)"
+msgstr "{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type}\" name=\"invoice_line\" on_change=\"onchange_invoice_line(invoice_line)"
+

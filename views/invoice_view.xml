@@ -19,18 +19,37 @@
                                     ('state', 'in', ['draft']),
                                     ('sii_result', 'not in', ['NoEnviado'])]}">
 
-                                <button string="Download XML" type="object" name="get_xml_file"
-                                    class="oe_highlight" attrs="{'invisible':[('state', 'in', ['draft'])]}"/>
+                                <button string="Download XML" type="object" name="get_xml_file"/>
+                                <!-- este boton solo se usa para efactura del sur -->
                                 <button string="Send DTE" type="object" name="send_dte"
-                                    class="oe_highlight"/>
-                                <button string="Check DTE Status" type="object" name="check_dte_status"/>
-                                <button name="%(action_dte_status_update_form)d"
+                                    class="oe_highlight"
+                                    attrs="{'invisible':[
+                                        ('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST'])
+                                        ], 'disabled':True}"/>
+
+                                <!-- boton para envio fin -->
+                                <button string="Check DTE Status" type="object" name="check_dte_status"
+                                    class="oe_highlight"
+                                    attrs="{'invisible':[
+                                        ('sii_result', 'not in', 'Enviado')
+                                    ]
+                                    }"/>
+                                <button string="Check DTE Status" type="object" name="check_dte_status"
+                                    attrs="{'invisible':[
+                                        ('sii_result', 'in', 'Enviado')
+                                    ]
+                                    }"/>
+                                <!--<button name="%(action_dte_status_update_form)d"
                                     string="Update DTE Status" type="action"
                                     context="{
                                         'sii_status': sii_result,
-                                        'dte_provider': dte_service_provider}"/>
+                                        'dte_provider': dte_service_provider}"/>-->
                                 <button string="Bring PDF DTE" type="object"
-                                        name="bring_pdf_ldte"/>
+                                        class="oe_highlight"
+                                        name="bring_pdf_ldte"
+                                        attrs="{'invisible':[
+                                            ('sii_result', 'not in', 'Aceptado')
+                                        ]}"/>
 
                             </div>
                             <field name='sii_result' widget="statusbar"
@@ -58,8 +77,6 @@
                                 attrs="{'invisible':[('sii_result', 'in', [''])]}"/>
                             <field name='sii_send_ident'
                                 attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
-                            <field name="third_party_pdf"
-                                   filename="filename_pdf"/>
                             <field name="third_party_xml"
                                    filename="filename_xml"/>
                         </group>
