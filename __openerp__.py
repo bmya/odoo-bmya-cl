@@ -25,7 +25,7 @@
     'website': 'http://blancomartin.cl',
     'depends': ['account_chart'],
     'license': 'AGPL-3',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'Localization/Chile',
     'description': """
 Chilean accounting chart and tax localization.
