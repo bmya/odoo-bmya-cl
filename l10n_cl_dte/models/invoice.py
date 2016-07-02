@@ -320,13 +320,6 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             self.write(setenvio)
 
         elif self.dte_service_provider in ['LIBREDTE', 'LIBREDTE_TEST']:
-            '''
-            import base64
-            user = 'Aladdin'
-            passw = 'open sesame'
-            base64.b64encode('{}:{}'.format(user, passw))
-            QWxhZGRpbjpvcGVuIHNlc2FtZQ==
-            '''
             pass
         else:
             pass
