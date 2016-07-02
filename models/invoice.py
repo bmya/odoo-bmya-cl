@@ -246,7 +246,7 @@ class account_invoice(models.Model):
     # api onchange en lugar de depends.. veamos!
     @api.onchange('journal_id', 'partner_id', 'turn_issuer','invoice_turn')
     def _get_available_journal_document_class(self):
-        self.get_available_issuer_turns()
+        #self.get_available_issuer_turns()
         print('ZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz')
         print(self.turn_issuer.vat_affected)
         invoice_type = self.type
