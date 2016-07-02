@@ -306,7 +306,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             'LIBREDTE', 'LIBREDTE_TEST']:
             '''
             {
-                "track_id": 42458698,
+                "track_id": ---,
                 "revision_estado": "EPR - Envio Procesado",
                 "revision_detalle": "DTE aceptado"
             }
@@ -316,13 +316,16 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             # consultar estado de dte emitido
             response_status = pool.urlopen(
                 'GET',
-                api_upd_satus + str(self.sii_document_class_id.sii_code) + '/' + str(folio) + '/' + str(
-                    self.format_vat(self.company_id.vat)) + '/' + str(metodo),
+                api_upd_satus + str(
+                    self.sii_document_class_id.sii_code) + '/' + str(
+                    folio) + '/' + str(self.format_vat(
+                    self.company_id.vat)) + '/' + str(metodo),
                 headers=headers)
 
             if response_status.status != 200:
                 raise Warning(
-                    'Error al obtener el estado del DTE emitido: ' + response_status.data)
+                    'Error al obtener el estado del DTE emitido: {}'.format(
+                        response_status.data))
             print(response_status.data)
             response_status_j = json.loads(response_status.data)
             print(response_status_j['track_id'])
@@ -331,10 +334,12 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
             setenvio = {
                 'sii_xml_response': response_status,
-                'sii_result': 'Aceptado' if response_status_j['revision_detalle'] == 'DTE aceptado' else self.sii_result
+                'sii_result': 'Aceptado'
+                if response_status_j['revision_detalle'] == 'DTE aceptado'
+                else self.sii_result
             }
             self.write(setenvio)
-            _logger.info(setenvio)
+            _logger.info(response_status_j['revision_estado'])
 
 
 
@@ -839,8 +844,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                     _logger.warning(
                         'no pudo guardar la respuesta al ws de emision')
                 '''
-                {"emisor": 76085472, "receptor": 1, "dte": 33,
-                 "codigo": "7a1f42de0e8a3dcdd0500f7ad6c8266a"}
+                {"emisor": ----, "receptor": -, "dte": --,
+                 "codigo": "-----"}
                 '''
 
                 response_generar = pool.urlopen(
