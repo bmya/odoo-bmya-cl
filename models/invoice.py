@@ -292,7 +292,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
             setenvio = {
                 # 'sii_result': 'Enviado' if self.dte_service_provider == 'EFACTURADELSUR' else self.sii_result,
-                'sii_xml_response': response.data}
+                'sii_xml_response1': response.data}
             self.write(setenvio)
             x = xmltodict.parse(response.data)
             raise Warning(x['soap:Envelope']['soap:Body'][
@@ -326,21 +326,24 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 raise Warning(
                     'Error al obtener el estado del DTE emitido: {}'.format(
                         response_status.data))
+            print('kdjdjdjdjdjdjdjdjdjdjdjdjdjdjdjdjd')
             print(response_status.data)
             response_status_j = json.loads(response_status.data)
             print(response_status_j['track_id'])
             print(response_status_j['revision_estado'])
             print(response_status_j['revision_detalle'])
-
+            if response_status_j['revision_detalle'] == 'DTE aceptado':
+                resultado_status = 'Aceptado'
+            elif response_status_j['revision_estado'] == 'RCH - DTE Rechazado':
+                resultado_status = 'Rechazado'
+            else:
+                resultado_status = self.sii_result
             setenvio = {
-                'sii_xml_response': response_status,
-                'sii_result': 'Aceptado'
-                if response_status_j['revision_detalle'] == 'DTE aceptado'
-                else self.sii_result
+                'sii_xml_response2': response_status.data,
+                'sii_result': resultado_status
             }
             self.write(setenvio)
             _logger.info(response_status_j['revision_estado'])
-
 
 
     '''
@@ -385,7 +388,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                     'The Transmission Has Failed. Error: %s' % response.status)
             setenvio = {
                 'sii_result': 'Enviado' if self.dte_service_provider == 'EFACTURADELSUR' else self.sii_result,
-                'sii_xml_response': response.data}
+                'sii_xml_response1': response.data}
             self.write(setenvio)
 
         elif self.dte_service_provider in ['LIBREDTE', 'LIBREDTE_TEST']:
@@ -490,8 +493,11 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     sii_xml_request = fields.Text(
         string='XML Request',
         copy=False)
-    sii_xml_response = fields.Text(
-        string='XML Response',
+    sii_xml_response1 = fields.Text(
+        string='XML Response 1',
+        copy=False)
+    sii_xml_response2 = fields.Text(
+        string='XML Response 2',
         copy=False)
     sii_send_ident = fields.Text(
         string='SII Send Identification',
@@ -536,7 +542,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 and must appear in your pdf or printed tribute document, under the electronic \
 stamp to be legally valid.''')
 
-    third_party_xml = fields.Binary('XML File', copy=False)
+    # third_party_xml = fields.Binary('XML File', copy=False)
     filename_xml = fields.Char('File Name XML')
 
     @api.multi
@@ -551,6 +557,71 @@ stamp to be legally valid.''')
                 ['draft', 'proforma', 'proforma2', 'cancel'])])
         return rel_invoices
 
+
+    '''
+    Función para tomar el XML generado en libreDTE y adjuntarlo al registro
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-06-23
+    '''
+    @api.multi
+    def bring_xml_ldte(self, response_emitir_data):
+        self.ensure_one()
+        _logger.info('entrada a bringxml function')
+        headers = self.create_headers_ldte()
+        response_generar = pool.urlopen(
+            'POST', api_generar, headers=headers,
+            body=response_emitir_data)
+        if response_generar.status != 200:
+            raise Warning('Error en conexión al generar: %s, %s' % (
+                response_generar.status, response_generar.data))
+        _logger.info('response_generar: %s' % response_generar.data)
+        response_j = json.loads(response_generar.data)
+        print(response_j)
+        '''
+        {"emisor":76085472,"dte":56,"folio":3,"certificacion":1,"tasa":19,
+        "fecha":"2016-07-02","sucursal_sii":null,"receptor":"00000001",
+        "exento":null,"neto":230000,"iva":43700,"total":273700,"usuario":1639,
+        {'emisor', 'dte', 'folio', 'certificacion', 'tasa', 'fecha',
+         'sucursal_sii', 'receptor', 'exento', 'neto', 'iva', 'total',
+         'usuario'}'''
+
+        attachment_obj = self.env['ir.attachment']
+        print('asadadadadda')
+        print(self.sii_document_class_id.name)
+        print(response_j['folio'])
+        attachment_id = attachment_obj.create(
+            {
+                'name': 'DTE_'+self.sii_document_class_id.name+'-'+str(response_j['folio'])+'.xml',
+                'datas': response_j['xml'],
+                'datas_fname': 'DTE_'+self.sii_document_class_id.name+'-'+str(response_j['folio'])+'.xml',
+                'res_model': self._name,
+                'res_id': self.id,
+                'type': 'binary'
+            })
+        _logger.info('Se ha generado factura en XML con el id {}'.format(attachment_id))
+        return response_j
+
+    '''
+    Función para leer el xml para libreDTE desde los attachments
+    @author: Daniel Blanco Martín (daniel[at]blancomartin.cl)
+    @version: 2016-07-01
+    '''
+    @api.multi
+    def get_xml_attachment(self):
+        self.ensure_one()
+        print('entrando a la funcion de toma de xml desde attachments')
+        pass
+        attachment_id = self.env['ir.attachment'].search([
+            ('res_model', '=', self._name),
+            ('res_id', '=', self.id,),
+            ('name', 'like', 'DTE_'),
+            ('name', 'ilike', '.xml')])
+
+        for att_id in attachment_id:
+            print(att_id.id)
+            xml_attachment = att_id.datas
+            break
+        return xml_attachment
 
     '''
      A partir de aca se realiza la toma del pdf con la factura impresa
@@ -569,7 +640,11 @@ stamp to be legally valid.''')
         self.ensure_one()
         print('entrada a bringpdf function')
         headers = self.create_headers_ldte()
-        generar_pdf_request = json.dumps({'xml': self.third_party_xml,
+        # en lugar de third_party_xml, que ahora no va a existir más,
+        # hay que tomar el xml del adjunto, o bien del texto
+        # pero prefiero del adjunto
+        dte_xml = self.get_xml_attachment()
+        generar_pdf_request = json.dumps({'xml': dte_xml,
                                           'compress': False})
         print(generar_pdf_request)
         response_pdf = pool.urlopen(
@@ -829,61 +904,33 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
                 headers = self.create_headers_ldte()
 
-                # raise Warning(headers)
+                if inv.sii_xml_response1 == False:
+                    response_emitir = pool.urlopen(
+                        'POST', api_emitir, headers=headers, body=json.dumps(dte))
+                    if response_emitir.status != 200:
+                        raise Warning('Error en conexión al emitir: %s, %s' % (
+                            response_emitir.status, response_emitir.data))
+                    _logger.info('response_emitir: %s' % response_emitir.data)
 
-                response_emitir = pool.urlopen(
-                    'POST', api_emitir, headers=headers, body=json.dumps(dte))
-                if response_emitir.status != 200:
-                    raise Warning('Error en conexión al emitir: %s, %s' % (
-                        response_emitir.status, response_emitir.data))
-                _logger.info('response_emitir: %s' % response_emitir.data)
+                    try:
+                        inv.sii_xml_response1 = response_emitir.data
+                    except:
+                        _logger.warning(
+                            'no pudo guardar la respuesta al ws de emision')
+                    '''
+                    {"emisor": ----, "receptor": -, "dte": --,
+                     "codigo": "-----"}
+                    '''
+                    response_emitir_data = response_emitir.data
+                else:
+                    _logger.info('Obteniendo XML de preemision existente...')
+                    response_emitir_data = inv.sii_xml_response1
 
-                try:
-                    inv.sii_xml_response = response_emitir.data
-                except:
-                    _logger.warning(
-                        'no pudo guardar la respuesta al ws de emision')
-                '''
-                {"emisor": ----, "receptor": -, "dte": --,
-                 "codigo": "-----"}
-                '''
-
-                response_generar = pool.urlopen(
-                    'POST', api_generar, headers=headers,
-                    body=response_emitir.data)
-                if response_generar.status != 200:
-                    raise Warning('Error en conexión al generar: %s, %s' % (
-                        response_generar.status, response_generar.data))
-                _logger.info('response_generar: %s' % response_generar.data)
-                # Estos son los valores que puedo validar de lo emitido antes
-                # de efectivamente validar el documento
-                response_j = json.loads(response_generar.data)
-                '''
-                response_j['emisor']
-                response_j['dte']
-                response_j['folio']
-                response_j['certificacion']
-                response_j['tasa']
-                response_j['fecha']
-                response_j['sucursal_sii']
-                response_j['receptor']
-                response_j['exento']
-                response_j['neto']
-                response_j['iva']
-                response_j['total']
-                response_j['usuario']
-                '''
-                # llegado a este punto, el documento ya está emitido y ha consumido
-                # un folio por lo tanto se actualiza el folio mediante una funcion para
-                # esa finalidad
+                response_j = self.bring_xml_ldte(response_emitir_data)
                 self.set_folio(inv, response_j['folio'])
                 _logger.info('Este es el XML decodificado:')
-                # da problemas al guardar el documento con codificación 8859-1
                 _logger.info(base64.b64decode(response_j['xml']))
 
-                # agregar funcion para traer el pdf
-                # prueba de incluir el pdf como adjunto en lugar de guardarlo
-                # en account_invoice
                 try:
                     inv.sii_xml_request = self.convert_encoding(
                         base64.b64decode(response_j['xml']))
@@ -900,7 +947,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
                 inv.write(
                     {
-                        'third_party_xml': response_j['xml'],
+                        #'third_party_xml': response_j['xml'],
                         'sii_result': 'Enviado',
                         'sii_send_ident': response_j['track_id'],
                         # 'third_party_pdf': base64.b64encode(invoice_pdf)
