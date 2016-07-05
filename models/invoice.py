@@ -504,8 +504,8 @@ stamp to be legally valid.''')
                     lines['CdgItem'] = collections.OrderedDict()
                     lines['CdgItem']['TpoCodigo'] = 'INT1'
                     lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
-                lines['NmbItem'] = line.name
-                # todo: DscItem opcional (no está)
+                lines['NmbItem'] = line.product_id.name[:80]
+                lines['DscItem'] = line.name
                 lines['QtyItem'] = int(round(line.quantity, 0))
                 # todo: opcional lines['UnmdItem'] = line.uos_id.name[:4]
                 # lines['UnmdItem'] = 'unid'
