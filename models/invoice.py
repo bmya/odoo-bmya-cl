@@ -222,7 +222,7 @@ class invoice(models.Model):
         if self.dte_service_provider in [
             'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
             # reobtener el folio
-            folio = self.get_folio_current()
+            folio = self.get_folio_current(self.document_number)
             dte_username = self.company_id.dte_username
             dte_password = self.company_id.dte_password
             envio_check = '''<?xml version="1.0" encoding="utf-8"?>
@@ -362,11 +362,14 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     correspondiente al tipo de documento.
     (remoción del prefijo almacenado)
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-05-01
+     @version: 2016-06-30
     '''
     def get_folio_current(self):
         prefix = self.journal_document_class_id.sequence_id.prefix
-        folio = self.sii_document_number.replace(prefix, '', 1)
+        try:
+            folio = self.sii_document_number.replace(prefix, '', 1)
+        except:
+            folio = self.sii_document_number
         return int(folio)
 
     def format_vat(self, value):
@@ -441,6 +444,10 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         related='company_id.dte_service_provider',
         #default=get_company_dte_service_provider,
         readonly=True)
+
+    sii_referencia_TpoDocRef = fields.Char('TpoDocRef')
+    sii_referencia_FolioRef =  fields.Char('FolioRef')
+    sii_referencia_FchRef = fields.Char('FchRef')
 
 
     dte_resolution_number = fields.Char('SII Exempt Resolution Number',
@@ -554,6 +561,8 @@ stamp to be legally valid.''')
             dte['Encabezado']['Receptor']['GiroRecep'] = inv.invoice_turn.name[:40]
             dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
             # todo: revisar comuna: "false"
+            if inv.partner_id.state_id.name == False or inv.partner_id.city == False:
+                raise Warning('No se puede continuar: Revisar comuna y ciudad')
             dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
             dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
             dte['Encabezado']['Totales'] = collections.OrderedDict()
@@ -569,6 +578,26 @@ stamp to be legally valid.''')
             dte['Encabezado']['Totales']['MntTotal'] = int(round(
                 inv.amount_total, 0))
             dte['item'] = invoice_lines
+            # inserción del detalle en caso que corresponda
+            if inv.sii_document_class_id.sii_code in [61, 56]:
+                ####
+                # Valores: account.invoice.refund
+                # filter_refund
+                #     refund, cancel, modify
+                # description
+                # date
+                # otras opciones:
+                # account.invoice.origin
+                # account.invoice.reference
+                # raise Warning(inv.env.context)
+
+                dte['Referencia'] = collections.OrderedDict()
+                dte['Referencia']['NroLinRef'] = 1
+                dte['Referencia']['TpoDocRef'] = inv.sii_referencia_TpoDocRef
+                dte['Referencia']['FolioRef'] = inv.sii_referencia_FolioRef
+                dte['Referencia']['FchRef'] = inv.sii_referencia_FchRef
+                dte['Referencia']['RazonRef'] = inv.origin
+
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
             doc_id = '<Documento ID="{}">'.format(doc_id_number)
