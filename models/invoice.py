@@ -448,7 +448,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     sii_referencia_TpoDocRef = fields.Char('TpoDocRef')
     sii_referencia_FolioRef =  fields.Char('FolioRef')
     sii_referencia_FchRef = fields.Char('FchRef')
-
+    sii_referencia_CodRef = fields.Char('CodRef')
 
     dte_resolution_number = fields.Char('SII Exempt Resolution Number',
                                         help='''This value must be provided \
@@ -606,6 +606,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['Referencia']['TpoDocRef'] = inv.sii_referencia_TpoDocRef
                 dte['Referencia']['FolioRef'] = inv.sii_referencia_FolioRef
                 dte['Referencia']['FchRef'] = inv.sii_referencia_FchRef
+                dte['Referencia']['CodRef'] = inv.sii_referencia_CodRef
                 dte['Referencia']['RazonRef'] = inv.origin
 
             doc_id_number = "F{}T{}".format(

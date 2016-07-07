@@ -219,6 +219,7 @@ You can not Modify an    d Cancel if the invoice is already reconciled',
                     'reference': active_id.document_number,
                     'sii_referencia_FolioRef': self.get_folio_current(active_id),
                     'sii_referencia_TpoDocRef': active_id.sii_document_class_id.sii_code,
-                    'sii_referencia_FchRef': active_id.date_invoice
+                    'sii_referencia_FchRef': active_id.date_invoice,
+                    'sii_referencia_CodRef': self.sii_selection
                 })
         return result
