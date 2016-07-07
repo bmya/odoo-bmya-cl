@@ -504,7 +504,21 @@ stamp to be legally valid.''')
             # definicion de lineas
             line_number = 1
             invoice_lines = []
+            global_discount = 0
+            sum_lines = 0
             for line in inv.invoice_line:
+                # se hizo de esta manera para que no dé error
+                try:
+                    if line.product_id.is_discount:
+                        # es un producto usado para representar descuentoe
+                        global_discount += int(round(line.price_subtotal, 0))
+                        continue
+                except:
+                    if u'descuento' in line.product_id.name.lower():
+                        global_discount += int(round(line.price_subtotal, 0))
+                        continue
+                    else:# no existe el campo is_discount
+                        pass
                 lines = collections.OrderedDict()
                 lines['NroLinDet'] = line_number
                 if line.product_id.default_code:
@@ -513,12 +527,17 @@ stamp to be legally valid.''')
                     lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
                 lines['NmbItem'] = line.product_id.name[:80]
                 lines['DscItem'] = line.name
-                lines['QtyItem'] = int(round(line.quantity, 0))
+                lines['QtyItem'] = round(line.quantity, 4)
                 # todo: opcional lines['UnmdItem'] = line.uos_id.name[:4]
                 # lines['UnmdItem'] = 'unid'
-                lines['PrcItem'] = int(round(line.price_unit, 0))
-                if line.discount != 0:
-                    lines['DscItem'] = int(round(line.discount, 0))
+                lines['PrcItem'] = round(line.price_unit, 4)
+                try:
+                    if line.discount != 0:
+                        lines['DescuentoPct'] = round(line.discount, 2)
+                        lines['DescuentoMonto'] = int(round(
+                            (line.quantity * line.price_unit * line.discount) / 100, 0))
+                except:
+                    pass
                 lines['MontoItem'] = int(round(line.price_subtotal, 0))
                 line_number = line_number + 1
                 invoice_lines.extend([{'Detalle': lines}])
@@ -581,9 +600,11 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 # con importe cero
                 try:
                     dte['Encabezado']['Totales']['TasaIVA'] = int(round(
-                        (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
+                        (inv.amount_total / inv.amount_untaxed - 1) * 100, 0))
                 except:
-                    dte['Encabezado']['Totales']['TasaIVA'] = 0
+                    # lo hardcodeamos para solucionar rapidamente el problema
+                    # cuando se usan n/c o n/d para hacer modificaciones
+                    dte['Encabezado']['Totales']['TasaIVA'] = 19
                 dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
             dte['Encabezado']['Totales']['MntTotal'] = int(round(
                 inv.amount_total, 0))
@@ -608,6 +629,23 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['Referencia']['FchRef'] = inv.sii_referencia_FchRef
                 dte['Referencia']['CodRef'] = inv.sii_referencia_CodRef
                 dte['Referencia']['RazonRef'] = inv.origin
+
+            '''
+            <DscRcgGlobal>
+            <NroLinDR>1</NroLinDR>
+            <TpoMov>D</TpoMov>
+            <TpoValor>%</TpoValor>
+            <ValorDR>27.00</ValorDR>
+            </DscRcgGlobal>
+            '''
+            if global_discount != 0:
+                dte['DscRcgGlobal'] = collections.OrderedDict()
+                dte['DscRcgGlobal']['NroLinDR'] = 1
+                dte['DscRcgGlobal']['TpoMov'] = 'D' if global_discount < 0 else 'R'
+                dte['DscRcgGlobal']['TpoValor'] = '%'
+                dte['DscRcgGlobal']['ValorDR'] = 100 * (global_discount / int(round(
+                    inv.amount_untaxed, 0)) if inv.sii_document_class_id.sii_code not in ['34'] else int(round(
+                    sum_lines, 0)))
 
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
