@@ -537,6 +537,11 @@ stamp to be legally valid.''')
             dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
             # todo: forma de pago y fecha de vencimiento - opcional
             dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code or 1
+            if inv.date_due < inv.date_invoice:
+                raise Warning(
+                    'LA FECHA DE VENCIMIENTO NO PUEDE SER ANTERIOR A LA DE \
+FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
+                        inv.date_invoice, inv.date_due))
             dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
             dte['Encabezado']['Emisor'] = collections.OrderedDict()
             dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
@@ -572,8 +577,13 @@ stamp to be legally valid.''')
             else:
                 dte['Encabezado']['Totales']['MntNeto'] = int(round(
                     inv.amount_untaxed, 0))
-                dte['Encabezado']['Totales']['TasaIVA'] = int(round(
-                    (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
+                # Se agrega un manejo de error para permitir notas de credito
+                # con importe cero
+                try:
+                    dte['Encabezado']['Totales']['TasaIVA'] = int(round(
+                        (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
+                except:
+                    dte['Encabezado']['Totales']['TasaIVA'] = 0
                 dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
             dte['Encabezado']['Totales']['MntTotal'] = int(round(
                 inv.amount_total, 0))
