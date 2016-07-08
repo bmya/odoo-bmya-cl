@@ -645,9 +645,8 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['DscRcgGlobal'] = collections.OrderedDict()
                 dte['DscRcgGlobal']['NroLinDR'] = 1
                 dte['DscRcgGlobal']['TpoMov'] = 'D' if global_discount < 0 else 'R'
-                dte['DscRcgGlobal']['TpoValor'] = '%'
-                dte['DscRcgGlobal']['ValorDR'] = round(
-                    abs(100*global_discount/sum_lines),2)
+                dte['DscRcgGlobal']['TpoValor'] = '$' # ''%'
+                dte['DscRcgGlobal']['ValorDR'] = round(abs(global_discount))
 
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
