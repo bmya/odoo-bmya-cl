@@ -519,6 +519,7 @@ stamp to be legally valid.''')
                         continue
                     else:# no existe el campo is_discount
                         pass
+                sum_lines += line.price_subtotal
                 lines = collections.OrderedDict()
                 lines['NroLinDet'] = line_number
                 if line.product_id.default_code:
@@ -643,9 +644,8 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['DscRcgGlobal']['NroLinDR'] = 1
                 dte['DscRcgGlobal']['TpoMov'] = 'D' if global_discount < 0 else 'R'
                 dte['DscRcgGlobal']['TpoValor'] = '%'
-                dte['DscRcgGlobal']['ValorDR'] = 100 * (global_discount / int(round(
-                    inv.amount_untaxed, 0)) if inv.sii_document_class_id.sii_code not in ['34'] else int(round(
-                    sum_lines, 0)))
+                dte['DscRcgGlobal']['ValorDR'] = round(
+                    abs(100*global_discount/sum_lines),2)
 
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
