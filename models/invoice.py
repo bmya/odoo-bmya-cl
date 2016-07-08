@@ -532,12 +532,14 @@ stamp to be legally valid.''')
                 # todo: opcional lines['UnmdItem'] = line.uos_id.name[:4]
                 # lines['UnmdItem'] = 'unid'
                 lines['PrcItem'] = round(line.price_unit, 4)
-                try:
+                if 1==1:
+                # try:
                     if line.discount != 0:
                         lines['DescuentoPct'] = round(line.discount, 2)
                         lines['DescuentoMonto'] = int(round(
                             (line.quantity * line.price_unit * line.discount) / 100, 0))
-                except:
+                else:
+                #except:
                     pass
                 lines['MontoItem'] = int(round(line.price_subtotal, 0))
                 line_number = line_number + 1
