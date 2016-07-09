@@ -11,26 +11,14 @@ import lxml.etree as etree
 from lxml import objectify
 from lxml.etree import XMLSyntaxError
 
-#from inspect import currentframe, getframeinfo
-
 import collections, re
 
-# try:
-#     from cStringIO import StringIO
-# except:
-#     from StringIO import StringIO
-
-# try:
-#     from suds.client import Client
-# except:
-#     pass
 
 try:
     import urllib3
 except:
     pass
 
-# from urllib3 import HTTPConnectionPool
 urllib3.disable_warnings()
 # para que funcione, hay que hacer:
 '''
@@ -52,49 +40,19 @@ try:
 except ImportError:
     _logger.info('Cannot import dicttoxml library')
 
-# try:
-#     from elaphe import barcode
-# except ImportError:
-#     _logger.info('Cannot import elaphe library')
-
-# try:
-#     import M2Crypto
-# except ImportError:
-#     _logger.info('Cannot import M2Crypto library')
-
 try:
     import base64
 except ImportError:
     _logger.info('Cannot import base64 library')
-
-# try:
-#     import hashlib
-# except ImportError:
-#     _logger.info('Cannot import hashlib library')
 
 try:
     import cchardet
 except ImportError:
     _logger.info('Cannot import cchardet library')
 
-# try:
-#     from SOAPpy import SOAPProxy
-# except ImportError:
-#     _logger.info('Cannot import SOOAPpy')
-
-# try:
-#     from signxml import xmldsig, methods
-# except ImportError:
-#     _logger.info('Cannot import signxml')
-
-# timbre patrón. Permite parsear y formar el
-# ordered-dict patrón corespondiente al documento
-
 # hardcodeamos este valor por ahora
 import os
 xsdpath = os.path.dirname(os.path.realpath(__file__)).replace('/models','/static/xsd/')
-
-
 
 '''
 Extensión del modelo de datos para contener parámetros globales necesarios
@@ -614,16 +572,6 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             dte['item'] = invoice_lines
             # inserción del detalle en caso que corresponda
             if inv.sii_document_class_id.sii_code in [61, 56]:
-                ####
-                # Valores: account.invoice.refund
-                # filter_refund
-                #     refund, cancel, modify
-                # description
-                # date
-                # otras opciones:
-                # account.invoice.origin
-                # account.invoice.reference
-                # raise Warning(inv.env.context)
 
                 dte['Referencia'] = collections.OrderedDict()
                 dte['Referencia']['NroLinRef'] = 1
@@ -633,14 +581,6 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['Referencia']['CodRef'] = inv.sii_referencia_CodRef
                 dte['Referencia']['RazonRef'] = inv.origin
 
-            '''
-            <DscRcgGlobal>
-            <NroLinDR>1</NroLinDR>
-            <TpoMov>D</TpoMov>
-            <TpoValor>%</TpoValor>
-            <ValorDR>27.00</ValorDR>
-            </DscRcgGlobal>
-            '''
             if global_discount != 0:
                 dte['DscRcgGlobal'] = collections.OrderedDict()
                 dte['DscRcgGlobal']['NroLinDR'] = 1
@@ -651,7 +591,6 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
             doc_id = '<Documento ID="{}">'.format(doc_id_number)
-            # si es sii, inserto el timbre
 
             dte1['Documento ID'] = dte
             xml = dicttoxml.dicttoxml(
@@ -659,11 +598,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                     '<item>','').replace('</item>','')
 
             root = etree.XML( xml )
-            # xml_pret = self.remove_indents(
-            #     (etree.tostring(root, pretty_print=True)).replace(
-            #         '<Documento_ID>', doc_id).replace(
-            #         '</Documento_ID>', '</Documento>'))
-            # sin remober indents
+
             xml_pret = etree.tostring(root, pretty_print=True).replace(
 '<Documento_ID>', doc_id).replace('</Documento_ID>', '</Documento>')
 
