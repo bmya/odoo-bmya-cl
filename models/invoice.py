@@ -11,26 +11,14 @@ import lxml.etree as etree
 from lxml import objectify
 from lxml.etree import XMLSyntaxError
 
-#from inspect import currentframe, getframeinfo
-
 import collections, re
 
-try:
-    from cStringIO import StringIO
-except:
-    from StringIO import StringIO
-
-try:
-    from suds.client import Client
-except:
-    pass
 
 try:
     import urllib3
 except:
     pass
 
-# from urllib3 import HTTPConnectionPool
 urllib3.disable_warnings()
 # para que funcione, hay que hacer:
 '''
@@ -60,42 +48,14 @@ except ImportError:
     _logger.info('Cannot import dicttoxml library')
 
 try:
-    from elaphe import barcode
-except ImportError:
-    _logger.info('Cannot import elaphe library')
-
-try:
-    import M2Crypto
-except ImportError:
-    _logger.info('Cannot import M2Crypto library')
-
-try:
     import base64
 except ImportError:
     _logger.info('Cannot import base64 library')
 
 try:
-    import hashlib
-except ImportError:
-    _logger.info('Cannot import hashlib library')
-
-try:
     import cchardet
 except ImportError:
     _logger.info('Cannot import cchardet library')
-
-try:
-    from SOAPpy import SOAPProxy
-except ImportError:
-    _logger.info('Cannot import SOOAPpy')
-
-try:
-    from signxml import xmldsig, methods
-except ImportError:
-    _logger.info('Cannot import signxml')
-
-# timbre patrón. Permite parsear y formar el
-# ordered-dict patrón corespondiente al documento
 
 # hardcodeamos este valor por ahora
 import os
@@ -113,7 +73,6 @@ Extensión del modelo de datos para contener parámetros globales necesarios
 '''
 class invoice(models.Model):
     _inherit = "account.invoice"
-
 
     '''
     Creacion de plantilla xml para envolver el DTE
@@ -251,6 +210,7 @@ Linux/3.13.0-88-generic'
         if self.dte_service_provider in [
             'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
             # reobtener el folio
+            folio = self.get_folio_current(self.document_number)
             dte_username = self.company_id.dte_username
             dte_password = self.company_id.dte_password
             envio_check = '''<?xml version="1.0" encoding="utf-8"?>
@@ -537,6 +497,11 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         #default=get_company_dte_service_provider,
         readonly=True)
 
+    sii_referencia_TpoDocRef = fields.Char('TpoDocRef')
+    sii_referencia_FolioRef =  fields.Char('FolioRef')
+    sii_referencia_FchRef = fields.Char('FchRef')
+    sii_referencia_CodRef = fields.Char('CodRef')
+
     dte_resolution_number = fields.Char('SII Exempt Resolution Number',
                                         help='''This value must be provided \
 and must appear in your pdf or printed tribute document, under the electronic \
@@ -755,19 +720,30 @@ stamp to be legally valid.''')
             elif inv.dte_service_provider in ['', 'NONE']:
                 return
 
-
-            # giros_emisor = []
-            # # definicion de los giros del emisor
-            # for turn in inv.company_id.company_activities_ids:
-            #     if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
-            #         giros_emisor.extend([{'Acteco': turn.code}])
-            #     else:
-            #         giros_emisor.extend([turn.code])
+            # definicion de los giros del emisor
+            giros_emisor = []
+            for turn in inv.company_id.company_activities_ids:
+                giros_emisor.extend([{'Acteco': turn.code}])
 
             # definicion de lineas
             line_number = 1
             invoice_lines = []
+            global_discount = 0
+            sum_lines = 0
             for line in inv.invoice_line:
+                # se hizo de esta manera para que no dé error
+                try:
+                    if line.product_id.is_discount:
+                        # es un producto usado para representar descuentoe
+                        global_discount += int(round(line.price_subtotal, 0))
+                        continue
+                except:
+                    if u'descuento' in line.product_id.name.lower():
+                        global_discount += int(round(line.price_subtotal, 0))
+                        continue
+                    else:# no existe el campo is_discount
+                        pass
+                sum_lines += line.price_subtotal
                 lines = collections.OrderedDict()
                 lines['NroLinDet'] = line_number
                 if line.product_id.default_code:
@@ -776,12 +752,19 @@ stamp to be legally valid.''')
                     lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
                 lines['NmbItem'] = line.product_id.name[:80]
                 lines['DscItem'] = line.name
-                lines['QtyItem'] = int(round(line.quantity, 0))
+                lines['QtyItem'] = round(line.quantity, 4)
                 # todo: opcional lines['UnmdItem'] = line.uos_id.name[:4]
                 # lines['UnmdItem'] = 'unid'
-                lines['PrcItem'] = int(round(line.price_unit, 0))
-                if line.discount != 0:
-                    lines['DscItem'] = int(round(line.discount, 0))
+                lines['PrcItem'] = round(line.price_unit, 4)
+                if 1==1:
+                # try:
+                    if line.discount != 0:
+                        lines['DescuentoPct'] = round(line.discount, 2)
+                        lines['DescuentoMonto'] = int(round(
+                            (line.quantity * line.price_unit * line.discount) / 100, 0))
+                else:
+                #except:
+                    pass
                 lines['MontoItem'] = int(round(line.price_subtotal, 0))
                 line_number = line_number + 1
                 if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
@@ -804,6 +787,11 @@ stamp to be legally valid.''')
                 dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
             # todo: forma de pago y fecha de vencimiento - opcional
             dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code or 1
+            if inv.date_due < inv.date_invoice:
+                raise Warning(
+                    'LA FECHA DE VENCIMIENTO NO PUEDE SER ANTERIOR A LA DE \
+FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
+                        inv.date_invoice, inv.date_due))
             dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
             dte['Encabezado']['Emisor'] = collections.OrderedDict()
             dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
@@ -817,9 +805,8 @@ stamp to be legally valid.''')
             #     dte['Encabezado']['Emisor']['Acteco'] = giros_emisor  # giros de la compañia - codigos
             # todo: Telefono y Correo opcional
             dte['Encabezado']['Emisor']['Telefono'] = inv.company_id.phone or ''
-            if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
-                dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
-
+            dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
+            dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
             # todo: <CdgSIISucur>077063816</CdgSIISucur> codigo de sucursal
             # no obligatorio si no hay sucursal, pero es un numero entregado
             # por el SII para cada sucursal.
@@ -834,6 +821,8 @@ stamp to be legally valid.''')
             dte['Encabezado']['Receptor']['GiroRecep'] = inv.invoice_turn.name[:40]
             dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
             # todo: revisar comuna: "false"
+            if inv.partner_id.state_id.name == False or inv.partner_id.city == False:
+                raise Warning('No se puede continuar: Revisar comuna y ciudad')
             dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
             dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
             if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
@@ -845,30 +834,54 @@ stamp to be legally valid.''')
                 else:
                     dte['Encabezado']['Totales']['MntNeto'] = int(round(
                         inv.amount_untaxed, 0))
-                    dte['Encabezado']['Totales']['TasaIVA'] = int(round(
-                        (inv.amount_total / inv.amount_untaxed -1) * 100, 0))
-                    dte['Encabezado']['Totales']['IVA'] = int(round(inv.amount_tax, 0))
-                dte['Encabezado']['Totales']['MntTotal'] = int(round(
-                inv.amount_total, 0))
-            if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+                    try:
+                        dte['Encabezado']['Totales']['TasaIVA'] = int(round(
+                            (inv.amount_total / inv.amount_untaxed - 1) * 100,
+                            0))
+                    except:
+                        # lo hardcodeamos para solucionar rapidamente el problema
+                        # cuando se usan n/c o n/d para hacer modificaciones
+                        dte['Encabezado']['Totales']['TasaIVA'] = 19
+                    dte['Encabezado']['Totales']['MntTotal'] = int(round(
+                        inv.amount_total, 0))
                 dte['item'] = invoice_lines
             else:
+                # esto lo hace para libreDTE la construccion directa del valor
+                # en el diccionario. Porque en las otras opciones de XML
+                # hay problemas en esta parte al pasar de dict a xml
                 dte['Detalle'] = invoice_lines
+
+            # inserción del detalle en caso que corresponda
+            if inv.sii_document_class_id.sii_code in [61, 56]:
+                dte['Referencia'] = collections.OrderedDict()
+                dte['Referencia']['NroLinRef'] = 1
+                dte['Referencia'][
+                    'TpoDocRef'] = inv.sii_referencia_TpoDocRef
+                dte['Referencia']['FolioRef'] = inv.sii_referencia_FolioRef
+                dte['Referencia']['FchRef'] = inv.sii_referencia_FchRef
+                dte['Referencia']['CodRef'] = inv.sii_referencia_CodRef
+                dte['Referencia']['RazonRef'] = inv.origin
+
+            if global_discount != 0:
+                dte['DscRcgGlobal'] = collections.OrderedDict()
+                dte['DscRcgGlobal']['NroLinDR'] = 1
+                dte['DscRcgGlobal'][
+                    'TpoMov'] = 'D' if global_discount < 0 else 'R'
+                dte['DscRcgGlobal']['TpoValor'] = '$'  # ''%'
+                dte['DscRcgGlobal']['ValorDR'] = round(abs(global_discount))
+
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
             doc_id = '<Documento ID="{}">'.format(doc_id_number)
             # si es sii, inserto el timbre
+
             dte1['Documento ID'] = dte
             xml = dicttoxml.dicttoxml(
                 dte1, root=False, attr_type=False).replace(
                     '<item>','').replace('</item>','')
 
             root = etree.XML( xml )
-            # xml_pret = self.remove_indents(
-            #     (etree.tostring(root, pretty_print=True)).replace(
-            #         '<Documento_ID>', doc_id).replace(
-            #         '</Documento_ID>', '</Documento>'))
-            # sin remober indents
+
             xml_pret = etree.tostring(root, pretty_print=True).replace(
 '<Documento_ID>', doc_id).replace('</Documento_ID>', '</Documento>')
 

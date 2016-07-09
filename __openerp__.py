@@ -21,7 +21,7 @@
 {
     "name": """Chile - Web Services de Documentos Tributarios Electrónicos\
     """,
-    'version': '8.0.1.2.0',
+    'version': '8.0.1.3.0',
     'category': 'Localization/Chile',
     'sequence': 12,
     'author':  'Blanco Martín & Asociados',
@@ -35,26 +35,19 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'webservices_generic',
         'l10n_cl_counties',
         'l10n_cl_invoice',
-        # 'l10n_cl_dte_caf',
-        # 'user_signature_key',
         ],
     'external_dependencies': {
         'python': [
             'xmltodict',
             'dicttoxml',
-            'elaphe',
-            'M2Crypto',
             'base64',
-            'hashlib',
             'cchardet',
-            'suds',
             'urllib3',
-            'SOAPpy',
-            'signxml'
         ]
     },
     'data': [
         'wizard/dte_status_update_view.xml',
+        'wizard/account_invoice_refund_view.xml',
         'views/invoice_view.xml',
         'views/partner_view.xml',
         'views/company_view.xml',
