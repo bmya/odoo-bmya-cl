@@ -56,27 +56,18 @@
                                    context="{
                                         'sii_status': sii_result,
                                         'dte_provider': dte_service_provider}"/>
-                            <!--<field name='sii_result' widget="statusbar"
-                                   clickable="False"
-                                   onchange="%(action_dte_status_update_form)d"
-                                   context="{
-                                        'sii_status': sii_result,
-                                        'dte_provider': dte_service_provider}"/>-->
                         </header>
-                        <group>
-                            <field name='sii_batch_number'/>
-                            asjdjdk
+                        <group colspan="4">
                             <field name='dte_service_provider'/>
-                            <field name='sii_barcode_img' widget="image"
-                                attrs="{'invisible':['|',('sii_result', '=', ''), ('dte_service_provider', 'not in', ['SIIHOMO', 'SII'])]}"/>
-                            <field name='sii_message'
-                                attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
-
-
                             <field name='sii_send_ident'
                                 attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
+                            <field name='sii_barcode_img' widget="image"
+                                attrs="{'invisible':['|',('sii_result', '=', ''), ('dte_service_provider', 'not in', ['SIIHOMO', 'SII'])]}"/>
+                            <!--<field name='sii_message'
+                                attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>-->
                             <!--<field name="third_party_xml"
                                    filename="filename_xml"/>-->
+                            <!--<field name='sii_batch_number'/>-->
                         </group>
                         <div class="row">
                             <div class="col-md-12 modal-body panel-group clean-panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
