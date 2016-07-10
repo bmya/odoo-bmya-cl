@@ -445,22 +445,28 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     sii_barcode_img = fields.Binary(
         copy=False,
         string=_('SII Barcode Image'),
+        readonly=True,
         help='SII Barcode Image in PDF417 format')
 
     sii_message = fields.Text(
         string='SII Message',
+        readonly=True,
         copy=False)
     sii_xml_request = fields.Text(
         string='XML Request',
+        readonly=True,
         copy=False)
     sii_xml_response1 = fields.Text(
         string='XML Response 1',
+        readonly=True,
         copy=False)
     sii_xml_response2 = fields.Text(
         string='XML Response 2',
+        readonly=True,
         copy=False)
     sii_send_ident = fields.Text(
         string='SII Send Identification',
+        readonly=True,
         copy=False)
     sii_result = fields.Selection([
         ('', 'n/a'),
@@ -752,18 +758,22 @@ stamp to be legally valid.''')
                     lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
                 lines['NmbItem'] = line.product_id.name[:80]
                 lines['DscItem'] = line.name
-                lines['QtyItem'] = round(line.quantity, 4)
-                # todo: opcional lines['UnmdItem'] = line.uos_id.name[:4]
-                # lines['UnmdItem'] = 'unid'
-                lines['PrcItem'] = round(line.price_unit, 4)
+                # si es cero y es nota de crédito o debito, los salteo a los dos
+                if line.quantity == 0 and line.price_unit == 0 and \
+                                inv.sii_document_class_id.sii_code in [61, 56]:
+                    pass
+                else:
+                    lines['QtyItem'] = round(line.quantity, 4)
+                    # todo: opcional lines['UnmdItem'] = line.uos_id.name[:4]
+                    lines['PrcItem'] = round(line.price_unit, 4)
                 if 1==1:
-                # try:
+                    # try:
                     if line.discount != 0:
                         lines['DescuentoPct'] = round(line.discount, 2)
                         lines['DescuentoMonto'] = int(round(
                             (line.quantity * line.price_unit * line.discount) / 100, 0))
                 else:
-                #except:
+                    #except:
                     pass
                 lines['MontoItem'] = int(round(line.price_subtotal, 0))
                 line_number = line_number + 1
@@ -798,15 +808,15 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 inv.company_id.vat)
             dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
             dte['Encabezado']['Emisor']['GiroEmis'] = inv.turn_issuer.name[:80]
-            dte['Encabezado']['Emisor']['Acteco'] = inv.turn_issuer.code
-            # if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
-            #     dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
-            # else:
-            #     dte['Encabezado']['Emisor']['Acteco'] = giros_emisor  # giros de la compañia - codigos
+            if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+                dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
+            else:
+                dte['Encabezado']['Emisor']['Acteco'] = inv.turn_issuer.code
+                #dte['Encabezado']['Emisor']['Acteco'] = giros_emisor  # giros de la compañia - codigos
             # todo: Telefono y Correo opcional
             dte['Encabezado']['Emisor']['Telefono'] = inv.company_id.phone or ''
             dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
-            dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
+            # dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
             # todo: <CdgSIISucur>077063816</CdgSIISucur> codigo de sucursal
             # no obligatorio si no hay sucursal, pero es un numero entregado
             # por el SII para cada sucursal.
@@ -869,7 +879,8 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                     'TpoMov'] = 'D' if global_discount < 0 else 'R'
                 dte['DscRcgGlobal']['TpoValor'] = '$'  # ''%'
                 dte['DscRcgGlobal']['ValorDR'] = round(abs(global_discount))
-
+            print(dte)
+            # raise Warning('dictionary generated')
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
             doc_id = '<Documento ID="{}">'.format(doc_id_number)
