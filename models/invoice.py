@@ -466,7 +466,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         copy=False)
     sii_send_ident = fields.Text(
         string='SII Send Identification',
-        readonly=True,
+        readonly=False,
         copy=False)
     sii_result = fields.Selection([
         ('', 'n/a'),
