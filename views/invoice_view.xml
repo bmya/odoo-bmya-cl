@@ -45,8 +45,12 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
+                <button string="Refund Invoice" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
                 <button string="Refund Invoice" position="before">
                     <button name="invoice_print" string="Print Invoice" type="object" attrs="{'invisible':[('state', '!=', 'paid')]}" groups="base.group_user"/>
+                    <button name="%(account.action_account_invoice_refund)d" type='action' string='Revertir Documento' states='open,proforma2,paid' groups="base.group_user"/>
                 </button>
 
                 <form>
