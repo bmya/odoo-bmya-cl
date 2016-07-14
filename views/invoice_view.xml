@@ -39,11 +39,6 @@
                                         ('sii_result', 'in', 'Enviado')
                                     ]
                                     }"/>
-                                <!--<button name="%(action_dte_status_update_form)d"
-                                    string="Update DTE Status" type="action"
-                                    context="{
-                                        'sii_status': sii_result,
-                                        'dte_provider': dte_service_provider}"/>-->
                                 <button string="Bring PDF DTE" type="object"
                                         class="oe_highlight"
                                         name="bring_pdf_ldte"

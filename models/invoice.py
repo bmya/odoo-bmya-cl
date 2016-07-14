@@ -13,7 +13,6 @@ from lxml.etree import XMLSyntaxError
 
 import collections, re
 
-
 try:
     import urllib3
 except:
@@ -286,12 +285,12 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 raise Warning(
                     'Error al obtener el estado del DTE emitido: {}'.format(
                         response_status.data))
-            print('kdjdjdjdjdjdjdjdjdjdjdjdjdjdjdjdjd')
-            print(response_status.data)
+            _logger.info('kdjdjdjdjdjdjdjdjdjdjdjdjdjdjdjdjd')
+            _logger.info(response_status.data)
             response_status_j = json.loads(response_status.data)
-            print(response_status_j['track_id'])
-            print(response_status_j['revision_estado'])
-            print(response_status_j['revision_detalle'])
+            _logger.info(response_status_j['track_id'])
+            _logger.info(response_status_j['revision_estado'])
+            _logger.info(response_status_j['revision_detalle'])
             if response_status_j['revision_detalle'] == 'DTE aceptado':
                 resultado_status = 'Aceptado'
             elif response_status_j['revision_estado'] == 'RCH - DTE Rechazado':
@@ -547,7 +546,7 @@ stamp to be legally valid.''')
                 response_generar.status, response_generar.data))
         _logger.info('response_generar: %s' % response_generar.data)
         response_j = json.loads(response_generar.data)
-        print(response_j)
+        _logger.info(response_j)
         '''
         {"emisor":76085472,"dte":56,"folio":3,"certificacion":1,"tasa":19,
         "fecha":"2016-07-02","sucursal_sii":null,"receptor":"00000001",
@@ -557,9 +556,9 @@ stamp to be legally valid.''')
          'usuario'}'''
 
         attachment_obj = self.env['ir.attachment']
-        print('asadadadadda')
-        print(self.sii_document_class_id.name)
-        print(response_j['folio'])
+        _logger.info('Attachment')
+        _logger.info(self.sii_document_class_id.name)
+        _logger.info(response_j['folio'])
         attachment_id = attachment_obj.create(
             {
                 'name': 'DTE_'+self.sii_document_class_id.name+'-'+str(response_j['folio'])+'.xml',
@@ -580,7 +579,7 @@ stamp to be legally valid.''')
     @api.multi
     def get_xml_attachment(self):
         self.ensure_one()
-        print('entrando a la funcion de toma de xml desde attachments')
+        _logger.info('entrando a la funcion de toma de xml desde attachments')
         pass
         attachment_id = self.env['ir.attachment'].search([
             ('res_model', '=', self._name),
@@ -589,7 +588,7 @@ stamp to be legally valid.''')
             ('name', 'ilike', '.xml')])
 
         for att_id in attachment_id:
-            print(att_id.id)
+            _logger.info(att_id.id)
             xml_attachment = att_id.datas
             break
         return xml_attachment
@@ -609,7 +608,7 @@ stamp to be legally valid.''')
     @api.multi
     def bring_pdf_ldte(self):
         self.ensure_one()
-        print('entrada a bringpdf function')
+        _logger.info('entrada a bringpdf function')
         headers = self.create_headers_ldte()
         # en lugar de third_party_xml, que ahora no va a existir más,
         # hay que tomar el xml del adjunto, o bien del texto
@@ -617,7 +616,7 @@ stamp to be legally valid.''')
         dte_xml = self.get_xml_attachment()
         generar_pdf_request = json.dumps({'xml': dte_xml,
                                           'compress': False})
-        print(generar_pdf_request)
+        _logger.info(generar_pdf_request)
         response_pdf = pool.urlopen(
             'POST', api_gen_pdf,  headers=headers,
             body=generar_pdf_request)
@@ -663,9 +662,9 @@ stamp to be legally valid.''')
 
         atts_ids = []
         for att_id in attachment_id:
-            print(att_id.id)
+            _logger.info(att_id.id)
             atts_ids.append(att_id.id)
-        print(atts_ids)
+        _logger.info(atts_ids)
 
         ## hace este cambio: reemplaza el template (inicio)
         template = self.env.ref('l10n_cl_dte.email_template_edi_invoice', False)
@@ -695,7 +694,7 @@ stamp to be legally valid.''')
 
     @api.multi
     def action_invoice_print(self):
-        print('entrando a impresion de factura desde boton de arriba')
+        _logger.info('entrando a impresion de factura desde boton de arriba')
         pass
 
     @api.multi
@@ -879,7 +878,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                     'TpoMov'] = 'D' if global_discount < 0 else 'R'
                 dte['DscRcgGlobal']['TpoValor'] = '$'  # ''%'
                 dte['DscRcgGlobal']['ValorDR'] = round(abs(global_discount))
-            print(dte)
+            _logger.info(dte)
             # raise Warning('dictionary generated')
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
@@ -916,15 +915,15 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 </PonerDTE>
 </soap12:Body>
 </soap12:Envelope>'''.format(dte_username, dte_password, xml_pret, enviar)
-                print(inv.sii_xml_request)
+                _logger.info(inv.sii_xml_request)
                 inv.sii_xml_request = envelope_efact
                 inv.sii_result = 'NoEnviado'
                 _logger.info('OPCION DTE: ({})'.format(str(
                     inv.dte_service_provider)).lower())
             elif inv.dte_service_provider in [
                 'LIBREDeTE', 'LIBREDTE_TEST']:
-                print('password: %s' % self.company_id.dte_password)
-                print('username: %s' % self.company_id.dte_username)
+                _logger.info('password: %s' % self.company_id.dte_password)
+                _logger.info('username: %s' % self.company_id.dte_username)
 
                 headers = self.create_headers_ldte()
 

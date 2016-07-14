@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
     "name": """Chile - Web Services de Documentos Tributarios Electrónicos\
     """,
@@ -46,8 +47,6 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         ]
     },
     'data': [
-        'wizard/dte_status_update_view.xml',
-        'wizard/account_invoice_refund_view.xml',
         'views/invoice_view.xml',
         'views/partner_view.xml',
         'views/company_view.xml',
@@ -56,6 +55,8 @@ Chile: API and GUI to access Electronic Invoicing webservices.
         'views/invoice_template.xml',
         'data/sii.regional.offices.csv',
         'security/ir.model.access.csv',
+        'wizard/dte_status_update_view.xml',
+        'wizard/account_invoice_refund_view.xml',
     ],
     'installable': True,
     'auto_install': False,
