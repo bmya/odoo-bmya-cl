@@ -2,7 +2,7 @@
 {
     'author': u'Blanco Martín & Asociados',
     'category': 'Localization/Chile',
-    'depends': ['l10n_cl_invoice'],
+    'depends': ['l10n_cl_invoice', 'user_signature_key'],
     "external_dependencies": {
         'python': [
             'xmltodict',
@@ -21,7 +21,7 @@
     'update_xml': [],
     'version': '0.0',
     'website': 'http://blancomartin.cl',
-    'auto-install': False,
+    'auto-install': True,
     'active': False
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
