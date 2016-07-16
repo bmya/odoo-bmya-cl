@@ -62,8 +62,8 @@ branches.""")
         'Use Electronic Invoicing', help="""Installs several dependencies in \
 order to performn Electronic invoicing, and sales invoicing in xml.""")
 
-    module_l10n_cl_dte_caf = fields.Boolean(
-        'SII Directly (adds CAF management and certificate authentication).',
+    module_user_signature_key = fields.Boolean(
+        'SII Directly (adds User signature and CAF management).',
         help="""Works without gateways, directly to SII. This set Odoo to \
 work directly with SII, installing module l10n_cl_dte_caf and \
 other dependencies""")

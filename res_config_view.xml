@@ -100,10 +100,10 @@
 									class="oe_inline"/>
 								<label for="module_l10n_cl_dte" />
 							</div>
-                            <div name='module_l10n_cl_dte_caf' attrs="{'invisible':[('module_l10n_cl_dte','=',False)]}">
-								<field name="module_l10n_cl_dte_caf"
+                            <div name='module_user_signature_key' attrs="{'invisible':[('module_l10n_cl_dte','=',False)]}">
+								<field name="module_user_signature_key"
 									class="oe_inline"/>
-								<label for="module_l10n_cl_dte_caf" />
+								<label for="module_user_signature_key" />
 							</div>
                             <div name='module_l10n_cl_dte_pdf' attrs="{'invisible':[('module_l10n_cl_dte_caf','=',False)]}">
 								<field name="module_l10n_cl_dte_pdf"
