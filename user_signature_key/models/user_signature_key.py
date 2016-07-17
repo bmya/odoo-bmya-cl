@@ -5,18 +5,28 @@ from openerp import models, fields, api
 from openerp.tools.translate import _
 from openerp.exceptions import Warning
 from openerp import SUPERUSER_ID
+import logging
+_logger = logging.getLogger(__name__)
 try:
     from M2Crypto import X509 as M2X509
     from M2Crypto.EVP import MessageDigest
+except ImportError:
+    raise Warning('no pudo cargar M2Crypto')
+
+try:
     from OpenSSL.crypto import *
+except ImportError:
+    raise Warning('no pudo cargar OpenSSL.crypto')
+
+try:
     import base64
 except ImportError:
-    pass
+    raise Warning('no pudo cargar base64')
 
 try:
     import cStringIO
 except ImportError:
-    pass
+    raise Warning('no pudo cargar cStringIO')
 
 type_ = FILETYPE_PEM
 
@@ -83,7 +93,10 @@ class userSignature(models.Model):
         # print(filename)
 
         # p12 = load_pkcs12(file(filename, 'rb').read(), self.dec_pass)
-        p12 = load_pkcs12(filecontent, self.dec_pass)
+        try:
+            p12 = load_pkcs12(filecontent, self.dec_pass)
+        except:
+            raise Warning('Invalid Passphrase')
 
         #try:
         # p12 = load_pkcs12(output.read(), self.dec_pass)
@@ -131,8 +144,8 @@ class userSignature(models.Model):
         print('expired?             ', cert.has_expired())
         print('name hash            ', cert.subject_name_hash())
         print('private key bits: ', privky.bits())
-        print('private key check: ', privky.check())
-        print('private key type: ', privky.type())
+        # print('private key check: ', privky.check())
+        # print('private key type: ', privky.type())
         print('cacert: ', cacert)
         print('xxx        ', cert)
 
@@ -147,8 +160,8 @@ class userSignature(models.Model):
 
         # data privada
         self.private_key_bits = privky.bits()
-        self.private_key_check = privky.check()
-        self.private_key_type = privky.type()
+        # self.private_key_check = privky.check()
+        # self.private_key_type = privky.type()
         # self.cacert = cacert
 
         certificate = p12.get_certificate()
@@ -160,6 +173,7 @@ class userSignature(models.Model):
         pubkey = cert.get_pubkey()
         print('pubkeyyyyyyyyyyyyyyyyyyyyyyyyy!!!!!!!!')
         print(pubkey)
+
 
         print(cert.digest('md5'))
         print(cert.digest('sha1'))
@@ -222,6 +236,21 @@ class userSignature(models.Model):
                                            string='Authorized Users')
     cert_owner_id = fields.Many2one('res.users', 'Certificate Owner',
                                     select=True, ondelete='cascade')
+
+    invcert = fields.Boolean(
+        'Certificate invisible',
+        readonly=True, compute='_not_same_user')
+
+    @api.multi
+    def _not_same_user(self):
+        for usr in self:
+            if (usr.id == self.env.user.id):
+                usr.invcert = False
+            else:
+                usr.invcert = True
+            _logger.info(
+                'usuario del registro: {}, usuario corriente: {}, invcert: \
+{}'.format(usr.id, self.env.user.id, usr.invcert))
 
     @api.multi
     def action_clean1(self):

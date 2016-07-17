@@ -11,7 +11,11 @@
                         <header>
                             <button string="Check Signature" type="object" name="action_process"
                                     class="oe_highlight"
-                                    attrs="{'invisible':[('status','!=','unverified'),('key_file', '=', False)]}"/>
+                                    attrs="{'invisible':[
+                                        '|',
+                                        ('status','!=','unverified'),
+                                        ('key_file', '=', False)
+                                        ]}"/>
 
                             <button string="Clean Signature" type="object" name="action_clean1"
                                     attrs="{'invisible': [('status', '=', 'unverified')]}"/>
@@ -51,8 +55,9 @@
                                 <field name="private_key_bits"/>
                                 <field name="private_key_check"/>
                                 <field name="private_key_type"/>
+                                <field name="invcert" attrs="{'invisible': True}"/>
                             </group>
-                            <notebook>
+                            <notebook attrs="{'invisible': [('invcert', '=', True)]}">
                                 <page string="Authorized Users">
                                     <!-- usuarios autorizados para usar esta firma digital -->
                                     <field name="authorized_users_ids"

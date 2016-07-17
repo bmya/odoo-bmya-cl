@@ -20,18 +20,17 @@
 ##############################################################################
 {
     "name": """User Signature Key""",
-    'version': '8.0.0.0.1',
+    'version': '8.0.0.2.0',
     'category': 'Utilities',
     'sequence': 12,
-    'author':  'BMyA SA - Blanco Martín & Asociados',
+    'author':  'Blanco Martín & Asociados',
     'website': 'http://blancomartin.cl',
     'license': 'AGPL-3',
     'summary': '',
-    'description': """
-Allow Users to upload a private key certificate, in order to authenticate or
+    'description': '''
+Allow Users to upload a private key certificate, in order to authenticate or /
 sign electronic documents.
-=============================================================================
-""",
+''',
     'external_dependencies': {
         'python': [
             'M2Crypto',
