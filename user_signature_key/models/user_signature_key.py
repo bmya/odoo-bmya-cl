@@ -67,30 +67,30 @@ class userSignature(models.Model):
         return 'unverified'
 
     def load_cert_m2pem(self, *args, **kwargs):
-        print(self.filename)
+        _logger.info(self.filename)
         filecontent = base64.b64decode(self.key_file)
-        # print(filecontent)
+        # _logger.info(filecontent)
         cert = M2X509.load_cert(filecontent)
         # cert = M2X509.load_cert('newfile.crt.pem')
-        print('version     ', cert.get_version())
-        print('serial#     ', cert.get_serial_number())
-        print('not before  ', cert.get_not_before())
-        print('not after   ', cert.get_not_after())
+        _logger.info('version     ', cert.get_version())
+        _logger.info('serial#     ', cert.get_serial_number())
+        _logger.info('not before  ', cert.get_not_before())
+        _logger.info('not after   ', cert.get_not_after())
         issuer = cert.get_issuer()
-        print('issuer.C    ', repr(issuer.C))
-        print('issuer.O    ', repr(issuer.O))
-        print('issuer.OU   ', repr(issuer.OU))
-        print('issuer.CN   ', repr(issuer.CN))
-        print('issuer.Email', repr(issuer.Email))
+        _logger.info('issuer.C    ', repr(issuer.C))
+        _logger.info('issuer.O    ', repr(issuer.O))
+        _logger.info('issuer.OU   ', repr(issuer.OU))
+        _logger.info('issuer.CN   ', repr(issuer.CN))
+        _logger.info('issuer.Email', repr(issuer.Email))
         subject = cert.get_subject()
-        print('subject.C', repr(subject.C))
-        print('subject.CN', repr(subject.CN))
-        print('subject.emailAddress', repr(subject.emailAddress))
-        print('subject.serialNumber', repr(subject.serialNumber))
-        print(cert.as_text(), '\n')
+        _logger.info('subject.C', repr(subject.C))
+        _logger.info('subject.CN', repr(subject.CN))
+        _logger.info('subject.emailAddress', repr(subject.emailAddress))
+        _logger.info('subject.serialNumber', repr(subject.serialNumber))
+        _logger.info(cert.as_text(), '\n')
 
     def load_cert_pk12(self, filecontent):
-        # print(filename)
+        # _logger.info(filename)
 
         # p12 = load_pkcs12(file(filename, 'rb').read(), self.dec_pass)
         try:
@@ -111,8 +111,8 @@ class userSignature(models.Model):
 
         self.not_before = datetime.datetime.strptime(cert.get_notBefore(), '%Y%m%d%H%M%SZ')
         self.not_after = datetime.datetime.strptime(cert.get_notAfter(), '%Y%m%d%H%M%SZ')
-        print('not before           ', datetime.datetime.strptime(cert.get_notBefore(), '%Y%m%d%H%M%SZ'))
-        print('not after            ', datetime.datetime.strptime(cert.get_notAfter(), '%Y%m%d%H%M%SZ'))
+        _logger.info('not before           ', datetime.datetime.strptime(cert.get_notBefore(), '%Y%m%d%H%M%SZ'))
+        _logger.info('not after            ', datetime.datetime.strptime(cert.get_notAfter(), '%Y%m%d%H%M%SZ'))
 
         # self.final_date =
         self.subject_c = subject.C
@@ -121,11 +121,11 @@ class userSignature(models.Model):
         self.subject_serial_number = subject.serialNumber
         self.subject_email_address = subject.emailAddress
 
-        print('subject.C            ', subject.C)
-        print('subject.title        ', subject.title)
-        print('subject.CN           ', subject.CN)
-        print('subject.serialNumber ', subject.serialNumber)
-        print('subject.emailAddress ', subject.emailAddress)
+        _logger.info('subject.C            ', subject.C)
+        _logger.info('subject.title        ', subject.title)
+        _logger.info('subject.CN           ', subject.CN)
+        _logger.info('subject.serialNumber ', subject.serialNumber)
+        _logger.info('subject.emailAddress ', subject.emailAddress)
 
         self.issuer_country = issuer.C
         self.issuer_organization = issuer.O
@@ -134,29 +134,29 @@ class userSignature(models.Model):
         self.issuer_email_address = issuer.emailAddress
         self.status = 'expired' if cert.has_expired() else 'valid'
 
-        print('issuer.C             ', issuer.C)
-        print('issuer.O             ', issuer.O)
-        print('issuer.CN            ', issuer.CN)
-        print('issuer.serialNumber  ', issuer.serialNumber)
-        print('issuer.emailAddress  ', issuer.emailAddress)
+        _logger.info('issuer.C             ', issuer.C)
+        _logger.info('issuer.O             ', issuer.O)
+        _logger.info('issuer.CN            ', issuer.CN)
+        _logger.info('issuer.serialNumber  ', issuer.serialNumber)
+        _logger.info('issuer.emailAddress  ', issuer.emailAddress)
 
 
-        print('expired?             ', cert.has_expired())
-        print('name hash            ', cert.subject_name_hash())
-        print('private key bits: ', privky.bits())
-        # print('private key check: ', privky.check())
-        # print('private key type: ', privky.type())
-        print('cacert: ', cacert)
-        print('xxx        ', cert)
+        _logger.info('expired?             ', cert.has_expired())
+        _logger.info('name hash            ', cert.subject_name_hash())
+        _logger.info('private key bits: ', privky.bits())
+        # _logger.info('private key check: ', privky.check())
+        # _logger.info('private key type: ', privky.type())
+        _logger.info('cacert: ', cacert)
+        _logger.info('xxx        ', cert)
 
         self.cert_serial_number = cert.get_serial_number()
         self.cert_signature_algor = cert.get_signature_algorithm()
         self.cert_version  = cert.get_version()
         self.cert_hash = cert.subject_name_hash()
 
-        print('cert serial number   ', cert.get_serial_number())
-        print('cert signature algor.', cert.get_signature_algorithm())
-        print('cert version         ', cert.get_version())
+        _logger.info('cert serial number   ', cert.get_serial_number())
+        _logger.info('cert signature algor.', cert.get_signature_algorithm())
+        _logger.info('cert version         ', cert.get_version())
 
         # data privada
         self.private_key_bits = privky.bits()
@@ -171,17 +171,17 @@ class userSignature(models.Model):
         self.cert = dump_certificate(type_, certificate)
 
         pubkey = cert.get_pubkey()
-        print('pubkeyyyyyyyyyyyyyyyyyyyyyyyyy!!!!!!!!')
-        print(pubkey)
+        _logger.info('pubkeyyyyyyyyyyyyyyyyyyyyyyyyy!!!!!!!!')
+        _logger.info(pubkey)
 
 
-        print(cert.digest('md5'))
-        print(cert.digest('sha1'))
+        _logger.info(cert.digest('md5'))
+        _logger.info(cert.digest('sha1'))
         try:
             a = cert.sign(pubkey, 'sha1')
-            print(a)
+            _logger.info(a)
         except Exception as ex:
-            print('Exception raised: %s' % ex)
+            _logger.info('Exception raised: %s' % ex)
             # raise Warning('Exception raised: %s' % ex)
 
     filename = fields.Char('File Name')
@@ -276,11 +276,11 @@ class userSignature(models.Model):
         self.ensure_one()
         old_date = self.issued_date
         if self.key_file != None and self.status == 'unverified':
-            print(self.key_file)
+            _logger.info(self.key_file)
             self.issued_date = fields.datetime.now()
         else:
-            print('valor antiguo de fecha')
-            print(old_date)
+            _logger.info('valor antiguo de fecha')
+            _logger.info(old_date)
             self.issued_date = old_date
 
     #@api.one
@@ -302,6 +302,6 @@ class userSignature(models.Model):
     #                        x.issued_date, '%Y-%m-%d %H:%M:%S').strftime(
     #                        '%Y/%m/%d %H:%M:%S'))
     #        else:
-    #            print('valor antiguo de nombre')
-    #            print(old_name)
+    #            _logger.info('valor antiguo de nombre')
+    #            _logger.info(old_name)
     #            x.name = old_name
