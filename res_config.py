@@ -75,7 +75,7 @@ against POS closed minded operators. (factura/boleta cliente factura, \
 cliente boleta. Adds generic partners to make invoicing easier, but is not \
 recommended, except for dummy users.""")
 
-    module_l10n_cl_credit_card_voucher = fields.Boolean(
+    module_l10n_cl_pos_credit_card_voucher = fields.Boolean(
         'Exclude final consumer credit card sales from VAT report (recommended \
 only for pre-printed invoicing)',
         help="""Installs module l10n_cl_pos_credit_card_voucher, allowing you \
