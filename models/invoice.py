@@ -9,6 +9,7 @@ import openerp.addons.decimal_precision as dp
 # frameinfo = getframeinfo(currentframe())
 # print(frameinfo.filename, frameinfo.lineno)
 
+
 class account_invoice(models.Model):
     _inherit = "account.invoice"
 
@@ -34,8 +35,7 @@ class account_invoice(models.Model):
 
     # determina el giro issuer por default
     #@api.multi
-    @api.one
-    @api.onchange('partner_id', 'journal_id')
+    #@api.onchange('partner_id', 'journal_id')
     # se agrega como dependencia el diario también... veamos!!!
     # probamos con un onchange también
     def get_available_issuer_turns(self):
@@ -109,63 +109,14 @@ class account_invoice(models.Model):
             digits_compute=dp.get_precision('Account'),
             string='Other Taxes Amount', multi='printed')
     }
+
+
     turn_issuer = fields.Many2one(
         'partner.activities',
         'Giro Emisor', readonly=True, store=True, required=False,
         states={'draft': [('readonly', False)]},
         default=get_available_issuer_turns)
 
-    vat_discriminated = fields.Boolean(
-        'Discriminate VAT?',
-        compute="get_vat_discriminated",
-        store=True,
-        readonly=False,
-        help="Discriminate VAT on Quotations and Sale Orders?")
-
-    available_journals = fields.Many2one(
-        'account.journal',
-        compute='_get_available_journal_document_class',
-        string='Available Journals')
-
-    available_journal_document_class_ids = fields.Many2many(
-        'account.journal.sii_document_class',
-        compute='_get_available_journal_document_class',
-        string='Available Journal Document Classes')
-
-    supplier_invoice_number = fields.Char(
-        copy=False)
-
-    journal_document_class_id = fields.Many2one(
-        'account.journal.sii_document_class',
-        'Documents Type',
-        compute="_get_available_journal_document_class",
-        readonly=True,
-        store=True,
-        states={'draft': [('readonly', False)]})
-
-    sii_document_class_id = fields.Many2one(
-        'sii.document_class',
-        related='journal_document_class_id.sii_document_class_id',
-        string='Document Type',
-        copy=False,
-        readonly=True,
-        store=True)
-
-    sii_document_number = fields.Char(
-        string='Document Number',
-        copy=False,
-        readonly=True, )
-
-    responsability_id = fields.Many2one(
-        'sii.responsability',
-        string='Responsability',
-        related='commercial_partner_id.responsability_id',
-        store=True,
-    )
-
-    formated_vat = fields.Char(
-        string='Responsability',
-        related='commercial_partner_id.formated_vat', )
 
     @api.multi
     def name_get(self):
@@ -182,6 +133,7 @@ class account_invoice(models.Model):
                     inv.document_number or TYPES[inv.type], inv.name or '')))
         return result
 
+    @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []
         recs = self.browse()
@@ -192,13 +144,14 @@ class account_invoice(models.Model):
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
 
-    @api.onchange('journal_id', 'partner_id', 'turn_issuer, ''invoice_turn')
+    # api onchange en lugar de depends.. veamos!
+    @api.onchange('journal_id', 'partner_id', 'turn_issuer','invoice_turn')
     def _get_available_journal_document_class(self):
-        # esta funcion llamada acá fija el giro
-        self.get_available_issuer_turns()
+        #self.get_available_issuer_turns()
         print('ZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz')
         print(self.turn_issuer.vat_affected)
         invoice_type = self.type
+        print('INVOICE TYPE: {}'.format(invoice_type))
         document_class_ids = []
         document_class_id = False
 
@@ -206,16 +159,12 @@ class account_invoice(models.Model):
             'account.journal.sii_document_class']
         if invoice_type in [
                 'out_invoice', 'in_invoice', 'out_refund', 'in_refund']:
-            print('operacion: out/in /inv/refund')
             operation_type = self.get_operation_type(invoice_type)
-            print(operation_type)
 
             if self.use_documents:
-                print('usa documentos')
                 letter_ids = self.get_valid_document_letters(
                     self.partner_id.id, operation_type, self.company_id.id,
                     self.turn_issuer.vat_affected, invoice_type)
-                print(letter_ids)
                 domain = [
                     ('journal_id', '=', self.journal_id.id),
                     '|', ('sii_document_class_id.document_letter_id',
@@ -280,6 +229,52 @@ a VAT."""))
             vat_discriminated = True
         self.vat_discriminated = vat_discriminated
 
+    vat_discriminated = fields.Boolean(
+        'Discriminate VAT?',
+        compute="get_vat_discriminated",
+        store=True,
+        readonly=False,
+        help="Discriminate VAT on Quotations and Sale Orders?")
+
+    available_journals = fields.Many2one(
+        'account.journal',
+        compute='_get_available_journal_document_class',
+        string='Available Journals')
+
+    available_journal_document_class_ids = fields.Many2many(
+        'account.journal.sii_document_class',
+        compute='_get_available_journal_document_class',
+        string='Available Journal Document Classes')
+
+    supplier_invoice_number = fields.Char(
+        copy=False)
+    journal_document_class_id = fields.Many2one(
+        'account.journal.sii_document_class',
+        'Documents Type',
+        compute="_get_available_journal_document_class",
+        readonly=True,
+        store=True,
+        states={'draft': [('readonly', False)]})
+    sii_document_class_id = fields.Many2one(
+        'sii.document_class',
+        related='journal_document_class_id.sii_document_class_id',
+        string='Document Type',
+        copy=False,
+        readonly=True,
+        store=True)
+    sii_document_number = fields.Char(
+        string='Document Number',
+        copy=False,
+        readonly=True,)
+    responsability_id = fields.Many2one(
+        'sii.responsability',
+        string='Responsability',
+        related='commercial_partner_id.responsability_id',
+        store=True,
+        )
+    formated_vat = fields.Char(
+        string='Responsability',
+        related='commercial_partner_id.formated_vat',)
 
     @api.one
     @api.depends('sii_document_number', 'number')
@@ -393,6 +388,7 @@ a VAT."""))
             receptor_responsability_id = partner.responsability_id.id
             if invoice_type == 'out_invoice':
                 if vat_affected == 'SI':
+                    print('responsability receptor: {}'.format(receptor_responsability_id))
                     domain = [
                         ('issuer_ids', '=', issuer_responsability_id),
                         ('receptor_ids', '=', receptor_responsability_id),
