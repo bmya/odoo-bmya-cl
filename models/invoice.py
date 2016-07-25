@@ -12,12 +12,6 @@ import openerp.addons.decimal_precision as dp
 
 class account_invoice_line(models.Model):
 
-    """
-    En Chile como no se discriminan los impuestos en las facturas, excepto el IVA,
-    agrego campos que ignoran el iva solamente a la hora de imprimir los valores.
-    (excepción: liquidación factura)
-    """
-
     _inherit = "account.invoice.line"
 
     def _printed_prices(self, cr, uid, ids, name, args, context=None):
