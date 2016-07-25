@@ -115,6 +115,58 @@ class account_invoice(models.Model):
         states={'draft': [('readonly', False)]},
         default=get_available_issuer_turns)
 
+    vat_discriminated = fields.Boolean(
+        'Discriminate VAT?',
+        compute="get_vat_discriminated",
+        store=True,
+        readonly=False,
+        help="Discriminate VAT on Quotations and Sale Orders?")
+
+    available_journals = fields.Many2one(
+        'account.journal',
+        compute='_get_available_journal_document_class',
+        string='Available Journals')
+
+    available_journal_document_class_ids = fields.Many2many(
+        'account.journal.sii_document_class',
+        compute='_get_available_journal_document_class',
+        string='Available Journal Document Classes')
+
+    supplier_invoice_number = fields.Char(
+        copy=False)
+
+    journal_document_class_id = fields.Many2one(
+        'account.journal.sii_document_class',
+        'Documents Type',
+        compute="_get_available_journal_document_class",
+        readonly=True,
+        store=True,
+        states={'draft': [('readonly', False)]})
+
+    sii_document_class_id = fields.Many2one(
+        'sii.document_class',
+        related='journal_document_class_id.sii_document_class_id',
+        string='Document Type',
+        copy=False,
+        readonly=True,
+        store=True)
+
+    sii_document_number = fields.Char(
+        string='Document Number',
+        copy=False,
+        readonly=True, )
+
+    responsability_id = fields.Many2one(
+        'sii.responsability',
+        string='Responsability',
+        related='commercial_partner_id.responsability_id',
+        store=True,
+    )
+
+    formated_vat = fields.Char(
+        string='Responsability',
+        related='commercial_partner_id.formated_vat', )
+
     @api.multi
     def name_get(self):
         TYPES = {
@@ -228,52 +280,6 @@ a VAT."""))
             vat_discriminated = True
         self.vat_discriminated = vat_discriminated
 
-    vat_discriminated = fields.Boolean(
-        'Discriminate VAT?',
-        compute="get_vat_discriminated",
-        store=True,
-        readonly=False,
-        help="Discriminate VAT on Quotations and Sale Orders?")
-
-    available_journals = fields.Many2one(
-        'account.journal',
-        compute='_get_available_journal_document_class',
-        string='Available Journals')
-
-    available_journal_document_class_ids = fields.Many2many(
-        'account.journal.sii_document_class',
-        compute='_get_available_journal_document_class',
-        string='Available Journal Document Classes')
-
-    supplier_invoice_number = fields.Char(
-        copy=False)
-    journal_document_class_id = fields.Many2one(
-        'account.journal.sii_document_class',
-        'Documents Type',
-        compute="_get_available_journal_document_class",
-        readonly=True,
-        store=True,
-        states={'draft': [('readonly', False)]})
-    sii_document_class_id = fields.Many2one(
-        'sii.document_class',
-        related='journal_document_class_id.sii_document_class_id',
-        string='Document Type',
-        copy=False,
-        readonly=True,
-        store=True)
-    sii_document_number = fields.Char(
-        string='Document Number',
-        copy=False,
-        readonly=True,)
-    responsability_id = fields.Many2one(
-        'sii.responsability',
-        string='Responsability',
-        related='commercial_partner_id.responsability_id',
-        store=True,
-        )
-    formated_vat = fields.Char(
-        string='Responsability',
-        related='commercial_partner_id.formated_vat',)
 
     @api.one
     @api.depends('sii_document_number', 'number')
