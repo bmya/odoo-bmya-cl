@@ -10,8 +10,6 @@ import openerp.addons.decimal_precision as dp
 # print(frameinfo.filename, frameinfo.lineno)
 
 
-<<<<<<< HEAD
-=======
 class account_invoice_line(models.Model):
 
     _inherit = "account.invoice.line"
@@ -105,7 +103,6 @@ class account_invoice_line(models.Model):
     }
 
 
->>>>>>> 8.0_detached
 class account_invoice(models.Model):
     _inherit = "account.invoice"
 
@@ -247,7 +244,6 @@ class account_invoice(models.Model):
         print('ZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZzZz')
         print(self.turn_issuer.vat_affected)
         invoice_type = self.type
-        print('INVOICE TYPE: {}'.format(invoice_type))
         document_class_ids = []
         document_class_id = False
 
@@ -261,6 +257,7 @@ class account_invoice(models.Model):
                 letter_ids = self.get_valid_document_letters(
                     self.partner_id.id, operation_type, self.company_id.id,
                     self.turn_issuer.vat_affected, invoice_type)
+
                 domain = [
                     ('journal_id', '=', self.journal_id.id),
                     '|', ('sii_document_class_id.document_letter_id',
@@ -484,7 +481,6 @@ a VAT."""))
             receptor_responsability_id = partner.responsability_id.id
             if invoice_type == 'out_invoice':
                 if vat_affected == 'SI':
-                    print('responsability receptor: {}'.format(receptor_responsability_id))
                     domain = [
                         ('issuer_ids', '=', issuer_responsability_id),
                         ('receptor_ids', '=', receptor_responsability_id),
