@@ -119,25 +119,30 @@
                                 class="oe_inline"/>
                             <label for="module_web_recipients_uncheck"/>
                         </div>
-                        <div name='module_web_ckeditor4'>
-                            <field name="module_web_ckeditor4"
+                        <div name='module_web_menu_autohide'>
+                            <field name="module_web_menu_autohide"
                                 class="oe_inline"/>
-                            <label for="module_web_ckeditor4"/>
+                            <label for="module_web_menu_autohide"/>
                         </div>
-                        <div name='module_web_sheet_full_width'>
+                        <div name='module_web_hideleftmenu'>
+                            <field name="module_web_hideleftmenu"
+                                class="oe_inline"/>
+                            <label for="module_web_hideleftmenu"/>
+                        </div>
+                        <!--<div name='module_web_sheet_full_width'>
                             <field name="module_web_sheet_full_width"
                                 class="oe_inline"/>
                             <label for="module_web_sheet_full_width"/>
-                        </div>
+                        </div>-->
                         <div name='module_web_m2x_options'>
                             <field name="module_web_m2x_options"
                                 class="oe_inline"/>
                             <label for="module_web_m2x_options"/>
                         </div>
-                        <div name='module_web_group_expand'>
+                        <!--<div name='module_web_group_expand'>
                             <field name="module_web_group_expand" class="oe_inline"/>
                             <label for="module_web_group_expand"/>
-                        </div>     
+                        </div>-->
                     </div>
                     <label for="id" string="Tools"/>
                     <div name="tools">
@@ -185,9 +190,9 @@
                 </group>
 
 
-                <separator string="Fixes" />
+                <!--<separator string="Fixes" />
                 <group>
-                    <label for="id" string="Mail Fixes"/>
+                    <label for="id" string="Mail Fixes"/>-->
                     <!-- <div name="mail_fixes"> 
                         <div name='module_mail_sender_patch'>
                             <field name="module_mail_sender_patch"
@@ -195,7 +200,7 @@
                             <label for="module_mail_sender_patch"/>
                         </div> 
                     </div>-->
-                    <label for="id" string="Portal Fixes"/>
+                    <!--<label for="id" string="Portal Fixes"/>
                     <div name="portal_fixes"> 
                         <div name='module_portal_fix'>
                             <field name="module_portal_fix"
@@ -203,7 +208,7 @@
                             <label for="module_portal_fix"/>
                         </div> 
                     </div>
-                </group>
+                </group>-->
                 
                 <separator string="Technical" />
                 <group>
