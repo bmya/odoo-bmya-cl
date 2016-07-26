@@ -3,7 +3,7 @@
     <data>
 
         <record id="view_account_invoice_filter" model="ir.ui.view">
-            <field name="name">l10n_ar.invoice.search</field>
+            <field name="name">l10n_cl.invoice.search</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.view_account_invoice_filter"/>
             <field name="arch" type="xml">
@@ -20,7 +20,7 @@
         </record>
 
         <record id="invoice_tree" model="ir.ui.view">
-            <field name="name">l10n_ar.invoice.tree</field>
+            <field name="name">l10n_cl.invoice.tree</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_tree"/>
             <field name="arch" type="xml">
@@ -93,10 +93,10 @@
                            domain="[('journal_ids', '=', journal_id)]"
                            attrs="{'required':[('use_documents','=',True)]}"
                            options="{'no_create': True}"/>
-                    <field name="journal_document_class_id"
-                           attrs="{'invisible':[('use_documents','=',False)],'required':[('use_documents','=',True)],'readonly':['|',('state','!=','draft'),('sii_document_number','!=',False)]}"
+                    <field name="journal_document_class_id"/>
+                           <!--attrs="{'invisible':[('use_documents','=',False)],'required':[('use_documents','=',True)],'readonly':['|',('state','!=','draft'),('sii_document_number','!=',False)]}"
                            options="{'no_create': True}"
-                           domain="[('id','in',available_journal_document_class_ids[0][2])]"/>
+                           domain="[('id','in',available_journal_document_class_ids[0][2])]"/>-->
                 </field>
 
                 <field name="account_id" position="attributes">
