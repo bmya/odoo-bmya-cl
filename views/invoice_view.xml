@@ -43,7 +43,7 @@
                                         class="oe_highlight"
                                         name="bring_pdf_ldte"
                                         attrs="{'invisible':[
-                                            ('sii_result', 'not in', 'Aceptado')
+                                            ('sii_result', 'not in', ['Enviado','Aceptado'])
                                         ]}"/>
 
                             </div>
@@ -75,10 +75,10 @@
                                 </div>
                             </div>
                             <div id="seexml" class="collapse out col-md-12">
-                                <field name='sii_xml_request'
-                                    attrs="{
+                                <field name='sii_xml_request'/>
+                                    <!--attrs="{
                                         'invisible':[('sii_result', '=', '')],
-                                    }"/>
+                                    }"-->
                             </div>
                         </div>
                         <div class="row">
@@ -93,18 +93,15 @@
                             </div>
                             <div id="seeresp" class="collapse out col-md-12">
                                 <h4>Respuesta 1:</h4>
-                                <field name='sii_xml_response1'
-                                    attrs="{
+                                <field name='sii_xml_response1'/>
+                                    <!--attrs="{
                                         'invisible':[
-                                            ('sii_result', 'in', [''])]}"/>
-
+                                            ('sii_result', 'in', [''])]}"-->
                                 <h4>Respuesta 2:</h4>
-
-                                <field name='sii_xml_response2'
-                                    attrs="{
+                                <field name='sii_xml_response2'/>
+                                    <!--attrs="{
                                         'invisible':[
-                                            ('sii_result', 'in', [''])]}"/>
-
+                                            ('sii_result', 'in', [''])]}"-->
                             </div>
                         </div>
                     </page>

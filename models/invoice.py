@@ -5,7 +5,6 @@
 ##############################################################################
 from openerp import fields, models, api, _
 from openerp.exceptions import Warning
-from datetime import datetime, timedelta
 import logging, json
 import lxml.etree as etree
 from lxml import objectify
@@ -158,12 +157,17 @@ class invoice(models.Model):
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
      @version: 2016-06-23
     '''
-    def create_headers_ldte(self):
+    def create_headers_ldte(self, comp_id=False):
+        if comp_id:
+            dte_username = comp_id.dte_username
+            dte_password = comp_id.dte_password
+        else:
+            dte_username = self.company_id.dte_username
+            dte_password = self.company_id.dte_password
         headers = {}
         headers['Authorization'] = 'Basic {}'.format(
             base64.b64encode('{}:{}'.format(
-                self.company_id.dte_password,
-                self.company_id.dte_username)))
+                dte_password, dte_username)))
         headers['Accept-Encoding'] = 'gzip, deflate, identity'
         headers['Accept'] = '*/*'
         headers['User-Agent'] = 'python-requests/2.6.0 CPython/2.7.6 \
@@ -171,6 +175,7 @@ Linux/3.13.0-88-generic'
         headers['Connection'] = 'keep-alive'
         headers['Content-Type'] = 'application/json'
         return headers
+
 
     '''
     Funcion para validar los xml generados contra el esquema que le corresponda
@@ -291,17 +296,23 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             _logger.info(response_status_j['track_id'])
             _logger.info(response_status_j['revision_estado'])
             _logger.info(response_status_j['revision_detalle'])
-            if response_status_j['revision_detalle'] == 'DTE aceptado':
+            if response_status_j['revision_estado'] in [
+                'DTE aceptado', 'RLV - DTE Aceptado con Reparos Leves']:
                 resultado_status = 'Aceptado'
+            elif response_status_j['revision_detalle'] == '-11':
+                raise Warning('Atención: Revisión en Proceso')
             elif response_status_j['revision_estado'] == 'RCH - DTE Rechazado':
                 resultado_status = 'Rechazado'
             else:
                 resultado_status = self.sii_result
+            _logger.info('a grabar resultado_status: {}'.format(resultado_status))
             setenvio = {
                 'sii_xml_response2': response_status.data,
                 'sii_result': resultado_status
             }
             self.write(setenvio)
+            _logger.info(
+                'resultado_status grabado: {}'.format(self.sii_result))
             _logger.info(response_status_j['revision_estado'])
 
 
@@ -352,11 +363,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
         elif self.dte_service_provider in ['LIBREDTE', 'LIBREDTE_TEST']:
             '''
-            import base64
-            user = 'Aladdin'
-            passw = 'open sesame'
-            base64.b64encode('{}:{}'.format(user, passw))
-            QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+            LibreDTE no necesita enviar el DTE desde nuestra app. envia solo
+            el diccionario.
             '''
             pass
         else:
@@ -545,7 +553,13 @@ stamp to be legally valid.''')
             raise Warning('Error en conexión al generar: %s, %s' % (
                 response_generar.status, response_generar.data))
         _logger.info('response_generar: %s' % response_generar.data)
-        response_j = json.loads(response_generar.data)
+        self.sii_xml_response1 = response_emitir_data
+        try:
+            response_j = json.loads(response_generar.data)
+        except:
+            raise Warning('LibreDTE No pudo generar el XML.\n'
+                'Reintente en un instante. \n{}'.format(
+                response_generar.data))
         _logger.info(response_j)
         '''
         {"emisor":76085472,"dte":56,"folio":3,"certificacion":1,"tasa":19,
@@ -781,6 +795,7 @@ stamp to be legally valid.''')
                 else:
                     invoice_lines.extend([lines])
 
+            ##### lugar de corte posible para revisar creacion de test:
             # _logger.info(invoice_lines)
             #########################
             folio = self.get_folio(inv)
@@ -926,7 +941,10 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 _logger.info('username: %s' % self.company_id.dte_username)
 
                 headers = self.create_headers_ldte()
-
+                _logger.info('DTE enviado:')
+                _logger.info(dte)
+                _logger.info('DTE enviado (json)')
+                _logger.info(json.dumps(dte))
                 if inv.sii_xml_response1 == False:
                     response_emitir = pool.urlopen(
                         'POST', api_emitir, headers=headers, body=json.dumps(dte))
