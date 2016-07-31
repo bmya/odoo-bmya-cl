@@ -63,6 +63,22 @@ api_emitir = host + '/dte/documentos/emitir'
 api_generar = host + '/dte/documentos/generar'
 api_gen_pdf = host + '/dte/documentos/generar_pdf'
 api_upd_satus = host + '/dte/dte_emitidos/actualizar_estado/'
+
+special_chars = [
+    ['á', 'a'],
+    ['é', 'e'],
+    ['í', 'i'],
+    ['ó', 'o'],
+    ['ú', 'u'],
+    ['ñ', 'n'],
+    ['Á', 'A'],
+    ['É', 'E'],
+    ['Í', 'I'],
+    ['Ó', 'O'],
+    ['Ú', 'U'],
+    ['Ñ', 'N'],
+]
+
 '''
 Extensión del modelo de datos para contener parámetros globales necesarios
  para todas las integraciones de factura electrónica.
@@ -71,6 +87,18 @@ Extensión del modelo de datos para contener parámetros globales necesarios
 '''
 class invoice(models.Model):
     _inherit = "account.invoice"
+
+    '''
+    Funcion para reemplazar caracteres especiales
+    Esta funcion sirve para salvar bug en libreDTE con los recortes de giros
+    que están codificados en utf8 (cuando trunca, trunca la coficiacion)
+     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+     @version: 2016-07-31
+    '''
+    def char_replace(self, text):
+        for char in special_chars:
+            text = text.replace(char[0], char[1])
+        return text
 
     '''
     Creacion de plantilla xml para envolver el DTE
@@ -769,7 +797,7 @@ stamp to be legally valid.''')
                     lines['CdgItem'] = collections.OrderedDict()
                     lines['CdgItem']['TpoCodigo'] = 'INT1'
                     lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
-                lines['NmbItem'] = line.product_id.name[:80]
+                lines['NmbItem'] = char_replace(line.product_id.name)[:80]
                 lines['DscItem'] = line.name
                 # si es cero y es nota de crédito o debito, los salteo a los dos
                 if line.quantity == 0 and line.price_unit == 0 and \
@@ -821,7 +849,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
                 inv.company_id.vat)
             dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
-            dte['Encabezado']['Emisor']['GiroEmis'] = inv.turn_issuer.name[:80]
+            dte['Encabezado']['Emisor']['GiroEmis'] = char_replace(inv.turn_issuer.name)[:80]
             if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
                 dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
             else:
@@ -842,7 +870,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(
                 inv.partner_id.vat)
             dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
-            dte['Encabezado']['Receptor']['GiroRecep'] = inv.invoice_turn.name[:40]
+            dte['Encabezado']['Receptor']['GiroRecep'] = char_replace(inv.invoice_turn.name)[:40]
             dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
             # todo: revisar comuna: "false"
             if inv.partner_id.state_id.name == False or inv.partner_id.city == False:
