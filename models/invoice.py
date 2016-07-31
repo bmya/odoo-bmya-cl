@@ -629,7 +629,7 @@ stamp to be legally valid.''')
         # pero prefiero del adjunto
         dte_xml = self.get_xml_attachment()
         generar_pdf_request = json.dumps({'xml': dte_xml,
-                                          'compress': False})
+                                          'compress': False}, ensure_ascii=False, encoding='utf8')
         _logger.info(generar_pdf_request)
         response_pdf = pool.urlopen(
             'POST', api_gen_pdf,  headers=headers,
@@ -707,8 +707,9 @@ stamp to be legally valid.''')
 
 
     @api.multi
-    def action_invoice_print(self):
+    def invoice_print(self):
         _logger.info('entrando a impresion de factura desde boton de arriba')
+        return self.env['report'].get_action(self, 'account.report_invoice')
         pass
 
     @api.multi
@@ -944,10 +945,11 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 _logger.info('DTE enviado:')
                 _logger.info(dte)
                 _logger.info('DTE enviado (json)')
-                _logger.info(json.dumps(dte))
+                _logger.info(json.dumps(dte, ensure_ascii=False, encoding='utf8'))
                 if inv.sii_xml_response1 == False:
                     response_emitir = pool.urlopen(
-                        'POST', api_emitir, headers=headers, body=json.dumps(dte))
+                        'POST', api_emitir, headers=headers, body=json.dumps(dte, ensure_ascii=False, encoding='utf8')
+
                     if response_emitir.status != 200:
                         raise Warning('Error en conexión al emitir: %s, %s' % (
                             response_emitir.status, response_emitir.data))
