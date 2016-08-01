@@ -65,21 +65,6 @@ api_gen_pdf = host + '/dte/documentos/generar_pdf'
 api_upd_satus = host + '/dte/dte_emitidos/actualizar_estado/'
 
 special_chars = [
-    [u'\xc3\xa1', 'a'],
-    [u'\xc3\xa9', 'e'],
-    [u'\xc3\xad', 'i'],
-    [u'\xc3\xb3', 'o'],
-    [u'\xc3\xba', 'u'],
-    [u'\xc3\xb1', 'n'],
-    [u'\xc3\x81', 'A'],
-    [u'\xc3\x89', 'E'],
-    [u'\xc3\x8d', 'I'],
-    [u'\xc3\x93', 'O'],
-    [u'\xc3\x9a', 'U'],
-    [u'\xc3\x91', 'N']
-]
-
-special_chars = [
     [u'á', 'a'],
     [u'é', 'e'],
     [u'í', 'i'],
@@ -348,7 +333,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 resultado_status = 'Aceptado'
             elif response_status_j['revision_detalle'] == '-11':
                 raise Warning('Atención: Revisión en Proceso')
-            elif response_status_j['revision_estado'] in ['RCH - DTE Rechazado', 'RFR - Rechazado por Error en Firma']:
+            elif response_status_j['revision_estado'] in [
+                'RCH - DTE Rechazado', 'RFR - Rechazado por Error en Firma']:
                 resultado_status = 'Rechazado'
             else:
                 resultado_status = self.sii_result
@@ -752,7 +738,6 @@ stamp to be legally valid.''')
             'context': ctx,
         }
 
-
     @api.multi
     def invoice_print(self):
         _logger.info('entrando a impresion de factura desde boton de arriba')
@@ -825,13 +810,18 @@ stamp to be legally valid.''')
                 else:
                     lines['QtyItem'] = round(line.quantity, 4)
                     # todo: opcional lines['UnmdItem'] = line.uos_id.name[:4]
-                    lines['PrcItem'] = round(line.price_unit, 4)
+                    # reemplazo la formula de precio unitario para que sea
+                    # independiente de si se incluye o no el iva en el precio
+                    # lines['PrcItem'] = round(line.price_unit, 4)
+                    price_unit = (line.price_subtotal/line.quantity) / (1-line.discount/100)
+                    lines['PrcItem'] = round(price_unit, 4)
+
                 if 1==1:
                     # try:
                     if line.discount != 0:
                         lines['DescuentoPct'] = round(line.discount, 2)
                         lines['DescuentoMonto'] = int(round(
-                            (line.quantity * line.price_unit * line.discount) / 100, 0))
+                            (line.quantity * price_unit * line.discount) / 100, 0))
                 else:
                     #except:
                     pass
@@ -940,7 +930,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['DscRcgGlobal']['TpoValor'] = '$'  # ''%'
                 dte['DscRcgGlobal']['ValorDR'] = round(abs(global_discount))
             _logger.info(dte)
-            # raise Warning('dictionary generated')
+
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
             doc_id = '<Documento ID="{}">'.format(doc_id_number)
@@ -990,10 +980,12 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 _logger.info('DTE enviado:')
                 _logger.info(dte)
                 _logger.info('DTE enviado (json)')
-                _logger.info(json.dumps(dte, ensure_ascii=False, encoding='utf8'))
+                _logger.info(json.dumps(dte))
+                # corte para debug
+                # raise Warning('dictionary generated')
                 if inv.sii_xml_response1 == False:
                     response_emitir = pool.urlopen(
-                        'POST', api_emitir, headers=headers, body=json.dumps(dte, ensure_ascii=False, encoding='utf8'))
+                        'POST', api_emitir, headers=headers, body=json.dumps(dte))
 
                     if response_emitir.status != 200:
                         raise Warning('Error en conexión al emitir: %s, %s' % (
