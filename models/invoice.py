@@ -78,6 +78,21 @@ special_chars = [
     ['Ú', 'U'],
     ['Ñ', 'N'],
 ]
+special_chars = [
+    [u'\xc3\xa1', 'a'],
+    [u'\xc3\xa9', 'e'],
+    [u'\xc3\xad', 'i'],
+    [u'\xc3\xb3', 'o'],
+    [u'\xc3\xba', 'u'],
+    [u'\xc3\xb1', 'n'],
+    [u'\xc3\x81', 'A'],
+    [u'\xc3\x89', 'E'],
+    [u'\xc3\x8d', 'I'],
+    [u'\xc3\x93', 'O'],
+    [u'\xc3\x9a', 'U'],
+    [u'\xc3\x91', 'N']
+]
+
 
 '''
 Extensión del modelo de datos para contener parámetros globales necesarios
@@ -797,7 +812,7 @@ stamp to be legally valid.''')
                     lines['CdgItem'] = collections.OrderedDict()
                     lines['CdgItem']['TpoCodigo'] = 'INT1'
                     lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
-                lines['NmbItem'] = char_replace(line.product_id.name)[:80]
+                lines['NmbItem'] = self.char_replace(line.product_id.name)[:80]
                 lines['DscItem'] = line.name
                 # si es cero y es nota de crédito o debito, los salteo a los dos
                 if line.quantity == 0 and line.price_unit == 0 and \
@@ -849,7 +864,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
                 inv.company_id.vat)
             dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
-            dte['Encabezado']['Emisor']['GiroEmis'] = char_replace(inv.turn_issuer.name)[:80]
+            dte['Encabezado']['Emisor']['GiroEmis'] = self.char_replace(inv.turn_issuer.name)[:80]
             if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
                 dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
             else:
@@ -870,7 +885,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(
                 inv.partner_id.vat)
             dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
-            dte['Encabezado']['Receptor']['GiroRecep'] = char_replace(inv.invoice_turn.name)[:40]
+            dte['Encabezado']['Receptor']['GiroRecep'] = self.char_replace(inv.invoice_turn.name)[:40]
             dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
             # todo: revisar comuna: "false"
             if inv.partner_id.state_id.name == False or inv.partner_id.city == False:
