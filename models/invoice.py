@@ -112,7 +112,10 @@ class invoice(models.Model):
     '''
     def char_replace(self, text):
         for char in special_chars:
-            text = text.replace(char[0], char[1])
+            try:
+                text = text.replace(char[0], char[1])
+            except:
+                pass
         print(text)
         return text
 
@@ -878,20 +881,20 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             # no obligatorio si no hay sucursal, pero es un numero entregado
             # por el SII para cada sucursal.
             # este deberia agregarse al "punto de venta" el cual ya esta
-            dte['Encabezado']['Emisor']['DirOrigen'] = inv.company_id.street
-            dte['Encabezado']['Emisor']['CmnaOrigen'] = inv.company_id.state_id.name
-            dte['Encabezado']['Emisor']['CiudadOrigen'] = inv.company_id.city
+            dte['Encabezado']['Emisor']['DirOrigen'] = self.char_replace(inv.company_id.street)
+            dte['Encabezado']['Emisor']['CmnaOrigen'] = self.char_replace(inv.company_id.state_id.name)
+            dte['Encabezado']['Emisor']['CiudadOrigen'] = self.char_replace(inv.company_id.city)
             dte['Encabezado']['Receptor'] = collections.OrderedDict()
             dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(
                 inv.partner_id.vat)
             dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
             dte['Encabezado']['Receptor']['GiroRecep'] = self.char_replace(inv.invoice_turn.name)[:40]
-            dte['Encabezado']['Receptor']['DirRecep'] = inv.partner_id.street
+            dte['Encabezado']['Receptor']['DirRecep'] = self.char_replace(inv.partner_id.street)
             # todo: revisar comuna: "false"
             if inv.partner_id.state_id.name == False or inv.partner_id.city == False:
                 raise Warning('No se puede continuar: Revisar comuna y ciudad')
-            dte['Encabezado']['Receptor']['CmnaRecep'] = inv.partner_id.state_id.name
-            dte['Encabezado']['Receptor']['CiudadRecep'] = inv.partner_id.city
+            dte['Encabezado']['Receptor']['CmnaRecep'] = self.char_replace(inv.partner_id.state_id.name)
+            dte['Encabezado']['Receptor']['CiudadRecep'] = self.char_replace(inv.partner_id.city)
             if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
                 # no se envían los totales a LibreDTE
                 dte['Encabezado']['Totales'] = collections.OrderedDict()
@@ -927,7 +930,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['Referencia']['FolioRef'] = inv.sii_referencia_FolioRef
                 dte['Referencia']['FchRef'] = inv.sii_referencia_FchRef
                 dte['Referencia']['CodRef'] = inv.sii_referencia_CodRef
-                dte['Referencia']['RazonRef'] = inv.origin
+                dte['Referencia']['RazonRef'] = self.char_replace(inv.origin)
 
             if global_discount != 0:
                 dte['DscRcgGlobal'] = collections.OrderedDict()
