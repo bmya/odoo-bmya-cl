@@ -750,8 +750,9 @@ stamp to be legally valid.''')
 
 
     @api.multi
-    def action_invoice_print(self):
+    def invoice_print(self):
         _logger.info('entrando a impresion de factura desde boton de arriba')
+
         pass
 
     @api.multi
