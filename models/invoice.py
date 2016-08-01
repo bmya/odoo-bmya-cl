@@ -65,20 +65,6 @@ api_gen_pdf = host + '/dte/documentos/generar_pdf'
 api_upd_satus = host + '/dte/dte_emitidos/actualizar_estado/'
 
 special_chars = [
-    ['á', 'a'],
-    ['é', 'e'],
-    ['í', 'i'],
-    ['ó', 'o'],
-    ['ú', 'u'],
-    ['ñ', 'n'],
-    ['Á', 'A'],
-    ['É', 'E'],
-    ['Í', 'I'],
-    ['Ó', 'O'],
-    ['Ú', 'U'],
-    ['Ñ', 'N'],
-]
-special_chars = [
     [u'\xc3\xa1', 'a'],
     [u'\xc3\xa9', 'e'],
     [u'\xc3\xad', 'i'],
@@ -92,7 +78,6 @@ special_chars = [
     [u'\xc3\x9a', 'U'],
     [u'\xc3\x91', 'N']
 ]
-
 
 '''
 Extensión del modelo de datos para contener parámetros globales necesarios
@@ -752,11 +737,6 @@ stamp to be legally valid.''')
     @api.multi
     def invoice_print(self):
         _logger.info('entrando a impresion de factura desde boton de arriba')
-<<<<<<< HEAD
-        return self.env['report'].get_action(self, 'account.report_invoice')
-=======
-
->>>>>>> e8b4a344c2476a65b1232910158c3d58f68fa795
         pass
 
     @api.multi
