@@ -79,6 +79,21 @@ special_chars = [
     [u'\xc3\x91', 'N']
 ]
 
+special_chars = [
+    [u'á', 'a'],
+    [u'é', 'e'],
+    [u'í', 'i'],
+    [u'ó', 'o'],
+    [u'ú', 'u'],
+    [u'ñ', 'n'],
+    [u'Á', 'A'],
+    [u'É', 'E'],
+    [u'Í', 'I'],
+    [u'Ó', 'O'],
+    [u'Ú', 'U'],
+    [u'Ñ', 'N']
+]
+
 '''
 Extensión del modelo de datos para contener parámetros globales necesarios
  para todas las integraciones de factura electrónica.
@@ -98,6 +113,7 @@ class invoice(models.Model):
     def char_replace(self, text):
         for char in special_chars:
             text = text.replace(char[0], char[1])
+        print(text)
         return text
 
     '''
@@ -822,7 +838,6 @@ stamp to be legally valid.''')
                     invoice_lines.extend([{'Detalle': lines}])
                 else:
                     invoice_lines.extend([lines])
-
             ##### lugar de corte posible para revisar creacion de test:
             # _logger.info(invoice_lines)
             #########################
