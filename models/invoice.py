@@ -348,7 +348,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 resultado_status = 'Aceptado'
             elif response_status_j['revision_detalle'] == '-11':
                 raise Warning('Atención: Revisión en Proceso')
-            elif response_status_j['revision_estado'] == 'RCH - DTE Rechazado':
+            elif response_status_j['revision_estado'] in ['RCH - DTE Rechazado', 'RFR - Rechazado por Error en Firma']:
                 resultado_status = 'Rechazado'
             else:
                 resultado_status = self.sii_result
