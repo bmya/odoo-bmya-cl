@@ -661,8 +661,7 @@ stamp to be legally valid.''')
         # hay que tomar el xml del adjunto, o bien del texto
         # pero prefiero del adjunto
         dte_xml = self.get_xml_attachment()
-        generar_pdf_request = json.dumps({'xml': dte_xml,
-                                          'compress': False}, ensure_ascii=False, encoding='utf8')
+        generar_pdf_request = json.dumps({'xml': dte_xml, 'compress': False})
         _logger.info(generar_pdf_request)
         response_pdf = pool.urlopen(
             'POST', api_gen_pdf,  headers=headers,
