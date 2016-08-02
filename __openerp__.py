@@ -10,7 +10,8 @@
         'account',
         'account_accountant',
         'l10n_cl_base_rut',
-        'l10n_cl_partner_activities'
+        'l10n_cl_partner_activities',
+        'decimal_precision'
         ],
     'description': u'''
 \n\nMódulo de Facturación de la localización Chilena.\n\n\nIncluye:\n

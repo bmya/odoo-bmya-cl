@@ -6,6 +6,7 @@ from openerp.tools.translate import _
 import logging
 from openerp.exceptions import Warning
 
+# TODO: cambiar: si es giro solo no afecto, me incluye comprobantes afectos
 
 _logger = logging.getLogger(__name__)
 

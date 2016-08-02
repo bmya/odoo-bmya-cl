@@ -14,9 +14,12 @@
                 </field>
 
                 <field name="website" position="after">
-                    <field name="document_type_id" colspan="1"/>
+                    <field name="document_type_id"
+                        options="{'no_create': True}"
+                        colspan="1"/>
                     <field name="document_number" colspan="1"/>
-                    <field name="responsability_id" widget="selection"/>
+                    <field name="responsability_id" widget="selection"
+                        options="{'no_create': True}"/>
                 </field>
                 <!--<field name="last_reconciliation_date" position="before">
                     <field name="responsability_id" widget="selection"/>
