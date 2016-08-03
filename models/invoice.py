@@ -342,7 +342,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             _logger.info('a grabar resultado_status: {}'.format(resultado_status))
             setenvio = {
                 'sii_xml_response2': response_status.data,
-                'sii_result': resultado_status
+                'sii_result': resultado_status,
+                'invoice_printed': printed
             }
             self.write(setenvio)
             _logger.info(
