@@ -322,16 +322,17 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 raise Warning(
                     'Error al obtener el estado del DTE emitido: {}'.format(
                         response_status.data))
-            _logger.info('kdjdjdjdjdjdjdjdjdjdjdjdjdjdjdjdjd')
+            _logger.info('Se recibió una respuesta:')
             _logger.info(response_status.data)
             response_status_j = json.loads(response_status.data)
             _logger.info(response_status_j['track_id'])
             _logger.info(response_status_j['revision_estado'])
             _logger.info(response_status_j['revision_detalle'])
             if response_status_j['revision_estado'] in [
-                'DTE aceptado', 'RLV - DTE Aceptado con Reparos Leves']:
+                'DTE aceptado', 'RLV - DTE Aceptado con Reparos Leves'] or \
+                response_status_j['revision_detalle'] == 'DTE aceptado':
                 resultado_status = 'Aceptado'
-            elif response_status_j['revision_detalle'] == '-11':
+            elif response_status_j['revision_estado'] == '-11':
                 raise Warning('Atención: Revisión en Proceso')
             elif response_status_j['revision_estado'] in [
                 'RCH - DTE Rechazado', 'RFR - Rechazado por Error en Firma']:
