@@ -158,7 +158,7 @@ class dteEmail(models.Model):
             try:
                 giro = self._get_partner_turn_id(
                     str(partner_values['actividad_economica']))
-                self.partner_activities_ids = [(6, 0, [giro.id])]
+                self.partner_activities_ids = [(4, giro.id)]
                 _logger.info('Tax category: {}'.format(giro.tax_category))
                 if 1==1:
                     self.responsability_id = self.env.ref(
