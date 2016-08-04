@@ -6,7 +6,7 @@
             <field name="name">DTE - Send by Email</field>
             <!--<field name="email_from">${(object.user_id.email or object.company_id.email or 'noreply@localhost')|safe}</field>-->
             <field name="email_from">${(object.company_id.dte_email or object.company_id.email|safe)}</field>
-            <field name="subject">${(object.company_id.partner_id.ref|safe or '')} DTE (Ref ${(object.document_number or 'n/a')})</field>
+            <field name="subject">${(object.company_id.partner_id.ref|safe or object.company_id.partner_id.name|safe)} DTE (Ref ${(object.document_number or 'n/a')})</field>
             <field name="partner_to">${object.partner_id.id}</field>
             <field name="email_to">${object.partner_id.dte_email|safe}</field>
             <!--<field name="email_cc">${(object.partner_id.email)|safe}</field>-->
@@ -22,7 +22,7 @@
     <p>A new invoice is available for you: </p>
     
     <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
-       &nbsp;&nbsp;<strong>REFERENCES</strong><br />
+       &nbsp;&nbsp;<strong>REFERENCIA</strong><br />
        &nbsp;&nbsp;Invoice number: <strong>${object.document_number}</strong><br />
        &nbsp;&nbsp;Invoice total: <strong>${object.currency_id.name} ${str(object.amount_total)[:-2]}</strong><br />
        &nbsp;&nbsp;Invoice date: ${object.date_invoice}<br />
