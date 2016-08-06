@@ -4,13 +4,13 @@
         <record model='sii.responsability' id='res_CF'>
             <field name='code'>CF</field>
             <field name='tp_sii_code'>0</field>
-            <field name='name'>Consumidor Final</field>
+            <field name='name'>BOLETA</field>
 	        <field name='active' eval="True"/>
         </record>
         <record model='sii.responsability' id='res_IVARI'>
             <field name='code'>IVARI</field>
             <field name='tp_sii_code'>1</field>
-            <field name='name'>IVA Afecto / 1ra Categoría</field>
+            <field name='name'>FACTURA / 1ra Categoría</field>
 	        <field name='active' eval="True"/>
         </record>
         <record model='sii.responsability' id='res_BH'>
