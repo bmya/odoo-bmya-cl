@@ -25,4 +25,4 @@ dc_tcd_f_dtn,True,dl_t,501,False,TCD ,,TC-D ,Ajuste disminución Tipo de Cambio 
 dc_b_f_dtn,True,dl_b,35,False,BOL ,invoice,BOL ,Boleta de Venta,BOL 
 dc_m_f_dtn,True,dl_m,70,False,BHO ,invoice,BHO ,Boleta de Honorarios,BHO
 dc_m_d_dtn,True,dl_m,71,True,BHE ,invoice,BHE ,Boleta de Honorarios Electrónica,BHE
-c_g_nvt,True,dl_g,999,False,NVT	,invoice,NVT ,Nota de Venta,TARJ
+dc_g_nvt,True,dl_g,999,False,NVT	,invoice,NVT ,Nota de Venta,TARJ
