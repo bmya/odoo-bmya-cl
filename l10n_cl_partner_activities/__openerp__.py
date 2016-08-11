@@ -41,6 +41,6 @@
         'views/invoice_turn.xml',
         'security/ir.model.access.csv',
     ],
-    'version': '2.1',
+    'version': '2.2',
     'website': 'http://blancomartin.cl'
 }

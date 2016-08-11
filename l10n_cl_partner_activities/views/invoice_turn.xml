@@ -11,5 +11,19 @@
                 </xpath>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="invoice_turn_supplier_form_view">
+            <field name="name">account.invoice.turn.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group/group/field[@name='partner_id']" position="after">
+                    <field name="invoice_turn" domain="[('partner_ids', '=', partner_id)]" options="{'no_create': True}"/>
+                </xpath>
+                <field name="invoice_turn" position="attributes">
+                    <attribute name="string">Giro del Proveedor</attribute>
+                </field>
+            </field>
+        </record>
     </data>
 </openerp>
