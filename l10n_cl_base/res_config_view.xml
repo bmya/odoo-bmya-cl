@@ -100,12 +100,12 @@
 									class="oe_inline"/>
 								<label for="module_l10n_cl_dte" />
 							</div>
-                            <div name='module_l10n_cl_dte_caf' attrs="{'invisible':[('module_l10n_cl_dte','=',False)]}">
-								<field name="module_l10n_cl_dte_caf"
+                            <div name='module_user_signature_key' attrs="{'invisible':[('module_l10n_cl_dte','=',False)]}">
+								<field name="module_user_signature_key"
 									class="oe_inline"/>
-								<label for="module_l10n_cl_dte_caf" />
+								<label for="module_user_signature_key" />
 							</div>
-                            <div name='module_l10n_cl_dte_pdf' attrs="{'invisible':[('module_l10n_cl_dte_caf','=',False)]}">
+                            <div name='module_l10n_cl_dte_pdf' attrs="{'invisible':[('module_user_signature_key','=',False)]}">
 								<field name="module_l10n_cl_dte_pdf"
 									class="oe_inline" readonly="1" />
 								<label for="module_l10n_cl_dte_pdf" />
@@ -119,9 +119,9 @@
 								<field name="module_l10n_cl_pos_basic_users" class="oe_inline" />
 								<label for="module_l10n_cl_pos_basic_users" />
 							</div>
-                            <div name='module_l10n_cl_credit_card_voucher'>
-								<field name="module_l10n_cl_credit_card_voucher" class="oe_inline" />
-								<label for="module_l10n_cl_credit_card_voucher" />
+                            <div name='module_l10n_cl_pos_credit_card_voucher'>
+								<field name="module_l10n_cl_pos_credit_card_voucher" class="oe_inline" />
+								<label for="module_l10n_cl_pos_credit_card_voucher" />
 							</div>
 							<div name='module_invoice_printed'>
 								<field name="module_invoice_printed"

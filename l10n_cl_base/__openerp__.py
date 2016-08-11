@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Chile - Localization Installation Wizard',
-    'version': '2.1',
+    'version': '8.0.3.1',
     'category': 'Chilean Localization',
     'license': 'AGPL-3',
     'sequence': 14,
