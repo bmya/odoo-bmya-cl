@@ -27,13 +27,14 @@
 #
 ##############################################################################
 
-Daniel Blanco <daniel@blancomartin.cl>
+Daniel Blanco <daniel[at]blancomartin.cl>
+
 
 # Para lograr esta distribuciön para facturacion chilena;
 # se han tomado ideas y porciones de codigo existentes
 # en modulos de la localizacion argentina; los cuales han sido aportados 
 #por:
-Cristian S. Rocha <cristian.rocha@moldeo.coop>
-Juan Jose Scarafia <jjsacarafia@ingadhoc.com>
+Cristian S. Rocha <cristian.rocha[at]moldeo.coop>
+Juan Jose Scarafia <jjsacarafia[at]ingadhoc.com>
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

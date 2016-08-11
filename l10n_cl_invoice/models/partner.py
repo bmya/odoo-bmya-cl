@@ -16,12 +16,12 @@ class res_partner(models.Model):
     #    return self.env.ref('l10n_cl_invoice.dt_RUT').id
 
     responsability_id = fields.Many2one(
-        'sii.responsability', 'Responsability')
+        'sii.responsability', 'Sale/Purchase Doc Type')
         # dejamos el default pendiente para instalar en otro modulo,
         # porque da problemas en instalaciones nuevas
         # 'sii.responsability', 'Responsability', default = _get_default_tp_type)
     document_type_id = fields.Many2one(
-        'sii.document_type', 'Document type')
+        'sii.document_type', 'ID Type')
         # 'sii.document_type', 'Document type', default = _get_default_doc_type)
     document_number = fields.Char('Document number', size=64)
     
