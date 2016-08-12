@@ -104,7 +104,7 @@ Include unusual taxes documents, as transfer invoice, and reissue
         vals = {
             'name': journal.name + ' - ' + name,
             'padding': 6,
-            'prefix': journal.point_of_sale,
+            # 'prefix': journal.point_of_sale,
         }
         sequence_id = self.pool['ir.sequence'].create(
             cr, uid, vals, context=context)
