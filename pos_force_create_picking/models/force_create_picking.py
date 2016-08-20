@@ -45,9 +45,10 @@ class pos_order(models.Model):
                 pass
                 _logger.info('Order: {}, picking {} is OK'.format(po.name, po.picking_id.name))
 
-
     picking_id_id = fields.Integer('Picking ID',
                                    compute='_get_picking_id')
+    state = fields.Selection(selection_add=[
+        ('picking_exception', 'Picking Exception')])
 
     @api.multi
     @api.depends('picking_id')
@@ -58,3 +59,5 @@ class pos_order(models.Model):
                 po.picking_id_id = 99999999
             else:
                 po.picking_id_id = po.picking_id.id
+                if po.picking_id_id == 0:
+                    po.state = 'picking_exception'

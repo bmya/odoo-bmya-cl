@@ -14,6 +14,9 @@
                         ('picking_id_id', '!=', 0)
                         ]}"/>
                     <field name="picking_id_id" invisible="1"/>
+                    <!--<field name="state" position="replace">
+                        <field name="state" widget="statusbar"/>
+                    </field>-->
             	</button>
             </field>
         </record>
@@ -27,7 +30,8 @@
                          <field name="picking_id_id" invisible="1"/>
                     </xpath>
                     <xpath expr="//tree[@string='POS Orders']" position="attributes">
-                        <attribute name="colors">red:picking_id_id==0;</attribute>
+                        <!--<attribute name="colors">red:picking_id_id==0;</attribute>-->
+                        <attribute name="colors">red:state=='picking_exception';</attribute>
                     </xpath>
                 </data>
             </field>
