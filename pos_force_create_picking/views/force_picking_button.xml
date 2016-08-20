@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_force_create_picking_button" model="ir.ui.view">
+            <field name="name">create.picking.button</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <button name="refund" position="after">
+                    <button string="Create Picking" type="object" name="force_create_picking"
+                    class="oe_highlight"
+                    attrs="{'invisible':[
+                        '|',
+                        ('picking_id_id', '!=', 0)
+                        ]}"/>
+                    <field name="picking_id_id" invisible="1"/>
+            	</button>
+            </field>
+        </record>
+        <record id="view_force_create_picking_tree" model="ir.ui.view">
+            <field name="name">force.create.picking.tree</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='name']" position="after">
+                         <field name="picking_id_id" invisible="1"/>
+                    </xpath>
+                    <xpath expr="//tree[@string='POS Orders']" position="attributes">
+                        <attribute name="colors">red:picking_id_id==0;</attribute>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
