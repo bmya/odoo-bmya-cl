@@ -28,6 +28,8 @@ Odoo itself (to register  DTEs issued by Odoo l10n_cl_dte/caf modules are needed
 """),
         'non_dte_register': fields.boolean(
             'Register Manual Documents?'),
+        'electronic_ticket': fields.boolean(
+            'Register Electronic Ticket'),
         'free_tax_zone': fields.boolean(
             'Register Free-Tax Zone or # 1057 Resolution Documents?'),
         'settlement_invoice': fields.boolean(

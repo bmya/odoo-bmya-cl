@@ -23,5 +23,8 @@ dc_fzf_f_dtn,True,dl_a,907,False,FZF ,invoice,FACTURA ZF ,Facturas Venta Módulo
 dc_tca_f_dtn,True,dl_t,500,False,TCA ,,TC-A ,Ajuste aumento Tipo de Cambio (código 500),TCA
 dc_tcd_f_dtn,True,dl_t,501,False,TCD ,,TC-D ,Ajuste disminución Tipo de Cambio (código 501),TCD
 dc_b_f_dtn,True,dl_b,35,False,BOL ,invoice,BOL ,Boleta de Venta,BOL 
+dc_b_e_dtn,True,dl_b,38,False,BEX,invoice,BEX ,Boleta exenta,BEX
+dc_b_f_dte,True,dl_b,39,True,BEL,invoice,BEL ,Boleta Electrónica,BEL
+dc_b_e_dte,True,dl_b,41,True,BXE,invoice,BXE ,Boleta Exenta Electrónica,BXE
 dc_m_f_dtn,True,dl_m,70,False,BHO ,invoice,BHO ,Boleta de Honorarios,BHO
 dc_m_d_dtn,True,dl_m,71,True,BHE ,invoice,BHE ,Boleta de Honorarios Electrónica,BHE
