@@ -39,6 +39,10 @@ class pos_order(models.Model):
                     po.create_picking()
                     _logger.info(
                         'despes de hacer')
+                    if po.note:
+                        po.note = po.note + ' - Picking created manually. '
+                    else:
+                        po.note = 'Picking created manually. '
                 else: #except:
                     _logger.info('Order: {}, picking COULD NOT BEEN CREATED'.format(po.name))
             else:
