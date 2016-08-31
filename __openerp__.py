@@ -14,8 +14,13 @@
         'decimal_precision'
         ],
     'description': u'''
-\n\nMódulo de Facturación de la localización Chilena.\n\n\nIncluye:\n
-- Configuraci\xc3\xb3n de libros, diarios (journals) y otros detalles para facturación para Chile.\n
+
+
+Módulo de Facturación de la localización Chilena.
+
+
+Incluye:
+- Configuración de libros, diarios (journals) y otros detalles para facturación para Chile.
 - Asistente para configurar los talonarios de facturas, boletas, guías de despacho, etc.
 ''',
     'init_xml': [],
