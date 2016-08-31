@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2015  BMyA SA  (http://blancomartin.cl)
+#    Copyright (C) 2015  Blanco Martin & Asociados  (http://blancomartin.cl)
 #    All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 {
     "name": """Chile - Web Services de Documentos Tributarios Electrónicos\
     """,
-    'version': '8.0.1.4.0',
+    'version': '8.0.2.0.0',
     'category': 'Localization/Chile',
     'sequence': 12,
     'author':  'Blanco Martín & Asociados',
