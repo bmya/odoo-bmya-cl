@@ -762,6 +762,8 @@ stamp to be legally valid.''')
     def do_dte_send_invoice(self):
         cant_doc_batch = 0
         for inv in self.with_context(lang='es_CL'):
+            if inv.type[:2] == 'in':
+                continue
             # control de DTE
             if inv.sii_document_class_id.dte == False:
                 continue
@@ -901,6 +903,8 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                     inv.partner_id.parent_id.vat)
                 dte['Encabezado']['Receptor'][
                     'RznSocRecep'] = inv.partner_id.parent_id.name
+            if not inv.invoice_turn.name:
+                raise UserError('No hay giro del cliente o proveedor seleccionado.')
             dte['Encabezado']['Receptor']['GiroRecep'] = self.char_replace(inv.invoice_turn.name)[:40]
             dte['Encabezado']['Receptor']['DirRecep'] = self.char_replace(inv.partner_id.street)
             # todo: revisar comuna: "false"
