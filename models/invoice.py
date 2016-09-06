@@ -884,9 +884,23 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             dte['Encabezado']['Emisor']['CmnaOrigen'] = self.char_replace(inv.company_id.state_id.name)
             dte['Encabezado']['Emisor']['CiudadOrigen'] = self.char_replace(inv.company_id.city)
             dte['Encabezado']['Receptor'] = collections.OrderedDict()
-            dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(
-                inv.partner_id.vat)
-            dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
+
+            # agregado de posibilidad de multiples direcciones, para el mismo partner
+            # si el registro es "hijo de" un partner principal,
+            # toma el nombre del partner principal.
+            # pero toma la direccion del partner seleccionado.
+            if not inv.partner_id.parent_id:
+                # si viene por aca quiere decir que estoy tratando con la compañia principal
+                dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(
+                    inv.partner_id.vat)
+                dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
+            else:
+                # si viene por aca significa que estoy en un partner "hijo"
+                # y debo tomar la razon social principal
+                dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(
+                    inv.partner_id.parent_id.vat)
+                dte['Encabezado']['Receptor'][
+                    'RznSocRecep'] = inv.partner_id.parent_id.name
             dte['Encabezado']['Receptor']['GiroRecep'] = self.char_replace(inv.invoice_turn.name)[:40]
             dte['Encabezado']['Receptor']['DirRecep'] = self.char_replace(inv.partner_id.street)
             # todo: revisar comuna: "false"
