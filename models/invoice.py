@@ -1013,7 +1013,10 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 _logger.info(json.dumps(dte))
                 # corte para debug
                 # raise UserError('dictionary generated')
-                if inv.sii_xml_response1 == False or inv.sii_xml_response1 == '':
+                # if inv.sii_xml_response1 == False or inv.sii_xml_response1 == '':
+                # buscar una manera de forzar el reenvio.
+                # por ahora fuerza el reenvío desde el principio
+                if 1==1
                     response_emitir = pool.urlopen(
                         'POST', api_emitir, headers=headers, body=json.dumps(dte))
 
