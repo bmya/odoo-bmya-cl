@@ -25,7 +25,10 @@ y
 pip install --upgrade urllib3
 '''
 #import urllib3
-import certifi
+try:
+    import certifi
+except:
+    pass
 
 pool = urllib3.PoolManager(
     cert_reqs='CERT_REQUIRED', # Force certificate check.
