@@ -904,7 +904,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['Encabezado']['Receptor'][
                     'RznSocRecep'] = inv.partner_id.parent_id.name
             if not inv.invoice_turn.name:
-                raise UserError('No hay giro del cliente o proveedor seleccionado.')
+                raise UserError(_('There is no customer turn selected.'))
             dte['Encabezado']['Receptor']['GiroRecep'] = self.char_replace(inv.invoice_turn.name)[:40]
             dte['Encabezado']['Receptor']['DirRecep'] = self.char_replace(inv.partner_id.street)
             # todo: revisar comuna: "false"
