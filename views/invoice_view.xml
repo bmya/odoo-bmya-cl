@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data> 
+    <data>
+        <record id="invoice_form_hide_single_ref" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="name">invoice.form.hide.single.ref</field>
+            <field name="inherit_id" ref="l10n_cl_invoice.view_invoice_form" />
+            <field name="arch" type="xml">
+                <field name="reference" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+            </field>
+        </record>
         <record id="view_invoice_form" model="ir.ui.view">
             <field name="model">account.invoice</field>
             <field name="name">account.invoice.sii.form</field>

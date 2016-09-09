@@ -1086,7 +1086,7 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                     }
                 )
                 _logger.info('se guardó xml con la factura')
-            # incorporo facturacion.cl
+            # incorporo facturacion.cl (sólo DTE Plano)
             elif inv.dte_service_provider == 'FACTURACION':
                 envelope_efact = '''<?xml version="1.0" encoding="ISO-8859-1"?>
 {}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
