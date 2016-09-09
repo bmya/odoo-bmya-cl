@@ -11,6 +11,17 @@ class invoice(models.Model):
 
     @api.multi
     def clean_internal_number(self):
-    	self.ensure_one()
+        self.ensure_one()
         self.write({
-        	'internal_number':False,'sii_document_number':False})
+        	'internal_number':False,
+            'sii_document_number':False,
+            'sii_document_class_id': False,
+            'sii_batch_number': False,
+            'sii_barcode': False,
+            'sii_barcode_img': False,
+            'sii_message': False,
+            'sii_xml_request': False,
+            'sii_xml_response1': False,
+            'sii_xml_response2': False,
+            'sii_send_ident': False,
+            'sii_result': False})
