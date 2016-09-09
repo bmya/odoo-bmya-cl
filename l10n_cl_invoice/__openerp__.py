@@ -14,8 +14,13 @@
         'decimal_precision'
         ],
     'description': u'''
-\n\nMódulo de Facturación de la localización Chilena.\n\n\nIncluye:\n
-- Configuraci\xc3\xb3n de libros, diarios (journals) y otros detalles para facturación para Chile.\n
+
+
+Módulo de Facturación de la localización Chilena.
+
+
+Incluye:
+- Configuración de libros, diarios (journals) y otros detalles para facturación para Chile.
 - Asistente para configurar los talonarios de facturas, boletas, guías de despacho, etc.
 ''',
     'init_xml': [],
@@ -36,7 +41,6 @@
     'data': [
         'data/document_type.xml',
         'security/l10n_cl_invoice_security.xml',
-        'wizard/journal_config_wizard_view.xml',
         'data/responsability.xml',
         'data/sii.document_letter.csv',
         'data/sii.document_class.csv',
@@ -66,6 +70,7 @@
         'security/l10n_cl_invoice_security.xml',
         'data/res.currency.csv',
         #'views/sii_menuitem.xml',
+        'wizard/journal_config_wizard_view.xml',
     ],
-    'version': '2.2',
+    'version': '8.0.3.0',
 }
