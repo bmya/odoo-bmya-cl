@@ -1,49 +1,51 @@
-[![Build Status](https://travis-ci.org/odoo-chile/l10n_cl_base.svg)](https://travis-ci.org/odoo-chile/l10n_cl_base)
-[![Coverage Status](https://coveralls.io/repos/odoo-chile/l10n_cl_base/badge.svg?branch=8.0&service=github)](https://coveralls.io/github/odoo-chile/l10n_cl_base?branch=8.0)
-[![Code Climate](https://codeclimate.com/github/odoo-chile/l10n_cl_base/badges/gpa.svg)](https://codeclimate.com/github/odoo-chile/l10n_cl_base)
+# l10n_cl_dte
 
-# l10n_cl_base
+Odoo - Chilean electronic invoicing
+===================================
 
-Odoo - Chilean Localization General Installer and Configurator
-==============================================================
+You can check functionality in the following blog:
 
-This module provides a convenient mean to install all the modules for chilean localization.
+http://blancomartin.cl/blog
 
--Chilean Banks
--Financial Indicators
--Invoice Stub
--Third parties modules
--Human resources (very soon)
--Electronic invoicing (soon.. months)
 
-## Dependencies
-Will provide a dependency list here
+This module is in develop, and intented to deliver electronic invoices for
+Chile.
 
+It provides infrastructure to connect to several electronic invoicing 
+service provider, and - in develop to SII.
+It also allows you to generate records in Odoo of electronic invoices vouchers.
+
+You can also extend this module to include more providers.
+
+Regarding SII connection, it interacts with these already developed modules:
+
+l10n_cl_partner_activities
+l10n_cl_base_rut
+l10n_cl_invoice
+l10n_cl_dte_caf
+
+TO-DO:
+- Connection to SII
+- Authentication using signature key certificate (provided by module 
+"user_signature_key" by ourselves - BMyA).
 
 ## Credits
+### This module is fully authored by BMyA, and inspired by 
+argentinean localization project, but just in forms, not in code.
+
+
 <p>
 <img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
 </p>
 **Blanco Martin & Asociados EIRL** - http://blancomartin.cl
 
- 
-Odoo - Instalador y Configurador General para Localización Chilena
-==================================================================
-
-Este módulo provee un medio conveniente para instalar todos los módulos de la localizacion chilena.
-
--Bancos en Chile
--Indicadores financieros
--Generador de talonarios (facturas boletas notas de venta...)
--Módulos de terceras partes
--Recursos humanos (muy pronto)
--Facturación electrónica (pronto.. meses)
-
-## Dependencies
-Se proveerá una lista de dependencias aquí
 
 ## Créditos
+### Este módulo es de autoría total de BMyA e inspirado por
+el proyecto de localización argentina, pero solo en formas, no en código.
+
 <p>
 <img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
 </p>
 **Blanco Martin & Asociados EIRL** - http://blancomartin.cl
+

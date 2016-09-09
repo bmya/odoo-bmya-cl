@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        <record id="view_invoice_form" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="name">account.invoice.sii.form</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <!-- TODO ver si es necesario cambiar este contexto o no -->
+                <!-- TODO cambiar color del boton de envio una vez enviado -->
+                <field name="invoice_line" position="attributes">
+                    <attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type}" name="invoice_line" on_change="onchange_invoice_line(invoice_line)</attribute>
+                </field>
+ 
+                <notebook>
+                    <page string="Invoice References" name="invoice_references">
+                        <field name="ref_document_ids"
+                               options="{'limit': 10, 'create': false, 'create_edit': false}"
+                               attrs="{'readonly':[('state', 'not in', 'draft')]}">
+                            <tree string="Document References" editable="bottom">
+                                <field name="sii_document_class_id"/>
+                                <field name="prefix"/>
+                                <field name="name"/>
+                                <field name="reference_date"/>
+                                <field name="codref"/>
+                                <field name="reason"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Electronic Invoice" name="electronic_invoice">
+                        <header>
+                            <div attrs="{'invisible':[
+                                    ('state', 'in', ['draft']),
+                                    ('sii_result', 'not in', ['NoEnviado'])]}">
+
+                                <button string="Download XML" type="object" name="get_xml_file"/>
+                                <!-- este boton solo se usa para efactura del sur -->
+                                <button string="Send DTE" type="object" name="send_dte"
+                                    class="oe_highlight"
+                                    attrs="{'invisible':[
+                                        ('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST'])
+                                        ], 'disabled':True}"/>
+
+                                <!-- boton para envio fin -->
+                                <button string="Check DTE Status" type="object" name="check_dte_status"
+                                    class="oe_highlight"
+                                    attrs="{'invisible':[
+                                        ('sii_result', 'not in', 'Enviado')
+                                    ]
+                                    }"/>
+                                <button string="Check DTE Status" type="object" name="check_dte_status"
+                                    attrs="{'invisible':[
+                                        ('sii_result', 'in', 'Enviado'),
+                                        ('dte_service_provider', 'in', ['FACTURACION'])
+                                    ]
+                                    }"/>
+                                <button string="Bring PDF DTE" type="object"
+                                        class="oe_highlight"
+                                        name="bring_pdf_ldte"
+                                        attrs="{'invisible':[
+                                            ('sii_result', 'not in', ['Enviado','Aceptado'])
+                                        ]}"/>
+
+                            </div>
+                            <field name='sii_result' widget="statusbar"
+                                   context="{
+                                        'sii_status': sii_result,
+                                        'dte_provider': dte_service_provider}"/>
+                        </header>
+                        <group colspan="4">
+                            <field name='dte_service_provider'/>
+                            <field name='sii_send_ident'
+                                attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>
+                            <field name='sii_barcode_img' widget="image"
+                                attrs="{'invisible':['|',('sii_result', '=', ''), ('dte_service_provider', 'not in', ['SIIHOMO', 'SII'])]}"/>
+                            <!--<field name='sii_message'
+                                attrs="{'invisible':[('sii_result', 'in', ['','NoEnviado'])]}"/>-->
+                            <!--<field name="third_party_xml"
+                                   filename="filename_xml"/>-->
+                            <!--<field name='sii_batch_number'/>-->
+                        </group>
+                        <div class="row">
+                            <div class="col-md-12 modal-body panel-group clean-panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default clean-panel">
+                                    <div class="panel-heading clean-panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title clean-panel-title">
+                                            <a data-toggle="collapse" data-target="#seexml">VER XML</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="seexml" class="collapse out col-md-12">
+                                <field name='sii_xml_request'/>
+                                    <!--attrs="{
+                                        'invisible':[('sii_result', '=', '')],
+                                    }"-->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 modal-body panel-group clean-panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default clean-panel">
+                                    <div class="panel-heading clean-panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title clean-panel-title">
+                                            <a data-toggle="collapse" data-target="#seeresp">VER Respuestas</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="seeresp" class="collapse out col-md-12">
+                                <h4>Respuesta 1:</h4>
+                                <field name='sii_xml_response1'/>
+                                    <!--attrs="{
+                                        'invisible':[
+                                            ('sii_result', 'in', [''])]}"-->
+                                <h4>Respuesta 2:</h4>
+                                <field name='sii_xml_response2'/>
+                                    <!--attrs="{
+                                        'invisible':[
+                                            ('sii_result', 'in', [''])]}"-->
+                            </div>
+                        </div>
+                    </page>
+
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
+<!-- vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4 -->
