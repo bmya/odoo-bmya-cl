@@ -205,6 +205,7 @@ You can not Modify an    d Cancel if the invoice is already reconciled',
         self.ensure_one()
         result = super(AccountInvoiceRefund, self).compute_refund(mode)
         inv_obj = self.env['account.invoice']
+        ref_obj = self.env['invoice.reference']
         # references = []
         # num = 1
         for active_id in inv_obj.browse(self.env.context.get('active_ids')):
@@ -216,13 +217,24 @@ You can not Modify an    d Cancel if the invoice is already reconciled',
 
         if created_inv and created_inv[0]:
             refund_inv_id = created_inv[0][0]
-            inv_obj.browse(refund_inv_id).write(
+            _logger.info('ientra a la opcion de guardar referencia')
+            ref_obj.create(
                 {
-                    'origin': self.description,
-                    'reference': active_id.document_number,
-                    'sii_referencia_FolioRef': self.get_folio_current(active_id),
-                    'sii_referencia_TpoDocRef': active_id.sii_document_class_id.sii_code,
-                    'sii_referencia_FchRef': active_id.date_invoice,
-                    'sii_referencia_CodRef': self.sii_selection
+                    'invoice_id': refund_inv_id,
+                    'name': self.get_folio_current(active_id),
+                    'sii_document_class_id': active_id.sii_document_class_id.id,
+                    'reference_date': active_id.date_invoice,
+                    'prefix': active_id.sii_document_class_id.sii_code,
+                    'codref': self.sii_selection,
+                    'reason': self.description,
                 })
+            # inv_obj.browse(refund_inv_id).write(
+            #     {
+            #         'origin': self.description,
+            #         'reference': active_id.document_number,
+            #         'sii_referencia_FolioRef': self.get_folio_current(active_id),
+            #         'sii_referencia_TpoDocRef': active_id.sii_document_class_id.sii_code,
+            #         'sii_referencia_FchRef': active_id.date_invoice,
+            #         'sii_referencia_CodRef': self.sii_selection
+            #     })
         return result
