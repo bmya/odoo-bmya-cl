@@ -550,6 +550,10 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
     # estas referencias existen de la versión anterior (8.0.1.3)
     # ToDO: quitarlas para que se reemplacen totalmente por campos referenciales
+    '''
+    a partir del cambio, estos campos quedarían obsoletos.
+    ------------------------------------------------------
+    '''
     sii_referencia_TpoDocRef = fields.Char('TpoDocRef')
     sii_referencia_FolioRef =  fields.Char('FolioRef')
     sii_referencia_FchRef = fields.Char('FchRef')
@@ -845,6 +849,27 @@ stamp to be legally valid.''')
                     invoice_lines.extend([{'Detalle': lines}])
                 else:
                     invoice_lines.extend([lines])
+
+            # para trasladar creación de referencias
+            if len(inv.ref_document_ids) > 0:
+                _logger.info(inv.ref_document_ids)
+                # inserción del detalle en caso que corresponda
+                #if inv.sii_document_class_id.sii_code in [61, 56]:
+                ref_lines = []
+                ref_order = 1
+                for ref_d in inv.ref_document_ids:
+                    referencias = collections.OrderedDict()
+                    referencias['NroLinRef'] = ref_order
+                    referencias[
+                        'TpoDocRef'] = ref_d.prefix
+                    referencias['FolioRef'] = ref_d.name
+                    referencias['FchRef'] = ref_d.reference_date
+                    referencias['CodRef'] = ref_d.codref
+                    referencias['RazonRef'] = ref_d.reason
+                    ref_order += 1
+                    ref_lines.extend([{'Referencia': referencias}])
+            ####
+
             ##### lugar de corte posible para revisar creacion de test:
             # _logger.info(invoice_lines)
             #########################
@@ -935,23 +960,18 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                     dte['Encabezado']['Totales']['MntTotal'] = int(round(
                         inv.amount_total, 0))
                 dte['item'] = invoice_lines
+                if len(ref_lines) > 0:
+                    dte['item'].extend(ref_lines)
             else:
                 # esto lo hace para libreDTE la construccion directa del valor
                 # en el diccionario. Porque en las otras opciones de XML
                 # hay problemas en esta parte al pasar de dict a xml
                 dte['Detalle'] = invoice_lines
+                if len(ref_lines) > 0:
+                    dte['Referencia'] = ref_lines
+            # aca estaba la referencia antes
 
-            # inserción del detalle en caso que corresponda
-            if inv.sii_document_class_id.sii_code in [61, 56]:
-                dte['Referencia'] = collections.OrderedDict()
-                dte['Referencia']['NroLinRef'] = 1
-                dte['Referencia'][
-                    'TpoDocRef'] = inv.sii_referencia_TpoDocRef
-                dte['Referencia']['FolioRef'] = inv.sii_referencia_FolioRef
-                dte['Referencia']['FchRef'] = inv.sii_referencia_FchRef
-                dte['Referencia']['CodRef'] = inv.sii_referencia_CodRef
-                dte['Referencia']['RazonRef'] = self.char_replace(inv.origin)
-
+            #####
             if global_discount != 0:
                 dte['DscRcgGlobal'] = collections.OrderedDict()
                 dte['DscRcgGlobal']['NroLinDR'] = 1
@@ -960,7 +980,6 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 dte['DscRcgGlobal']['TpoValor'] = '$'  # ''%'
                 dte['DscRcgGlobal']['ValorDR'] = round(abs(global_discount))
             _logger.info(dte)
-
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
             doc_id = '<Documento ID="{}">'.format(doc_id_number)
@@ -1132,8 +1151,10 @@ needed for credit notes and debit notes.")
             # _logger.info(
             #     'documento principal: {}'.format(
             #         i.invoice_id.journal_document_class_id.sii_code))
-            if i.sii_document_class_id.id != False:
+            if not i.sii_document_class_id.sii_code:
                 _logger.info(
                 'pasa por la funcion compute_ref: {}'.format(
                     i.sii_document_class_id.doc_code_prefix))
                 i.prefix = i.sii_document_class_id.doc_code_prefix
+            else:
+                i.prefix = i.sii_document_class_id.sii_code
