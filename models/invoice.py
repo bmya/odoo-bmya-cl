@@ -552,7 +552,10 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     # ToDO: quitarlas para que se reemplacen totalmente por campos referenciales
     '''
     a partir del cambio, estos campos quedarían obsoletos.
-    ------------------------------------------------------
+    Los dejamos, para mantener compatibilidad de información
+    en instalaciones previas, y que no haya posibilidad de perdida
+    de datos ante un cleanup de la bdd.
+    --------------------------------------------------------------
     '''
     sii_referencia_TpoDocRef = fields.Char('TpoDocRef')
     sii_referencia_FolioRef =  fields.Char('FolioRef')
@@ -1148,13 +1151,10 @@ needed for credit notes and debit notes.")
     @api.depends('sii_document_class_id')
     def _compute_ref(self):
         for i in self:
-            # _logger.info(
-            #     'documento principal: {}'.format(
-            #         i.invoice_id.journal_document_class_id.sii_code))
-            if not i.sii_document_class_id.sii_code:
+            if not i.sii_document_class_id.sii_code and i.sii_document_class_id.doc_code_prefix:
                 _logger.info(
-                'pasa por la funcion compute_ref: {}'.format(
-                    i.sii_document_class_id.doc_code_prefix))
-                i.prefix = i.sii_document_class_id.doc_code_prefix
+                'pasa por la funcion compute_ref: {}|{}|{}'.format(
+                    i.id, i.name, i.sii_document_class_id.doc_code_prefix))
+                i.prefix = i.sii_document_class_id.doc_code_prefix[:3]
             else:
                 i.prefix = i.sii_document_class_id.sii_code
