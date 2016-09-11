@@ -854,11 +854,11 @@ stamp to be legally valid.''')
                     invoice_lines.extend([lines])
 
             # para trasladar creación de referencias
+            ref_lines = []
             if len(inv.ref_document_ids) > 0:
                 _logger.info(inv.ref_document_ids)
                 # inserción del detalle en caso que corresponda
                 #if inv.sii_document_class_id.sii_code in [61, 56]:
-                ref_lines = []
                 ref_order = 1
                 for ref_d in inv.ref_document_ids:
                     referencias = collections.OrderedDict()
@@ -870,7 +870,12 @@ stamp to be legally valid.''')
                     referencias['CodRef'] = ref_d.codref
                     referencias['RazonRef'] = ref_d.reason
                     ref_order += 1
-                    ref_lines.extend([{'Referencia': referencias}])
+                    if inv.dte_service_provider not in [
+                        'LIBREDTE', 'LIBREDTE_TEST']:
+                        ref_lines.extend([{'Referencia': referencias}])
+                    else:
+                        ref_lines.extend([referencias])
+
             ####
 
             ##### lugar de corte posible para revisar creacion de test:
@@ -986,7 +991,7 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
             doc_id_number = "F{}T{}".format(
                 folio, inv.sii_document_class_id.sii_code)
             doc_id = '<Documento ID="{}">'.format(doc_id_number)
-            # si es sii, inserto el timbre
+            # TODO: si es sii, inserto el timbre
 
             dte1['Documento ID'] = dte
             xml = dicttoxml.dicttoxml(
@@ -1024,15 +1029,18 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 _logger.info('OPCION DTE: ({})'.format(str(
                     inv.dte_service_provider)).lower())
             elif inv.dte_service_provider in [
-                'LIBREDeTE', 'LIBREDTE_TEST']:
+                'LIBREDTE', 'LIBREDTE_TEST']:
                 _logger.info('password: %s' % self.company_id.dte_password)
                 _logger.info('username: %s' % self.company_id.dte_username)
 
                 headers = self.create_headers_ldte()
+                _logger.info('Headers:')
+                _logger.info(headers)
                 _logger.info('DTE enviado:')
                 _logger.info(dte)
                 _logger.info('DTE enviado (json)')
                 _logger.info(json.dumps(dte))
+
                 # corte para debug
                 # raise UserError('dictionary generated')
                 # if inv.sii_xml_response1 == False or inv.sii_xml_response1 == '':
