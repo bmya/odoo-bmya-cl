@@ -40,26 +40,26 @@ class pos_order(models.Model):
                     _logger.info(
                         'despes de hacer')
                     if po.note:
-                        po.note = po.note + ' - Picking created manually. '
+                        po.note = po.note + _(' - Picking created manually. ')
                     else:
-                        po.note = 'Picking created manually. '
+                        po.note = _('Picking created manually. ')
                 else: #except:
-                    _logger.info('Order: {}, picking COULD NOT BEEN CREATED'.format(po.name))
+                    _logger.info(_('Order: {}, picking COULD NOT BEEN CREATED').format(po.name))
             else:
                 pass
-                _logger.info('Order: {}, picking {} is OK'.format(po.name, po.picking_id.name))
+                _logger.info(_('Order: {}, picking {} is OK').format(po.name, po.picking_id.name))
 
     picking_id_id = fields.Integer('Picking ID',
                                    compute='_get_picking_id')
     state = fields.Selection(selection_add=[
-        ('picking_exception', 'Picking Exception')])
+        ('picking_exception', 'Picking Exception')], translate=True)
 
     @api.multi
     @api.depends('picking_id')
     def _get_picking_id(self):
         for po in self:
             if all(t == 'service' for t in po.lines.mapped('product_id.type')):
-                _logger.info('no hay productos almacenables y consumibles en la venta')
+                _logger.info(_('There are no stockable products for this sale'))
                 po.picking_id_id = 99999999
             else:
                 po.picking_id_id = po.picking_id.id
