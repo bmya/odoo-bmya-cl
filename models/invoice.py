@@ -236,7 +236,7 @@ class account_invoice(models.Model):
         related='commercial_partner_id.formated_vat',)
 
     @api.one
-    @api.depends('sii_document_number', 'number')
+    @api.depends('sii_document_class_id', 'sii_document_number', 'number')
     def _get_document_number(self):
         if self.sii_document_number and self.sii_document_class_id:
             document_number = (
