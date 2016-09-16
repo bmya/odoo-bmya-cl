@@ -72,13 +72,13 @@ deprecated by hand.''')
                     r.use_level = 0
                 print(r.use_level, r.sequence_id.number_next_actual,
                       r.final_nm, r.start_nm)
-                if r.sequence_id.number_next_actual > r.final_nm
+                if r.sequence_id.number_next_actual > r.final_nm \
                     and r.status == 'in_use':
                     #r.status = 'spent'
                     self.env.cr.execute("""UPDATE dte_caf SET status = 'spent' \
 WHERE filename = '%s'""" % r.filename)
                     print 'spent'
-                elif r.sequence_id.number_next_actual <= r.final_nm
+                elif r.sequence_id.number_next_actual <= r.final_nm \
                     and r.status == 'spent':
                     #r.status = 'in_use'
                     self.env.cr.execute("""UPDATE dte_caf SET status \
@@ -160,4 +160,5 @@ class sequence_caf(models.Model):
             [('sequence_id', '=', r.id)])
         r.is_dte = obj.sii_document_class_id.dte \
                    and obj.sii_document_class_id.document_type in [
-            'invoice', 'debit_note', 'credit_note', 'stock_picking']
+            'invoice', 'debit_note', 'credit_note', 'stock_picking',
+            'stock_voucher']
