@@ -13,15 +13,15 @@ class accountInvoiceDTEStatus(models.TransientModel):
 
     _name = 'account.invoice.dte_status'
 
-    '''
-    Función para poner en default el valor de sii_result
-    de manera que venga desde el proceso que llama
-    @author: Daniel Blanco Martín daniel[at]blancomartin.cl
-    @version: 2016-06-18
-    '''
     def _get_default_sii_result(self):
         '''
-        contexto de ejemplo::
+        Función para poner en default el valor de sii_result
+        de manera que venga desde el proceso que llama
+        (lo toma desde el contexto)
+        @author: Daniel Blanco Martín daniel[at]blancomartin.cl
+        @version: 2016-06-18
+        contexto de ejemplo, para cualquier otro valor de intercambio que
+        haga falta:
         {
             'lang': 'es_CL',
             'tz': 'America/Santiago',
@@ -44,9 +44,7 @@ class accountInvoiceDTEStatus(models.TransientModel):
             'active_id': 245
         }
         '''
-        pass
         return self.env.context['sii_status']
-
 
     sii_result = fields.Selection([
         ('', 'n/a'),
@@ -69,34 +67,29 @@ class accountInvoiceDTEStatus(models.TransientModel):
     glosa = fields.Text(
         string='Glosa')
 
-
-
-    '''
-    Función para ejecutar el cambio de estado del DTE
-    @author: Daniel Blanco Martín daniel[at]blancomartin.cl
-    @version: 2016-06-18
-    '''
-    '''
-        posibles estados:
-        Anulado
-        NoEnviado
-        Enviado
-        Proceso
-        Aceptado
-        Reparo
-        Rechazado
-        Reenviar
-    '''
     @api.multi
     @api.depends('sii_result', 'sii_send_ident', 'glosa')
     def update_dte_status(self):
+        '''
+        Función para ejecutar el cambio de estado del DTE
+        @author: Daniel Blanco Martín daniel[at]blancomartin.cl
+        @version: 2016-06-18
+            posibles estados:
+            Anulado
+            NoEnviado
+            Enviado
+            Proceso
+            Aceptado
+            Reparo
+            Rechazado
+            Reenviar
+        '''
         self.ensure_one()
-        print('entrando en funcion update_dte_status')
+        _logger.info('entrando en funcion update_dte_status')
         # self.env.context.get('value_key', value_if_undefined)
-        pass
         if self.env.context.get('dte_service_provider') in [
             'EFACTURADELSUR', 'EFACTURADELSUR_TEST']:
-            print('update dte status con facturadelsur')
+            _logger.info('update dte status con facturadelsur')
             # reobtener el folio
             folio = l10n_cl_dte.invoice.get_folio_current()
             dte_username = self.company_id.dte_username
@@ -159,13 +152,13 @@ class accountInvoiceDTEStatus(models.TransientModel):
             print('update dte status con facturadelsur')
             pass
 
-'''
-Clase que sirve para adaptar botón de devolucion con notas de credito(/debito)
-Para adaptar a los motivos estándares del SII
-@autor: Daniel Blanco Martín
-@version: 2016-07-07
-'''
 class AccountInvoiceRefund(models.TransientModel):
+    '''
+    Clase que sirve para redefinir botón de devolucion con notas de
+    credito(/debito), para adaptar a los motivos estándares del SII
+    @autor: Daniel Blanco Martín
+    @version: 2016-07-07
+    '''
     _inherit = "account.invoice.refund"
 
     def get_folio_current(self, inv):
@@ -177,7 +170,8 @@ class AccountInvoiceRefund(models.TransientModel):
         return int(folio)
 
     # definición de campos adicionales.
-    # fijar el valor de filter_refund
+    # fijar el valor de filter_refund al valor 'refund' por defecto, porque es
+    # el único que se utiliza.
     filter_refund = fields.Selection([
         ('refund', 'Create a draft refund'),
         ('cancel', 'Cancel: create refund and reconcile'),
@@ -193,15 +187,14 @@ You can not Modify an    d Cancel if the invoice is already reconciled',
         "Tipos de Referencia", required=True, help='Tipos de Referencia',
         default='1')
 
-
-    '''
-    funcion para grabar en factura original los valores que provienen
-    de este wizard
-    @autor: Daniel Blanco Martín
-    @version: 2016-07-07
-    '''
     @api.multi
     def compute_refund(self, mode='refund'):
+        '''
+        funcion para grabar en factura original los valores que provienen
+        de este wizard.
+        @autor: Daniel Blanco Martín
+        @version: 2016-07-07
+        '''
         self.ensure_one()
         result = super(AccountInvoiceRefund, self).compute_refund(mode)
         inv_obj = self.env['account.invoice']
@@ -236,5 +229,5 @@ You can not Modify an    d Cancel if the invoice is already reconciled',
             #         'sii_referencia_TpoDocRef': active_id.sii_document_class_id.sii_code,
             #         'sii_referencia_FchRef': active_id.date_invoice,
             #         'sii_referencia_CodRef': self.sii_selection
-            #     })
+            # })
         return result
