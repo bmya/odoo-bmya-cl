@@ -54,6 +54,7 @@ class sii_document_class(models.Model):
             ('invoice_in', 'Purchase Invoices'),
             ('debit_note', 'Debit Notes'),
             ('credit_note', 'Credit Notes'),
+            ('stock_voucher', 'Stock Vouchers'),
             ('other_document', 'Other Documents')
         ],
         string='Document Type',
