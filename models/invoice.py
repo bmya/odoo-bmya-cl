@@ -12,61 +12,30 @@ from lxml.etree import XMLSyntaxError
 
 import collections, re
 
-try:
-    import urllib3
-except:
-    pass
+import urllib3, certifi, xmltodict, dicttoxml, base64, cchardet, os
 
 urllib3.disable_warnings()
-# para que funcione, hay que hacer:
 '''
 pip install --upgrade requests
 y
 pip install --upgrade urllib3
 '''
-#import urllib3
-try:
-    import certifi
-except:
-    pass
 
 pool = urllib3.PoolManager(
     cert_reqs='CERT_REQUIRED', # Force certificate check.
     ca_certs=certifi.where(),  # Path to the Certifi bundle.
 )
-#pool = urllib3.PoolManager()
-
 _logger = logging.getLogger(__name__)
 
-try:
-    import xmltodict
-except ImportError:
-    _logger.info('Cannot import xmltodict library')
-
-try:
-    import dicttoxml
-except ImportError:
-    _logger.info('Cannot import dicttoxml library')
-
-try:
-    import base64
-except ImportError:
-    _logger.info('Cannot import base64 library')
-
-try:
-    import cchardet
-except ImportError:
-    _logger.info('Cannot import cchardet library')
-
 # hardcodeamos este valor por ahora
-import os
-xsdpath = os.path.dirname(os.path.realpath(__file__)).replace('/models','/static/xsd/')
+xsdpath = os.path.dirname(os.path.realpath(__file__)).replace(
+    '/models','/static/xsd/')
 host = 'https://libredte.cl/api'
 api_emitir = host + '/dte/documentos/emitir'
 api_generar = host + '/dte/documentos/generar'
 api_gen_pdf = host + '/dte/documentos/generar_pdf'
 api_upd_satus = host + '/dte/dte_emitidos/actualizar_estado/'
-
+no_product = False
 special_chars = [
     [u'á', 'a'],
     [u'é', 'e'],
@@ -82,23 +51,25 @@ special_chars = [
     [u'Ñ', 'N']
 ]
 
-'''
-Extensión del modelo de datos para contener parámetros globales necesarios
- para todas las integraciones de factura electrónica.
- @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
- @version: 2016-06-11
-'''
 class invoice(models.Model):
+    '''
+    Extensión del modelo de datos para contener parámetros globales necesarios
+    para todas las integraciones de factura electrónica.
+    @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+    @version: 2016-06-11
+    '''
+
     _inherit = "account.invoice"
 
-    '''
-    Funcion para reemplazar caracteres especiales
-    Esta funcion sirve para salvar bug en libreDTE con los recortes de giros
-    que están codificados en utf8 (cuando trunca, trunca la coficiacion)
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-07-31
-    '''
     def char_replace(self, text):
+        """
+        Funcion para reemplazar caracteres especiales
+        Esta funcion sirve para salvar bug en libreDTE con los recortes de
+        giros que están codificados en utf8 (cuando trunca, trunca la
+        codificacion)
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-07-31
+        """
         for char in special_chars:
             try:
                 text = text.replace(char[0], char[1])
@@ -107,25 +78,25 @@ class invoice(models.Model):
         print(text)
         return text
 
-    '''
-    Creacion de plantilla xml para envolver el DTE
-    Previo a realizar su firma (1)
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-01
-    '''
     def create_template_doc(self, doc):
+        """
+        Creacion de plantilla xml para envolver el DTE
+        Previo a realizar su firma (1)
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-01
+        """
         xml = '''<DTE xmlns="http://www.sii.cl/SiiDte" version="1.0">
 <!-- Odoo Implementation Blanco Martin -->
 {}</DTE>'''.format(doc)
         return xml
 
-    '''
-    Funcion que permite crear una plantilla para el EnvioDTE
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-01
-    '''
     def create_template_envio(self, RutEmisor, RutReceptor, FchResol, NroResol,
                               TmstFirmaEnv, TpoDTE, EnvioDTE):
+        """
+        Funcion que permite crear una plantilla para el EnvioDTE
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-01
+        """
         signature_d = self.get_digital_signature_pem(self.company_id)
 
         xml = '''<SetDTE ID="OdooBMyA">
@@ -147,39 +118,38 @@ class invoice(models.Model):
            FchResol, NroResol, TmstFirmaEnv, TpoDTE, EnvioDTE)
         return xml
 
-    '''
-    Funcion para remover los indents del documento previo a enviar el xml
-     a firmaar. Realizada para probar si el problema de
-    error de firma proviene de los indents.
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-01
-    '''
     def remove_indents(self, xml):
+        """
+        Funcion para remover los indents del documento previo a enviar el xml
+        a firmaar. Realizada para probar si el problema de
+        error de firma proviene de los indents.
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-01
+        """
         return xml.replace(
-            '        <','<').replace(
-            '      <','<').replace(
-            '    <','<').replace(
-            '  <','<')
+            '        <', '<').replace(
+            '      <', '<').replace(
+            '    <', '<').replace(
+            '  <', '<')
 
-
-    '''
-    Funcion auxiliar para conversion de codificacion de strings
-     proyecto experimentos_dte
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2014-12-01
-    '''
-    def convert_encoding(self, data, new_coding = 'UTF-8'):
+    def convert_encoding(self, data, new_coding='UTF-8'):
+        """
+        Funcion auxiliar para conversion de codificacion de strings
+        proyecto experimentos_dte
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2014-12-01
+        """
         encoding = cchardet.detect(data)['encoding']
         if new_coding.upper() != encoding.upper():
             data = data.decode(encoding, data).encode(new_coding)
         return data
 
-    '''
-    Funcion auxiliar para saber que codificacion tiene el string
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-01
-    '''
     def whatisthis(self, s):
+        """
+        Funcion auxiliar para saber que codificacion tiene el string
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-01
+        """
         if isinstance(s, str):
             _logger.info("ordinary string")
         elif isinstance(s, unicode):
@@ -187,12 +157,12 @@ class invoice(models.Model):
         else:
             _logger.info("not a string")
 
-    '''
-    Función para crear los headers necesarios por LibreDTE
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-23
-    '''
     def create_headers_ldte(self, comp_id=False):
+        """
+        Función para crear los headers necesarios por LibreDTE
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-23
+        """
         if comp_id:
             dte_username = comp_id.dte_username
             dte_password = comp_id.dte_password
@@ -212,13 +182,13 @@ Linux/3.13.0-88-generic'
         return headers
 
 
-    '''
-    Funcion para validar los xml generados contra el esquema que le corresponda
-    segun el tipo de documento.
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-01
-    '''
     def xml_validator(self, some_xml_string, validacion='doc'):
+        """
+        Funcion para validar los xml generados contra el esquema que le
+        corresponda segun el tipo de documento.
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-01
+        """
         if 1==1:
             validacion_type = {
                 'doc': 'DTE_v10.xsd',
@@ -237,13 +207,13 @@ Linux/3.13.0-88-generic'
                 _logger.info(_("The Document XML file has error: %s") % e.args)
                 raise UserError(_('XML Malformed Error %s') % e.args)
 
-    '''
-    obtener estado de DTE.
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-16
-    '''
     @api.multi
     def check_dte_status(self):
+        """
+        obtener estado de DTE.
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-16
+        """
         self.ensure_one()
         folio = self.get_folio_current()
         if self.dte_service_provider in [
@@ -290,7 +260,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                     'The Transmission Has Failed. Error: %s' % response.status)
 
             setenvio = {
-                # 'sii_result': 'Enviado' if self.dte_service_provider == 'EFACTURADELSUR' else self.sii_result,
+                # 'sii_result': 'Enviado' if self.dte_service_provider ==
+                # 'EFACTURADELSUR' else self.sii_result,
                 'sii_xml_response1': response.data}
             self.write(setenvio)
             x = xmltodict.parse(response.data)
@@ -342,7 +313,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 resultado_status = 'Rechazado'
             else:
                 resultado_status = self.sii_result
-            _logger.info('a grabar resultado_status: {}'.format(resultado_status))
+            _logger.info('a grabar resultado_status: {}'.format(
+                resultado_status))
             setenvio = {
                 'sii_xml_response2': response_status.data,
                 'sii_result': resultado_status,
@@ -354,22 +326,22 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             _logger.info(response_status_j['revision_estado'])
 
 
-    '''
-    Realización del envío de DTE.
-    nota: se cambia el nombre de la función de "send xml file"
-    a "send_dte" para ser mas abarcativa en cuanto a que algunos
-    service provider no trabajan con xml sino con un diccionario
-    (caso de libre dte por ejemplo). Como la funcion se invoca desde un
-    boton, pero trambién se podría cambiar aejecutar automaticamente,
-    pienso que es más conveniente tratar todas las opciones de provider
-    en la misma funcion.
-    La funcion selecciona el proveedor de servicio de DTE y efectua el envio
-    de acuerdo a la integracion del proveedor.
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-01
-    '''
     @api.multi
     def send_dte(self):
+        """
+        Realización del envío de DTE.
+        nota: se cambia el nombre de la función de "send xml file"
+        a "send_dte" para ser mas abarcativa en cuanto a que algunos
+        service provider no trabajan con xml sino con un diccionario
+        (caso de libre dte por ejemplo). Como la funcion se invoca desde un
+        boton, pero trambién se podría cambiar aejecutar automaticamente,
+        pienso que es más conveniente tratar todas las opciones de provider
+        en la misma funcion.
+        La funcion selecciona el proveedor de servicio de DTE y efectua el envio
+        de acuerdo a la integracion del proveedor.
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-01
+        """
         self.ensure_one()
 
         _logger.info('Entering Send XML Function')
@@ -395,7 +367,9 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 raise UserError(
                     'The Transmission Has Failed. Error: %s' % response.status)
             setenvio = {
-                'sii_result': 'Enviado' if self.dte_service_provider == 'EFACTURADELSUR' else self.sii_result,
+                'sii_result': 'Enviado' \
+                    if self.dte_service_provider == 'EFACTURADELSUR' \
+                    else self.sii_result,
                 'sii_xml_response1': response.data}
             self.write(setenvio)
 
@@ -408,13 +382,13 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         else:
             pass
 
-    '''
-    Funcion para descargar el xml en el sistema local del usuario
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-05-01
-    '''
     @api.multi
     def get_xml_file(self):
+        """
+        Funcion para descargar el xml en el sistema local del usuario
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-05-01
+        """
         return {
             'type' : 'ir.actions.act_url',
             'url': '/web/binary/download_document?model=account.invoice\
@@ -422,43 +396,43 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             'target': 'self',
         }
 
-    '''
-    Funcion para descargar el folio tomando el valor desde la secuencia
-    correspondiente al tipo de documento.
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-05-01
-    '''
     def get_folio(self, inv):
+        """
+        Funcion para descargar el folio tomando el valor desde la secuencia
+        correspondiente al tipo de documento.
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-05-01
+        """
         # saca el folio directamente de la secuencia
         return inv.journal_document_class_id.sequence_id.number_next_actual
 
-    '''
-    Funcion para actualizar el folio tomando el valor devuelto por el
-    tercera parte integrador.
-    Esta funcion se usa cuando un tercero comanda los folios
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-23
-    '''
     def set_folio(self, inv, folio):
+        """
+        Funcion para actualizar el folio tomando el valor devuelto por el
+        tercera parte integrador.
+        Esta funcion se usa cuando un tercero comanda los folios
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-23
+        """
         inv.journal_document_class_id.sequence_id.number_next_actual = folio
 
-    '''
-    Funcion que devuelve el service provider desde la compañia
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-05-01
-    '''
     def get_company_dte_service_provider(self):
+        """
+        Funcion que devuelve el service provider desde la compañia
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-05-01
+        """
         # raise UserError(self.company_id.dte_service_provider)
         return self.company_id.dte_service_provider
 
-    '''
-    Funcion para obtener el folio ya registrado en el dato
-    correspondiente al tipo de documento.
-    (remoción del prefijo almacenado)
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-05-01
-    '''
     def get_folio_current(self):
+        """
+        Funcion para obtener el folio ya registrado en el dato
+        correspondiente al tipo de documento.
+        (remoción del prefijo almacenado)
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-05-01
+        """
         prefix = self.journal_document_class_id.sequence_id.prefix
         try:
             folio = self.sii_document_number.replace(prefix, '', 1)
@@ -470,11 +444,11 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         return value[2:10] + '-' + value[10:]
 
 
-    '''
+    """
     Definicion de extension de modelo de datos para account.invoice
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2015-02-01
-    '''
+    @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+    @version: 2015-02-01
+    """
     sii_batch_number = fields.Integer(
         copy=False,
         string='Batch Number',
@@ -549,7 +523,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
         readonly=True)
 
     # estas referencias existen de la versión anterior (8.0.1.3)
-    # ToDO: quitarlas para que se reemplacen totalmente por campos referenciales
+    # ToDO: quitarlas para que se reemplacen totalmente por campos
+    # referenciales
     '''
     a partir del cambio, estos campos quedarían obsoletos.
     Los dejamos, para mantener compatibilidad de información
@@ -589,13 +564,13 @@ stamp to be legally valid.''')
         return rel_invoices
 
 
-    '''
-    Función para tomar el XML generado en libreDTE y adjuntarlo al registro
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-23
-    '''
     @api.multi
     def bring_xml_ldte(self, response_emitir_data):
+        """
+        Función para tomar el XML generado en libreDTE y adjuntarlo al registro
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-23
+        """
         self.ensure_one()
         _logger.info('entrada a bringxml function')
         headers = self.create_headers_ldte()
@@ -628,23 +603,26 @@ stamp to be legally valid.''')
         _logger.info(response_j['folio'])
         attachment_id = attachment_obj.create(
             {
-                'name': 'DTE_'+self.sii_document_class_id.name+'-'+str(response_j['folio'])+'.xml',
+                'name': 'DTE_'+self.sii_document_class_id.name+'-'+str(
+                    response_j['folio'])+'.xml',
                 'datas': response_j['xml'],
-                'datas_fname': 'DTE_'+self.sii_document_class_id.name+'-'+str(response_j['folio'])+'.xml',
+                'datas_fname': 'DTE_'+self.sii_document_class_id.name+'-'+str(
+                    response_j['folio'])+'.xml',
                 'res_model': self._name,
                 'res_id': self.id,
                 'type': 'binary'
             })
-        _logger.info('Se ha generado factura en XML con el id {}'.format(attachment_id))
+        _logger.info('Se ha generado factura en XML con el id {}'.format(
+            attachment_id))
         return response_j
 
-    '''
-    Función para leer el xml para libreDTE desde los attachments
-    @author: Daniel Blanco Martín (daniel[at]blancomartin.cl)
-    @version: 2016-07-01
-    '''
     @api.multi
     def get_xml_attachment(self):
+        """
+        Función para leer el xml para libreDTE desde los attachments
+        @author: Daniel Blanco Martín (daniel[at]blancomartin.cl)
+        @version: 2016-07-01
+        """
         self.ensure_one()
         _logger.info('entrando a la funcion de toma de xml desde attachments')
         pass
@@ -661,19 +639,20 @@ stamp to be legally valid.''')
         return xml_attachment
 
     '''
-     A partir de aca se realiza la toma del pdf con la factura impresa
-     directamente desde libreDTE
-     podria existir la posibilidad técnica de imprimir la factura
-     desde odoo con otro módulo l10n_cl_dte_pdf
-     o desde esta "función"
-     obtener el PDF desde LibreDTE'''
-    '''
-    Función para tomar el PDF generado en libreDTE y adjuntarlo al registro
-     @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
-     @version: 2016-06-23
+    A partir de aca se realiza la toma del pdf con la factura impresa
+    directamente desde libreDTE
+    podria existir la posibilidad técnica de imprimir la factura
+    desde odoo con otro módulo l10n_cl_dte_pdf
+    o desde esta "función"
+    obtener el PDF desde LibreDTE
     '''
     @api.multi
     def bring_pdf_ldte(self):
+        """
+        Función para tomar el PDF generado en libreDTE y adjuntarlo al registro
+        @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
+        @version: 2016-06-23
+        """
         self.ensure_one()
         _logger.info('entrada a bringpdf function')
         headers = self.create_headers_ldte()
@@ -693,33 +672,108 @@ stamp to be legally valid.''')
         attachment_obj = self.env['ir.attachment']
         attachment_id = attachment_obj.create(
             {
-                'name': 'DTE_'+self.sii_document_class_id.name+'-'+self.sii_document_number+'.pdf',
+                'name': 'DTE_'+self.sii_document_class_id.name+'-'+\
+                        self.sii_document_number+'.pdf',
                 'datas': invoice_pdf,
-                'datas_fname': 'DTE_'+self.sii_document_class_id.name+'-'+self.sii_document_number+'.pdf',
+                'datas_fname': 'DTE_'+self.sii_document_class_id.name+'-'+\
+                               self.sii_document_number+'.pdf',
                 'res_model': self._name,
                 'res_id': self.id,
                 'type': 'binary'
             })
-        _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
+        _logger.info('Se ha generado factura en PDF con el id {}'.format(
+            attachment_id))
 
-    '''
-    Funcion que envía el email por correo electrónico al cliente
-    es la funcion original en la cual se ha modificado la plantilla
-    para que en lugar de enviar un reporte envíe los attachment que cumplan
-    la condición deseada. (empiezan con DTE_)
-    autor de la modificacion: Daniel Blanco - daniel[at]blancomartin.cl
-    @version: 2016-06-27
-    '''
+    @api.v8
+    def _pr_prices(self, line):
+        '''
+        Función en desarrollo, para calcular los valores de impuestos
+        Por ahora esta muteada, para revisar mejor esta parte.
+        :param line:
+        :return:
+        '''
+        res = {}
+        tax_obj = self.env['account.tax']
+        cur_obj = self.env['res.currency']
+        _round = (lambda x: cur_obj.round(
+            line.invoice_id.currency_id, x)) if line.invoice_id else (
+            lambda x: x)
+        quantity = line.quantity
+        discount = line.discount
+        printed_price_unit = line.price_unit
+        printed_price_net = line.price_unit * \
+                            (1 - (discount or 0.0) / 100.0)
+        printed_price_subtotal = printed_price_net * quantity
+
+        not_vat_taxes = [
+            x for x in line.invoice_line_tax_id if
+            x.tax_code_id.parent_id.name != 'IVA']
+        raise UserError(
+            'qty: {}, discount:{}, price unit:{} price net:{}, price subtotal:{} not vat:{}'.format(
+                quantity, discount, printed_price_unit, printed_price_net,
+                printed_price_subtotal, not_vat_taxes[0].name))
+
+        taxes = tax_obj.compute_all(not_vat_taxes, printed_price_net, 1,
+                                    product=line.product_id,
+                                    partner=line.invoice_id.partner_id)
+        other_taxes_amount = _round(
+            taxes['total_included']) - _round(taxes['total'])
+
+        vat_taxes = [
+            x for x in line.invoice_line_tax_id if
+            x.tax_code_id.parent_id.name == 'IVA']
+        taxes = tax_obj.compute_all(vat_taxes, printed_price_net, 1,
+                                    product=line.product_id,
+                                    partner=line.invoice_id.partner_id)
+        vat_amount = _round(
+            taxes['total_included']) - _round(taxes['total'])
+
+        exempt_amount = 0.0
+        if not vat_taxes:
+            exempt_amount = _round(taxes['total_included'])
+
+        # For document that not discriminate we include the prices
+        if not line.invoice_id.vat_discriminated:
+            printed_price_unit = _round(
+                taxes['total_included'] * (1 + (discount or 0.0) / 100.0))
+            printed_price_net = _round(taxes['total_included'])
+            printed_price_subtotal = _round(
+                taxes['total_included'] * quantity)
+
+        res[line.id] = {
+            'printed_price_unit': printed_price_unit,
+            'printed_price_net': printed_price_net,
+            'printed_price_subtotal': printed_price_subtotal,
+            'vat_amount': vat_amount * quantity,
+            'other_taxes_amount': other_taxes_amount * quantity,
+            'exempt_amount': exempt_amount * quantity,
+        }
+        return res
+
+    def product_is_exempt(self, line):
+        """
+        Función para determinar si el producto de la linea corriente es exento
+        :param line:
+        :return:
+        """
+        return line.product_id.is_exempt
+
     @api.multi
     def action_invoice_sent(self):
         """
+        Funcion que envía el email por correo electrónico al cliente
+        es la funcion original en la cual se ha modificado la plantilla
+        para que en lugar de enviar un reporte envíe los attachment que cumplan
+        la condición deseada. (empiezan con DTE_)
+        autor de la modificacion: Daniel Blanco - daniel[at]blancomartin.cl
+        @version: 2016-06-27
         Open a window sentto compose an email, with the edi invoice template
         message loaded by default
         """
-
         _logger.info('controlo el proceso de envio con mi propia funcion...')
         assert len(
-            self) == 1, 'This option should only be used for a single id at a time.'
+            self) == 1, 'This option should only be used for a single id at a \
+time.'
 
         attachment_id = self.env['ir.attachment'].search([
             ('res_model', '=', self._name),
@@ -735,7 +789,8 @@ stamp to be legally valid.''')
         ## hace este cambio: reemplaza el template (inicio)
         template = self.env.ref('l10n_cl_dte.email_template_edi_invoice', False)
         ## hace este cambio: reemplaza el template (fin)
-        compose_form = self.env.ref('mail.email_compose_message_wizard_form', False)
+        compose_form = self.env.ref(
+            'mail.email_compose_message_wizard_form', False)
         ctx = dict(
             default_model='account.invoice',
             default_res_id=self.id,
@@ -796,12 +851,13 @@ stamp to be legally valid.''')
             giros_emisor = []
             for turn in inv.company_id.company_activities_ids:
                 giros_emisor.extend([{'Acteco': turn.code}])
-
             # definicion de lineas
             line_number = 1
             invoice_lines = []
             global_discount = 0
+            ind_exe_qty = 0
             sum_lines = 0
+            MntExe = 0
             for line in inv.invoice_line:
                 # se hizo de esta manera para que no dé error
                 try:
@@ -822,6 +878,15 @@ stamp to be legally valid.''')
                     lines['CdgItem'] = collections.OrderedDict()
                     lines['CdgItem']['TpoCodigo'] = 'INT1'
                     lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
+                # todo: mejorar el cálculo de impuestos
+                # raise UserError(self._pr_prices(line))
+                if self.product_is_exempt(line):
+                    lines['IndExe'] = 1
+                    ind_exe_qty += 1
+                    MntExe +=int(round(line.price_subtotal, 0))
+                # raise UserError(
+                #     'indexe {}, indexe qty {}, mntexe {}'.format(
+                #         lines['IndExe'], ind_exe_qty, MntExe))
                 lines['NmbItem'] = self.char_replace(line.product_id.name)[:80]
                 lines['DscItem'] = line.name
                 # si es cero y es nota de crédito o debito, los salteo a los dos
@@ -834,26 +899,31 @@ stamp to be legally valid.''')
                     # reemplazo la formula de precio unitario para que sea
                     # independiente de si se incluye o no el iva en el precio
                     # lines['PrcItem'] = round(line.price_unit, 4)
-                    price_unit = (line.price_subtotal/line.quantity) / (1-line.discount/100)
+                    price_unit = (line.price_subtotal/line.quantity) / (
+                        1-line.discount/100)
                     lines['PrcItem'] = round(price_unit, 4)
 
                 if 1==1:
                     # try:
                     if line.discount != 0:
                         lines['DescuentoPct'] = round(line.discount, 2)
-                        lines['DescuentoMonto'] = int(round(
-                            (line.quantity * price_unit * line.discount) / 100, 0))
+                        lines['DescuentoMonto'] = int(
+                            round((line.quantity * price_unit * line.discount) \
+                                  / 100, 0))
                 else:
                     #except:
                     pass
                 lines['MontoItem'] = int(round(line.price_subtotal, 0))
                 line_number = line_number + 1
-                if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
+                if inv.dte_service_provider not in [
+                    'LIBREDTE', 'LIBREDTE_TEST']:
                     invoice_lines.extend([{'Detalle': lines}])
                 else:
                     invoice_lines.extend([lines])
-
-            # para trasladar creación de referencias
+            assert (len(invoice_lines) != ind_exe_qty \
+                    or inv.sii_document_class_id.sii_code == 34),\
+                    _('All items are VAT exempt. Type of document is {} and \
+should be 34'.format(inv.sii_document_class_id.sii_code))
             ref_lines = []
             if len(inv.ref_document_ids) > 0:
                 _logger.info(inv.ref_document_ids)
@@ -876,62 +946,71 @@ stamp to be legally valid.''')
                     else:
                         ref_lines.extend([referencias])
 
-            ####
-
             ##### lugar de corte posible para revisar creacion de test:
             # _logger.info(invoice_lines)
             #########################
+
             folio = self.get_folio(inv)
             dte = collections.OrderedDict()
             dte1 = collections.OrderedDict()
 
-            # dte['Documento ID'] = 'F{}T{}'.format(folio, inv.sii_document_class_id.sii_code)
+            # dte['Documento ID'] = 'F{}T{}'.format(
+            # folio, inv.sii_document_class_id.sii_code)
             dte['Encabezado'] = collections.OrderedDict()
             dte['Encabezado']['IdDoc'] = collections.OrderedDict()
-            dte['Encabezado']['IdDoc']['TipoDTE'] = inv.sii_document_class_id.sii_code
+            dte['Encabezado']['IdDoc'][
+                'TipoDTE'] = inv.sii_document_class_id.sii_code
             dte['Encabezado']['IdDoc']['Folio'] = folio
             if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
                 dte['Encabezado']['IdDoc']['FchEmis'] = inv.date_invoice
             # todo: forma de pago y fecha de vencimiento - opcional
-            dte['Encabezado']['IdDoc']['FmaPago'] = inv.payment_term.dte_sii_code or 1
-            if inv.date_due < inv.date_invoice:
-                raise UserError(
-                    'LA FECHA DE VENCIMIENTO NO PUEDE SER ANTERIOR A LA DE \
-FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
-                        inv.date_invoice, inv.date_due))
+            dte['Encabezado']['IdDoc'][
+                'FmaPago'] = inv.payment_term.dte_sii_code or 1
+            assert inv.date_due >= inv.date_invoice, 'LA FECHA DE VENCIMIENTO'\
+'NO PUEDE SER ANTERIOR A LA DE FACTURACION: Fecha de Facturación: {}, Fecha \
+de Vencimiento {}'.format(inv.date_invoice, inv.date_due)
             dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
             dte['Encabezado']['Emisor'] = collections.OrderedDict()
             dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
                 inv.company_id.vat)
             dte['Encabezado']['Emisor']['RznSoc'] = inv.company_id.name
-            dte['Encabezado']['Emisor']['GiroEmis'] = self.char_replace(inv.turn_issuer.name)[:80]
+            dte['Encabezado']['Emisor']['GiroEmis'] = self.char_replace(
+                inv.turn_issuer.name)[:80]
             if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
-                dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
+                dte['Encabezado']['Emisor']['item'] = giros_emisor
+                # giros de la compañia - codigos
             else:
                 dte['Encabezado']['Emisor']['Acteco'] = inv.turn_issuer.code
-                #dte['Encabezado']['Emisor']['Acteco'] = giros_emisor  # giros de la compañia - codigos
+                # dte['Encabezado']['Emisor']['Acteco'] = giros_emisor
+                #  giros de la compañia - codigos
             # todo: Telefono y Correo opcional
             dte['Encabezado']['Emisor']['Telefono'] = inv.company_id.phone or ''
-            dte['Encabezado']['Emisor']['CorreoEmisor'] = inv.company_id.dte_email
-            # dte['Encabezado']['Emisor']['item'] = giros_emisor # giros de la compañia - codigos
+            dte['Encabezado']['Emisor'][
+                'CorreoEmisor'] = inv.company_id.dte_email
+            # dte['Encabezado']['Emisor']['item'] = giros_emisor
+            #  giros de la compañia - codigos
             # todo: <CdgSIISucur>077063816</CdgSIISucur> codigo de sucursal
             # no obligatorio si no hay sucursal, pero es un numero entregado
             # por el SII para cada sucursal.
             # este deberia agregarse al "punto de venta" el cual ya esta
-            dte['Encabezado']['Emisor']['DirOrigen'] = self.char_replace(inv.company_id.street)
-            dte['Encabezado']['Emisor']['CmnaOrigen'] = self.char_replace(inv.company_id.state_id.name)
-            dte['Encabezado']['Emisor']['CiudadOrigen'] = self.char_replace(inv.company_id.city)
+            dte['Encabezado']['Emisor']['DirOrigen'] = self.char_replace(
+                inv.company_id.street)
+            dte['Encabezado']['Emisor']['CmnaOrigen'] = self.char_replace(
+                inv.company_id.state_id.name)
+            dte['Encabezado']['Emisor']['CiudadOrigen'] = self.char_replace(
+                inv.company_id.city)
             dte['Encabezado']['Receptor'] = collections.OrderedDict()
-
-            # agregado de posibilidad de multiples direcciones, para el mismo partner
-            # si el registro es "hijo de" un partner principal,
+            # agregado de posibilidad de multiples direcciones, para el mismo
+            # partner si el registro es "hijo de" un partner principal,
             # toma el nombre del partner principal.
             # pero toma la direccion del partner seleccionado.
             if not inv.partner_id.parent_id:
-                # si viene por aca quiere decir que estoy tratando con la compañia principal
+                # si viene por aca quiere decir que estoy tratando con la
+                # compañia principal
                 dte['Encabezado']['Receptor']['RUTRecep'] = self.format_vat(
                     inv.partner_id.vat)
-                dte['Encabezado']['Receptor']['RznSocRecep'] = inv.partner_id.name
+                dte['Encabezado']['Receptor'][
+                    'RznSocRecep'] = inv.partner_id.name
             else:
                 # si viene por aca significa que estoy en un partner "hijo"
                 # y debo tomar la razon social principal
@@ -941,13 +1020,20 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                     'RznSocRecep'] = inv.partner_id.parent_id.name
             if not inv.invoice_turn.name:
                 raise UserError(_('There is no customer turn selected.'))
-            dte['Encabezado']['Receptor']['GiroRecep'] = self.char_replace(inv.invoice_turn.name)[:40]
-            dte['Encabezado']['Receptor']['DirRecep'] = self.char_replace(inv.partner_id.street)
+            dte['Encabezado']['Receptor']['GiroRecep'] = self.char_replace(
+                inv.invoice_turn.name)[:40]
+            dte['Encabezado']['Receptor']['DirRecep'] = self.char_replace(
+                inv.partner_id.street)
             # todo: revisar comuna: "false"
-            if inv.partner_id.state_id.name == False or inv.partner_id.city == False:
-                raise UserError('No se puede continuar: Revisar comuna y ciudad')
-            dte['Encabezado']['Receptor']['CmnaRecep'] = self.char_replace(inv.partner_id.state_id.name)
-            dte['Encabezado']['Receptor']['CiudadRecep'] = self.char_replace(inv.partner_id.city)
+            if inv.partner_id.state_id.name == False or \
+                            inv.partner_id.city == False:
+                raise UserError(
+                    'No se puede continuar: Revisar comuna y ciudad')
+            dte['Encabezado']['Receptor']['CmnaRecep'] = self.char_replace(
+                inv.partner_id.state_id.name)
+            dte['Encabezado']['Receptor']['CiudadRecep'] = self.char_replace(
+                inv.partner_id.city)
+            #################################################
             if inv.dte_service_provider not in ['LIBREDTE', 'LIBREDTE_TEST']:
                 # no se envían los totales a LibreDTE
                 dte['Encabezado']['Totales'] = collections.OrderedDict()
@@ -962,8 +1048,9 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                             (inv.amount_total / inv.amount_untaxed - 1) * 100,
                             0))
                     except:
-                        # lo hardcodeamos para solucionar rapidamente el problema
-                        # cuando se usan n/c o n/d para hacer modificaciones
+                        # lo hardcodeamos para solucionar rapidamente el
+                        # problema cuando se usan n/c o n/d para hacer
+                        # modificaciones
                         dte['Encabezado']['Totales']['TasaIVA'] = 19
                     dte['Encabezado']['Totales']['MntTotal'] = int(round(
                         inv.amount_total, 0))
@@ -978,8 +1065,6 @@ FACTURACION: Fecha de Facturación: {}, Fecha de Vencimiento {}'.format(
                 if len(ref_lines) > 0:
                     dte['Referencia'] = ref_lines
             # aca estaba la referencia antes
-
-            #####
             if global_discount != 0:
                 dte['DscRcgGlobal'] = collections.OrderedDict()
                 dte['DscRcgGlobal']['NroLinDR'] = 1
@@ -1043,18 +1128,21 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 
                 # corte para debug
                 # raise UserError('dictionary generated')
-                # if inv.sii_xml_response1 == False or inv.sii_xml_response1 == '':
+                # if inv.sii_xml_response1 == False or \
+                # inv.sii_xml_response1 == '':
                 # buscar una manera de forzar el reenvio.
                 # por ahora fuerza el reenvío desde el principio
                 if 1==1:
                     response_emitir = pool.urlopen(
-                        'POST', api_emitir, headers=headers, body=json.dumps(dte))
+                        'POST', api_emitir, headers=headers, body=json.dumps(
+                            dte))
 
                     if response_emitir.status != 200:
-                        raise UserError('Error en conexión al emitir: %s, %s' % (
-                            response_emitir.status, response_emitir.data))
-                    _logger.info('response_emitir: %s' % response_emitir.data)
-
+                        raise UserError(
+                            'Error en conexión al emitir: {}, {}'.format(
+                                response_emitir.status, response_emitir.data))
+                    _logger.info('response_emitir: {}'.format(
+                        response_emitir.data))
                     try:
                         inv.sii_xml_response1 = response_emitir.data
                     except:
@@ -1112,7 +1200,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
 class invoiceReference(models.Model):
     _name = "invoice.reference"
     '''
-    C<NroLinRef> ordinal. No se incluye. Se debe calcular al crear el diccionario
+    C<NroLinRef> ordinal. No se incluye. Se debe calcular al crear el
+    diccionario
     C<TpoDocRef> i.sii_document_class_id.sii_code
     *<FolioRef>  name
     *<FchRef>	reference_date
@@ -1159,7 +1248,8 @@ needed for credit notes and debit notes.")
     @api.depends('sii_document_class_id')
     def _compute_ref(self):
         for i in self:
-            if not i.sii_document_class_id.sii_code and i.sii_document_class_id.doc_code_prefix:
+            if not i.sii_document_class_id.sii_code \
+                    and i.sii_document_class_id.doc_code_prefix:
                 _logger.info(
                 'pasa por la funcion compute_ref: {}|{}|{}'.format(
                     i.id, i.name, i.sii_document_class_id.doc_code_prefix))
