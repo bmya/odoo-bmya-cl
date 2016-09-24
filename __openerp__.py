@@ -61,6 +61,7 @@ Incluye:
         'views/partner_view.xml',
         'views/journal_view.xml',
         'views/invoice_view.xml',
+        'views/product_view.xml',
         'views/account_move_view.xml',
         'views/account_move_line_view.xml',
         'views/config_view.xml',
@@ -72,5 +73,5 @@ Incluye:
         #'views/sii_menuitem.xml',
         'wizard/journal_config_wizard_view.xml',
     ],
-    'version': '8.0.3.0',
+    'version': '8.1.0.0',
 }
