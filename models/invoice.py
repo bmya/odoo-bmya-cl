@@ -879,14 +879,20 @@ time.'
                     lines['CdgItem']['TpoCodigo'] = 'INT1'
                     lines['CdgItem']['VlrCodigo'] = line.product_id.default_code
                 # todo: mejorar el cálculo de impuestos
-                # raise UserError(self._pr_prices(line))
+
                 if self.product_is_exempt(line):
+                    # manejo de error: momentaneamente para simplificar los
+                    # cálculos de impuestos, se impide colocar items exentos
+                    # en una factura afecta
+                    if inv.sii_document_class_id.sii_code == 33:
+                        raise UserError('''Esta implementación no permite \
+facturar items exentos en facturas afectas. Cambie el tipo de documento \
+o elimine el producto exento de esta factura.
+Producto que provocó el problema: {}'''.format(line.product_id.name))
                     lines['IndExe'] = 1
                     ind_exe_qty += 1
                     MntExe +=int(round(line.price_subtotal, 0))
-                # raise UserError(
-                #     'indexe {}, indexe qty {}, mntexe {}'.format(
-                #         lines['IndExe'], ind_exe_qty, MntExe))
+
                 lines['NmbItem'] = self.char_replace(line.product_id.name)[:80]
                 lines['DscItem'] = line.name
                 # si es cero y es nota de crédito o debito, los salteo a los dos
@@ -937,8 +943,10 @@ should be 34'.format(inv.sii_document_class_id.sii_code))
                         'TpoDocRef'] = ref_d.prefix
                     referencias['FolioRef'] = ref_d.name
                     referencias['FchRef'] = ref_d.reference_date
-                    referencias['CodRef'] = ref_d.codref
-                    referencias['RazonRef'] = ref_d.reason
+                    if ref_d.codref:
+                        referencias['CodRef'] = ref_d.codref
+                    if ref_d.reason:
+                        referencias['RazonRef'] = ref_d.reason
                     ref_order += 1
                     if inv.dte_service_provider not in [
                         'LIBREDTE', 'LIBREDTE_TEST']:
@@ -1038,22 +1046,30 @@ de Vencimiento {}'.format(inv.date_invoice, inv.date_due)
                 # no se envían los totales a LibreDTE
                 dte['Encabezado']['Totales'] = collections.OrderedDict()
                 if inv.sii_document_class_id.sii_code == 34:
+                    # en el caso que haya un tipo 34, el monto
+                    # exento va a coincidir con el total de la factura.
                     dte['Encabezado']['Totales']['MntExe'] = int(round(
                         inv.amount_total, 0))
                 else:
+                    # acá puede ocurrir que haya valores exentos involucrados
                     dte['Encabezado']['Totales']['MntNeto'] = int(round(
                         inv.amount_untaxed, 0))
                     try:
                         dte['Encabezado']['Totales']['TasaIVA'] = int(round(
                             (inv.amount_total / inv.amount_untaxed - 1) * 100,
                             0))
+                        # TODO: si este valor es distinto a 19%, hay un error
+                        # salvo que haya retenciones, que eso queda por hacer
                     except:
                         # lo hardcodeamos para solucionar rapidamente el
                         # problema cuando se usan n/c o n/d para hacer
                         # modificaciones
+                        _logger.info('calculo de iva total por excepcion')
                         dte['Encabezado']['Totales']['TasaIVA'] = 19
-                    dte['Encabezado']['Totales']['MntTotal'] = int(round(
-                        inv.amount_total, 0))
+                    MntTotal = int(round(inv.amount_total, 0))
+                    dte['Encabezado']['Totales']['IVA'] = MntTotal - dte[
+                        'Encabezado']['Totales']['MntNeto']
+                    dte['Encabezado']['Totales']['MntTotal'] = MntTotal
                 dte['item'] = invoice_lines
                 if len(ref_lines) > 0:
                     dte['item'].extend(ref_lines)
