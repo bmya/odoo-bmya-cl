@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="product_template_is_exempt_check" model="ir.ui.view">
+            <field name="name">product.template.is.exempt_check</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="sale_ok" position="before">
+                    <div>
+                        <field name="is_exempt"/>
+                        <label for="is_exempt"/>
+                    </div>
+            	</field>
+            </field>
+        </record>
+        <record id="product_product_is_exempt_check" model="ir.ui.view">
+            <field name="name">product.product.is.exempt_check</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="sale_ok" position="before">
+                    <div>
+                        <field name="is_exempt"/>
+                        <label for="is_exempt"/>
+                    </div>
+            	</field>
+            </field>
+        </record>
+        <!--<record id="product_template_exempt_account_tab" model="ir.ui.view">-->
+            <!--<field name="name">product.template.exempt.account_tab</field>-->
+            <!--<field name="model">product.template</field>-->
+            <!--<field name="inherit_id" ref="account.product_template_form_view"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="taxes_id" position="replace">-->
+                     <!--<field name="taxes_id" widget="many2many_tags">-->
+                         <!--attrs="{'readonly':[('is_exempt', '=', True)]}"-->
+                     <!--</field>-->
+            	<!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</openerp>
