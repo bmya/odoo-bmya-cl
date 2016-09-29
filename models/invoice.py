@@ -664,36 +664,47 @@ stamp to be legally valid.''')
     Función para tomar el PDF generado en libreDTE y adjuntarlo al registro
      @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
      @version: 2016-06-23
+    Se corrige función para que no cree un nuevo PDF cada vez que se hace clic en botón
+    y no tome PDF con cedible que se creará en botón imprimir.
+     @review: Juan Plaza (jplaza@isos.cl)
+     @version: 2016-09-28
+
     '''
     @api.multi
     def bring_pdf_ldte(self):
-        self.ensure_one()
-        _logger.info('entrada a bringpdf function')
-        headers = self.create_headers_ldte()
-        # en lugar de third_party_xml, que ahora no va a existir más,
-        # hay que tomar el xml del adjunto, o bien del texto
-        # pero prefiero del adjunto
-        dte_xml = self.get_xml_attachment()
-        generar_pdf_request = json.dumps({'xml': dte_xml, 'compress': False})
-        _logger.info(generar_pdf_request)
-        response_pdf = pool.urlopen(
-            'POST', api_gen_pdf,  headers=headers,
-            body=generar_pdf_request)
-        if response_pdf.status != 200:
-            raise UserError('Error en conexión al generar: %s, %s' % (
-                response_pdf.status, response_pdf.data))
-        invoice_pdf = base64.b64encode(response_pdf.data)
         attachment_obj = self.env['ir.attachment']
-        attachment_id = attachment_obj.create(
-            {
-                'name': 'DTE_'+self.sii_document_class_id.name+'-'+self.sii_document_number+'.pdf',
-                'datas': invoice_pdf,
-                'datas_fname': 'DTE_'+self.sii_document_class_id.name+'-'+self.sii_document_number+'.pdf',
-                'res_model': self._name,
-                'res_id': self.id,
-                'type': 'binary'
-            })
-        _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
+        if attachment_obj.search([('res_model', '=', self._name), ('res_id', '=', self.id,), ('name', 'like', 'DTE_'),
+                                  ('name', 'not like', 'cedible'), ('name', 'ilike', '.pdf')]):
+            pass
+
+        else:
+            self.ensure_one()
+            _logger.info('entrada a bringpdf function')
+            headers = self.create_headers_ldte()
+            # en lugar de third_party_xml, que ahora no va a existir más,
+            # hay que tomar el xml del adjunto, o bien del texto
+            # pero prefiero del adjunto
+            dte_xml = self.get_xml_attachment()
+            generar_pdf_request = json.dumps({'xml': dte_xml, 'compress': False})
+            _logger.info(generar_pdf_request)
+            response_pdf = pool.urlopen(
+                'POST', api_gen_pdf, headers=headers,
+                body=generar_pdf_request)
+            if response_pdf.status != 200:
+                raise Warning('Error en conexión al generar: %s, %s' % (
+                    response_pdf.status, response_pdf.data))
+            invoice_pdf = base64.b64encode(response_pdf.data)
+            attachment_obj = self.env['ir.attachment']
+            attachment_id = attachment_obj.create(
+                {
+                    'name': 'DTE_' + self.sii_document_class_id.name + '-' + self.sii_document_number + '.pdf',
+                    'datas': invoice_pdf,
+                    'datas_fname': 'DTE_' + self.sii_document_class_id.name + '-' + self.sii_document_number + '.pdf',
+                    'res_model': self._name,
+                    'res_id': self.id,
+                    'type': 'binary'
+                })
+            _logger.info('Se ha generado factura en PDF con el id {}'.format(attachment_id))
 
     '''
     Funcion que envía el email por correo electrónico al cliente
@@ -749,11 +760,56 @@ stamp to be legally valid.''')
             'target': 'new',
             'context': ctx,
         }
-
+    '''
+    Funcion que reemplaza función de botón imprimir para generar PDF
+    con cedible, función solo para LibreDTE.
+    TODO: poner comprobación de existencia de PDF al principio
+    autor: Juan Plaza - jplaza@isos.cl basado en función de Daniel Blanco
+    @version: 2016-09-28
+    '''
     @api.multi
     def invoice_print(self):
         _logger.info('entrando a impresion de factura desde boton de arriba')
-        pass
+        self.ensure_one()
+        _logger.info('entrada a invoice print function')
+        headers = self.create_headers_ldte()
+        # en lugar de third_party_xml, que ahora no va a existir más,
+        # hay que tomar el xml del adjunto, o bien del texto
+        # pero prefiero del adjunto
+        dte_xml = self.get_xml_attachment()
+        genera_pdf_request = json.dumps(
+            {'xml': dte_xml, 'cedible': 1, 'copias_tributarias': 1, 'copias_cedibles': 1, 'compress': False})
+        _logger.info(genera_pdf_request)
+        response_pdf = pool.urlopen(
+            'POST', api_gen_pdf, headers=headers,
+            body=genera_pdf_request)
+        if response_pdf.status != 200:
+            raise Warning('Error en conexión al bkgenerar: %s, %s' % (
+                response_pdf.status, response_pdf.data))
+        invoice_pdf = base64.b64encode(response_pdf.data)
+        # assert len(self) == 1, self.sent = True
+        # return self.env['report'].get_action(self, 'account.report_invoice')
+        attachment_obj = self.env['ir.attachment']
+        if attachment_obj.search([('res_model', '=', self._name), ('res_id', '=', self.id,), ('name', 'like', 'cedible')]):
+            new_attach = attachment_obj.search(
+                [('res_model', '=', self._name), ('res_id', '=', self.id,), ('name', 'like', 'cedible')])
+
+        else:
+            new_attach = attachment_obj.create(
+                {
+                    'name': 'DTE_' + self.sii_document_class_id.name + '-' + self.sii_document_number + 'cedible.pdf',
+                    'datas': invoice_pdf,
+                    'datas_fname': 'DTE_' + self.sii_document_class_id.name + '-' + self.sii_document_number + 'cedible.pdf',
+                    'res_model': self._name,
+                    'res_id': self.id,
+                    'type': 'binary'
+                })
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/binary/saveas?model=ir.attachment&field=datas&filename_field=name&id=%s' % (new_attach.id,),
+            'target': 'self',
+        }
 
     @api.multi
     def action_number(self):
