@@ -50,19 +50,14 @@
                                     attrs="{'invisible':[
                                         ('dte_service_provider', 'not in', ['EFACTURADELSUR', 'EFACTURADELSUR_TEST'])
                                         ], 'disabled':True}"/>
-
                                 <!-- boton para envio fin -->
-                                <button string="Check DTE Status" type="object" name="check_dte_status"
-                                    class="oe_highlight"
-                                    attrs="{'invisible':[
-                                        ('sii_result', 'not in', 'Enviado')
-                                    ]
-                                    }"/>
-                                <button string="Check DTE Status" type="object" name="check_dte_status"
-                                    attrs="{'invisible':[
-                                        ('sii_result', 'in', 'Enviado'),
-                                        ('dte_service_provider', 'in', ['FACTURACION'])
-                                    ]
+                                <button string="Check DTE Status"
+                                        type="object" name="check_dte_status"
+                                        class="oe_highlight"
+                                        attrs="{'invisible':[
+                                            '|',('sii_result', 'not in', ['Enviado']),
+                                            ('dte_service_provider', 'in', ['FACTURACION'])
+                                        ]
                                     }"/>
                                 <button string="Bring PDF DTE" type="object"
                                         class="oe_highlight"

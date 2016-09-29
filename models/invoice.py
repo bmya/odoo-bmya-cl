@@ -715,10 +715,9 @@ stamp to be legally valid.''')
         message loaded by default
         """
         _logger.info('controlo el proceso de envio con mi propia funcion...')
-        assert len(
-            self) == 1, 'This option should only be used for a single id at a \
-time.'
-
+        if len(self) != 1:
+            raise UserError('This option should only be used for a single id \
+at a time.')
         attachment_id = self.env['ir.attachment'].search([
             ('res_model', '=', self._name),
             ('res_id', '=', self.id,),
@@ -915,10 +914,10 @@ Producto que provocó el problema: {}'''.format(line.product_id.name))
                     invoice_lines.extend([{'Detalle': lines}])
                 else:
                     invoice_lines.extend([lines])
-            assert (len(invoice_lines) != ind_exe_qty \
-                    or inv.sii_document_class_id.sii_code == 34),\
-                    _('All items are VAT exempt. Type of document is {} and \
-should be 34'.format(inv.sii_document_class_id.sii_code))
+            if len(invoice_lines) == ind_exe_qty \
+                    and inv.sii_document_class_id.sii_code not in [34, 61]:
+                raise UserError(_('All items are VAT exempt. Type of document \
+is {} does not match'.format(inv.sii_document_class_id.sii_code)))
             ref_lines = []
             if len(inv.ref_document_ids) > 0:
                 _logger.info(inv.ref_document_ids)
@@ -963,9 +962,10 @@ should be 34'.format(inv.sii_document_class_id.sii_code))
             # todo: forma de pago y fecha de vencimiento - opcional
             dte['Encabezado']['IdDoc'][
                 'FmaPago'] = inv.payment_term.dte_sii_code or 1
-            assert inv.date_due >= inv.date_invoice, 'LA FECHA DE VENCIMIENTO'\
+            if inv.date_due < inv.date_invoice:
+                raise UserError('LA FECHA DE VENCIMIENTO'\
 'NO PUEDE SER ANTERIOR A LA DE FACTURACION: Fecha de Facturación: {}, Fecha \
-de Vencimiento {}'.format(inv.date_invoice, inv.date_due)
+de Vencimiento {}'.format(inv.date_invoice, inv.date_due))
             dte['Encabezado']['IdDoc']['FchVenc'] = inv.date_due
             dte['Encabezado']['Emisor'] = collections.OrderedDict()
             dte['Encabezado']['Emisor']['RUTEmisor'] = self.format_vat(
