@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 {
     'author': u'Blanco Martín & Asociados',
     'category': 'Localization/Chile',
@@ -10,7 +11,6 @@
         ]
     },
     'description': u'''\n\nDTE CAF File Data Model\n\n''',
-    'installable': True,
     'license': 'AGPL-3',
     'name': 'CAF Container for DTE Compliance',
     'test': [],
@@ -19,9 +19,9 @@
         'security/ir.model.access.csv',
     ],
     'update_xml': [],
-    'version': '8.0.0.1',
+    'version': '8.0.0.2',
     'website': 'http://blancomartin.cl',
-    'auto-install': True,
+    'installable': True,
+    'auto_install': True,
     'active': False
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

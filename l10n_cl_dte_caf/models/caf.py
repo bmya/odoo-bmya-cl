@@ -44,9 +44,10 @@ class caf(models.Model):
         ('in_use', 'In Use'),
         ('spent', 'Spent'),
         ('cancelled', 'Cancelled')], string='Status',
-        default='draft', help='''Draft: means it has not been used yet. You must put in in used
-in order to make it available for use. Spent: means that the number interval
-has been exhausted. Cancelled means it has been deprecated by hand.''')
+        default='draft', help='''Draft: means it has not been used yet.
+You must put in in used in order to make it available for use. Spent: means
+that the number interval has been exhausted. Cancelled means it has been
+deprecated by hand.''')
 
     rut_n = fields.Char(string='RUT')
 
@@ -64,17 +65,24 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         for r in self:
             if r.status not in ['draft','cancelled']:
                 try:            
-                    r.use_level = 100 * (float(r.sequence_id.number_next_actual - 1) / float(r.final_nm - r.start_nm + 1))
+                    r.use_level = 100 * (
+                        float(r.sequence_id.number_next_actual - 1) / float(
+                            r.final_nm - r.start_nm + 1))
                 except ZeroDivisionError:
                     r.use_level = 0
-                print r.use_level, r.sequence_id.number_next_actual, r.final_nm, r.start_nm
-                if r.sequence_id.number_next_actual > r.final_nm and r.status == 'in_use':
+                print(r.use_level, r.sequence_id.number_next_actual,
+                      r.final_nm, r.start_nm)
+                if r.sequence_id.number_next_actual > r.final_nm \
+                    and r.status == 'in_use':
                     #r.status = 'spent'
-                    self.env.cr.execute("""UPDATE dte_caf SET status = 'spent' WHERE filename = '%s'""" % r.filename)
+                    self.env.cr.execute("""UPDATE dte_caf SET status = 'spent' \
+WHERE filename = '%s'""" % r.filename)
                     print 'spent'
-                elif r.sequence_id.number_next_actual <= r.final_nm and r.status == 'spent':
+                elif r.sequence_id.number_next_actual <= r.final_nm \
+                    and r.status == 'spent':
                     #r.status = 'in_use'
-                    self.env.cr.execute("""UPDATE dte_caf SET status = 'in_use' WHERE filename = '%s'""" % r.filename)
+                    self.env.cr.execute("""UPDATE dte_caf SET status \
+= 'in_use' WHERE filename = '%s'""" % r.filename)
                     print 'in_use'
                 
             else:
@@ -95,16 +103,25 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
         self.rut_n = 'CL' + result['RE'].replace('-','')
         if not self.sequence_id:
             raise Warning(_(
-                'You should select a DTE sequence before enabling this CAF record'))
+                'You should select a DTE sequence before enabling this \
+CAF record'))
         elif self.rut_n != self.company_id.vat:
             raise Warning(_(
-                'Company vat %s should be the same that assigned company\'s vat: %s!') % (self.rut_n, self.company_id.vat))
+                'Company vat %s should be the same that assigned company\'s \
+vat: %s!') % (self.rut_n, self.company_id.vat))
         elif self.sii_document_class != self.sequence_id.sii_document_class:
             raise Warning(_(
-                '''SII Document Type for this CAF is %s and selected sequence associated document class is %s. This values should be equal for DTE Invoicing to work properly!''') % (self.sii_document_class, self.sequence_id.sii_document_class))
-        elif self.sequence_id.number_next_actual < self.start_nm or self.sequence_id.number_next_actual > self.final_nm:
+                '''SII Document Type for this CAF is %s and selected sequence \
+associated document class is %s. This values should be equal for DTE Invoicing \
+to work properly!''') % (
+                self.sii_document_class, self.sequence_id.sii_document_class))
+        elif self.sequence_id.number_next_actual < self.start_nm \
+                or self.sequence_id.number_next_actual > self.final_nm:
             raise Warning(_(
-                'Folio Number %s should be between %s and %s CAF Authorization Interval!') % (self.sequence_id.number_next_actual, self.start_nm, self.final_nm))
+                'Folio Number %s should be between %s and %s CAF \
+Authorization Interval!') % (
+                self.sequence_id.number_next_actual, self.start_nm,
+                self.final_nm))
         else:
             self.status = 'in_use'
 
@@ -120,7 +137,8 @@ has been exhausted. Cancelled means it has been deprecated by hand.''')
 class sequence_caf(models.Model):
     _inherit = "ir.sequence"
     
-    sii_document_class = fields.Integer('SII Code', readonly=True, compute='_get_sii_document_class')
+    sii_document_class = fields.Integer(
+        'SII Code', readonly=True, compute='_get_sii_document_class')
 
     is_dte = fields.Boolean('IS DTE?', readonly=True, compute='_check_dte')
     
@@ -130,18 +148,17 @@ class sequence_caf(models.Model):
     @api.one
     def _get_sii_document_class(self):
         r = self
-        obj = r.env['account.journal.sii_document_class'].search([('sequence_id', '=', r.id)])
+        obj = r.env['account.journal.sii_document_class'].search(
+            [('sequence_id', '=', r.id)])
         r.sii_document_class = obj.sii_document_class_id.sii_code
         
 
     @api.one
     def _check_dte(self):
         r = self
-        obj = r.env['account.journal.sii_document_class'].search([('sequence_id', '=', r.id)])
-        r.is_dte = obj.sii_document_class_id.dte and obj.sii_document_class_id.document_type in ['invoice', 'debit_note', 'credit_note']
-
-
-
-        
-
-    
+        obj = r.env['account.journal.sii_document_class'].search(
+            [('sequence_id', '=', r.id)])
+        r.is_dte = obj.sii_document_class_id.dte \
+                   and obj.sii_document_class_id.document_type in [
+            'invoice', 'debit_note', 'credit_note', 'stock_picking',
+            'stock_voucher']
