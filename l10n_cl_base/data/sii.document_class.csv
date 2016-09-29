@@ -1,0 +1,5 @@
+id,active,document_letter_id/id,sii_code,dte,doc_code_prefix,document_type,report_name,name,code_template
+dc_HES,True,,,False,HES ,,ref,Hoja Entrada Servicio,HES
+dc_LIQXOM,True,,,False,LIQ ,,ref,Liquidación Com. Dis.,LIQ
+dc_SETPR,True,,,False,SET ,,ref,Set de Pruebas,SET
+dc_REFATT,True,,888,False,REF ,,adj,Referencia a Archivo Adjunto,REF

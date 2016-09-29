@@ -34,18 +34,15 @@ TO-DO:
 argentinean localization project, but just in forms, not in code.
 
 
-<p>
-<img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
-</p>
-**Blanco Martin & Asociados EIRL** - http://blancomartin.cl
-
-
 ## Créditos
 ### Este módulo es de autoría total de BMyA e inspirado por
 el proyecto de localización argentina, pero solo en formas, no en código.
 
-<p>
-<img alt="Logo BMYA" src="http://crm.blancomartin.cl/index.php?entryPoint=image&name=c82ab43f-e8dd-b2fa-25ff-56017f69d116" />
-</p>
+
+![Logo BMyA](https://blancomartin.cl/website/image/ir.attachment/9711_e6d1eea/datas)
 **Blanco Martin & Asociados EIRL** - http://blancomartin.cl
 
+
+#### Versions:
+8.1.0.0.0
+- This version includes multiple references, for invoices and credit notes.
