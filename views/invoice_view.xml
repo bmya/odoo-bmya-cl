@@ -90,7 +90,7 @@
                             <!--<field name='sii_batch_number'/>-->
                         </group>
                         <div class="row">
-                            <div class="col-md-12 modal-body panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                            <!--<div class="col-md-12 modal-body panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
                                 <div class="panel panel-default clean-panel">
                                     <div class="panel-heading clean-panel-heading" role="tab" id="headingOne">
                                         <h4 class="panel-title clean-panel-title">
@@ -98,13 +98,15 @@
                                         </h4>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="seexml" class="collapse out col-md-12">
+                            </div>-->
+                            <!--<div id="seexml" class="collapse out col-md-12">-->
+                            <div class="col-md-12">
                                 <field name='sii_xml_request'/>
                                     <!--attrs="{
                                         'invisible':[('sii_result', '=', '')],
                                     }"-->
                             </div>
+                            <!--</div>-->
                         </div>
                         <div class="row">
                             <!--<div class="col-md-12 modal-body panel-group clean-panel-group" id="accordion2" role="tablist" aria-multiselectable="true">-->

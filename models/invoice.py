@@ -1206,7 +1206,8 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
                 envelope_efact = '''<?xml version="1.0" encoding="ISO-8859-1"?>
 {}'''.format(self.convert_encoding(xml_pret, 'ISO-8859-1'))
                 inv.sii_xml_request = envelope_efact
-                self.get_xml_file()
+                # raise UserError(envelope_efact)
+                # self.get_xml_file()
             else:
                 _logger.info('NO HUBO NINGUNA OPCION DTE VALIDA ({})'.format(
                     inv.dte_service_provider))
