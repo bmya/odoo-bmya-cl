@@ -61,6 +61,55 @@ class invoice(models.Model):
 
     _inherit = "account.invoice"
 
+    ## incorporamos en este lugar nuevas funciones tomadas del stock_voucher
+    def record_reference(self, inv, model='invoice.reference'):
+        """
+        Función para guardar como referencia la nota de pedido en el picking
+        @author: Daniel Blanco daniel[at]blancomartin.cl
+        @version: 2016-09-29
+        :return:
+        """
+        # other model option='stock.picking.reference'
+        # other order_id = order_id, picking id
+        # order_mode = {'order_id': order_id_object,
+        # 'model_object_id': picking/invoice}
+        order_obj = self.env['sale.order']
+        order_id = order_obj.search([('name', '=', inv.origin)])
+        ref_obj = self.env[model]
+        sii_ref = self.env.ref('l10n_cl_invoice.dc_ndp')
+        vals = {
+                'invoice_id': inv.id,
+                'parent_type': model,
+                'name': int(re.sub('[^1234567890]', '', order_id[0].name)),
+                'sii_document_class_id': sii_ref.id,
+                'reference_date': order_id[0].date_confirm,
+                'prefix': sii_ref.doc_code_prefix,
+                'reason': 'Venta Confirmada'}
+                # codref no aplica para este caso, solo notas de crédito/debito
+        _logger.info('grabando la referencia: {}'.format(vals))
+        ref_obj.create(vals)
+
+    def clean_relationships(self, model='invoice.reference'):
+        """
+        Limpia relaciones
+        @author: Daniel Blanco daniel[at]blancomartin.cl
+        @version: 2016-09-29
+        :return:
+        """
+        invoice_id = self.invoice_id
+        ref_obj = self.env[model]
+        ref_obj.search([('invoice_id', '=', invoice_id.id)]).unlink()
+
+    def clean_xml(self):
+        """
+        Limpia xml
+        @author: Daniel Blanco daniel[at]blancomartin.cl
+        @version: 2016-09-29
+        :return:
+        """
+        invoice_id = self.invoice_id
+        invoice_id.sii_xml_request = False
+
     def char_replace(self, text):
         """
         Funcion para reemplazar caracteres especiales
@@ -268,12 +317,10 @@ xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
             raise UserError(x['soap:Envelope']['soap:Body'][
                               'ObtenerEstadoDTEResponse'][
                               'ObtenerEstadoDTEResult'])
-
             root = etree.fromstring(response.data)
             raise UserError(root.ObtenerEstadoDTEResult)
 
-        elif self.dte_service_provider in [
-            'LIBREDTE', 'LIBREDTE_TEST']:
+        elif self.dte_service_provider in ['LIBREDTE', 'LIBREDTE_TEST']:
             '''
             {
                 "track_id": ---,
@@ -823,6 +870,9 @@ at a time.')
             # control de DTE
             cant_doc_batch = cant_doc_batch + 1
 
+            # aca se incorpora el grabar la referencia del pedido
+            if inv.origin:
+                self.record_reference(inv)
             if inv.dte_service_provider in ['EFACTURADELSUR',
                                             'EFACTURADELSUR_TEST',
                                             'LIBREDTE',
@@ -1223,6 +1273,7 @@ class invoiceReference(models.Model):
         'account.invoice', 'Invoice',
         required=True, ondelete='cascade', select=True, readonly=True)
     # FolioRef
+    parent_type = fields.Char('Parent Type')
     name = fields.Char(
         'Number', required=True, readonly=False,
         help='Number (folio) of reference')
