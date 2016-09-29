@@ -30,8 +30,8 @@ dc_m_f_dtn,True,dl_m,70,False,BHO ,invoice,BHO ,Boleta de Honorarios,BHO
 dc_m_d_dtn,True,dl_m,71,True,BHE ,invoice,BHE ,Boleta de Honorarios Electrónica,BHE
 dc_oc,True,,801,False,OC,,OC ,Orden de Compra,OC
 dc_li,True,,103,False,LIQ,,LIQ ,Liquidación,LIQ
-dc_gd,True,,50,False,GD,,GD ,Guía de Despacho,GD
-dc_gd_dte,True,,52,True,GDE,,GDE ,Guía de Despacho Electrónica,GDE
+dc_gd,True,,50,False,GD,stock_voucher,GD ,Guía de Despacho,GD
+dc_gd_dte,True,,52,True,GDE,stock_voucher,GDE ,Guía de Despacho Electrónica,GDE
 dc_fe_dte,True,,110,True,FCXE,,FCXE ,Factura de Exportación Electrónica,FCXE
 dc_ndex_dte,True,,111,True,NDXE,,NDXE ,Nota de Débito de Exportación Electrónica,NDXE
 dc_ncex_dte,True,,112,True,NCXE,,NCXE ,Nota de Crédito de Exportación Electrónica,NCXE
