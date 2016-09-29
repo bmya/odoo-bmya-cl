@@ -652,103 +652,47 @@ stamp to be legally valid.''')
         Función para tomar el PDF generado en libreDTE y adjuntarlo al registro
         @author: Daniel Blanco Martin (daniel[at]blancomartin.cl)
         @version: 2016-06-23
+        Se corrige función para que no cree un nuevo PDF cada vez que se hace clic en botón
+        y no tome PDF con cedible que se creará en botón imprimir.
+        @review: Juan Plaza (jplaza@isos.cl)
+        @version: 2016-09-28
         """
-        self.ensure_one()
-        _logger.info('entrada a bringpdf function')
-        headers = self.create_headers_ldte()
-        # en lugar de third_party_xml, que ahora no va a existir más,
-        # hay que tomar el xml del adjunto, o bien del texto
-        # pero prefiero del adjunto
-        dte_xml = self.get_xml_attachment()
-        generar_pdf_request = json.dumps({'xml': dte_xml, 'compress': False})
-        _logger.info(generar_pdf_request)
-        response_pdf = pool.urlopen(
-            'POST', api_gen_pdf,  headers=headers,
-            body=generar_pdf_request)
-        if response_pdf.status != 200:
-            raise UserError('Error en conexión al generar: %s, %s' % (
-                response_pdf.status, response_pdf.data))
-        invoice_pdf = base64.b64encode(response_pdf.data)
         attachment_obj = self.env['ir.attachment']
-        attachment_id = attachment_obj.create(
-            {
-                'name': 'DTE_'+self.sii_document_class_id.name+'-'+\
-                        self.sii_document_number+'.pdf',
-                'datas': invoice_pdf,
-                'datas_fname': 'DTE_'+self.sii_document_class_id.name+'-'+\
-                               self.sii_document_number+'.pdf',
-                'res_model': self._name,
-                'res_id': self.id,
-                'type': 'binary'
-            })
-        _logger.info('Se ha generado factura en PDF con el id {}'.format(
-            attachment_id))
+        if attachment_obj.search(
+                [('res_model', '=', self._name), ('res_id', '=', self.id,),
+                 ('name', 'like', 'DTE_'),
+                 ('name', 'not like', 'cedible'), ('name', 'ilike', '.pdf')]):
+            pass
+        else:
+            self.ensure_one()
+            _logger.info('entrada a bringpdf function')
+            headers = self.create_headers_ldte()
+            # en lugar de third_party_xml, que ahora no va a existir más,
+            # hay que tomar el xml del adjunto, o bien del texto
+            # pero prefiero del adjunto
+            dte_xml = self.get_xml_attachment()
+            generar_pdf_request = json.dumps(
+                {'xml': dte_xml, 'compress': False})
+            _logger.info(generar_pdf_request)
+            response_pdf = pool.urlopen(
+                'POST', api_gen_pdf, headers=headers,
+                body=generar_pdf_request)
+            if response_pdf.status != 200:
+                raise Warning('Error en conexión al generar: %s, %s' % (
+                    response_pdf.status, response_pdf.data))
+            invoice_pdf = base64.b64encode(response_pdf.data)
+            attachment_obj = self.env['ir.attachment']
+            attachment_id = attachment_obj.create(
+                {
+                    'name': 'DTE_' + self.sii_document_class_id.name + '-' + self.sii_document_number + '.pdf',
+                    'datas': invoice_pdf,
+                    'datas_fname': 'DTE_' + self.sii_document_class_id.name + '-' + self.sii_document_number + '.pdf',
+                    'res_model': self._name,
+                    'res_id': self.id,
+                    'type': 'binary'})
+            _logger.info('Se ha generado factura en PDF con el id {}'.format(
+                attachment_id))
 
-    @api.v8
-    def _pr_prices(self, line):
-        '''
-        Función en desarrollo, para calcular los valores de impuestos
-        Por ahora esta muteada, para revisar mejor esta parte.
-        :param line:
-        :return:
-        '''
-        res = {}
-        tax_obj = self.env['account.tax']
-        cur_obj = self.env['res.currency']
-        _round = (lambda x: cur_obj.round(
-            line.invoice_id.currency_id, x)) if line.invoice_id else (
-            lambda x: x)
-        quantity = line.quantity
-        discount = line.discount
-        printed_price_unit = line.price_unit
-        printed_price_net = line.price_unit * \
-                            (1 - (discount or 0.0) / 100.0)
-        printed_price_subtotal = printed_price_net * quantity
-
-        not_vat_taxes = [
-            x for x in line.invoice_line_tax_id if
-            x.tax_code_id.parent_id.name != 'IVA']
-        raise UserError(
-            'qty: {}, discount:{}, price unit:{} price net:{}, price subtotal:{} not vat:{}'.format(
-                quantity, discount, printed_price_unit, printed_price_net,
-                printed_price_subtotal, not_vat_taxes[0].name))
-
-        taxes = tax_obj.compute_all(not_vat_taxes, printed_price_net, 1,
-                                    product=line.product_id,
-                                    partner=line.invoice_id.partner_id)
-        other_taxes_amount = _round(
-            taxes['total_included']) - _round(taxes['total'])
-
-        vat_taxes = [
-            x for x in line.invoice_line_tax_id if
-            x.tax_code_id.parent_id.name == 'IVA']
-        taxes = tax_obj.compute_all(vat_taxes, printed_price_net, 1,
-                                    product=line.product_id,
-                                    partner=line.invoice_id.partner_id)
-        vat_amount = _round(
-            taxes['total_included']) - _round(taxes['total'])
-
-        exempt_amount = 0.0
-        if not vat_taxes:
-            exempt_amount = _round(taxes['total_included'])
-
-        # For document that not discriminate we include the prices
-        if not line.invoice_id.vat_discriminated:
-            printed_price_unit = _round(
-                taxes['total_included'] * (1 + (discount or 0.0) / 100.0))
-            printed_price_net = _round(taxes['total_included'])
-            printed_price_subtotal = _round(
-                taxes['total_included'] * quantity)
-
-        res[line.id] = {
-            'printed_price_unit': printed_price_unit,
-            'printed_price_net': printed_price_net,
-            'printed_price_subtotal': printed_price_subtotal,
-            'vat_amount': vat_amount * quantity,
-            'other_taxes_amount': other_taxes_amount * quantity,
-            'exempt_amount': exempt_amount * quantity,
-        }
-        return res
 
     def product_is_exempt(self, line):
         """
@@ -811,11 +755,56 @@ time.'
             'target': 'new',
             'context': ctx,
         }
-
+    '''
+    Funcion que reemplaza función de botón imprimir para generar PDF
+    con cedible, función solo para LibreDTE.
+    TODO: poner comprobación de existencia de PDF al principio
+    autor: Juan Plaza - jplaza@isos.cl basado en función de Daniel Blanco
+    @version: 2016-09-28
+    '''
     @api.multi
     def invoice_print(self):
         _logger.info('entrando a impresion de factura desde boton de arriba')
-        pass
+        self.ensure_one()
+        _logger.info('entrada a invoice print function')
+        headers = self.create_headers_ldte()
+        # en lugar de third_party_xml, que ahora no va a existir más,
+        # hay que tomar el xml del adjunto, o bien del texto
+        # pero prefiero del adjunto
+        dte_xml = self.get_xml_attachment()
+        genera_pdf_request = json.dumps(
+            {'xml': dte_xml, 'cedible': 1, 'copias_tributarias': 1, 'copias_cedibles': 1, 'compress': False})
+        _logger.info(genera_pdf_request)
+        response_pdf = pool.urlopen(
+            'POST', api_gen_pdf, headers=headers,
+            body=genera_pdf_request)
+        if response_pdf.status != 200:
+            raise Warning('Error en conexión al bkgenerar: %s, %s' % (
+                response_pdf.status, response_pdf.data))
+        invoice_pdf = base64.b64encode(response_pdf.data)
+        # assert len(self) == 1, self.sent = True
+        # return self.env['report'].get_action(self, 'account.report_invoice')
+        attachment_obj = self.env['ir.attachment']
+        if attachment_obj.search([('res_model', '=', self._name), ('res_id', '=', self.id,), ('name', 'like', 'cedible')]):
+            new_attach = attachment_obj.search(
+                [('res_model', '=', self._name), ('res_id', '=', self.id,), ('name', 'like', 'cedible')])
+
+        else:
+            new_attach = attachment_obj.create(
+                {
+                    'name': 'DTE_' + self.sii_document_class_id.name + '-' + self.sii_document_number + 'cedible.pdf',
+                    'datas': invoice_pdf,
+                    'datas_fname': 'DTE_' + self.sii_document_class_id.name + '-' + self.sii_document_number + 'cedible.pdf',
+                    'res_model': self._name,
+                    'res_id': self.id,
+                    'type': 'binary'
+                })
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/web/binary/saveas?model=ir.attachment&field=datas&filename_field=name&id=%s' % (new_attach.id,),
+            'target': 'self',
+        }
 
     @api.multi
     def action_number(self):
