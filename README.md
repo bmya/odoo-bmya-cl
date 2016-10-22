@@ -16,6 +16,7 @@ This module provides a convenient mean to install all the modules for chilean lo
 -Human resources (very soon)
 -Electronic invoicing (soon.. months)
 
+
 ## Dependencies
 Will provide a dependency list here
 
