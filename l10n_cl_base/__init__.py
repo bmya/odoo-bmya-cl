@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-# Init module for l10n_cl_base
-# Daniel Blanco - Blanco Martin & Asociados
-''' see license at __openerp__.py '''
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from . import res_config
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+# Copyright (c) 2016 Blanco Martin y Asociados - Nelson Ramírez Sánchez http://www.bmya.cl
