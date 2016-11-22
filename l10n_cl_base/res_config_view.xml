@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- Base Config Settings Form View -->
+		<record id="view_chilean_base_configuration" model="ir.ui.view">
+			<field name="name">chilean.base.settings</field>
+			<field name="model">chilean.base.config.settings</field>
+			<field name="arch" type="xml">
+				<form string="Configure" class="oe_form_configuration" version="8.0">
+					<header>
+						<button string="Apply" type="object" name="execute" class="oe_highlight" />
+						or
+						<button string="Cancel" type="object" name="cancel" class="oe_link" />
+					</header>
+
+					<separator string="Chilean Localization" />
+					<div>
+						<p>
+							<label
+								string="Easily configure your options for chilean localization." />
+						</p>
+					</div>
+					<separator string="Partners" />
+					<group>
+						<label for="id" string="Partners" />
+						<div name="fantasyname">
+							<div name='module_l10n_cl_fantasy_name'>
+								<field name="module_l10n_cl_fantasy_name"
+									class="oe_inline"  readonly="1" />
+								<label for="module_l10n_cl_fantasy_name" />
+							</div>
+
+							<div name='module_l10n_cl_toponyms'>
+								<field name="module_l10n_cl_toponyms"
+									class="oe_inline" />
+								<label for="module_l10n_cl_toponyms" />
+							</div>		
+						</div>
+						<label for="id" string="RUT (VAT) Validation"/>
+						<div name="partners">
+							<div name='module_l10n_cl_base_rut'>
+								<field name="module_l10n_cl_base_rut"
+									class="oe_inline"/>
+								<label for="module_l10n_cl_base_rut" />
+							</div>
+
+						</div>
+					</group>
+					
+					<separator string="Finance" />
+					<group>
+						<label for="id" string="Finance" />	
+						<!-- module_l10n_cl_banks_sbif -->
+						<!-- module_l10n_cl_financial_indicators -->
+						<!-- module_decimal_precision_currency -->
+
+						<div name="finance">
+
+							<div name='module_l10n_cl_chart'>
+								<field name="module_l10n_cl_chart"
+									class="oe_inline" />
+								<label for="module_l10n_cl_chart" />
+							</div>
+							
+							
+							<div name='module_l10n_cl_banks_sbif'>
+								<field name="module_l10n_cl_banks_sbif"
+									class="oe_inline" />
+								<label for="module_l10n_cl_banks_sbif" />
+							</div>
+							<div name='module_l10n_cl_financial_indicators'>
+								<field name="module_l10n_cl_financial_indicators"
+									class="oe_inline" />
+								<label for="module_l10n_cl_financial_indicators" />
+							</div>
+							<div name='module_account_bank_voucher'>
+								<field name="module_account_bank_voucher"
+									class="oe_inline" />
+								<label for="module_account_bank_voucher" />
+							</div>
+							<div name='module_l10n_cl_account_vat_ledger'>
+								<field name="module_l10n_cl_account_vat_ledger"
+									class="oe_inline" />
+								<label for="module_l10n_cl_account_vat_ledger" />
+							</div>
+						</div>
+					</group>
+					<separator string="Purchases" />
+					<group>
+						<label for="id" string="Reporting" />
+						<div name="reports">
+							<!-- module_invoice_printed -->
+							<div name='module_l10n_cl_aeroo_purchase'>
+								<field name="module_l10n_cl_aeroo_purchase"
+									class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_aeroo_purchase" />
+							</div>		
+						</div>
+					</group>
+					<separator string="Sales" />
+					<group>
+						<label for="id" string="Partner Activities" />
+						<div name="partneractivities">
+							<div name='module_l10n_cl_partner_activities'>
+								<field name="module_l10n_cl_partner_activities" class="oe_inline" />
+								<label for="module_l10n_cl_partner_activities" />
+							</div>
+						</div>
+					</group>
+					<group>
+						<label for="id" string="Invoicing" />	
+						<div name="invoicing">
+							<div name='module_l10n_cl_invoice'>
+								<field name="module_l10n_cl_invoice" class="oe_inline" />
+								<label for="module_l10n_cl_invoice" />
+							</div>
+							<div name='module_l10n_cl_credit_card_voucher'>
+								<field name="module_l10n_cl_credit_card_voucher" class="oe_inline" />
+								<label for="module_l10n_cl_credit_card_voucher" />
+							</div>
+							<div name='module_l10n_cl_wssii_fe'>
+								<field name="module_l10n_cl_wssii_fe"
+									class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_wssii_fe" />
+							</div>		
+						</div>
+					</group>
+					<group>
+						<label for="id" string="Reporting" />
+						<div name="reports">
+							<!-- module_invoice_printed -->
+							<div name='module_invoice_printed'>
+								<field name="module_invoice_printed"
+									class="oe_inline" />
+								<label for="module_invoice_printed" />
+							</div>							
+							<div name='module_l10n_cl_aeroo_einvoice'>
+								<field name="module_l10n_cl_aeroo_einvoice"
+									class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_aeroo_einvoice" />
+							</div>
+							<div name='module_l10n_cl_aeroo_receipt'>
+								<field name="module_l10n_cl_aeroo_receipt"
+									class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_aeroo_receipt" />
+							</div>
+							<div name='module_l10n_cl_aeroo_stock'>
+								<field name="module_l10n_cl_aeroo_stock"
+									class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_aeroo_stock" />
+							</div>		
+
+						</div>
+					</group>
+
+					<separator string="Human Resources" />
+					<group>
+						<label for="id" string="Payroll" />
+						<div name="payroll">
+							<div name='module_l10n_cl_hr_payroll'>
+								<field name="module_l10n_cl_hr_payroll" class="oe_inline" />
+								<label for="module_l10n_cl_hr_payroll" />
+							</div>
+							<div name='module_l10n_cl_hr_previred' attrs="{'invisible':[('module_l10n_cl_hr_payroll','=',False)]}">
+								<field name="module_l10n_cl_hr_previred" class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_hr_previred" />
+							</div>
+						</div>
+						<label for="id" string="Send Files to Previred" attrs="{'invisible':[('module_l10n_cl_hr_payroll','=',False)]}"/>
+						<div name="senttoprevired" attrs="{'invisible':[('module_l10n_cl_hr_payroll','=',False)]}">
+							<div name='module_l10n_cl_hr_send_to_previred'>
+								<field name="module_l10n_cl_hr_send_to_previred" class="oe_inline" readonly="1" />
+								<label for="module_l10n_cl_hr_send_to_previred" />
+							</div>
+						</div>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!-- Base Config Settings Action -->
+		<record id="action_chilean_base_configuration" model="ir.actions.act_window">
+			<field name="name">Configure</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">chilean.base.config.settings</field>
+			<field name="view_mode">form</field>
+			<field name="target">inline</field>
+		</record>
+
+		<!-- Base Config Settings Menu -->
+		<menuitem id="menu_chilean_base_configuration"
+			action="action_chilean_base_configuration"
+			name="Chilean Localization" parent="base.menu_custom" sequence="110" />
+
+	</data>
+</openerp>
