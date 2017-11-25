@@ -28,7 +28,7 @@ try:
 except ImportError:
     raise Warning('no pudo cargar cStringIO')
 
-type_ = FILETYPE_PEM
+type_ = OpenSSL.crypto.FILETYPE_PEM
 
 zero_values = {
     "filename": "",
