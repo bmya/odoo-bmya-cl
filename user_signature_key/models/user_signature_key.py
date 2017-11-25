@@ -5,6 +5,7 @@ from openerp import models, fields, api
 from openerp.tools.translate import _
 from openerp.exceptions import Warning
 from openerp import SUPERUSER_ID
+import OpenSSL
 import logging
 _logger = logging.getLogger(__name__)
 try:
