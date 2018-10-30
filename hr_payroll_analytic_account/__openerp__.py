@@ -38,7 +38,7 @@ Payroll Analytic Accounting.
     'data': [
         'hr_payroll_analytic_account_view.xml'
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

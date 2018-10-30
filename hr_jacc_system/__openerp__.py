@@ -11,7 +11,7 @@
     },
     'description': u'''\n\nThis is Just Another Clock Control System for
 hr attendance.\n\n''',
-    'installable': True,
+    'installable': False,
     'license': 'AGPL-3',
     'name': 'Just Another Clock Control System',
     'test': [],

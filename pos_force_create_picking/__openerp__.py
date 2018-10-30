@@ -39,7 +39,7 @@ error and basic users of the system are not aware of the incident.
         'views/force_picking_button.xml',
         # 'security/ir.model.access.csv'
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

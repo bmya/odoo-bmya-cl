@@ -49,7 +49,7 @@ Inspired from account_invoice_commercial (Adhoc SA).
     ],
     'test': [
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

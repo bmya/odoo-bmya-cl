@@ -35,7 +35,7 @@ son of another one)
     'depends': [
         'base',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }

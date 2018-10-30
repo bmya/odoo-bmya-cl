@@ -41,7 +41,7 @@ form view, for all user groups except for stock manager.
     'data': [
         'views/product_view.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
 }
