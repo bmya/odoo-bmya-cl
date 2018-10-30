@@ -33,6 +33,7 @@ Inmmediatly, the products will be injected in the move lines. Then you can save 
 in Odoo.
 
 .. image:: /picking_from_xls/static/description/stock_operation.png
+   :alt: Operations configuration Graphic
    :width: 600
 
 
