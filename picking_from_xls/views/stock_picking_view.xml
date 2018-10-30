@@ -10,13 +10,13 @@
                 <field name="move_file" filename="filename" attrs="{'invisible':[('picking_type_code', '!=', 'internal')]}" required="False"/>
                 <field name="filename" invisible="1"/>
             </field>
-            <xpath expr="//notebook/page/field[@name='pack_operation_product_ids']/tree/field[@name='product_id']" position="after">
+            <!--<xpath expr="//notebook/page/field[@name='pack_operation_product_ids']/tree/field[@name='product_id']" position="after">
                 <field name="move_description"/>
-            </xpath>
+            </xpath>-->
             <!--<xpath expr="//sheet/notebook/page/field[@name='move_lines']/tree/field[@name='product_uom']" position="before">
                 <field name="move_description"/>
             </xpath>
--->
+            -->
         </field>
     </record>
     <record id="view_description_picking_form" model="ir.ui.view">

@@ -14,7 +14,7 @@ class PickingLineDescription(models.Model):
     move_description = fields.Char('Motivo del Movimiento')
 
 
-class StockPackOperation(models.Model):
-    _inherit = 'stock.pack.operation'
-
-    move_description = fields.Char('Motivo del Movimiento')
+# class StockPackOperation(models.Model):
+#     _inherit = 'stock.pack.operation'
+#
+#     move_description = fields.Char('Motivo del Movimiento')

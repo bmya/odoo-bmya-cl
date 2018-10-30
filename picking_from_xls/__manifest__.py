@@ -10,14 +10,16 @@
             'base64'
         ]
     },
-    'installable': False,
     'license': 'LGPL-3',
+    'price': 48.00,
+    'currency': 'EUR',
     'test': [],
     'data': [
         'views/stock_picking_view.xml',
         ],
-    'version': '10.0',
+    'version': '11.0.1.0.0',
     'website': 'http://blancomartin.cl',
+    'installable': True,
     'auto-install': False,
     'active': True
 }

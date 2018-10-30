@@ -8,11 +8,6 @@ import logging
 _logger = logging.getLogger(__name__)
 
 try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
-
-try:
     import xlrd
     from xlrd.sheet import ctype_text
 except ImportError:
@@ -59,7 +54,7 @@ class StockMove(models.Model):
         row = xl_sheet.row(0)
         datos_title = []
         for idx, cell_obj in enumerate(row):
-            datos_title.append(cell_obj.value.encode('utf-8'))
+            datos_title.append(cell_obj.value)
         title_available = ['SKU', 'NOMBRE', 'MOTIVO', 'CANTIDAD']
         if datos_title != title_available:
             raise UserError(_(
@@ -74,20 +69,16 @@ Should be: {}'.format(datos_title, title_available)))
             for col_idx in range(0, num_cols):
                 cell_obj = xl_sheet.cell(row_idx, col_idx)
                 try:
-                    row_data[datos_title[col_idx]] = cell_obj.value.encode(
-                        'utf-8')
+                    row_data[datos_title[col_idx]] = cell_obj.value
                 except:
-                    if True:  # try:
-                        row_data[datos_title[col_idx]] = cell_obj.value
-                    else:  # except:
-                        raise UserError('could not copy %s - %s' % (
-                            col_idx, cell_obj.value))
+                    raise UserError('could not copy %s - %s' % (col_idx, cell_obj.value))
             product_id = self.get_product_from_sku(row_data['SKU'])
             excel_line = {
                 'product_id': product_id.id,
                 'name': product_id.product_tmpl_id.name,
                 'move_description': row_data['MOTIVO'],
-                'product_uom_qty': float(row_data['CANTIDAD']),
+                # 'product_uom_qty': float(row_data['CANTIDAD']),
+                'quantity_done': float(row_data['CANTIDAD']),
                 'product_uom': product_id.uom_id.id,
                 'location_id': self.location_id.id,
                 'location_dest_id': self.location_dest_id.id,
