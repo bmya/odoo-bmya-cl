@@ -10,17 +10,17 @@ Stock Picking From XLS
 This allows to make internal transfers from an excel file, with the following structure
 
 
-+-----------+------------------+--------+--------+
-|SKU        |NOMBRE            |MOTIVO  |CANTIDAD|
-+===========+==================+========+========+
-|IN1010201  |Blue Cheese XXX   |AJUSTE  |   1    |
-+-----------+------------------+--------+--------+
-|IN1010301  |Barbacue beef     |AJUSTE  |  20    |
-+-----------+------------------+--------+--------+
++-----------+------------------+-------------+-----+
+|SKU        |NAME              |DESCRIPTION  |QTY  |
++===========+==================+=============+=====+
+|IN1010201  |Blue Cheese XXX   |ADJUSTMENT   |   1 |
++-----------+------------------+-------------+-----+
+|IN1010301  |Barbacue beef     |CHECK        |  20 |
++-----------+------------------+-------------+-----+
 
 The "SKU" must match as default_code field in products.
-The values you put at column "NOMBRE" are not taken in account by the transfer.
-"CANTIDAD" is the quantity in the product unit set at the product record.
+The values you put at column "NAME" are not taken in account by the transfer.
+"QUANTITY" is the quantity in the product unit set at the product record.
 
 Installation
 ============
@@ -49,12 +49,6 @@ of internal operations, for example:
 
 Dependencies
 ------------
-
-Contributing
-------------
-
-We follow these guidelines and advice:
-
 
 Known issues / Roadmap
 ======================

@@ -34,7 +34,7 @@ class StockMove(models.Model):
 
     def get_product_from_sku(self, sku):
         """
-        Función para obtener el objeto producto desde el sku
+        Method to obtain the product object from its default_code (sku)
         @author: Daniel Blanco <daniel[at]blancomartin.cl>
         """
         prod_obj = self.env['product.product']
@@ -44,7 +44,7 @@ class StockMove(models.Model):
         elif len(prod_id) > 1:
             return prod_id[0]
         else:
-            raise UserError('No se encuentra producto con SKU: %s' % sku)
+            raise UserError('No product found for this SKU: %s' % sku)
 
     def read_excel(self, xls_file):
         filecontent = base64.b64decode(xls_file)
@@ -55,7 +55,7 @@ class StockMove(models.Model):
         datos_title = []
         for idx, cell_obj in enumerate(row):
             datos_title.append(cell_obj.value)
-        title_available = ['SKU', 'NOMBRE', 'MOTIVO', 'CANTIDAD']
+        title_available = ['SKU', 'NAME', 'DESCRIPTION', 'QTY']
         if datos_title != title_available:
             raise UserError(_(
                 'XLS Titles {} Do not match with the correct format. \
@@ -76,9 +76,8 @@ Should be: {}'.format(datos_title, title_available)))
             excel_line = {
                 'product_id': product_id.id,
                 'name': product_id.product_tmpl_id.name,
-                'move_description': row_data['MOTIVO'],
-                # 'product_uom_qty': float(row_data['CANTIDAD']),
-                'quantity_done': float(row_data['CANTIDAD']),
+                'move_description': row_data['DESCRIPTION'],
+                'quantity_done': float(row_data['QTY']),
                 'product_uom': product_id.uom_id.id,
                 'location_id': self.location_id.id,
                 'location_dest_id': self.location_dest_id.id,
