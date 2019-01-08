@@ -38,7 +38,7 @@ class StockMove(models.Model):
         @author: Daniel Blanco <daniel[at]blancomartin.cl>
         """
         prod_obj = self.env['product.product']
-        prod_id = prod_obj.search([('default_code', '=ilike', sku)])
+        prod_id = prod_obj.search(['|', ('default_code', '=ilike', sku), ('barcode', '=ilike', sku)])
         if len(prod_id) == 1:
             return prod_id
         elif len(prod_id) > 1:
