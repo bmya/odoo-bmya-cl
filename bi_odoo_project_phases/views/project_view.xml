@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <menuitem id="menu_project_phases" name="Project Phases" parent="project.menu_main_pm"
+            groups="project.group_project_manager"/>
+        
+        <!-- <menuitem action="action_view_task" id="menu_action_view_task" parent="menu_project_phases" sequence="5"/> -->
+        
+        <!-- Task -->
+        <record id="view_task_search_form" model="ir.ui.view">
+            <field name="name">project.task.filter</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <field name="project_id" position="after">
+                    <field name="phase_id"/>
+                </field>
+                <filter position="after">
+                    <filter string="Phase" name="group_phase_id" icon="terp-folder-violet" domain="[]" context="{'group_by':'phase_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_task_form" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="project_id" position="after">
+                    <field name="phase_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_task_tree" model="ir.ui.view">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+                <field name="date_deadline" position="after">
+                    <field name="phase_id" invisible="True"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="view_project_form_inherit" model="ir.ui.view">
+            <field name="name">project.project.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                 <button name="toggle_active" position="after">
+                    <button class="oe_stat_button" name="action_project_phase" type="object" icon="fa-tasks" attrs="{'invisible': [('project_phase_count', '=', 0)]}"> 
+					    <field name="project_phase_count" widget="statinfo" string="Phases" />
+				    </button>
+                </button>
+            </field>
+        </record>
+
+
+        <!-- Task Phases -->
+        <record id="task_phase_search" model="ir.ui.view">
+            <field name="name">project.task.phase.search</field>
+            <field name="model">project.task.phase</field>
+            <field name="arch" type="xml">
+                <search string="Project Phases">
+                   <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="task_phase_edit" model="ir.ui.view">
+            <field name="name">project.task.phase.form</field>
+            <field name="model">project.task.phase</field>
+            <field name="arch" type="xml">
+                <form string="Task Phase">
+	                <sheet>
+	                	<div class="oe_button_box" name="button_box">
+	                        <button class="oe_stat_button" name="action_project_phase_task" type="object" icon="fa-tasks" attrs="{'invisible': [('task_count', '=', 0)]}"> 
+					    <field name="task_count" widget="statinfo" string="Tasks" />
+				    </button>
+				    
+	                    </div>
+	                     <div class="oe_title">
+                        	<h1><field name="name" placeholder="Phase..." required="1"/></h1>
+                    	</div>
+                    	<group>
+	                        <group>
+	                            <field name="project_id" />
+	                            <field name="start_date"/>
+	                            <field name="user_id"/>
+	                        </group>
+	                        <group>
+	                        	<field name="sequence" />
+	                            <field name="end_date"/>
+	                            <field name="company_id" />
+	                        </group>
+                    	</group>
+                    	<notebook>
+                    		<page name="notes" string="Internal Note">
+                    			<field name="notes" />
+                    		</page>
+                    	</notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="task_phase_tree" model="ir.ui.view">
+            <field name="name">project.task.phase.tree</field>
+            <field name="model">project.task.phase</field>
+            <field name="arch" type="xml">
+                <tree string="Task Phase">
+                    <field name="name"/>
+                    <field name="project_id" />
+                    <field name="user_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="company_id" />
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record id="project_task_phase_kanban" model="ir.ui.view">
+            <field name="name">project.task.phase.kanban</field>
+            <field name="model">project.task.phase</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="task_count"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_content oe_kanban_global_click o_kanban_get_form">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <strong><field name="name"/></strong><br/>
+                                        Project - <field name="project_id"/>
+                                    </div>
+                                </div><br/>
+                                <a href="#" name="action_project_phase_task" type="object" string="Tasks">
+								    <div><!-- t-if="record.task_count.raw_value == false"-->
+								        <div>
+								            Tasks
+								        </div>
+								    </div>
+								</a>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="open_task_phase_form" model="ir.actions.act_window">
+            <field name="name">Project Phases</field>
+            <field name="res_model">project.task.phase</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="task_phase_tree"/>
+        </record>
+
+        <menuitem action="open_task_phase_form" id="menu_task_phases_view" parent="menu_project_phases" sequence="5"/>
+        
+        
+        <record model="ir.ui.view" id="phase_pivot_extension">
+            <field name="name">phase.pivot</field>
+            <field name="model">report.project.task.user</field>
+            <field name="inherit_id" ref="project.view_task_project_user_pivot"/>
+            <field name="arch" type="xml">
+            	<field name="project_id" position="after">
+                    <field name="phase_id" type="row" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

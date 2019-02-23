@@ -26,6 +26,6 @@ Functionality :
     'qweb': [],
     'images': [],
     'post_load': '',
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
