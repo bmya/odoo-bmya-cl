@@ -78,6 +78,7 @@ Should be: {}'.format(datos_title, title_available)))
                 'name': product_id.product_tmpl_id.name,
                 'move_description': row_data['DESCRIPTION'],
                 'product_uom_qty': float(row_data['QTY']),  # added to try to bypass serial number
+                'reserver_availability': float(row_data['QTY']),  # added to try to bypass serial number
                 'quantity_done': float(row_data['QTY']),
                 'product_uom': product_id.uom_id.id,
                 'location_id': self.location_id.id,
