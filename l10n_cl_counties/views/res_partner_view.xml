@@ -8,17 +8,17 @@
             <field name='arch' type='xml'>
                 <field name="street2" position="after">
                     <field name="city_id" 
-                    domain="[('country_id', '=', country_id)]"
-                    placeholder="Comuna"
-                    style="width: 100%"
-                    options='{"no_create": True}'/>
+                        domain="[('country_id', '=', country_id)]"
+                        placeholder="Comuna"
+                        style="width: 100%"
+                        options='{"no_create": True}'/>
                 </field>
-                <field name="state_id" position="attributes">
-                    <attribute name="readonly">True</attribute>
+                <!--<field name="state_id" position="attributes">
+                    <attribute name="readonly">False</attribute>
                 </field>
                 <field name="city" position="attributes">
                     <attribute name="readonly">True</attribute>
-                </field>
+                </field>-->
             </field>
         </record>
 
