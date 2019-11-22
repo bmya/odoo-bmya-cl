@@ -19,7 +19,7 @@
         ],
     'version': '11.0.1.0.0',
     'website': 'http://blancomartin.cl',
-    'installable': True,
+    'installable': False,
     'auto-install': False,
     'active': True
 }

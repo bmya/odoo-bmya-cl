@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--<record id="view_res_city_tree_inherit" model="ir.ui.view">
+            <field name="name">res.tree.inherit</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="base_address_city.view_city_tree"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <field name="l10n_cl_localization" invisible="1"/>
+                    <field name="type"/>
+                    <field name="code" attrs="{'required':[('l10n_cl_localization','=',True)], 'invisible':[('l10n_cl_localization','=',False)]}"/>
+                </field>
+            </field>
+        </record>-->
+        
+        <!-- No existe una vista form para heredar
+        <record id="view_res_city_form_inherit" model="ir.ui.view">
+            <field name="name">res.city.form.inherit</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="base_address_city.view_city_tree"/>
+            <field name="arch" type="xml">
+                <form>
+                    <label for="name" string="Name"/>
+                    <field name="name"/>
+                    <label for="code" string="City Code"/>
+                    <field name="code"/>
+                    <label for="country_id" string="Country"/>
+                    <field name="country_id"/>
+                    <label for="state_id" string="State"/>
+                    <field name="state_id" domain="[('country_id', '=', country_id), "
+               "('type', '=', 'normal'), "
+               "('id', '!=', id)]")/>
+                    <label for="type" string="Type"/>
+                    <field name="type"/>
+                </form>
+            </field>
+        </record>
+        -->
+</odoo>

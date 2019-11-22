@@ -1,0 +1,69 @@
+id,name,code,country_id,parent_id/id,type
+base.state_cl_01,Tarapacá,CL01000,Chile,,View
+l10n_cl_counties.state_cl_011,Iquique,CL01100,Chile,base.state_cl_01,Normal
+l10n_cl_counties.state_cl_014,Tamarugal,CL01400,Chile,base.state_cl_01,Normal
+base.state_cl_02,Antofagasta,CL02000,Chile,,View
+l10n_cl_counties.state_cl_021,Antofagasta,CL02100,Chile,base.state_cl_02,Normal
+l10n_cl_counties.state_cl_022,El Loa,CL02200,Chile,base.state_cl_02,Normal
+l10n_cl_counties.state_cl_023,Tocopilla,CL02300,Chile,base.state_cl_02,Normal
+base.state_cl_03,Atacama,CL03000,Chile,,View
+l10n_cl_counties.state_cl_031,Copiapo,CL03100,Chile,base.state_cl_03,Normal
+l10n_cl_counties.state_cl_032,Chañaral,CL03200,Chile,base.state_cl_03,Normal
+l10n_cl_counties.state_cl_033,Huasco,CL03300,Chile,base.state_cl_03,Normal
+base.state_cl_04,Coquimbo,CL04000,Chile,,View
+l10n_cl_counties.state_cl_041,Elqui,CL04100,Chile,base.state_cl_04,Normal
+l10n_cl_counties.state_cl_042,Choapa,CL04200,Chile,base.state_cl_04,Normal
+l10n_cl_counties.state_cl_043,Limari,CL04300,Chile,base.state_cl_04,Normal
+base.state_cl_05,Valparaíso,CL05000,Chile,,View
+l10n_cl_counties.state_cl_051,Valparaíso,CL05100,Chile,base.state_cl_05,Normal
+l10n_cl_counties.state_cl_052,Isla de Pascua,CL05200,Chile,base.state_cl_05,Normal
+l10n_cl_counties.state_cl_053,Los Andes,CL05300,Chile,base.state_cl_05,Normal
+l10n_cl_counties.state_cl_054,Petorca,CL05400,Chile,base.state_cl_05,Normal
+l10n_cl_counties.state_cl_055,Quillota,CL05500,Chile,base.state_cl_05,Normal
+l10n_cl_counties.state_cl_056,San Antonio,CL05600,Chile,base.state_cl_05,Normal
+l10n_cl_counties.state_cl_057,San Felipe de Aconcagua,CL05700,Chile,base.state_cl_05,Normal
+base.state_cl_06,del Libertador Gral. Bernardo O'higgins,CL06000,Chile,,View
+l10n_cl_counties.state_cl_061,Cachapoal,CL06100,Chile,base.state_cl_06,Normal
+l10n_cl_counties.state_cl_062,Cardenal Caro,CL06200,Chile,base.state_cl_06,Normal
+l10n_cl_counties.state_cl_063,Colchagua,CL06300,Chile,base.state_cl_06,Normal
+base.state_cl_07,del Maule,CL07000,Chile,,View
+l10n_cl_counties.state_cl_071,Talca,CL07100,Chile,base.state_cl_07,Normal
+l10n_cl_counties.state_cl_072,Cauquenes,CL07200,Chile,base.state_cl_07,Normal
+l10n_cl_counties.state_cl_073,Curicó,CL07300,Chile,base.state_cl_07,Normal
+l10n_cl_counties.state_cl_074,Linares,CL07400,Chile,base.state_cl_07,Normal
+base.state_cl_08,del BíoBio,CL08000,Chile,,View
+l10n_cl_counties.state_cl_081,Concepción,CL08100,Chile,base.state_cl_08,Normal
+l10n_cl_counties.state_cl_082,Arauco,CL08200,Chile,base.state_cl_08,Normal
+l10n_cl_counties.state_cl_083,Biobio,CL08300,Chile,base.state_cl_08,Normal
+base.state_cl_09,de la Araucania,CL09000,Chile,,View
+l10n_cl_counties.state_cl_091,Cautin,CL09100,Chile,base.state_cl_09,Normal
+l10n_cl_counties.state_cl_092,Malleco,CL09200,Chile,base.state_cl_09,Normal
+base.state_cl_10,de los Lagos,CL10000,Chile,,View
+l10n_cl_counties.state_cl_101,Llanquihue,CL10100,Chile,base.state_cl_10,Normal
+l10n_cl_counties.state_cl_102,Chiloe,CL10200,Chile,base.state_cl_10,Normal
+l10n_cl_counties.state_cl_103,Osorno,CL10300,Chile,base.state_cl_10,Normal
+l10n_cl_counties.state_cl_104,Palena,CL10400,Chile,base.state_cl_10,Normal
+base.state_cl_11,Aysén del Gral. Carlos Ibáñez del Campo,CL11000,Chile,,View
+l10n_cl_counties.state_cl_111,Coihaique,CL11100,Chile,base.state_cl_11,Normal
+l10n_cl_counties.state_cl_112,Aysén,CL11200,Chile,base.state_cl_11,Normal
+l10n_cl_counties.state_cl_113,Capitan Prat,CL11300,Chile,base.state_cl_11,Normal
+l10n_cl_counties.state_cl_114,General Carrera,CL11400,Chile,base.state_cl_11,Normal
+base.state_cl_12,Magallanes,CL12000,Chile,,View
+l10n_cl_counties.state_cl_121,Magallanes,CL12100,Chile,base.state_cl_12,Normal
+l10n_cl_counties.state_cl_122,Antartica Chilena,CL12200,Chile,base.state_cl_12,Normal
+l10n_cl_counties.state_cl_123,Tierra del Fuego,CL12300,Chile,base.state_cl_12,Normal
+l10n_cl_counties.state_cl_124,Última Esperanza,CL12400,Chile,base.state_cl_12,Normal
+base.state_cl_13,Metropolitana,CL13000,Chile,,View
+l10n_cl_counties.state_cl_131,Santiago,CL13100,Chile,base.state_cl_13,Normal
+l10n_cl_counties.state_cl_132,Cordillera,CL13200,Chile,base.state_cl_13,Normal
+l10n_cl_counties.state_cl_133,Chacabuco,CL13300,Chile,base.state_cl_13,Normal
+l10n_cl_counties.state_cl_134,Maipo,CL13400,Chile,base.state_cl_13,Normal
+l10n_cl_counties.state_cl_135,Melipilla,CL13500,Chile,base.state_cl_13,Normal
+l10n_cl_counties.state_cl_136,Talagante,CL13600,Chile,base.state_cl_13,Normal
+base.state_cl_14,Los Ríos,CL14000,Chile,,View
+l10n_cl_counties.state_cl_141,Valdivia,CL14100,Chile,base.state_cl_14,Normal
+l10n_cl_counties.state_cl_142,Ranco,CL14200,Chile,base.state_cl_14,Normal
+base.state_cl_15,Arica y Parinacota,CL15000,Chile,,View
+l10n_cl_counties.state_cl_151,Arica,CL15100,Chile,base.state_cl_15,Normal
+l10n_cl_counties.state_cl_152,Parinacota,CL15200,Chile,base.state_cl_15,Normal
+base.state_cl_16,del Ñuble,CL16000,Chile,,View

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_company_city_inherit_form">
+        <field name="name">res.company.city.form.inherit</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="model">res.company</field>
+        <field name="arch" type="xml">
+            <field name="street2" position="after">
+                <field name="city_id" domain="[('country_id', '=', country_id)]"
+                    style="width: 100%" options='{"no_create": True}'/>
+                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}"/>
+            </field>
+            <field name="state_id" position="attributes">
+                <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
+            </field>
+            <field name="city" position="attributes">
+                <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
