@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <record model="ir.ui.view" id="view_partner_form_states_city_inherit">
-            <field name='name'>res.partner.form.states.city.inherit</field>
-            <field name='model'>res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name='type'>form</field>
-            <field name='arch' type='xml'>
-                <field name="street2" position="after">
-                    <field name="city_id" 
-                        domain="[('country_id', '=', country_id)]"
-                        placeholder="Comuna"
-                        style="width: 100%"
-                        options='{"no_create": True}'/>
-                </field>
-                <!--<field name="state_id" position="attributes">
-                    <attribute name="readonly">False</attribute>
-                </field>
-                <field name="city" position="attributes">
-                    <attribute name="readonly">True</attribute>
-                </field>-->
+    <record model="ir.ui.view" id="view_partner_form_states_city_inherit">
+        <field name='name'>res.partner.form.states.city.inherit</field>
+        <field name='model'>res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name='type'>form</field>
+        <field name='arch' type='xml'>
+            <field name="street2" position="after">
+                <field name="city_id" domain="[('country_id', '=', country_id)]"
+                    placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
+                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}"/>
             </field>
-        </record>
+        </field>
+    </record>
 
-        <record model="ir.ui.view" id="view_partner_address_form_states_city_inherit">
-            <field name='name'>res.partner.address.form.states.city.inherit</field>
-            <field name='model'>res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_address_form"/>
-            <field name='type'>form</field>
-            <field name='arch' type='xml'>
-                <field name="street2" position="after">
-                    <field name="city_id" domain="[('country_id', '=', country_id)]"
-                        placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
-                    <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}"/>
-                </field>
-                <field name="state_id" position="attributes">
-                    <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
-                </field>
-                <field name="city" position="attributes">
-                    <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
-                </field>
+    <record model="ir.ui.view" id="view_partner_address_form_states_city_inherit">
+        <field name='name'>res.partner.address.form.states.city.inherit</field>
+        <field name='model'>res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_address_form"/>
+        <field name='type'>form</field>
+        <field name='arch' type='xml'>
+            <field name="street2" position="after">
+                <field name="city_id" domain="[('country_id', '=', country_id)]"
+                    placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
+                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}"/>
             </field>
-        </record>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_address_form_short_states_city_inherit">
+        <field name='name'>res.partner.address.form.states.city.inherit</field>
+        <field name='model'>res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_short_form"/>
+        <field name='type'>form</field>
+        <field name='arch' type='xml'>
+            <field name="street2" position="after">
+                <field name="city_id" domain="[('country_id', '=', country_id)]"
+                    placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
+                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}"/>
+            </field>
+        </field>
+    </record>
 </odoo>
