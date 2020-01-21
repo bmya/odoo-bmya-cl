@@ -47,6 +47,9 @@
                     placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
                 <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}" force_save="1"/>
             </field>
+            <field name="city" position="before">
+                <label for="city" string=" - "/>
+            </field>
             <field name="city" position="attributes">
                 <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
                 <attribute name="force_save">1</attribute>
