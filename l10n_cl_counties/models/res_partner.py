@@ -27,4 +27,5 @@ class ResPartner(models.Model):
         if self.state_id == self.env.ref('base.state_cl_13'):
             self.real_city = 'Santiago'
         else:
+            self.real_city = self.city = self.city_id.name
             self.city = self.city_id.name
