@@ -9,7 +9,7 @@
             <field name="street2" position="after">
                 <field name="city_id" domain="[('country_id', '=', country_id)]"
                     placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
-                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}"/>
+                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}" foce_save="1"/>
             </field>
         </field>
     </record>
@@ -23,7 +23,7 @@
             <field name="street2" position="after">
                 <field name="city_id" domain="[('country_id', '=', country_id)]"
                     placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
-                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}"/>
+                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}" force_save="1"/>
             </field>
         </field>
     </record>
@@ -37,7 +37,7 @@
             <field name="street2" position="after">
                 <field name="city_id" domain="[('country_id', '=', country_id)]"
                     placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
-                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}"/>
+                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}" force_save="1"/>
             </field>
         </field>
     </record>
