@@ -48,7 +48,7 @@
                 <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}" force_save="1"/>
             </field>
             <field name="city" position="before">
-                <label for="city" string=" - "/>
+                <label for="city" string="  - " class="oe_edit_only"/>
             </field>
             <field name="city" position="attributes">
                 <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
