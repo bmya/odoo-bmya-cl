@@ -9,10 +9,15 @@
             <field name="street2" position="after">
                 <field name="city_id" domain="[('country_id', '=', country_id)]" class="oe_edit_only"
                     placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
-                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}" foce_save="1"/>
+                <field name="real_city"
+                       attrs="{'readonly': [('country_id', '=', %(base.cl)d)], 'invisible': [('state_id', '!=', %(base.state_cl_13)d)]}"
+                       foce_save="1"/>
             </field>
             <field name="city" position="attributes">
-                <attribute name="class">oe_view_only</attribute>
+                <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="state_id" position="attributes">
                 <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </field>
@@ -28,9 +33,15 @@
             <field name="street2" position="after">
                 <field name="city_id" domain="[('country_id', '=', country_id)]" class="oe_edit_only"
                     placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
-                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}" force_save="1"/>
+                <field name="real_city"
+                       attrs="{'readonly': [('country_id', '=', %(base.cl)d)], 'invisible': [('state_id', '!=', %(base.state_cl_13)d)]}"
+                       foce_save="1"/>
             </field>
             <field name="city" position="attributes">
+                <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="state_id" position="attributes">
                 <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </field>
@@ -46,9 +57,15 @@
             <field name="street2" position="after">
                 <field name="city_id" domain="[('country_id', '=', country_id)]" class="oe_edit_only"
                     placeholder="Comuna" style="width: 100%" options='{"no_create": True}'/>
-                <field name="real_city" attrs="{'readonly': [('country_id', '=', %(base.cl)d)]}" force_save="1"/>
+                <field name="real_city"
+                       attrs="{'readonly': [('country_id', '=', %(base.cl)d)], 'invisible': [('state_id', '!=', %(base.state_cl_13)d)]}"
+                       foce_save="1"/>
             </field>
             <field name="city" position="attributes">
+                <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="state_id" position="attributes">
                 <attribute name="attrs">{'readonly': [('country_id', '=', %(base.cl)d)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </field>
