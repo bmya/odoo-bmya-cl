@@ -15,8 +15,10 @@ class ResCompany(models.Model):
     # def _change_city_province(self):
     #     if self.country_id != self.env.ref('base.cl'):
     #         return
-    #     self.state_id = self.city_id.state_id.parent_id
+    #     if self.city_id.state_id.parent_id:
+    #         self.state_id = self.city_id.state_id.parent_id
     #     if self.state_id == self.env.ref('base.state_cl_13'):
-    #         self.city = 'Santiago'
+    #         self.real_city = 'Santiago'
     #     else:
+    #         self.real_city = self.city = self.city_id.name
     #         self.city = self.city_id.name
