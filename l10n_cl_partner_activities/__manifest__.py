@@ -12,12 +12,12 @@ en los partners.
     """,
     'website': 'http://blancomartin.cl',
     'depends': [
-        'l10n_cl',
+        'l10n_cl_edi',
     ],
     'data': [
-        'views/partner_activities_view.xml',
+        'views/res_partner_view.xml',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
     'application': False,
 }

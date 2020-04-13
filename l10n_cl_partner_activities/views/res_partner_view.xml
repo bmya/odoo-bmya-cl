@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_partner_l10n_cl_edi_form" model="ir.ui.view">
+        <record id="view_partner_activities_form" model="ir.ui.view">
             <field name="model">res.partner</field>
-            <field name="name">view.partner.l10n.cl.edi.form</field>
-            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="name">view.partner.activities.form</field>
+            <field name="inherit_id" ref="l10n_cl_edi.view_partner_l10n_cl_edi_form" />
             <field name="arch" type="xml">
-                <xpath expr="//notebook" position="inside">
-                    <page name="dte" string="Electronic Invoicing">
-                        <group colspan="2">
-                            <field name="l10n_cl_dte_email" widget="email"/>
-                            <field name="l10n_cl_partner_activities_ids" placeholder="Partner Activity Codes"
-                                   widget="many2many_tags" options="{'no_create': True}"
-                                   context="{'search_by_code': True}"
-                                   attrs="{'required': [('l10n_cl_activities_opt','!=','activity_description'), ('l10n_cl_sii_taxpayer_type', 'in', ['1', '2'])],
-                                        'invisible': [('l10n_cl_activities_opt','=','activity_description')]}"/>
-                            <field name="l10n_cl_activity_description" placeholder="Activity Description"
-                                   attrs="{'required': [('l10n_cl_activities_opt','=','activity_description'), ('l10n_cl_sii_taxpayer_type', 'in', ['1', '2'])]}"/>
-                            <field name="l10n_cl_activities_opt" widget="radio" attrs="{'invisible': True}"/>
-                        </group>
-                    </page>
+                <xpath expr="//field[@name='l10n_cl_activity_description']" position="before">
+                    <field name="l10n_cl_available_partner_activities_ids" invisible="1"/>
+                    <field name="l10n_cl_partner_activities_ids" placeholder="Partner Activity Codes"
+                           widget="many2many_tags" options="{'no_create': True}"
+                           domain="[['id', 'in', l10n_cl_available_partner_activities_ids]]"
+                           context="{'search_by_code': True}"/>
                 </xpath>
             </field>
         </record>
