@@ -74,3 +74,11 @@ class ResCompany(models.Model):
     l10n_cl_sii_regional_office = fields.Selection(
         L10N_CL_SII_REGIONAL_OFFICES_ITEMS, related='partner_id.l10n_cl_sii_regional_office',
         translate=False, string='SII Regional Office')
+
+    @api.onchange('city_id')
+    @api.depends('city_id')
+    def _change_regional_office(self):
+        if self.country_id != self.env.ref('base.cl'):
+            return
+        # self.sudo().l10n_cl_sii_regional_office = self.city_id.l10n_cl_sii_regional_office
+        self.partner_id.sudo().l10n_cl_sii_regional_office = self.city_id.l10n_cl_sii_regional_office
