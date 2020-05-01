@@ -1,5 +1,5 @@
 {
-    'name': 'Recalc Taxed with Fiscal Position',
+    'name': 'Recalc Taxes with Fiscal Position',
     'version': '1.0.1',
     'category': 'Invoicing',
     'description': """
