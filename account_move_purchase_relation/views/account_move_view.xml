@@ -28,7 +28,8 @@
                 <field name="purchase_order_full_match" attrs="{'invisible': True}"/>
                 <field name="purchase_order_products_received" attrs="{'invisible': True}"/>
                 <field name="purchase_order_price_match" attrs="{'invisible': True}"/>
-                <field name="purchase_order_invoice_lines_match" attrs="{'invisible': True}"/>
+                <field name="purchase_order_invoice_lines_match" attrs="{'invisible': False}"/>
+                <field name="purchase_order_line_all_products_received" attrs="{'invisible': False}"/>
             </field>
             <xpath expr="//header" position="inside">
                 <button name="check_match" type="object" string="Check Order"/>
@@ -40,25 +41,26 @@
                         There is no match with purchase orders
                     </div>
                     <div class="alert alert-warning text-center" role="alert" style="margin-bottom:0px;"
-                        attrs="{'invisible': [['purchase_order_full_match', '=', True]]}">
+                        attrs="{'invisible': ['|', ['purchase_order_full_match', '=', True], ['purchase_order_match', '=', False]]}">
                         The total of the invoice does not match the total of the origin purchase order
                     </div>
                     <div class="alert alert-warning text-center" role="alert" style="margin-bottom:0px;"
-                        attrs="{'invisible': [['purchase_order_products_received', '=', True]]}">
-                        Some of the products in this invoice has not been received
+                        attrs="{'invisible': ['|', ['purchase_order_products_received', '=', True], ['purchase_order_match', '=', False]]}">
+                        There are more invoiced products than received in the related purchase orders. Please check the reception and all related invoices.
                     </div>
                     <div class="alert alert-danger text-center" role="alert" style="margin-bottom:0px;"
-                        attrs="{'invisible': [['purchase_order_price_match', '=', True]]}">
-                        Some of the products in this invoice has higher price than the purchase order
+                        attrs="{'invisible': ['|', ['purchase_order_price_match', '=', True], ['purchase_order_match', '=', False]]}">
+                        Some of the products in this invoice has different price than the purchase order
                     </div>
                     <div class="alert alert-success text-center" role="alert" style="margin-bottom:0px;"
-                             attrs="{'invisible': [['purchase_order_invoice_lines_match', '=', False]]}">
-                        All the products of the invoice had been received
+                             attrs="{'invisible': ['|', ['purchase_order_line_all_products_received', '=', False], ['purchase_order_match', '=', False]]}">
+                        All the products of the invoice has been received
                     </div>
                     <div class="alert alert-success text-center" role="alert" style="margin-bottom:0px;"
                          attrs="{'invisible': ['|', ['purchase_order_full_match', '=', False], ['purchase_order_invoice_lines_match', '=', False]]}">
                         The total of the invoice matches with a purchase order total
                     </div>
+
                 </div>
 
             </xpath>
