@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_relation_form" model="ir.ui.view">
+        <field name="name">view_purchase_order_relation_form</field>
+        <field name="inherit_id" ref="purchase.view_move_form_inherit_purchase"/>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <field name="purchase_id" position="after">
+                <field name="purchase_order_not_add_lines" attrs="{'invisible': [('type', '!=', 'in_invoice')]}"/>
+            </field>
+            <field name="purchase_vendor_bill_id" position="attributes">
+                <attribute name="string">Revisar Orden de Compra</attribute>
+            </field>
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='purchase_line_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_warning_no_purchase_order_match_form" model="ir.ui.view">
+        <field name="name">view_warning_no_purchase_order_match_form</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="purchase_order_match" attrs="{'invisible': True}"/>
+                <field name="purchase_order_full_match" attrs="{'invisible': True}"/>
+                <field name="purchase_order_products_received" attrs="{'invisible': True}"/>
+                <field name="purchase_order_price_match" attrs="{'invisible': True}"/>
+                <field name="purchase_order_invoice_lines_match" attrs="{'invisible': True}"/>
+            </field>
+            <xpath expr="//header" position="inside">
+                <button name="check_match" type="object" string="Check Order"/>
+            </xpath>
+            <xpath expr="//header" position="after">
+                <div attrs="{'invisible': ['|', ['type', 'not in', ['in_invoice', 'in_refund']], ['amount_untaxed', '=', 0.0]]}">
+                    <div class="alert alert-warning text-center" role="alert" style="margin-bottom:0px;"
+                        attrs="{'invisible': [['purchase_order_match', '=', True]]}">
+                        There is no match with purchase orders
+                    </div>
+                    <div class="alert alert-warning text-center" role="alert" style="margin-bottom:0px;"
+                        attrs="{'invisible': [['purchase_order_full_match', '=', True]]}">
+                        The total of the invoice does not match the total of the origin purchase order
+                    </div>
+                    <div class="alert alert-warning text-center" role="alert" style="margin-bottom:0px;"
+                        attrs="{'invisible': [['purchase_order_products_received', '=', True]]}">
+                        Some of the products in this invoice has not been received
+                    </div>
+                    <div class="alert alert-danger text-center" role="alert" style="margin-bottom:0px;"
+                        attrs="{'invisible': [['purchase_order_price_match', '=', True]]}">
+                        Some of the products in this invoice has higher price than the purchase order
+                    </div>
+                    <div class="alert alert-success text-center" role="alert" style="margin-bottom:0px;"
+                             attrs="{'invisible': [['purchase_order_invoice_lines_match', '=', False]]}">
+                        All the products of the invoice had been received
+                    </div>
+                    <div class="alert alert-success text-center" role="alert" style="margin-bottom:0px;"
+                         attrs="{'invisible': ['|', ['purchase_order_full_match', '=', False], ['purchase_order_invoice_lines_match', '=', False]]}">
+                        The total of the invoice matches with a purchase order total
+                    </div>
+                </div>
+
+            </xpath>
+            <field name="currency_id" position="after">
+                <field name="invoice_origin"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
