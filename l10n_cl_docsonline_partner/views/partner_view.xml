@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_update_button_form" model="ir.ui.view">
+            <field name="name">view.update.button.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <button name="press_to_update" type="object" class="btn-link"
+                            help="Actualizar desde DocumentosOnline"
+                            attrs="{'invisible': [('vat', '=', False)]}">
+                        <i title="Actualizar" role="img" aria-label="Actualizar" class="fa fa-address-card"/>
+                    </button>
+                    <button name="call_wizard" type="object" class="btn-link"
+                            help="Buscar en DocumentosOnline"
+                            attrs="{'invisible': [('vat', '!=', False)]}">
+                        <i title="Buscar" role="img" aria-label="Buscar" class="fa fa-address-card-o"/>
+                    </button>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_docs_online_print_button_stock_picking_form" model="ir.ui.view">
+            <field name="name">view.docs.online.print.button.stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="l10n_cl_stock_delivery_guide.view_electronic_stock_picking_form"/>
+            <field name="arch" type="xml">
+                <button name="action_done_delivery_guide" position="before">
+                    <button name="document_print_docs_online"
+                            string="Imprimir PDF"
+                            type="object"
+                            groups="stock.group_stock_user" class="oe_highlight"/>
+                </button>
+                <button name="%(stock.action_report_delivery)d" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <xpath expr="//field[@name='sii_batch_number']" position="before">
+                    <field name="docs_online_token" widget="url"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

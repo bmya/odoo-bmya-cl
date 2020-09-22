@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_docsonline_print_button_invoice_form" model="ir.ui.view">
+            <field name="name">view.docsonline.print.button.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_print' and hasclass('oe_highlight')]" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('sent','=',True), '|', ('state', 'not in', ('open','paid')), ('l10n_cl_localization', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='invoice_print' and not(hasclass('oe_highlight'))]" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('sent','=',False), '|', ('state', 'not in', ('open','paid')), ('l10n_cl_localization', '=', True)]}</attribute>
+                </xpath>
+                <button name="invoice_print" position="after">
+                    <field name="l10n_cl_localization" invisible="1"/>
+                    <button type="object" name="document_print_docs_online" string="Imprimir PDF" icon="fa-file-pdf-o"
+                        attrs="{'invisible':['|',('sent','=',True), '|', ('state', 'not in', ('open','paid')), ('l10n_cl_localization', '=', False)]}"
+                        groups="base.group_user" class="oe_highlight"/>
+                    <button type="object" name="document_print_docs_online" string="Imprimir PDF" icon="fa-file-pdf-o"
+                        attrs="{'invisible':['|',('sent','=',False), '|', ('state', 'not in', ('open','paid')), ('l10n_cl_localization', '=', False)]}"
+                        groups="base.group_user"/>
+                    <button type="object" name="transferable_print_docs_online" string="Imprimir Cedible" icon="fa-file-pdf-o"
+                            attrs="{'invisible':['|', ('state', 'not in', ('open','paid')), ('l10n_cl_localization', '=', False)]}"
+                            groups="base.group_user"/>
+                </button>
+                <!--<xpath expr="//button[@name='print_cedible']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>-->
+                <xpath expr="//field[@name='sii_batch_number']" position="before">
+                    <field name="docs_online_token" widget="url"/>
+                </xpath>
+                <button name="action_invoice_sent" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="action_invoice_sent" position="after">
+                    <button type="object" name="action_invoice_sent_docs_online" string="Enviar por Email"
+                            attrs="{'invisible':['|',('sent','=',True), '|', ('state', 'not in', ('open','paid')), ('l10n_cl_localization', '=', False)]}"
+                            groups="base.group_user" class="oe_highlight"/>
+                    <button type="object" name="action_invoice_sent_docs_online" string="Enviar por Email"
+                            attrs="{'invisible':['|',('sent','=',False), '|', ('state', 'not in', ('open','paid')), ('l10n_cl_localization', '=', False)]}"
+                            groups="base.group_user"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

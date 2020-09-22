@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="tree_docsonline_partners_view" model="ir.ui.view">
+            <field name="name">www.documentosonline.cl possible data</field>
+            <field name="model">res.partner.docs.online</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="partner_id" invisible="0" readonly="1"/>
+                    <div class="row">
+                        <group>
+                            <field name="docs_online_data_ids"
+                                placeholder="Haga click aqui y seleccione alguno" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group>
+                    </div>
+                    <footer>
+                        <button string="Confirm Overwrite" name="pick_partner" type="object" class="oe_highlight" />
+                        of
+                        <button string="Confirm Without Overwrite Name or Address" name="pick_partner_protect" type="object"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
